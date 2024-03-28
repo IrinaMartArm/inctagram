@@ -1,7 +1,14 @@
+import { HeadMeta } from "@/components/headMeta/HeadMeta";
 import { getLayout } from "@/components/layout/baseLayout/BaseLayout";
 
-export const Statistics = () => {
-  return <div>Statistics</div>;
+const Statistics = () => {
+  return (
+    <>
+      <HeadMeta title={"Statistics"} />
+      <div>Statistics</div>
+    </>
+  );
 };
 
 Statistics.getLayout = getLayout;
+export default Statistics;

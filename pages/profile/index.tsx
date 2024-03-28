@@ -1,7 +1,14 @@
+import { HeadMeta } from "@/components/headMeta/HeadMeta";
 import { getLayout } from "@/components/layout/baseLayout/BaseLayout";
 
-export const Profile = () => {
-  return <div>Profile</div>;
+const Profile = () => {
+  return (
+    <>
+      <HeadMeta title={"Profile"} />
+      <div>Profile</div>
+    </>
+  );
 };
 
 Profile.getLayout = getLayout;
+export default Profile;

@@ -1,18 +1,16 @@
 import { HeadMeta } from "@/components/headMeta/HeadMeta";
-import { Inter } from "next/font/google";
-import Head from "next/head";
+import { Header } from "@/components/header/Header";
+import { getLayout } from "@/components/layout/baseLayout/BaseLayout";
 
-import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
+function Home() {
   return (
     <>
-      <HeadMeta />
-      <main className={`${styles.main} ${inter.className}`}>
-        🚀Hi everyone!🚀
-      </main>
+      <HeadMeta title={"Home"} />
+      <Header />
+      <main>🚀Hi everyone!🚀</main>
     </>
   );
 }
+
+Home.getLayout = getLayout;
+export default Home;

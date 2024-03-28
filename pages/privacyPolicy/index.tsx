@@ -1,7 +1,14 @@
+import { HeadMeta } from "@/components/headMeta/HeadMeta";
 import { getLayout } from "@/components/layout/baseLayout/BaseLayout";
 
-export const PrivacyPolicy = () => {
-  return <div>Privacy Policy</div>;
+const PrivacyPolicy = () => {
+  return (
+    <>
+      <HeadMeta title={"Privacy Policy"} />
+      <div>Privacy Policy</div>;
+    </>
+  );
 };
 
 PrivacyPolicy.getLayout = getLayout;
+export default PrivacyPolicy;

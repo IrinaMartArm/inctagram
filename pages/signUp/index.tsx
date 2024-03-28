@@ -1,7 +1,14 @@
+import { HeadMeta } from "@/components/headMeta/HeadMeta";
 import { getLayout } from "@/components/layout/baseLayout/BaseLayout";
 
-export const SignUp = () => {
-  return <div>SignUp</div>;
+const SignUp = () => {
+  return (
+    <>
+      <HeadMeta title={"Sign Up"} />
+      <div>SignUp</div>
+    </>
+  );
 };
 
 SignUp.getLayout = getLayout;
+export default SignUp;

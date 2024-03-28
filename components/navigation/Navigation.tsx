@@ -1,8 +1,11 @@
+import TermsOfService from "@/pages/termsOfService";
 import Link from "next/link";
+
+import s from "./navigation.module.scss";
 
 export const Navigation = () => {
   return (
-    <div>
+    <div className={s.root}>
       <Link href={"./"}>Home</Link>
       <Link href={"./favorites"}>favorites</Link>
       <Link href={"./general"}>general</Link>
@@ -12,6 +15,8 @@ export const Navigation = () => {
       <Link href={"./statistics"}>statistics</Link>
       <Link href={"./signUp"}>signUp</Link>
       <Link href={"./signIn"}>signIn</Link>
+      <Link href={"./termsOfService"}>Terms Of Service</Link>
+      <Link href={"./posts"}>Posts</Link>
     </div>
   );
 };

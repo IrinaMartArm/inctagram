@@ -1,11 +1,13 @@
-import { LinkBlock } from "@/components/linkBlock/LinkBlock";
+import { Navigation } from "@/components/navigation/Navigation";
 
-export const Header = () => (
-  <div>
-    <LinkBlock title={"Characters"}></LinkBlock>
-    <LinkBlock title={"Locations"}></LinkBlock>
-    <LinkBlock title={"Episodes"}></LinkBlock>
-    <LinkBlock title={"Test"}></LinkBlock>
-    <LinkBlock title={"Private"}></LinkBlock>
-  </div>
-);
+import s from "./header.module.scss";
+export const Header = () => {
+  return (
+    <div className={s.root}>
+      <div className={s.header}>
+        <p className={s.logo}>Inctagram</p>
+        <Navigation />
+      </div>
+    </div>
+  );
+};

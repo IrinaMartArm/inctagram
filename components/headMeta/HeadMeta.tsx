@@ -14,7 +14,7 @@ export const HeadMeta = ({ description, title }: Props) => {
         name={"description"}
       />
       <meta content={"width=device-width, initial-scale=1"} name={"viewport"} />
-      <link href={"/favicon.ico"} rel={"icon"} />
+      <link href={"/logo.svg"} rel={"icon"} />
     </Head>
   );
 };
