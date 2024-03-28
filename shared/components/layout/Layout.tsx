@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import { Header } from "@/components/header/Header";
+import { Header } from "@/widgets/header/Header";
 import { NextPage } from "next";
 
 import s from "./layout.module.scss";

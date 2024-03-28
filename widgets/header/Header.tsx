@@ -1,4 +1,4 @@
-import { Navigation } from "@/components/navigation/Navigation";
+import { Navigation } from "@/shared/components/navigation/Navigation";
 
 import s from "./header.module.scss";
 export const Header = () => {

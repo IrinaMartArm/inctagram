@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
 
-import { IconProps } from "@/assets/types/types";
+import { IconProps } from "@/shared/assets/types/types";
 
 export const Search_outline = memo(
   forwardRef<SVGSVGElement, IconProps>(({}, ref) => {

@@ -1,5 +1,5 @@
-import { HeadMeta } from "@/components/headMeta/HeadMeta";
-import { getLayout } from "@/components/layout/baseLayout/BaseLayout";
+import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
+import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 
 const SignUp = () => {
   return (

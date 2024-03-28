@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 
 import { ReactElement, ReactNode, useState } from "react";
 
-import { useLoader } from "@/assets/hooks/useLoader";
+import { useLoader } from "@/shared/assets/hooks/useLoader";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextPage } from "next";
 
