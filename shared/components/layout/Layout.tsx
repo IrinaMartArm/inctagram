@@ -1,8 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import { SideBar } from "@/shared/components/sideBar/SideBar";
 import { Header } from "@/widgets/header/Header";
-import { MainSideBar } from "@/widgets/sideBar/ui";
 import { NextPage } from "next";
 
 import s from "./layout.module.scss";

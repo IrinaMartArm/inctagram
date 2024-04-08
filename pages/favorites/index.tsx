@@ -1,5 +1,5 @@
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
 
 import s from "./favorites.module.scss";
 
@@ -12,5 +12,5 @@ const Favorites = () => {
   );
 };
 
-Favorites.getLayout = getLayout;
+Favorites.getLayout = getMainLayout;
 export default Favorites;
