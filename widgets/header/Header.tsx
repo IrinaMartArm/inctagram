@@ -1,4 +1,5 @@
 import { Navigation } from "@/shared/components/navigation/Navigation";
+import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
 
 import s from "./header.module.scss";
 export const Header = () => {
@@ -7,6 +8,7 @@ export const Header = () => {
       <div className={s.header}>
         <p className={s.logo}>Inctagram</p>
         <Navigation />
+        <LangSelect />
       </div>
     </div>
   );

@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 
 export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   const router = useRouter();
-  const isAuth = false; // запрос за данными пользователя
+  const isAuth = true; // запрос за данными пользователя
 
   if (!isAuth) {
-    router.push("");
+    router.push("/login");
   }
 
   return <>{children}</>;
