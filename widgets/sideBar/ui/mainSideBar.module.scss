@@ -1,0 +1,22 @@
+@import "../../../styles/common";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: fit-content;
+  height: 100%;
+}
+
+.row {
+  @include flex(null, null, null, 12px);
+}
+
+.box {
+  @include flex(column, space-between, "", 60px);
+}
+
+.pages {
+  @include flex(column, space-between, "", 24px);
+}
