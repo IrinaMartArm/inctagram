@@ -1,5 +1,5 @@
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
+import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
 import { Header } from "@/widgets/header/Header";
 
 function Home() {

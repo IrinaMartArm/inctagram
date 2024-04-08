@@ -1,11 +1,16 @@
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
+import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { SignUpCard } from "@/widgets/signUp/ui/SignUp";
 
 const SignUp = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <HeadMeta title={"Sign Up"} />
-      <div>SignUp</div>
+      <div>{t.signup.title}</div>
+      <SignUpCard />
     </>
   );
 };
