@@ -7,6 +7,11 @@ export const en: LocaleType = {
   general: {
     title: "general page",
   },
+  signIn: {
+    question: "Don’t have an account?",
+    signUp: "Sign Up",
+    title: "Sign In",
+  },
   signup: {
     1: "Terms of Service",
     2: "Privacy Policy",

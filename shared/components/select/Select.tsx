@@ -4,10 +4,12 @@ import { Typography } from "@/shared/components";
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
 import * as SelectRadix from "@radix-ui/react-select";
 import { clsx } from "clsx";
+import Image from "next/image";
 
 import s from "./select.module.scss";
 
 type ItemsType = {
+  img?: string;
   title: string;
   value: string;
 };
@@ -102,14 +104,23 @@ export const Select = forwardRef<
                       key={index}
                       value={el.value}
                     >
-                      <SelectRadix.ItemText>{el.value}</SelectRadix.ItemText>
+                      <SelectRadix.ItemText asChild>
+                        <div className={s.itemk}>
+                          {el.img && (
+                            <Image
+                              alt={el.img}
+                              height={20}
+                              src={el.img}
+                              width={20}
+                            />
+                          )}
+                          <div>{el.title}</div>
+                        </div>
+                      </SelectRadix.ItemText>
                     </SelectRadix.Item>
                   ))}
                 </SelectRadix.Group>
               </SelectRadix.Viewport>
-              <SelectRadix.ScrollDownButton className={s.SelectScrollButton}>
-                <ChevronDownIcon />
-              </SelectRadix.ScrollDownButton>
             </SelectRadix.Content>
           </SelectRadix.Portal>
         </div>
