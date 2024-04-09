@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   width: fit-content;
-  border: 1px solid var(--color-dark-100);
 }
 
 .SelectTrigger {
@@ -26,7 +25,7 @@
   color: var(--color-light-100);
 
   background-color: var(--color-dark-500);
-  border: 1px solid var(--color-light-100);
+  border: 1px solid var(--color-dark-100);
   border-radius: 2px;
 
   &.pagination {
@@ -34,8 +33,13 @@
     padding: 0 6px;
   }
 
+  &:hover {
+    color: var(--color-light-900);
+  }
+
   &:focus-within {
-    border: 2px solid var(--color-info-700);
+    border: 2px solid var(--color-accent-700);
+    color: var(--color-light-900);
   }
 }
 
@@ -46,7 +50,7 @@
 .SelectContent {
   overflow: hidden;
   background-color: var(--color-dark-500);
-  border: 1px solid var(--color-light-500);
+  border: 1px solid var(--color-dark-100);
   border-radius: 2px;
   z-index: 99999999;
 }

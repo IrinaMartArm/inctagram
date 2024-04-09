@@ -2,7 +2,7 @@ import { Select } from "@/shared/components";
 import { useRouter } from "next/router";
 
 export const LangSelect = () => {
-  const { asPath, locale, locales, pathname, push, query } = useRouter();
+  const { asPath, locale, pathname, push, query } = useRouter();
 
   const changeLangHandler = (key: string, value: string) => {
     const locale = value;
