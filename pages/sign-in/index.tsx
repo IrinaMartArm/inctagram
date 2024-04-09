@@ -1,12 +1,14 @@
+import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
+import { SignInCard } from "@/widgets";
 
 const SignIn = () => {
   return (
-    <>
+    <PageWrapper>
       <HeadMeta title={"Sign In"} />
-      <div>SignIn</div>
-    </>
+      <SignInCard />
+    </PageWrapper>
   );
 };
 

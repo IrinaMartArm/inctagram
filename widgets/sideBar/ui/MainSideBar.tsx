@@ -9,6 +9,7 @@ import {
   TrendingUp,
 } from "@/public";
 import { SideBar } from "@/shared/components/sideBar/SideBar";
+import Link from "next/link";
 
 import s from "./mainSideBar.module.scss";
 
@@ -20,7 +21,7 @@ export const MainSideBar = () => {
           <div className={s.pages}>
             <div className={s.row}>
               <Home_outline />
-              <div>Home</div>
+              <Link href={"./"}>Home</Link>
             </div>
             <div className={s.row}>
               <PlusSquare_outline />
@@ -28,25 +29,25 @@ export const MainSideBar = () => {
             </div>
             <div className={s.row}>
               <Person_outline />
-              <div>My Profile</div>
+              <Link href={"./profile"}>My Profile</Link>
             </div>
             <div className={s.row}>
               <Bookmark_outline />
-              <div>Messenger</div>
+              <Link href={"./messenger"}>Messenger</Link>
             </div>
             <div className={s.row}>
               <Search_outline />
-              <div>Search</div>
+              <Link href={"./search"}>Search</Link>
             </div>
           </div>
           <div className={s.pages}>
             <div className={s.row}>
               <TrendingUp />
-              <div>Statistics</div>
+              <Link href={"./statistics"}>Statistics</Link>
             </div>
             <div className={s.row}>
               <Account />
-              <div>Favorites</div>
+              <Link href={"./favorites"}>Favorites</Link>
             </div>
           </div>
         </div>

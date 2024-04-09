@@ -1,16 +1,15 @@
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
-import { Trans } from "@/shared/components/trans/Trans";
+import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
 
 const General = () => {
   return (
-    <>
+    <PageWrapper>
       <HeadMeta title={"General"} />
       <div>General</div>
-    </>
+    </PageWrapper>
   );
 };
 
-General.getLayout = getLayout;
+General.getLayout = getMainLayout;
 export default General;

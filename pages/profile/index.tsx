@@ -1,14 +1,15 @@
+import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
 
 const Profile = () => {
   return (
-    <>
+    <PageWrapper>
       <HeadMeta title={"Profile"} />
       <div>Profile</div>
-    </>
+    </PageWrapper>
   );
 };
 
-Profile.getLayout = getLayout;
+Profile.getLayout = getMainLayout;
 export default Profile;

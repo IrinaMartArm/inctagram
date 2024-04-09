@@ -1,14 +1,15 @@
+import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
 
 const Search = () => {
   return (
-    <>
+    <PageWrapper>
       <HeadMeta title={"Search"} />
       <div>Search</div>
-    </>
+    </PageWrapper>
   );
 };
 
-Search.getLayout = getLayout;
+Search.getLayout = getMainLayout;
 export default Search;

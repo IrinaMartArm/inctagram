@@ -1,14 +1,15 @@
+import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
 
 const PrivacyPolicy = () => {
   return (
-    <>
+    <PageWrapper>
       <HeadMeta title={"Privacy Policy"} />
-      <div>Privacy Policy</div>;
-    </>
+      <div>Privacy Policy</div>
+    </PageWrapper>
   );
 };
 
-PrivacyPolicy.getLayout = getLayout;
+PrivacyPolicy.getLayout = getMainLayout;
 export default PrivacyPolicy;
