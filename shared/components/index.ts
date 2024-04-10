@@ -10,3 +10,5 @@ export * from "./pageWrapper";
 export * from "./button";
 export * from "./checkBox";
 export * from "./loader";
+export * from "./input";
+export * from "./controlled";
