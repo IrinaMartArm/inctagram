@@ -37,7 +37,7 @@ export const Tab: FC<Props> = ({
           key={option.value}
           value={option.value}
         >
-          <Typography variant={"subtitle2"}>{option.title}</Typography>
+          <Typography variant={"h3"}>{option.title}</Typography>
         </Tabs.Trigger>
       ))}
     </Tabs.List>
