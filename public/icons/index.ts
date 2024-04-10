@@ -3,6 +3,7 @@ export { ArrowLeft } from "./ArrowLeft";
 export { Bell } from "./Bell";
 export { Bookmark_outline } from "./Bookmark_outline";
 export { Boy } from "./Boy";
+export { Check } from "./Check";
 export { Facebook } from "./Facebook";
 export { FlagRussia } from "./FlagRussia";
 export { FlagUK } from "./FlagUK";
