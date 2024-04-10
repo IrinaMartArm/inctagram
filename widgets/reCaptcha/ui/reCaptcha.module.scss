@@ -1,0 +1,39 @@
+@import "../../../styles/mixins";
+.root {
+  padding: 8px;
+  width: fit-content;
+  border: 1px solid var(--color-danger-80);
+}
+
+.container {
+  @include flex("", space-between, center);
+  width: 300px;
+  height: 80px;
+  padding: 12px 20px;
+  margin-bottom: 8px;
+  border: 1px solid var(--color-dark-300);
+  background-color: var(--color-dark-500);
+}
+
+.wrapper {
+  position: relative;
+  @include flex("", space-between, center);
+  width: 100%;
+}
+
+.expired {
+  position: absolute;
+  width: 195px;
+  top: -10px;
+}
+
+.box {
+  @include flex("", space-between, center, 10px);
+}
+
+.button {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-light-900);
+  background-color: var(--color-light-100);
+}
