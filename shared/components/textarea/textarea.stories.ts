@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { useState } from "react";
+
 import { Textarea } from "./Textarea";
 
 const meta = {
@@ -13,5 +15,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const TextareaDemo: Story = {
-  args: {},
+  args: {
+    placeholder: "Sup!!",
+    value: "",
+  },
 };
