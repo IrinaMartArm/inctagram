@@ -1,6 +1,6 @@
-button {
-  all: unset;
-}
+//button {
+//  all: unset;
+//}
 
 .container {
   display: flex;
@@ -66,7 +66,7 @@ button {
     cursor: initial;
   }
 
-  &:not(.disabled) .root:has([data-state='checked']) {
+  &:not(.disabled) .root:has([data-state="checked"]) {
   }
 
   &:focus-within {
@@ -74,7 +74,7 @@ button {
   }
 
   &:hover:not(.disabled),
-  &:hover:not(.disabled) .root:not([data-state='checked']) {
+  &:hover:not(.disabled) .root:not([data-state="checked"]) {
     background-color: var(--color-dark-500);
   }
 

@@ -20,7 +20,7 @@ export const en: LocaleType = {
     password: "Password",
     password2: "Password confirmation",
     question: "Do you have an account?",
-    signin: "Sign In",
+    signIn: "Sign In",
     title: "Sign Up",
   },
 };

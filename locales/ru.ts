@@ -18,7 +18,7 @@ export const ru = {
     password: "Пароль",
     password2: "Подтверждение пароля",
     question: "У вас уже есть аккаунт?",
-    signin: "Войти",
+    signIn: "Войти",
     title: "Зарегистрироваться",
   },
 };
