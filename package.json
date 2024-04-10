@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:production": "yarn build",
+    "build:production": "env-cmd -f .env.production yarn build",
     "start": "next start",
     "format": "prettier --write .",
     "lint": "eslint . --ext .jsx,.js,.tsx,.ts --no-error-on-unmatched-pattern --fix && stylelint --fix **/*.{scss,css} --allow-empty-input",
@@ -21,6 +21,7 @@
     "@storybook/addon-a11y": "^8.0.4",
     "@tanstack/react-query": "^5.28.9",
     "clsx": "^2.1.0",
+    "env-cmd": "^10.1.0",
     "framer-motion": "^11.0.23",
     "next": "14.1.4",
     "nprogress": "^0.2.0",
