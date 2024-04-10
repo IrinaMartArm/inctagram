@@ -105,7 +105,7 @@ export const Select = forwardRef<
                       value={el.value}
                     >
                       <SelectRadix.ItemText asChild>
-                        <div className={s.itemk}>
+                        <div className={s.item}>
                           {el.img && (
                             <Image
                               alt={el.img}
