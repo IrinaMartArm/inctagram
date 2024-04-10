@@ -10,7 +10,7 @@
 }
 
 .row {
-  @include flex(null, null, null, 12px);
+  @include flex(null, null, center, 12px);
   &:hover {
     color: var(--color-accent-100);
   }

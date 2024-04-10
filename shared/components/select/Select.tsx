@@ -114,7 +114,9 @@ export const Select = forwardRef<
                               width={20}
                             />
                           )}
-                          <div>{el.title}</div>
+                          <Typography variant={"regular_text-16"}>
+                            {el.title}
+                          </Typography>
                         </div>
                       </SelectRadix.ItemText>
                     </SelectRadix.Item>
