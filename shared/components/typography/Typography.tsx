@@ -33,7 +33,6 @@ export type TypographyVariantTypes =
   | "Medium_text-14"
   | "Semi-bold_small-text"
   | "bold_text-14"
-  | "dashed"
   | "error"
   | "h1"
   | "h2"

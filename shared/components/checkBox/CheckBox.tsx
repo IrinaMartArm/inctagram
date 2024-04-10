@@ -34,7 +34,7 @@ export const CheckBox = forwardRef<
   return (
     <div className={classNames.container}>
       <LabelRadix.Root asChild className={classNames.label}>
-        <Typography variant={"body2"}>
+        <Typography variant={"regular_text-14"}>
           <div className={classNames.buttonWrapper}>
             <CheckboxRadix.Root
               checked={checked}

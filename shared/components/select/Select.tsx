@@ -71,7 +71,7 @@ export const Select = forwardRef<
       >
         <div className={classNames.Container}>
           {label && (
-            <Typography className={s.label} variant={"body2"}>
+            <Typography className={s.label} variant={"regular_text-14"}>
               {label}
             </Typography>
           )}
