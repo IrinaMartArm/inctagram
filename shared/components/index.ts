@@ -11,3 +11,5 @@ export * from "./button";
 export * from "./checkBox";
 export * from "./loader";
 export * from "./tab";
+export * from "./input";
+export * from "./controlled";
