@@ -1,0 +1,17 @@
+@import "./../../../styles/mixins";
+
+.socials {
+  @include flex("", "", "", 60px);
+  margin: 13px auto 24px;
+}
+
+.policy {
+  @include flex("", flex-start, center);
+  column-gap: 5px;
+  flex-wrap: wrap;
+}
+
+.button {
+  width: 100%;
+  margin: 12px 0 18px;
+}
