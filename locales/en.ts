@@ -7,6 +7,9 @@ export const en: LocaleType = {
   general: {
     title: "general page",
   },
+  policy: {
+    title: "Privacy Policy",
+  },
   signIn: {
     question: "Don’t have an account?",
     signUp: "Sign Up",
