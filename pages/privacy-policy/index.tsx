@@ -1,12 +1,15 @@
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { PageWrapper, Typography } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
 
 const PrivacyPolicy = () => {
+  const { t } = useTranslation();
+
   return (
     <PageWrapper>
       <HeadMeta title={"Privacy Policy"} />
-      <Typography variant={"h1"}>Privacy Policy</Typography>
+      <Typography variant={"h1"}>{t.policy.title}</Typography>
       <Typography variant={"regular_text-14"}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis
