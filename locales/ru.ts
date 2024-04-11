@@ -5,6 +5,9 @@ export const ru = {
   general: {
     title: "Страница",
   },
+  policy: {
+    title: "Политика конфиденциальности",
+  },
   signIn: {
     question: "",
     signUp: "Зарегистрироваться",

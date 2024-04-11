@@ -1,5 +1,4 @@
 import { Bell } from "@/public";
-import { Typography } from "@/shared/components";
 import { Button } from "@/shared/components/button";
 import { Navigation } from "@/shared/components/navigation/Navigation";
 import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
