@@ -1,12 +1,9 @@
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { SignUpCard } from "@/widgets/signUp/ui/SignUp";
 
 const SignUp = () => {
-  const { t } = useTranslation();
-
   return (
     <PageWrapper>
       <HeadMeta title={"Sign Up"} />
