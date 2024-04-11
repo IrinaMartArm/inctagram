@@ -36,11 +36,11 @@
   align-items: center;
   justify-content: center;
 
-  width: 13px;
-  height: 13px;
+  width: 18px;
+  height: 18px;
 
   background-color: transparent;
-  border: 2px solid var(--color-light-900);
+  border: 2px solid var(--color-light-100);
   border-radius: 2px;
 
   &:disabled {
@@ -75,7 +75,7 @@
 
   &:hover:not(.disabled),
   &:hover:not(.disabled) .root:not([data-state="checked"]) {
-    background-color: var(--color-dark-500);
+    background-color: var(--color-dark-300);
   }
 
   &:active:not(.disabled),

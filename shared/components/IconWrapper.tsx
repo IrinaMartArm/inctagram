@@ -1,7 +1,6 @@
 import { FC, HTMLProps, ReactNode, SVGProps } from "react";
 
 export type IconProps = {
-  autoSize?: boolean;
   color?: string;
   colorB?: string;
   size?: number;
@@ -9,7 +8,6 @@ export type IconProps = {
 } & Omit<HTMLProps<HTMLSpanElement>, "color" | "size">;
 
 export const IconWrapper: FC<{ icon: ReactNode } & IconProps> = ({
-  autoSize,
   color: colorProp,
   icon,
   size: sizeProp,

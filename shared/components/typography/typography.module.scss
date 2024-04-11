@@ -7,15 +7,15 @@
   color: var(--color-text-primary);
 }
 
-.h1 {
+.Large {
   @include typography(
     var(--font-size-xxl),
     var(--line-height-xl),
-    var(--font-weight-bold)
+    var(--font-weight-semi-bold)
   );
 }
 
-.h2 {
+.h1 {
   @include typography(
     var(--font-size-xl),
     var(--line-height-xl),
@@ -23,79 +23,87 @@
   );
 }
 
+.h2 {
+  @include typography(
+    var(--font-size-x),
+    var(--line-height-l),
+    var(--font-weight-bold)
+  );
+}
+
 .h3 {
   @include typography(
     var(--font-size-l),
-    var(--line-height-m),
+    var(--line-height-l),
+    var(--font-weight-semi-bold)
+  );
+}
+
+.regular_text-16 {
+  @include typography(
+    var(--font-size-l),
+    var(--line-height-l),
+    var(--font-weight-regular)
+  );
+}
+
+.Bold_text-16 {
+  @include typography(
+    var(--font-size-l),
+    var(--line-height-l),
     var(--font-weight-bold)
   );
 }
 
-.h4 {
+.regular_text-14 {
   @include typography(
     var(--font-size-m),
-    var(--line-height-m),
-    var(--font-weight-bold)
+    var(--line-height-l),
+    var(--font-weight-regular)
   );
 }
 
-.subtitle1 {
+.Medium_text-14 {
   @include typography(
     var(--font-size-m),
-    var(--line-height-m),
+    var(--line-height-l),
+    var(-font-weight-medium)
+  );
+}
+
+.bold_text-14 {
+  @include typography(
+    var(--font-size-m),
+    var(--line-height-l),
     var(--font-weight-bold)
   );
 }
 
-.subtitle2 {
+.small-text {
   @include typography(
     var(--font-size-s),
-    var(--line-height-m),
-    var(--font-weight-bold)
-  );
-}
-
-.body1 {
-  @include typography(
-    var(--font-size-m),
     var(--line-height-m),
     var(--font-weight-regular)
   );
 }
 
-.body2 {
+.Semi-bold_small-text {
   @include typography(
     var(--font-size-s),
     var(--line-height-m),
-    var(--font-weight-regular)
+    var(--font-weight-semi-bold)
   );
 }
 
-.overline {
+.regular_link {
   @include typography(
-    var(--font-size-xs),
-    var(--line-height-s),
-    var(--font-weight-bold)
-  );
-}
-
-.caption {
-  @include typography(
-    var(--font-size-xs),
-    var(--line-height-s),
-    var(--font-weight-regular)
-  );
-}
-
-.link1 {
-  @include typography(
-    var(--font-size-s),
-    var(--line-height-m),
+    var(--font-size-m),
+    var(--line-height-l),
     var(--font-weight-regular)
   );
 
   cursor: pointer;
-  color: var(--color-info-500);
+  color: var(--color-accent-500);
   text-decoration: underline;
 
   &:hover,
@@ -104,15 +112,15 @@
   }
 }
 
-.link2 {
+.small_link {
   @include typography(
-    var(--font-size-xs),
-    var(--line-height-s),
+    var(--font-size-s),
+    var(--line-height-m),
     var(--font-weight-regular)
   );
 
   cursor: pointer;
-  color: var(--color-info-500);
+  color: var(--color-accent-500);
   text-decoration: underline;
 
   &:hover,
@@ -123,14 +131,9 @@
 
 .error {
   @include typography(
-    var(--font-size-sx),
-    var(--line-height-m),
+    var(--font-size-xs),
+    var(--line-height-s),
     var(--font-weight-regular)
   );
-
-  color: var(--color-danger-300);
-}
-
-.dashed {
-  border-bottom: 1px dashed var(--color-light-100);
+  color: var(--color-danger-80);
 }

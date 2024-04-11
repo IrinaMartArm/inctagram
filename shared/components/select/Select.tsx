@@ -71,7 +71,7 @@ export const Select = forwardRef<
       >
         <div className={classNames.Container}>
           {label && (
-            <Typography className={s.label} variant={"body2"}>
+            <Typography className={s.label} variant={"regular_text-14"}>
               {label}
             </Typography>
           )}
@@ -114,7 +114,9 @@ export const Select = forwardRef<
                               width={20}
                             />
                           )}
-                          <div>{el.title}</div>
+                          <Typography variant={"regular_text-16"}>
+                            {el.title}
+                          </Typography>
                         </div>
                       </SelectRadix.ItemText>
                     </SelectRadix.Item>

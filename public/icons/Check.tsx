@@ -10,10 +10,10 @@ export const Check = memo(
         icon={
           <svg
             fill={"none"}
-            height={"20"}
+            height={"24"}
             ref={ref}
-            viewBox={"0 0 24 24"}
-            width={"20"}
+            viewBox={"0 0 29 29"}
+            width={"24"}
             xmlns={"http://www.w3.org/2000/svg"}
           >
             <rect fill={colorB} height={"12"} width={"16"} x={"4"} y={"6"} />

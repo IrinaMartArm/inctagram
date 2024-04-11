@@ -3,19 +3,20 @@ import type { Meta } from "@storybook/react";
 import { Typography, TypographyVariantTypes } from "./Typography";
 
 const variants: TypographyVariantTypes[] = [
+  "Large",
   "h1",
   "h2",
   "h3",
-  "h4",
-  "body1",
-  "body2",
-  "caption",
-  "subtitle1",
-  "subtitle2",
+  "regular_text-16",
+  "Bold_text-16",
+  "regular_text-14",
+  "Medium_text-14",
+  "bold_text-14",
+  "small-text",
+  "Semi-bold_small-text",
+  "regular_link",
+  "small_link",
   "error",
-  "link1",
-  "link2",
-  "overline",
 ];
 
 export default {

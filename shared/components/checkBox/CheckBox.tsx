@@ -22,7 +22,7 @@ export const CheckBox = forwardRef<
     arrowColor: clsx(disabled ? "var(--color-light-700)" : ""),
     buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled),
     checkColor: clsx(
-      disabled ? "var(--color-dark-100)" : "var(--color-light-900)",
+      disabled ? "var(--color-dark-100)" : "var(--color-light-100)",
     ),
     checkColorB: clsx(
       disabled ? "var(--color-light-900)" : "var(--color-dark-900)",
@@ -34,7 +34,7 @@ export const CheckBox = forwardRef<
   return (
     <div className={classNames.container}>
       <LabelRadix.Root asChild className={classNames.label}>
-        <Typography variant={"body2"}>
+        <Typography variant={"regular_text-14"}>
           <div className={classNames.buttonWrapper}>
             <CheckboxRadix.Root
               checked={checked}
@@ -54,7 +54,6 @@ export const CheckBox = forwardRef<
                     <Check
                       color={classNames.checkColor}
                       colorB={classNames.checkColorB}
-                      size={20}
                     />
                   </CheckboxRadix.Indicator>
                 )}
