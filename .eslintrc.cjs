@@ -4,9 +4,13 @@ module.exports = {
     {
       files: ["**/*.stories.tsx"],
       rules: {
-        "react-hooks/rules-of-hooks": "off",
         "no-console": "off",
+        "react-hooks/rules-of-hooks": "off",
       },
     },
   ],
+  rules: {
+    "import/no-unresolved": "off",
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
+  },
 };
