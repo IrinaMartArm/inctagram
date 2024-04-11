@@ -13,7 +13,6 @@ export const ArrowLeft = memo(
         width={"18"}
         xmlns={"http://www.w3.org/2000/svg"}
       >
-        <desc>Created with Pixso.</desc>
         <defs>
           <clipPath id={"clip5661_2037"}>
             <rect

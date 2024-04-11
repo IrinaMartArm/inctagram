@@ -1,0 +1,149 @@
+@mixin button {
+  all: unset;
+
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  width: fit-content;
+  padding: 6px 28px;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--line-height-l);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+
+  border-radius: 4px;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-info-700);
+  }
+}
+
+.primary {
+  @include button;
+
+  background-color: var(--color-accent-500);
+
+  &:focus-visible {
+    background-color: var(--color-accent-500);
+  }
+
+  &:focus {
+    background-color: var(--color-accent-500);
+  }
+
+  &:hover {
+    background-color: var(--color-accent-300);
+  }
+
+  &:active {
+    background-color: var(--color-accent-700);
+  }
+
+  &:disabled {
+    cursor: initial;
+    color: var(--color-light-900);
+    background-color: var(--color-accent-900);
+  }
+}
+
+.secondary {
+  @include button;
+
+  background-color: var(--color-dark-300);
+
+  &:focus {
+    background-color: var(--color-dark-300);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-100);
+  }
+
+  &:active {
+    background-color: var(--color-dark-500);
+  }
+
+  &:disabled {
+    cursor: initial;
+    color: var(--color-light-900);
+    background-color: var(--color-dark-300);
+  }
+}
+
+.outlined {
+  @include button;
+
+  color: var(--color-accent-500);
+  background-color: transparent;
+  border: 1px solid currentcolor;
+
+  &:hover {
+    color: var(--color-accent-300);
+    background-color: var(--color-action-hover);
+  }
+
+  &:active {
+    color: var(--color-accent-700);
+  }
+
+  &:disabled {
+    color: var(--color-accent-900);
+  }
+}
+
+.link {
+  @include button;
+
+  color: var(--color-accent-500);
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    color: var(--color-accent-300);
+  }
+
+  &:active {
+    color: var(--color-accent-700);
+  }
+
+  &:disabled {
+    cursor: initial;
+    color: var(--color-accent-900);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+  text-align: center;
+}
+
+.box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  @include button;
+
+  padding: 2px;
+
+  &:focus-visible {
+    outline: none;
+  }
+}

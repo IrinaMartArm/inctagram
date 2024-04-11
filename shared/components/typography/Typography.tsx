@@ -28,16 +28,17 @@ export const Typography = <T extends ElementType = "div">({
   );
 };
 export type TypographyVariantTypes =
-  | "body1"
-  | "body2"
-  | "caption"
+  | "Bold_text-16"
+  | "Large"
+  | "Medium_text-14"
+  | "Semi-bold_small-text"
+  | "bold_text-14"
   | "error"
   | "h1"
   | "h2"
   | "h3"
-  | "h4"
-  | "link1"
-  | "link2"
-  | "overline"
-  | "subtitle1"
-  | "subtitle2";
+  | "regular_link"
+  | "regular_text-14"
+  | "regular_text-16"
+  | "small_link"
+  | "small-text";

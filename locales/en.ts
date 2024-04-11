@@ -7,6 +7,9 @@ export const en: LocaleType = {
   general: {
     title: "general page",
   },
+  policy: {
+    title: "Privacy Policy",
+  },
   signIn: {
     question: "Don’t have an account?",
     signUp: "Sign Up",
@@ -20,7 +23,7 @@ export const en: LocaleType = {
     password: "Password",
     password2: "Password confirmation",
     question: "Do you have an account?",
-    signin: "Sign In",
+    signIn: "Sign In",
     title: "Sign Up",
   },
 };

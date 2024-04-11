@@ -72,8 +72,11 @@ body {
   margin: 0;
   padding: 0;
 
-  font-family: var(--font-family-primary), sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: var(--line-height-m);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+
   color: var(--color-light-100);
 
   background-color: var(--color-dark-700);
@@ -93,7 +96,6 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px transparent inset;
   transition: background-color 5000s ease-in-out 0s;
   background: -webkit-linear-gradient(
-    top,
     rgba(255, 255, 255, 0) 0%,
     rgba(0, 174, 255, 0.04) 50%,
     rgba(255, 255, 255, 0) 51%,

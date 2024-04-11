@@ -7,9 +7,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextPage } from "next";
 
 import "@/styles/index.scss";
-import "@/styles/globals.scss";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/700.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
 
 export type NextPageWithLayout<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactElement) => ReactNode;

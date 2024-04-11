@@ -1,6 +1,6 @@
 import { GitHubBig, Google } from "@/public";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Card, Trans } from "@/shared/components";
+import { Card } from "@/shared/components";
 
 export const SignInCard = () => {
   const { t } = useTranslation();
