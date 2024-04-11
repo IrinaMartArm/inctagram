@@ -9,7 +9,9 @@ const PrivacyPolicy = () => {
   return (
     <PageWrapper>
       <HeadMeta title={"Privacy Policy"} />
-      <Typography variant={"h1"}>{t.policy.title}</Typography>
+
+      <Typography variant={"h1"}>Privacy Policy!</Typography>
+
       <Typography variant={"regular_text-14"}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis
