@@ -8,8 +8,6 @@ export { Close } from "./Close";
 export { Eye } from "./Eye";
 export { EyeOff } from "./EyeOff";
 export { Facebook } from "./Facebook";
-export { FlagRussia } from "./FlagRussia";
-export { FlagUK } from "./FlagUK";
 export { GitHub } from "./GitHub";
 export { GitHubBig } from "./GitHubBig";
 export { Google } from "./Google";
