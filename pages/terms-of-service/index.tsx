@@ -1,8 +1,8 @@
+import { Back } from "@/features";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { PageWrapper, Typography } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
-import { Back } from "@/widgets";
 
 import s from "@/pages/privacy-policy/policy.module.scss";
 
