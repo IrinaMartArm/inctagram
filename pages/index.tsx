@@ -1,18 +1,18 @@
 import { NextPageWithLayout } from "@/pages/_app";
 import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { Header } from "@/widgets/header/Header";
 
-const Home: NextPageWithLayout = () => {
+const Public: NextPageWithLayout = () => {
   return (
     <PageWrapper>
-      <HeadMeta title={"Home"} />
+      <HeadMeta title={"Public"} />
       <Header />
       <main>🚀Hi everyone!🚀</main>
     </PageWrapper>
   );
 };
 
-Home.getLayout = getMainLayout;
-export default Home;
+Public.getLayout = getLayout;
+export default Public;
