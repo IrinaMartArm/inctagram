@@ -8,7 +8,7 @@ import "react-day-picker/dist/style.css";
 type ValuePiece = Date | null;
 type Value = [ValuePiece, ValuePiece] | ValuePiece;
 
-export const DatePicker = () => {
+export const DayPickerMy = () => {
   const [selected, setSelected] = useState<Date>();
 
   let footer = <p>Please pick a day.</p>;
@@ -23,6 +23,14 @@ export const DatePicker = () => {
       mode={"single"}
       onSelect={setSelected}
       selected={selected}
+      styles={{
+        caption: { color: "#FFFFFF" },
+        root: {
+          background: "#171717",
+          maxWidth: "fit-content",
+        },
+        table: { color: "#FFFFFF" },
+      }}
     />
   );
 };
