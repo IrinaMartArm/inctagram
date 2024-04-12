@@ -22,8 +22,8 @@ export const SignUpCard = () => {
     <Card as={"form"}>
       <Typography variant={"h1"}>{t.signup.title}</Typography>
       <div className={s.socials}>
-        <Google />
-        <GitHubBig />
+        <Button icon={<Google />} variant={"link"} />
+        <Button icon={<GitHubBig />} variant={"link"} />
       </div>
       <Input label={"Username"} placeholder={"Username"} type={"text"} />
       <Input label={"Email"} placeholder={"Email"} type={"email"} />
@@ -35,27 +35,35 @@ export const SignUpCard = () => {
       />
       <div className={s.policy}>
         <ControlledCheckBox control={control} name={"agree"} />
-        <Trans
-          tags={{
-            1: () => (
-              <Link href={"./terms-of-service"}>
-                <Typography variant={"small_link"}>{t.signup["1"]}</Typography>
-              </Link>
-            ),
-            2: () => (
-              <Link href={"./privacy-policy"}>
-                <Typography variant={"small_link"}>{t.signup["2"]}</Typography>
-              </Link>
-            ),
-          }}
-          text={t.signup.agree}
-        />
+        <div className={s.trans}>
+          <Trans
+            tags={{
+              1: () => (
+                <Link href={"./terms-of-service"}>
+                  <Typography variant={"small_link"}>
+                    {t.signup["1"]}
+                  </Typography>
+                </Link>
+              ),
+              2: () => (
+                <Link href={"./privacy-policy"}>
+                  <Typography variant={"small_link"}>
+                    {t.signup["2"]}
+                  </Typography>
+                </Link>
+              ),
+            }}
+            text={t.signup.agree}
+          />
+        </div>
       </div>
-      <div className={s.button}>
-        <Button fullWidth>{t.signup.title}</Button>
-      </div>
+      <Button className={s.button} fullWidth>
+        {t.signup.title}
+      </Button>
       <Typography variant={"regular_text-16"}>{t.signup.question}</Typography>
-      <Button variant={"link"}>{t.signup.signIn}</Button>
+      <Button className={s.signupBtn} variant={"link"}>
+        {t.signup.signIn}
+      </Button>
     </Card>
   );
 };

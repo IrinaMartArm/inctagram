@@ -1,17 +1,53 @@
 @import "./../../../styles/mixins";
 
 .socials {
-  @include flex("", "", "", 60px);
+  @include flex("", "", "", 6px);
   margin: 13px auto 24px;
 }
 
 .policy {
-  @include flex("", flex-start, center);
-  column-gap: 5px;
+  @include flex("", flex-start, start, center);
+  width: 100%;
+}
+
+.trans {
+  @include flex("", flex-start, start, 5px);
   flex-wrap: wrap;
+  width: 100%;
+  padding: 7px;
 }
 
 .button {
   width: 100%;
   margin: 12px 0 18px;
+}
+
+.signupBtn {
+  margin-top: 6px;
+}
+
+// Congratulations page
+
+.confirmed {
+  margin: 20px auto 55px;
+}
+
+.btn {
+  width: 182px;
+}
+
+.image {
+  margin-top: 70px;
+}
+
+// Expired page
+
+.expired {
+  max-width: 300px;
+  text-align: center;
+  margin: 20px auto 30px;
+}
+
+.boy {
+  margin-top: 30px;
 }
