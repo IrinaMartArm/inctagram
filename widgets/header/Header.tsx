@@ -1,4 +1,5 @@
 import { Bell } from "@/public";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button } from "@/shared/components/button";
 import { Navigation } from "@/shared/components/navigation/Navigation";
 import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
@@ -7,6 +8,7 @@ import { useRouter } from "next/router";
 import s from "./header.module.scss";
 export const Header = () => {
   const { pathname: currentPath } = useRouter();
+  const { t } = useTranslation();
 
   const publicPage = currentPath === "/";
   const messagesCount = 0;
@@ -21,7 +23,7 @@ export const Header = () => {
             <LangSelect />
             <div className={s.buttonsBox}>
               <Button variant={"link"}>Log in</Button>
-              <Button>Sign up</Button>
+              <Button>{t.signup.title}</Button>
             </div>
           </div>
         ) : (
