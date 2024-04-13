@@ -8,7 +8,7 @@ export const AuthApi = baseApi.injectEndpoints({
         providesTags: ["Me"],
         query: () => {
           return {
-            url: "/v1/auth/me",
+            url: "v1/auth/me",
           };
         },
       }),
@@ -17,7 +17,7 @@ export const AuthApi = baseApi.injectEndpoints({
           body,
           method: "POST",
           providesTags: ["Me"],
-          url: "/v1/auth/sign-up",
+          url: "v1/auth/registration",
         }),
       }),
     };
