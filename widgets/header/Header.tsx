@@ -9,7 +9,7 @@ export const Header = () => {
   const { pathname: currentPath } = useRouter();
 
   const publicPage = currentPath === "/";
-  const messagesCount = 16;
+  const messagesCount = 0;
 
   return (
     <div className={s.root}>
@@ -26,7 +26,9 @@ export const Header = () => {
           </div>
         ) : (
           <div className={s.bell}>
-            <div className={s.bellMessage}>{messagesCount}</div>
+            {messagesCount > 0 && (
+              <div className={s.bellMessage}>{messagesCount}</div>
+            )}
             <Bell />
             <LangSelect />
           </div>
