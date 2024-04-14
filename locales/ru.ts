@@ -9,7 +9,9 @@ export const ru = {
     title: "Политика конфиденциальности",
   },
   signIn: {
-    question: "",
+    forgotPassword: "Забыли пароль",
+    password: "Пароль",
+    question: "У вас нет учетной записи?",
     signUp: "Зарегистрироваться",
     title: "Войти",
   },

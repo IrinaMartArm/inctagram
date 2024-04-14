@@ -11,7 +11,9 @@ export const en: LocaleType = {
     title: "Privacy Policy",
   },
   signIn: {
-    question: "Don’t have an account?",
+    forgotPassword: "Forgot Password",
+    password: "Password",
+    question: "Don't have an account?",
     signUp: "Sign Up",
     title: "Sign In",
   },
