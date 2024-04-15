@@ -42,10 +42,10 @@ export const SignInCard = () => {
         {title}
       </Typography>
       <div className={s.socials}>
-        <Link href={""}>
+        <Link aria-label={"sign in with Google"} href={""}>
           <Google />
         </Link>
-        <Link href={""}>
+        <Link aria-label={"sign in with GitHub"} href={""}>
           <GitHubBig />
         </Link>
       </div>
@@ -57,6 +57,7 @@ export const SignInCard = () => {
           name={"email"}
           placeholder={"Email"}
           type={"email"}
+          autoComplete={"email"}
         />
         <ControlledTextField
           className={s.lastInput}
@@ -66,6 +67,7 @@ export const SignInCard = () => {
           name={"password"}
           placeholder={password}
           type={"password"}
+          autoComplete={"current-password"}
         />
       </>
 
@@ -77,9 +79,11 @@ export const SignInCard = () => {
       <Button className={s.button} fullWidth type={"submit"}>
         {title}
       </Button>
-      <Typography className={s.question} variant={"regular_text-16"}>
-        {question}
-      </Typography>
+      <Link href={""}>
+        <Typography className={s.question} variant={"regular_text-16"}>
+          {question}
+        </Typography>
+      </Link>
       <Link href={"/sign-up"}>
         <Typography className={s.signUp} variant={"h3"}>
           {signUp}
