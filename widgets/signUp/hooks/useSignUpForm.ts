@@ -21,16 +21,17 @@ const signUpSchema = z
   });
 
 export type signUpFormFields = z.infer<typeof signUpSchema>;
+export const defaultValues = {
+  agree: false,
+  confirm: "",
+  email: "",
+  password: "",
+  username: "",
+};
 
 export const useSignUpForm = () =>
   useForm<signUpFormFields>({
-    defaultValues: {
-      agree: false,
-      confirm: "",
-      email: "",
-      password: "",
-      username: "",
-    },
+    defaultValues,
     mode: "onTouched",
     resolver: zodResolver(signUpSchema),
   });

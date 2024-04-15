@@ -14,6 +14,7 @@ import {
 import { Card } from "@/shared/components/card";
 import { Trans } from "@/shared/components/trans/Trans";
 import {
+  defaultValues,
   signUpFormFields,
   useSignUpForm,
 } from "@/widgets/signUp/hooks/useSignUpForm";
@@ -28,6 +29,7 @@ export const SignUpCard = () => {
     control,
     formState: { errors, isDirty, isValid },
     handleSubmit,
+    reset,
     setError,
   } = useSignUpForm();
 
@@ -56,6 +58,7 @@ export const SignUpCard = () => {
           });
         }
       });
+    reset(defaultValues);
   };
 
   return (
