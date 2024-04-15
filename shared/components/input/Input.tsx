@@ -2,9 +2,9 @@ import {
   ChangeEvent,
   ComponentPropsWithoutRef,
   ElementRef,
+  forwardRef,
   KeyboardEvent,
   ReactNode,
-  forwardRef,
   useState,
 } from "react";
 
@@ -64,7 +64,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
 
     const classNames = {
       clearButton: s.clearButton,
-      input: clsx(s.input, showError && s.error, disabled ? s.disabled : ""),
+      input: clsx(s.input, showError && s.error, disabled && s.disabled),
       input_wrapper: clsx(
         s.input_wrapper,
         disabled && s.disabled,
@@ -75,10 +75,15 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
       inputWithStart: clsx(
         s.inputWithStart,
         showError && s.error,
-        disabled ? s.disabled : "",
+        disabled && s.disabled,
       ),
       label: clsx(disabled ? s.labelDisable : s.label),
-      root: clsx(s.box, disabled ? s.disabled : "", className),
+      root: clsx(
+        s.box,
+        disabled && s.disabled,
+        errorMessage && s.errorBox,
+        className,
+      ),
     };
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (onEnter && e.key === "Enter") {
@@ -144,9 +149,11 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
             </button>
           )}
         </div>
-        <Typography className={s.errorMessage} variant={"error"}>
-          {errorMessage}
-        </Typography>
+        {errorMessage && (
+          <Typography className={s.errorMessage} variant={"error"}>
+            {errorMessage}
+          </Typography>
+        )}
       </div>
     );
   },

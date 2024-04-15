@@ -21,6 +21,10 @@
     var(--line-height-xl),
     var(--font-weight-bold)
   );
+  @media screen and (max-width: 576px) {
+    font-size: var(--font-size-x);
+    line-height: var(--line-height-l);
+  }
 }
 
 .h2 {
@@ -131,9 +135,9 @@
 
 .error {
   @include typography(
-    var(--font-size-xs),
-    var(--line-height-s),
+    var(--font-size-m),
+    var(--line-height-l),
     var(--font-weight-regular)
   );
-  color: var(--color-danger-80);
+  color: var(--color-danger-500);
 }

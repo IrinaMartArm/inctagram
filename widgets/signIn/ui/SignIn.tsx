@@ -8,6 +8,7 @@ import {
   ControlledTextField,
   Typography,
 } from "@/shared/components";
+import { clsx } from "clsx";
 import Link from "next/link";
 
 import s from "./signIn.module.scss";
@@ -20,50 +21,70 @@ type SignInData = {
 export const SignInCard = () => {
   const { t } = useTranslation();
   const { forgotPassword, password, question, signUp, title } = t.signIn;
-  const { control, handleSubmit, register } = useForm<SignInData>();
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<SignInData>();
 
   const onSubmit: SubmitHandler<SignInData> = (data) => {
     console.log(data);
   };
 
+  const forgotPasswordCN = clsx(
+    s.forgotPassword,
+    errors.password?.message && s.withError,
+  );
+
   return (
-    <Card as={"form"} onSubmit={handleSubmit(onSubmit)}>
+    <Card as={"form"} className={s.wrapper} onSubmit={handleSubmit(onSubmit)}>
       <Typography as={"h1"} className={s.title} variant={"h1"}>
         {title}
       </Typography>
       <div className={s.socials}>
-        <Google />
-        <GitHubBig />
+        <Link href={""}>
+          <Google />
+        </Link>
+        <Link href={""}>
+          <GitHubBig />
+        </Link>
       </div>
-      <ControlledTextField
-        control={control}
-        {...register("email")}
-        label={"Email"}
-        placeholder={"Email"}
-        type={"email"}
-      />
-      <ControlledTextField
-        control={control}
-        {...register("password")}
-        label={password}
-        placeholder={password}
-        type={"password"}
-      />
+      <>
+        <ControlledTextField
+          control={control}
+          errorMessage={errors.email?.message}
+          label={"Email"}
+          name={"email"}
+          placeholder={"Email"}
+          type={"email"}
+        />
+        <ControlledTextField
+          className={s.lastInput}
+          control={control}
+          errorMessage={errors.password?.message}
+          label={password}
+          name={"password"}
+          placeholder={password}
+          type={"password"}
+        />
+      </>
 
-      <Link className={s.link} href={"./sign-up"}>
-        <Typography className={s.forgotPassword} variant={"regular_text-14"}>
+      <Link className={s.link} href={"/sign-up"}>
+        <Typography className={forgotPasswordCN} variant={"regular_text-14"}>
           {forgotPassword}
         </Typography>
       </Link>
-      <Button fullWidth type={"submit"}>
+      <Button className={s.button} fullWidth type={"submit"}>
         {title}
       </Button>
       <Typography className={s.question} variant={"regular_text-16"}>
         {question}
       </Typography>
-      <Button as={"a"} fullWidth type={"button"} variant={"link"}>
-        {signUp}
-      </Button>
+      <Link href={"/sign-up"}>
+        <Typography className={s.signUp} variant={"h3"}>
+          {signUp}
+        </Typography>
+      </Link>
     </Card>
   );
 };
