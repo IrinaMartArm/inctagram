@@ -1,8 +1,8 @@
 import { Bell } from "@/public";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button } from "@/shared/components/button";
-import { Navigation } from "@/shared/components/navigation/Navigation";
 import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import s from "./header.module.scss";
@@ -17,13 +17,16 @@ export const Header = () => {
     <div className={s.root}>
       <div className={s.header}>
         <p className={s.logo}>Inctagram</p>
-        <Navigation />
         {publicPage ? (
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
-              <Button variant={"link"}>Log in</Button>
-              <Button>{t.signup.title}</Button>
+              <Button as={Link} href={"./sign-in"} variant={"link"}>
+                Log in
+              </Button>
+              <Button as={Link} href={"./sign-up"}>
+                {t.signup.title}
+              </Button>
             </div>
           </div>
         ) : (
