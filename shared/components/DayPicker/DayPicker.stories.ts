@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { DayPickerMy } from "./";
+import { DayPicker } from "./";
 
 const meta = {
   argTypes: {},
-  component: DayPickerMy,
+  component: DayPicker,
   tags: ["autodocs"],
-  title: "Components/DayPickerMy",
-} satisfies Meta<typeof DayPickerMy>;
+  title: "Components/DayPicker",
+} satisfies Meta<typeof DayPicker>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DayPickerMyDemo: Story = {
+export const DayPickerDemo: Story = {
   args: {},
 };

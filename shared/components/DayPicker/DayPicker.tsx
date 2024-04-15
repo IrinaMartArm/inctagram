@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { DayPicker } from "react-day-picker";
+import { DayPicker as ReactDayPicker } from "react-day-picker";
 
 import { format } from "date-fns";
-// import 'react-day-picker/dist/style.css'
-// import './DayPickerMy.css'
+
+import "react-day-picker/dist/style.css";
 
 type ValuePiece = Date | null;
 
 type Value = [ValuePiece, ValuePiece] | ValuePiece;
 
-export const DayPickerMy = () => {
+export const DayPicker = () => {
   const [selected, setSelected] = useState<Date>();
 
   let footer = <p>Please pick a day.</p>;
@@ -39,7 +39,7 @@ export const DayPickerMy = () => {
   return (
     <>
       <style>{css}</style>
-      <DayPicker
+      <ReactDayPicker
         mode={"single"}
         modifiersClassNames={{
           disabled: "my-disabled",
