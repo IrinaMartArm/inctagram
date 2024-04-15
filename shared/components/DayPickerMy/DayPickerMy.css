@@ -1,0 +1,24 @@
+.rdp-day_today {
+    background-color: #171717;
+    color: #234E99;
+}
+
+.rdp-day_selected {
+    background-color: #234E99;
+}
+
+.rdp-day:hover {
+    background-color: red;
+    /*color: white;*/
+}
+
+.rdp-day_selected:hover {
+    /*background-color: red;*/
+    /*color: white;*/
+}
+
+.rdp_button {
+    /*background-color: red;*/
+}
+
+
