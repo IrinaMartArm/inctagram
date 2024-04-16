@@ -1,8 +1,6 @@
+@import "../../../styles/mixins";
 .root {
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  justify-content: center;
+  @include flex(column, "", "", 20px);
   padding: 20px;
   width: 100%;
   min-height: 100vh;

@@ -144,7 +144,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
             </button>
           )}
         </div>
-        <Typography className={s.errorMessage} variant={"error"}>
+        <Typography className={s.errorMessage} variant={"error_regular"}>
           {errorMessage}
         </Typography>
       </div>
