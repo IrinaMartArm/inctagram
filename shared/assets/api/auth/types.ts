@@ -18,3 +18,6 @@ export type RootObjectErrorsMessages = {
   field: string;
   message: string;
 };
+export type ConformationArgs = {
+  code: string;
+};

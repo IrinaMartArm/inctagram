@@ -1,4 +1,5 @@
 import {
+  ConformationArgs,
   ErrorsMessages,
   SignUpArgs,
   User,
@@ -20,6 +21,17 @@ export const AuthApi = baseApi.injectEndpoints({
         providesTags: ["Me"],
         query: () => "v1/auth/me",
       }),
+      registrationConfirmation: builder.mutation<
+        ErrorsMessages,
+        ConformationArgs
+      >({
+        query: (body) => ({
+          body,
+          method: "POST",
+          providesTags: ["Me"],
+          url: "v1/auth/registration-confirmation",
+        }),
+      }),
       signUp: builder.mutation<ErrorsMessages, SignUpArgs>({
         query: (body) => ({
           body,
@@ -32,5 +44,9 @@ export const AuthApi = baseApi.injectEndpoints({
   },
 });
 
-export const { useEmailResendingMutation, useMeQuery, useSignUpMutation } =
-  AuthApi;
+export const {
+  useEmailResendingMutation,
+  useMeQuery,
+  useRegistrationConfirmationMutation,
+  useSignUpMutation,
+} = AuthApi;
