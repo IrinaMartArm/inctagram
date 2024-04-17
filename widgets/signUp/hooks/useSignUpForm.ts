@@ -8,45 +8,43 @@ import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-const signUpSchema = z
-  .object({
-    agree: z.boolean(),
-    confirm: z.string().min(6).max(20).trim(),
-    email: z
-      .string()
-      .email("The email must match the format\n" + "example@example.com")
-      .trim(),
-    password: z
-      .string()
-      .min(6, "Minimum number of characters 6")
-      .max(20, "Maximum number of characters 20")
-      .trim(),
-    username: z
-      .string()
-      .min(6, "Minimum number of characters 6")
-      .max(30, "Maximum number of characters 30")
-      .trim(),
-  })
-  .refine((value) => value.agree === true, {
-    message: "Необходимо согласиться с условиями",
-    path: ["agree"],
-  })
-  .refine((data) => data.password === data.confirm, {
-    message: "Пароль и подтверждение пароля должны совпадать",
-    path: ["confirm"],
-  });
-
-export type signUpFormFields = z.infer<typeof signUpSchema>;
-export const defaultValues = {
-  agree: false,
-  confirm: "",
-  email: "",
-  password: "",
-  username: "",
-};
-
 export const useSignUp = () => {
   const { t } = useTranslation();
+
+  const signUpSchema = z
+    .object({
+      agree: z.boolean(),
+      confirm: z.string().min(6).max(20).trim(),
+      email: z.string().email(t.signup.email).trim(),
+      password: z
+        .string()
+        .min(6, { message: t.signup.passwordMin })
+        .max(20, { message: t.signup.passwordMax })
+        .trim(),
+      username: z
+        .string()
+        .min(6, { message: t.signup.passwordMin })
+        .max(30, { message: t.signup.username })
+        .trim(),
+    })
+    .refine((value) => value.agree === true, {
+      message: t.signup.checkbox,
+      path: ["agree"],
+    })
+    .refine((data) => data.password === data.confirm, {
+      message: t.signup.confirm,
+      path: ["confirm"],
+    });
+
+  type SignUpFormFields = z.infer<typeof signUpSchema>;
+
+  const defaultValues = {
+    agree: false,
+    confirm: "",
+    email: "",
+    password: "",
+    username: "",
+  };
 
   const [signUp, { isLoading }] = useSignUpMutation();
   const {
@@ -55,7 +53,7 @@ export const useSignUp = () => {
     handleSubmit,
     reset,
     setError,
-  } = useForm<signUpFormFields>({
+  } = useForm<SignUpFormFields>({
     defaultValues,
     mode: "onTouched",
     resolver: zodResolver(signUpSchema),
@@ -73,13 +71,13 @@ export const useSignUp = () => {
         if ("error" in res) {
           return handleErrorResponse(res.error);
         } else {
-          toast.success("The account has been created.");
+          toast.success(t.signup.created);
         }
       })
       .then((error) => {
         if (error && error.fieldErrors) {
           error.fieldErrors?.forEach((el) => {
-            setError(el.field as keyof signUpFormFields, {
+            setError(el.field as keyof SignUpFormFields, {
               message: el.message,
             });
           });
