@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 import { CheckMark, Recaptcha } from "@/public";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Loader, Typography } from "@/shared/components";
 
 import s from "./reCaptcha.module.scss";
 
 export const ReCaptcha = () => {
+  const { t } = useTranslation();
   const [checked, setChecked] = useState(false);
 
   const clickHandler = () => setChecked(true);
@@ -28,23 +30,17 @@ export const ReCaptcha = () => {
         <div className={s.wrapper}>
           <div className={s.expired}>
             {expired && (
-              <Typography variant={"error"}>
-                Verification expired. Check the checkbox again.
-              </Typography>
+              <Typography variant={"error"}>{t.recaptcha.expired}</Typography>
             )}
           </div>
           <div className={s.box}>
             {content}
-            <Typography variant={"small-text"}>I’m not a robot</Typography>
+            <Typography variant={"small-text"}>{t.recaptcha.title}</Typography>
           </div>
           <Recaptcha />
         </div>
       </div>
-      {error && (
-        <Typography variant={"error"}>
-          {"Please verify that you are not a robot"}
-        </Typography>
-      )}
+      {error && <Typography variant={"error"}>{t.recaptcha.text}</Typography>}
     </div>
   );
 };
