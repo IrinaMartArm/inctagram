@@ -44,6 +44,12 @@
   border: 2px solid var(--color-light-100);
   border-radius: 2px;
 
+  &.recaptcha[data-state="checked"] {
+    border: none;
+    width: 28px;
+    height: 28px;
+  }
+
   &:disabled {
     cursor: initial;
     border-color: var(--color-dark-100);
@@ -72,16 +78,25 @@
 
   &:focus-within {
     background-color: var(--color-dark-100);
+    &.recaptcha {
+      background-color: transparent;
+    }
   }
 
   &:hover:not(.disabled),
   &:hover:not(.disabled) .root:not([data-state="checked"]) {
     background-color: var(--color-dark-300);
+    &.recaptcha {
+      background-color: transparent;
+    }
   }
 
   &:active:not(.disabled),
   &:active:not(.disabled) .root:not(.disabled) {
     background-color: var(--color-dark-100);
+    &.recaptcha {
+      background-color: transparent;
+    }
   }
 }
 
@@ -95,5 +110,5 @@
   width: 400px;
   left: 0;
   bottom: -18px;
-  color: red;
+  color: var(--color-danger-500);
 }
