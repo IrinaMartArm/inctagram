@@ -121,7 +121,6 @@ export const SignUpCard = () => {
           {t.signup.signIn}
         </Button>
       </Card>
-      )
     </>
   );
 };
