@@ -8,10 +8,6 @@ import "react-day-picker/dist/style.css";
 
 import s from "./DayPicker.module.scss";
 
-type ValuePiece = Date | null;
-
-type Value = [ValuePiece, ValuePiece] | ValuePiece;
-
 export const DayPicker = () => {
   const [selected, setSelected] = useState<Date>();
 
@@ -19,8 +15,8 @@ export const DayPicker = () => {
     alert("onClick");
   };
 
-  const dateFormated = selected
-    ? `${selected.getDate()}/${selected.getMonth() + 1}/${selected.getFullYear()}`
+  const dateFormatted = selected
+    ? `${(selected.getDate() < 10 ? "0" : "") + selected.getDate()}.${(selected.getMonth() < 9 ? "0" : "") + (selected.getMonth() + 1)}.${selected.getFullYear()}`
     : "";
 
   const weekends = [5, 6];
@@ -35,7 +31,7 @@ export const DayPicker = () => {
           onChange={() => {}}
           onClick={onClick}
           type={"text"}
-          value={dateFormated}
+          value={dateFormatted}
         />
       </div>
       <ReactDayPicker
