@@ -1,6 +1,8 @@
 import { GitHubBig, Google } from "@/public";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Card } from "@/shared/components";
+import { Button, Card } from "@/shared/components";
+
+import s from "@/widgets/signUp/ui/signUp.module.scss";
 
 export const SignInCard = () => {
   const { t } = useTranslation();
@@ -8,9 +10,9 @@ export const SignInCard = () => {
   return (
     <Card>
       <div>{t.signIn.title}</div>
-      <div>
-        <Google />
-        <GitHubBig />
+      <div className={s.socials}>
+        <Button icon={<Google />} variant={"link"} />
+        <Button icon={<GitHubBig />} variant={"link"} />
       </div>
     </Card>
   );

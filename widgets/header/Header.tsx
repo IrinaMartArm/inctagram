@@ -1,32 +1,39 @@
 import { Bell } from "@/public";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button } from "@/shared/components/button";
-import { Navigation } from "@/shared/components/navigation/Navigation";
 import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import s from "./header.module.scss";
 export const Header = () => {
   const { pathname: currentPath } = useRouter();
+  const { t } = useTranslation();
 
   const publicPage = currentPath === "/";
-  const messagesCount = 16;
+  const messagesCount = 0;
 
   return (
     <div className={s.root}>
       <div className={s.header}>
         <p className={s.logo}>Inctagram</p>
-        <Navigation />
         {publicPage ? (
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
-              <Button variant={"link"}>Log in</Button>
-              <Button>Sign up</Button>
+              <Button as={Link} href={"./sign-in"} variant={"link"}>
+                Log in
+              </Button>
+              <Button as={Link} href={"./sign-up"}>
+                {t.signup.title}
+              </Button>
             </div>
           </div>
         ) : (
           <div className={s.bell}>
-            <div className={s.bellMessage}>{messagesCount}</div>
+            {messagesCount > 0 && (
+              <div className={s.bellMessage}>{messagesCount}</div>
+            )}
             <Bell />
             <LangSelect />
           </div>

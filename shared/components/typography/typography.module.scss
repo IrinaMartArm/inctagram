@@ -129,11 +129,20 @@
   }
 }
 
+.error_regular {
+  @include typography(
+    var(--font-size-s),
+    var(--line-height-s),
+    var(--font-weight-regular)
+  );
+  color: var(--color-danger-500);
+}
+
 .error {
   @include typography(
     var(--font-size-xs),
     var(--line-height-s),
     var(--font-weight-regular)
   );
-  color: var(--color-danger-80);
+  color: var(--color-danger-500);
 }

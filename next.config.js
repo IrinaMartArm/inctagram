@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  extends: ["plugin:@next/next/recommended"],
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
