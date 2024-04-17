@@ -14,7 +14,11 @@ export const useSignUp = () => {
   const signUpSchema = z
     .object({
       agree: z.boolean(),
-      confirm: z.string().min(6).max(20).trim(),
+      confirm: z
+        .string()
+        .min(6, { message: t.signup.confirm })
+        .max(20, { message: t.signup.confirm })
+        .trim(),
       email: z.string().email(t.signup.email).trim(),
       password: z
         .string()
