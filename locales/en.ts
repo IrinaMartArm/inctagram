@@ -9,9 +9,12 @@ export const en: LocaleType = {
   },
   passwordRecovery: {
     back: "Back to Sign In",
+    createTitle: "Create new password",
+    emailError: "User with this email doesn't exist",
     hidden:
       "The link has been sent by email.\n" +
       "If you don’t receive an email send link again",
+    rules: "Your password must be between 6 and 20 characters",
     send: "Send Link",
     text: "Enter your email address and we will send you further instructions",
     title: "Forgot Password",
