@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 
-import { ReactElement, ReactNode, useState } from "react";
+import { ReactElement, ReactNode } from "react";
 
 import { useLoader } from "@/shared/assets/hooks/useLoader";
 import { ReduxProvider } from "@/shared/components";
