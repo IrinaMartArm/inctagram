@@ -22,10 +22,8 @@
 
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;
+
   padding: 0 6px;
-  transition: var(--transtition-duration-basic) background-color,
-  var(--transtition-duration-basic) color,
-  var(--transtition-duration-basic) border-color;
 
   &:hover:not(&.disabled) {
     background-color: var(--color-dark-700);
@@ -42,7 +40,7 @@
   }
 
   &:focus-within:not(.error) {
-    outline: 2px solid var(--color-info-700);
+    outline: 2px solid var(--color-accent-700);
   }
 
   &.error {
@@ -98,5 +96,6 @@
 
 .errorMessage {
   width: 100%;
+  padding: 2px;
   height: auto;
 }

@@ -151,7 +151,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
           )}
         </div>
         {errorMessage && (
-          <Typography className={s.errorMessage} variant={"error"}>
+          <Typography className={s.errorMessage} variant={"error_regular"}>
             {errorMessage}
           </Typography>
         )}

@@ -19,6 +19,7 @@ export const ControlledCheckBox = <T extends FieldValues>({
 }: PropsType<T>) => {
   const {
     field: { onBlur, onChange, ref, value },
+    fieldState: { error },
   } = useController({
     control,
     disabled: rest.disabled,
@@ -30,6 +31,7 @@ export const ControlledCheckBox = <T extends FieldValues>({
     <CheckBox
       {...rest}
       checked={value}
+      errorMessage={error?.message}
       label={label}
       onBlur={onBlur}
       onCheckedChange={onChange}
