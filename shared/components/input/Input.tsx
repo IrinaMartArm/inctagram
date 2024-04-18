@@ -8,13 +8,13 @@ import {
   useState,
 } from "react";
 
-import { Close, Eye, EyeOff, Search_outline } from "@/public";
+import { Close, DatePicker, Eye, EyeOff, Search_outline } from "@/public";
 import { Typography } from "@/shared/components";
 import { clsx } from "clsx";
 
 import s from "./input.module.scss";
 
-type InputTypes = "email" | "password" | "search" | "text";
+type InputTypes = "datePicker" | "email" | "password" | "search" | "text";
 
 export type InputProps = {
   errorMessage?: string;
@@ -133,6 +133,13 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
             >
               {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </button>
+          )}
+          {type === "datePicker" && (
+            <>
+              <button className={s.iconStart} type={"button"}>
+                {<DatePicker />}
+              </button>
+            </>
           )}
           {isShowButton && (
             <button

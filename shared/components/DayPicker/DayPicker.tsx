@@ -10,9 +10,18 @@ import s from "./DayPicker.module.scss";
 
 export const DayPicker = () => {
   const [selected, setSelected] = useState<Date>();
+  const [isPickerHidden, setIsPickerHidden] = useState<boolean>(true);
 
   const onClick = () => {
-    alert("onClick");
+    setIsPickerHidden(false);
+  };
+
+  const onSelect = (date: "" | Date) => {
+    if (!date) {
+      return;
+    }
+    setSelected(date);
+    setIsPickerHidden(true);
   };
 
   const dateFormatted = selected
@@ -24,24 +33,24 @@ export const DayPicker = () => {
 
   return (
     <>
-      <div className={s.inputContainer}>
+      <div className={s.inputContainer} onClick={onClick}>
         <Input
           isShowButton
           label={"Date select"}
-          onChange={() => {}}
-          onClick={onClick}
-          type={"text"}
+          type={"datePicker"}
           value={dateFormatted}
         />
       </div>
-      <ReactDayPicker
-        mode={"single"}
-        modifiers={{ weekend: (day) => weekends.includes(day.getDay()) }}
-        modifiersStyles={{ weekend: weekendStyle }}
-        onSelect={setSelected}
-        selected={selected}
-        showOutsideDays
-      />
+      {!isPickerHidden && (
+        <ReactDayPicker
+          mode={"single"}
+          modifiers={{ weekend: (day) => weekends.includes(day.getDay()) }}
+          modifiersStyles={{ weekend: weekendStyle }}
+          onSelect={(date) => onSelect(date ? date : "")}
+          selected={selected}
+          showOutsideDays
+        />
+      )}
     </>
   );
 };
