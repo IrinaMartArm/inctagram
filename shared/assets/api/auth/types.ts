@@ -8,7 +8,7 @@ export type SignUpArgs = {
   password: string;
   username: string;
 };
-export type emailResendingArgs = {
+export type EmailResendingArgs = {
   email: string;
 };
 export type ErrorsMessages = {
@@ -20,4 +20,8 @@ export type RootObjectErrorsMessages = {
 };
 export type ConformationArgs = {
   code: string;
+};
+export type NewPasswordArgs = {
+  newPassword: string;
+  recoveryCode: string;
 };
