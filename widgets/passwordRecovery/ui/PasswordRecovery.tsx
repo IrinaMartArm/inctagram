@@ -1,23 +1,33 @@
-import { useForm } from "react-hook-form";
-
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { Recaptcha } from "@/public";
 import {
   Button,
   Card,
+  ControlledCheckBox,
   ControlledTextField,
+  Loader,
   Typography,
 } from "@/shared/components";
-import { ReCaptcha } from "@/widgets";
+import { usePasswordRecovery } from "@/widgets/passwordRecovery/hook/usePasswordRecovery";
 import Link from "next/link";
 
 import s from "./passwordRecovery.module.scss";
 
 export const PasswordRecovery = () => {
-  const { t } = useTranslation();
-  const { control } = useForm();
+  const {
+    control,
+    error,
+    expired,
+    handleSubmit,
+    isDirty,
+    isLoading,
+    isValid,
+    onRecovery,
+    show,
+    t,
+  } = usePasswordRecovery();
 
   return (
-    <Card as={"form"}>
+    <Card as={"form"} onSubmit={handleSubmit(onRecovery)}>
       <Typography className={s.title} variant={"h1"}>
         {t.passwordRecovery.title}
       </Typography>
@@ -31,17 +41,15 @@ export const PasswordRecovery = () => {
       <Typography className={s.text} variant={"regular_text-14"}>
         {t.passwordRecovery.text}
       </Typography>
-      {
-        <div className={s.hidden}>
-          <Typography variant={"regular_text-14"}>
-            {t.passwordRecovery.hidden}
-          </Typography>
-          <Typography variant={"regular_text-14"}>
-            {t.passwordRecovery.hidden2}
-          </Typography>
-        </div>
-      }
-      <Button fullWidth>{t.passwordRecovery.send}</Button>
+      {show && (
+        <Typography className={s.hidden} variant={"regular_text-14"}>
+          {t.passwordRecovery.hidden}
+        </Typography>
+      )}
+      <Button disabled={!isDirty || !isValid} fullWidth>
+        {t.passwordRecovery.send}
+      </Button>
+
       <Button
         as={Link}
         className={s.button}
@@ -50,7 +58,35 @@ export const PasswordRecovery = () => {
       >
         {t.passwordRecovery.back}
       </Button>
-      <ReCaptcha />
+      {!show && (
+        <div className={s.rootRecaptcha}>
+          <div className={s.container}>
+            <div className={s.wrapper}>
+              <div className={s.expired}>
+                {expired && (
+                  <Typography variant={"error"}>
+                    {t.recaptcha.expired}
+                  </Typography>
+                )}
+              </div>
+              <div className={s.box}>
+                {isLoading ? (
+                  <Loader />
+                ) : (
+                  <ControlledCheckBox
+                    control={control}
+                    label={t.recaptcha.title}
+                    name={"recaptcha"}
+                    recaptcha
+                  />
+                )}
+              </div>
+              <Recaptcha />
+            </div>
+          </div>
+          {error && <Typography variant={"error"}>{""}</Typography>}
+        </div>
+      )}
     </Card>
   );
 };
