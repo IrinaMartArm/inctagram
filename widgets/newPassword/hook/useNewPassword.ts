@@ -10,6 +10,7 @@ import z from "zod";
 
 export const useNewPassword = () => {
   const { t } = useTranslation();
+  const { confirm, created, passwordMax, passwordMin } = t.signUp;
   const router = useRouter();
   const code = Array.isArray(router.query.code)
     ? router.query.code[0]
@@ -17,19 +18,11 @@ export const useNewPassword = () => {
 
   const newPasswordSchema = z
     .object({
-      password: z
-        .string()
-        .min(6, { message: t.signup.passwordMin })
-        .max(20, { message: t.signup.passwordMax })
-        .trim(),
-      passwordConfirmation: z
-        .string()
-        .min(6, { message: t.signup.confirm })
-        .max(20, { message: t.signup.confirm })
-        .trim(),
+      password: z.string().min(6, passwordMin).max(20, passwordMax).trim(),
+      passwordConfirmation: z.string().min(6, confirm).max(20, confirm).trim(),
     })
     .refine((value) => value.password === value.passwordConfirmation, {
-      message: t.signup.confirm,
+      message: confirm,
       path: ["passwordConfirmation"],
     });
 
@@ -43,7 +36,7 @@ export const useNewPassword = () => {
   const { control, handleSubmit, reset, setError } =
     useForm<NewPasswordFormFields>({
       defaultValues,
-      mode: "onTouched",
+      mode: "onBlur",
       resolver: zodResolver(newPasswordSchema),
     });
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation();
@@ -57,7 +50,7 @@ export const useNewPassword = () => {
         if ("error" in res) {
           return handleErrorResponse(res.error);
         } else {
-          toast.success(t.signup.created);
+          toast.success(created);
         }
       })
       .then((error) => {

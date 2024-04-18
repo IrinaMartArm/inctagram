@@ -29,10 +29,14 @@ export const SignUpCard = () => {
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
-      <Typography variant={"h1"}>{t.signup.title}</Typography>
+      <Typography variant={"h1"}>{t.signUp.title}</Typography>
       <div className={s.socials}>
-        <Button icon={<Google />} variant={"link"} />
-        <Button icon={<GitHubBig />} variant={"link"} />
+        <Link aria-label={"sign in with Google"} href={""}>
+          <Google />
+        </Link>
+        <Link aria-label={"sign in with GitHub"} href={""}>
+          <GitHubBig />
+        </Link>
       </div>
       <ControlledTextField
         control={control}
@@ -83,19 +87,19 @@ export const SignUpCard = () => {
               1: () => (
                 <Link href={"./terms-of-service"}>
                   <Typography variant={"small_link"}>
-                    {t.signup["1"]}
+                    {t.signUp["1"]}
                   </Typography>
                 </Link>
               ),
               2: () => (
                 <Link href={"./privacy-policy"}>
                   <Typography variant={"small_link"}>
-                    {t.signup["2"]}
+                    {t.signUp["2"]}
                   </Typography>
                 </Link>
               ),
             }}
-            text={t.signup.agree}
+            text={t.signUp.agree}
           />
         </div>
       </div>
@@ -108,20 +112,20 @@ export const SignUpCard = () => {
             fullWidth
             type={"submit"}
           >
-            {t.signup.title}
+            {t.signUp.title}
           </Button>
         }
       >
         <EmailSent email={email || ""} />
       </Modal>
-      <Typography variant={"regular_text-16"}>{t.signup.question}</Typography>
+      <Typography variant={"regular_text-16"}>{t.signUp.question}</Typography>
       <Button
         as={Link}
         className={s.signupBtn}
         href={"./sign-in"}
         variant={"link"}
       >
-        {t.signup.signIn}
+        {t.signUp.signIn}
       </Button>
     </Card>
   );

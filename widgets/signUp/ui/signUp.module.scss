@@ -1,7 +1,7 @@
 @import "./../../../styles/mixins";
 
 .socials {
-  @include flex("", "", "", 6px);
+  @include flex("", "", "", 60px);
   margin: 13px auto 24px;
 }
 

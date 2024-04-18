@@ -12,6 +12,7 @@ import s from "../signup.module.scss";
 
 const Confirmed = () => {
   const { t } = useTranslation();
+  const { confirmed, congratulations, signIn } = t.signUp;
   const router = useRouter();
   const [registrationConfirmation, { isLoading }] =
     useRegistrationConfirmationMutation();
@@ -34,12 +35,12 @@ const Confirmed = () => {
 
   return (
     <PageWrapper>
-      <Typography variant={"h1"}>{t.signup.congratulations}</Typography>
+      <Typography variant={"h1"}>{congratulations}</Typography>
       <Typography className={s.confirmed} variant={"regular_text-16"}>
-        {t.signup.confirmed}
+        {confirmed}
       </Typography>
       <Button as={Link} className={s.btn} href={"./../../sign-in"}>
-        {t.signup.signIn}
+        {signIn}
       </Button>
       <Image
         alt={"Congratulations!"}
