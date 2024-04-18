@@ -2,9 +2,9 @@ import {
   ChangeEvent,
   ComponentPropsWithoutRef,
   ElementRef,
-  forwardRef,
   KeyboardEvent,
   ReactNode,
+  forwardRef,
   useState,
 } from "react";
 
@@ -132,10 +132,10 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
           />
           {type === "password" && (
             <button
+              aria-label={`${showPassword ? "hide" : "show"} password`}
               className={s.iconStart}
               onClick={showPasswordHandler}
               type={"button"}
-              aria-label={`${showPassword ? "hide" : "show"} password`}
             >
               {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </button>

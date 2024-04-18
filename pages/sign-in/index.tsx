@@ -1,17 +1,18 @@
-import { authActions } from "@/entities/auth/auth-slice";
+import { authActions } from "@/entities/auth/model/auth-slice";
 import { useLoginMutation, useMeQuery } from "@/shared/assets/api/auth-api";
 import { useAppDispatch } from "@/shared/assets/api/store";
-import { ErrorsData, LoginArgs } from "@/shared/assets/api/types";
+import { LoginArgs } from "@/shared/assets/api/types";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { SignInCard } from "@/widgets";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/router";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 
 const SignIn = () => {
   const { t } = useTranslation();
+  const { errors, title } = t.signIn;
   const [login] = useLoginMutation();
 
   useMeQuery();
@@ -32,8 +33,9 @@ const SignIn = () => {
 
       dispatch(authActions.setError(undefined));
     } catch (err: unknown) {
-      const { data } = err as FetchBaseQueryError;
-      const errorMessage = (data as ErrorsData).errorsMessages[0].message;
+      const { status } = err as FetchBaseQueryError;
+      const errorMessage =
+        status === 401 ? errors.loginError : errors.unknownError;
 
       dispatch(authActions.setError(errorMessage));
     }
@@ -41,7 +43,7 @@ const SignIn = () => {
 
   return (
     <PageWrapper>
-      <HeadMeta title={t.signIn.title} />
+      <HeadMeta title={title} />
       <SignInCard onSubmit={loginHandler} />
     </PageWrapper>
   );

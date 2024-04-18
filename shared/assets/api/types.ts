@@ -2,11 +2,11 @@ type MeErrorResponse = "Unauthorized";
 
 type MeSuccessResponse = {
   email: string;
-  username: string;
   userId: string;
+  username: string;
 };
 
-export type MeResponse = MeSuccessResponse | MeErrorResponse;
+export type MeResponse = MeErrorResponse | MeSuccessResponse;
 
 export type LoginArgs = {
   email: string;
@@ -15,13 +15,4 @@ export type LoginArgs = {
 
 export type LoginResponse = {
   accessToken: string;
-};
-
-type ErrorData = {
-  field: string;
-  message: string;
-};
-
-export type ErrorsData = {
-  errorsMessages: ErrorData[];
 };

@@ -1,7 +1,9 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 
+import { useLoginValidation } from "@/entities/auth/model/useValidation";
 import { GitHubBig, Google } from "@/public";
 import { useAppSelector } from "@/shared/assets/api/store";
+import { LoginArgs } from "@/shared/assets/api/types";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import {
   Button,
@@ -9,13 +11,10 @@ import {
   ControlledTextField,
   Typography,
 } from "@/shared/components";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { clsx } from "clsx";
 import Link from "next/link";
 
 import s from "./signIn.module.scss";
-import { loginSchema } from "@/entities/auth/auth-validation";
-import { LoginArgs } from "@/shared/assets/api/types";
 
 type Props = {
   onSubmit: SubmitHandler<LoginArgs>;
@@ -24,16 +23,11 @@ type Props = {
 export const SignInCard = ({ onSubmit }: Props) => {
   const { t } = useTranslation();
   const { forgotPassword, password, question, signUp, title } = t.signIn;
-  const {
-    control,
-    formState: { errors, isValid },
-    handleSubmit,
-  } = useForm<LoginArgs>({
-    mode: "onBlur",
-    resolver: zodResolver(loginSchema),
-  });
+
+  const { control, errors, handleSubmit, isValid } = useLoginValidation();
 
   const error = useAppSelector((state) => state.auth.error);
+
   const forgotPasswordCN = clsx(
     s.forgotPassword,
     errors.password?.message && s.withError,

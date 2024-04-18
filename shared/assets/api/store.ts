@@ -1,6 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import { authReducers } from "@/entities/auth/auth-slice";
+import { authReducers } from "@/entities/auth/model/auth-slice";
 import { baseApi } from "@/shared/assets/api/base-api";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
