@@ -1,0 +1,64 @@
+.title {
+  margin-bottom: 12px;
+  @media screen and (max-width: 576px) {
+    padding: 4px 0;
+  }
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 20px;
+}
+
+.link {
+  align-self: end;
+}
+
+.forgotPassword {
+  color: var(--color-light-900);
+  margin: 12px 0 24px;
+  padding: 0 4px;
+  @media screen and (max-width: 768px) {
+    margin: 0 0 64px;
+  }
+}
+
+.question {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.signUp {
+  margin-top: 12px;
+  color: var(--color-accent-500);
+  @media screen and (max-width: 768px) {
+    margin-top: 18px;
+  }
+}
+
+.wrapper {
+  @media screen and (max-width: 768px) {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    width: 100%;
+    .lastInput {
+      margin-bottom: 6px;
+    }
+  }
+}
+
+.button {
+  @media screen and (max-width: 768px) {
+    height: 48px;
+    border-radius: 2px;
+  }
+}
+
+.withError {
+  @media screen and (max-width: 768px) {
+    margin: -12px 0 30px;
+  }
+}

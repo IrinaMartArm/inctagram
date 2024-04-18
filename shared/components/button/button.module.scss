@@ -104,21 +104,21 @@
 .link {
   @include button;
 
-  color: var(--color-accent-500);
+  color: var(--color-accent-500) !important;
   background-color: transparent;
   border: none;
 
   &:hover {
-    color: var(--color-accent-300);
+    color: var(--color-accent-300) !important;
   }
 
   &:active {
-    color: var(--color-accent-700);
+    color: var(--color-accent-700) !important;
   }
 
   &:disabled {
     cursor: initial;
-    color: var(--color-accent-900);
+    color: var(--color-accent-900) !important;
   }
 
   &:focus-visible {

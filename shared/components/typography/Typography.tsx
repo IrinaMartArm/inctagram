@@ -34,6 +34,7 @@ export type TypographyVariantTypes =
   | "Semi-bold_small-text"
   | "bold_text-14"
   | "error"
+  | "error_regular"
   | "h1"
   | "h2"
   | "h3"

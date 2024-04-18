@@ -1,0 +1,51 @@
+@import "../../../styles/colors";
+
+.textarea {
+  h2 {
+    margin-bottom: 3px;
+    color: var(--color-light-900);
+  }
+
+  textarea {
+    padding: 10px;
+    background-color: var(--color-dark-500);
+    padding: 10px;
+
+    resize: none;
+    border: none;
+    outline: none;
+    width: 284px;
+    height: 84px;
+    top: 24px;
+    gap: 0px;
+    border: var(--color-light-900) 1px solid;
+    border-radius: 2px;
+    color: var(--color-light-900);
+
+    &:active {
+      color: var(--color-light-100);
+      border: var(--color-light-100) 1px solid;
+    }
+
+    &:hover {
+      color: var(--color-light-900);
+      border: var(--color-dark-100) 1px solid;
+    }
+
+    &:focus {
+      border: var(--color-accent-700) 1px solid;
+    }
+
+    &:disabled {
+      color: var(--color-dark-100);
+    }
+  }
+
+  .error {
+    border: var(--color-danger-500) 1px solid;
+  }
+
+  .error__message {
+    color: var(--color-danger-500);
+  }
+}

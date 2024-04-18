@@ -21,7 +21,7 @@ const interpolateTags = (data: TransType) => {
 
   const tokens = text.split(tagsRegex);
 
-  return tokens.map((token) => {
+  return tokens.map((token, index) => {
     const matchResult = openCloseTagRegex.exec(token);
 
     if (!matchResult) {
@@ -34,6 +34,6 @@ const interpolateTags = (data: TransType) => {
       return token;
     }
 
-    return <Fragment key={content}>{tags[openTag]?.(content ?? "")}</Fragment>;
+    return <Fragment key={index}>{tags[openTag]?.(content ?? "")}</Fragment>;
   });
 };

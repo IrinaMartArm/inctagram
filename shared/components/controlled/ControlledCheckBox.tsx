@@ -10,15 +10,17 @@ type PropsType<T extends FieldValues> = Omit<
   UseControllerProps<T>,
   "defaultValue" | "disabled" | "rules"
 > &
-  Omit<CheckboxProps, "checked" | "onCheckedChange">;
+  Omit<CheckboxProps, "checked" | "onCheckedChange"> & { recaptcha?: boolean };
 export const ControlledCheckBox = <T extends FieldValues>({
   control,
   label,
+  recaptcha,
   shouldUnregister,
   ...rest
 }: PropsType<T>) => {
   const {
     field: { onBlur, onChange, ref, value },
+    fieldState: { error },
   } = useController({
     control,
     disabled: rest.disabled,
@@ -30,9 +32,11 @@ export const ControlledCheckBox = <T extends FieldValues>({
     <CheckBox
       {...rest}
       checked={value}
+      errorMessage={error?.message}
       label={label}
       onBlur={onBlur}
       onCheckedChange={onChange}
+      recaptcha={recaptcha}
       ref={ref}
     />
   );
