@@ -5,11 +5,8 @@ import {
   LoginArgs,
   LoginResponse,
   MeResponse,
-  SignUpArgs,
-  emailResendingArgs,
   NewPasswordArgs,
   SignUpArgs,
-
 } from "@/shared/assets/api/auth/types";
 import { baseApi } from "@/shared/assets/api/base-api";
 
