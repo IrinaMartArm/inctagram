@@ -1,4 +1,4 @@
-import { authActions } from "@/entities/auth/model/auth-slice";
+import { authActions } from "@/entities";
 import { useLoginMutation, useMeQuery } from "@/shared/assets/api/auth-api";
 import { useAppDispatch } from "@/shared/assets/api/store";
 import { LoginArgs } from "@/shared/assets/api/types";

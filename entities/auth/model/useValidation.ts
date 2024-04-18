@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { PASSWORD_REGEX } from "@/entities/auth/model/auth-validation";
+import { PASSWORD_REGEX } from "@/entities";
 import { LoginArgs } from "@/shared/assets/api/types";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { zodResolver } from "@hookform/resolvers/zod";
