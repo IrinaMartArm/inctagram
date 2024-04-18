@@ -1,3 +1,4 @@
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, Typography } from "@/shared/components";
 import { ModalClose } from "@/shared/components/modals/ModalClose";
 
@@ -7,6 +8,8 @@ type Props = {
   email: string;
 };
 export const EmailSent = ({ email }: Props) => {
+  const t = useTranslation();
+
   return (
     <div>
       <Typography className={s.emailSent_text} variant={"regular_text-16"}>

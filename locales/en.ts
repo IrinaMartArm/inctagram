@@ -44,7 +44,7 @@ export const en: LocaleType = {
     signUp: "Sign Up",
     title: "Sign In",
   },
-  signup: {
+  signUp: {
     1: "Terms of Service",
     2: "Privacy Policy",
     agree: "I agree to the <1></1> and <2></2>",
@@ -54,8 +54,9 @@ export const en: LocaleType = {
     confirmed: "Your email has been confirmed",
     congratulations: "Congratulations!",
     created: "The account has been created.",
-    email: "The email must match the format\n" + "example@example.com",
     expired: "Email verification link expired",
+    formEmail: "The email must match the format\n" + "example@example.com",
+    haveSent: "We have sent a link to confirm your email to",
     name: "Username",
     password: "Password",
     password2: "Password confirmation",

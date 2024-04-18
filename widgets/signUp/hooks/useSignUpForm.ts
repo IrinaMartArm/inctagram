@@ -10,33 +10,30 @@ import { z } from "zod";
 
 export const useSignUp = () => {
   const { t } = useTranslation();
+  const {
+    checkbox,
+    confirm,
+    created,
+    formEmail,
+    passwordMax,
+    passwordMin,
+    username,
+  } = t.signUp;
 
   const signUpSchema = z
     .object({
       agree: z.boolean(),
-      confirm: z
-        .string()
-        .min(6, { message: t.signup.confirm })
-        .max(20, { message: t.signup.confirm })
-        .trim(),
-      email: z.string().email(t.signup.email).trim(),
-      password: z
-        .string()
-        .min(6, { message: t.signup.passwordMin })
-        .max(20, { message: t.signup.passwordMax })
-        .trim(),
-      username: z
-        .string()
-        .min(6, { message: t.signup.passwordMin })
-        .max(30, { message: t.signup.username })
-        .trim(),
+      confirm: z.string().min(6, confirm).max(20, confirm).trim(),
+      email: z.string().email(formEmail).trim(),
+      password: z.string().min(6, passwordMin).max(20, passwordMax).trim(),
+      username: z.string().min(6, passwordMin).max(30, username).trim(),
     })
-    .refine((value) => value.agree === true, {
-      message: t.signup.checkbox,
+    .refine((value) => value.agree, {
+      message: checkbox,
       path: ["agree"],
     })
     .refine((data) => data.password === data.confirm, {
-      message: t.signup.confirm,
+      message: confirm,
       path: ["confirm"],
     });
 
@@ -59,7 +56,7 @@ export const useSignUp = () => {
     setError,
   } = useForm<SignUpFormFields>({
     defaultValues,
-    mode: "onTouched",
+    mode: "onBlur",
     resolver: zodResolver(signUpSchema),
   });
   const signUpHandler = (data: SignUpArgs) => {
@@ -76,7 +73,7 @@ export const useSignUp = () => {
         if ("error" in res) {
           return handleErrorResponse(res.error);
         } else {
-          toast.success(t.signup.created);
+          toast.success(created);
         }
       })
       .then((error) => {

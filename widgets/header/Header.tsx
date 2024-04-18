@@ -25,7 +25,7 @@ export const Header = () => {
                 Log in
               </Button>
               <Button as={Link} href={"./sign-up"}>
-                {t.signup.title}
+                {t.signUp.title}
               </Button>
             </div>
           </div>
