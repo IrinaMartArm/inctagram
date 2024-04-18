@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { GitHubBig, Google } from "@/public";
+import { useAppSelector } from "@/shared/assets/api/store";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import {
   Button,
@@ -8,29 +9,58 @@ import {
   ControlledTextField,
   Typography,
 } from "@/shared/components";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { clsx } from "clsx";
 import Link from "next/link";
+import { z } from "zod";
 
 import s from "./signIn.module.scss";
+
+export const PASSWORD_REGEX =
+  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~])[0-9A-Za-z!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~]*$/;
+
+export const emailValidation = z
+  .string()
+  .trim()
+  .min(1, "Required")
+  .email("The email must match the format example@example.com");
+export const passwordValidation = z
+  .string()
+  .regex(
+    PASSWORD_REGEX,
+    'Password must contain 0-9, a-z, A-Z, ! " # $ % &\n' +
+      "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
+  )
+  .min(6, "Minimum number of characters 6")
+  .max(20, "Maximum number of characters 30");
+
+export const signInSchema = z.object({
+  email: emailValidation,
+  password: passwordValidation,
+});
 
 type SignInData = {
   email: string;
   password: string;
 };
 
-export const SignInCard = () => {
+type Props = {
+  onSubmit: SubmitHandler<SignInData>;
+};
+
+export const SignInCard = ({ onSubmit }: Props) => {
   const { t } = useTranslation();
   const { forgotPassword, password, question, signUp, title } = t.signIn;
   const {
     control,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
-  } = useForm<SignInData>();
+  } = useForm<SignInData>({
+    mode: "onBlur",
+    resolver: zodResolver(signInSchema),
+  });
 
-  const onSubmit: SubmitHandler<SignInData> = (data) => {
-    console.log(data);
-  };
-
+  const error = useAppSelector((state) => state.auth.error);
   const forgotPasswordCN = clsx(
     s.forgotPassword,
     errors.password?.message && s.withError,
@@ -51,23 +81,23 @@ export const SignInCard = () => {
       </div>
       <>
         <ControlledTextField
+          autoComplete={"email"}
           control={control}
           errorMessage={errors.email?.message}
           label={"Email"}
           name={"email"}
           placeholder={"Email"}
           type={"email"}
-          autoComplete={"email"}
         />
         <ControlledTextField
+          autoComplete={"current-password"}
           className={s.lastInput}
           control={control}
-          errorMessage={errors.password?.message}
+          errorMessage={errors.password?.message || error}
           label={password}
           name={"password"}
           placeholder={password}
           type={"password"}
-          autoComplete={"current-password"}
         />
       </>
 
@@ -76,7 +106,12 @@ export const SignInCard = () => {
           {forgotPassword}
         </Typography>
       </Link>
-      <Button className={s.button} fullWidth type={"submit"}>
+      <Button
+        className={s.button}
+        disabled={!isValid}
+        fullWidth
+        type={"submit"}
+      >
         {title}
       </Button>
       <Link href={""}>
