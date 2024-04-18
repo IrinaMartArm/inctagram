@@ -1,7 +1,10 @@
 import { authActions } from "@/entities";
-import { useLoginMutation, useMeQuery } from "@/shared/assets/api/auth-api";
+import {
+  useLoginMutation,
+  useMeQuery,
+} from "@/shared/assets/api/auth/auth-api";
+import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
-import { LoginArgs } from "@/shared/assets/api/types";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";

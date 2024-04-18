@@ -2,8 +2,8 @@ import { SubmitHandler } from "react-hook-form";
 
 import { useLoginValidation } from "@/entities";
 import { GitHubBig, Google } from "@/public";
+import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppSelector } from "@/shared/assets/api/store";
-import { LoginArgs } from "@/shared/assets/api/types";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import {
   Button,

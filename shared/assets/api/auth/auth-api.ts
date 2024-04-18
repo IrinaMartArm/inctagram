@@ -1,8 +1,10 @@
 import {
   ConformationArgs,
   ErrorsMessages,
+  LoginArgs,
+  LoginResponse,
+  MeResponse,
   SignUpArgs,
-  User,
   emailResendingArgs,
 } from "@/shared/assets/api/auth/types";
 import { baseApi } from "@/shared/assets/api/base-api";
@@ -17,7 +19,18 @@ export const AuthApi = baseApi.injectEndpoints({
           url: "v1/auth/registration-email-resending",
         }),
       }),
-      me: builder.query<User, void>({
+      login: builder.mutation<LoginResponse, LoginArgs>({
+        query: (body) => ({
+          body: {
+            email: body.email,
+            password: body.password,
+          },
+          invalidatesTags: ["Me"],
+          method: "POST",
+          url: "v1/auth/login",
+        }),
+      }),
+      me: builder.query<MeResponse, void>({
         providesTags: ["Me"],
         query: () => "v1/auth/me",
       }),
@@ -46,6 +59,7 @@ export const AuthApi = baseApi.injectEndpoints({
 
 export const {
   useEmailResendingMutation,
+  useLoginMutation,
   useMeQuery,
   useRegistrationConfirmationMutation,
   useSignUpMutation,

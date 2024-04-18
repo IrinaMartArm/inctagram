@@ -3,6 +3,9 @@ export type User = {
   login: string;
   userId: string;
 };
+
+type MeErrorResponse = "Unauthorized";
+
 export type SignUpArgs = {
   email: string;
   password: string;
@@ -20,4 +23,15 @@ export type RootObjectErrorsMessages = {
 };
 export type ConformationArgs = {
   code: string;
+};
+
+export type MeResponse = MeErrorResponse | User;
+
+export type LoginArgs = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  accessToken: string;
 };

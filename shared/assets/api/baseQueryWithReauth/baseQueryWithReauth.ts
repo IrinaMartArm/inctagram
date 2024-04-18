@@ -7,10 +7,15 @@ import {
 import { Mutex } from "async-mutex";
 
 const mutex = new Mutex();
+const TOKEN =
+  typeof window !== "undefined" && window.localStorage.getItem("accessToken");
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://instagram-api-dw99.onrender.com/api/",
   credentials: "include",
+  headers: {
+    Authorization: `Bearer ${TOKEN}`,
+  },
 });
 
 export const baseQueryWithReauth: BaseQueryFn<
@@ -25,7 +30,6 @@ export const baseQueryWithReauth: BaseQueryFn<
   if (result.error && result.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
-      // try to get a new token
       const refreshResult = await baseQuery(
         { method: "POST", url: "v1/auth/refresh-token" },
         api,
@@ -33,12 +37,10 @@ export const baseQueryWithReauth: BaseQueryFn<
       );
 
       if (refreshResult.meta?.response?.status === 204) {
-        // retry the initial query
         result = await baseQuery(args, api, extraOptions);
       }
       release();
     } else {
-      // wait until the mutex is available without locking it
       await mutex.waitForUnlock();
       result = await baseQuery(args, api, extraOptions);
     }
