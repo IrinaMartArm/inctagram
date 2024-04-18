@@ -17,6 +17,7 @@ import s from "./signUp.module.scss";
 export const SignUpCard = () => {
   const {
     control,
+    email,
     errors,
     handleSubmit,
     isDirty,
@@ -25,8 +26,6 @@ export const SignUpCard = () => {
     signUpHandler,
     t,
   } = useSignUp();
-
-  const email = "test@test.com";
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
@@ -113,10 +112,15 @@ export const SignUpCard = () => {
           </Button>
         }
       >
-        <EmailSent email={email} />
+        <EmailSent email={email || ""} />
       </Modal>
       <Typography variant={"regular_text-16"}>{t.signup.question}</Typography>
-      <Button className={s.signupBtn} variant={"link"}>
+      <Button
+        as={Link}
+        className={s.signupBtn}
+        href={"./sign-in"}
+        variant={"link"}
+      >
         {t.signup.signIn}
       </Button>
     </Card>

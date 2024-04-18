@@ -2,6 +2,8 @@ import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, PageWrapper, Typography } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
+import { Modal } from "@/shared/components/modals";
+import { EmailSent } from "@/widgets";
 import Image from "next/image";
 
 import s from "../signup.module.scss";
@@ -10,10 +12,10 @@ const Verification = () => {
   const { t } = useTranslation();
 
   const [resending] = useEmailResendingMutation();
-  const email = "";
+  const email = localStorage.getItem("email");
 
   const resendingHandler = () => {
-    resending({ email: email });
+    resending({ email: email || "" });
   };
 
   return (
@@ -24,7 +26,12 @@ const Verification = () => {
       <Typography className={s.expired} variant={"regular_text-16"}>
         {t.signup.sendAgain}
       </Typography>
-      <Button onClick={resendingHandler}>{t.signup.resend}</Button>
+      <Modal
+        title={"Email sent"}
+        trigger={<Button onClick={resendingHandler}>{t.signup.resend}</Button>}
+      >
+        <EmailSent email={email || ""} />
+      </Modal>
       <Image
         alt={"Congratulations!"}
         className={s.boy}
