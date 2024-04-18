@@ -26,7 +26,21 @@ export const ru = {
     title: "Я не робот",
   },
   signIn: {
-    question: "",
+    errors: {
+      email:
+        "Электронная почта должна соответствовать формату\n" +
+        "example@example.com",
+      invalidPassword: "Пароль должен содержать",
+      loginError:
+        "Указан неверный адрес электронной почты или пароль. Попробуйте еще раз, пожалуйста",
+      passwordMax: "Максимальное количество символов 20",
+      passwordMin: "Минимальное количество символов 6",
+      required: "Обязательное поле",
+      unknownError: "Unknown error",
+    },
+    forgotPassword: "Забыли пароль",
+    password: "Пароль",
+    question: "У вас нет учетной записи?",
     signUp: "Зарегистрироваться",
     title: "Войти",
   },
