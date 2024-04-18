@@ -62,13 +62,14 @@ export const useSignUp = () => {
     mode: "onTouched",
     resolver: zodResolver(signUpSchema),
   });
-
   const signUpHandler = (data: SignUpArgs) => {
     const signUpArgs = {
       email: data.email,
       password: data.password,
       username: data.username,
     };
+
+    localStorage.setItem("email", data.email);
 
     signUp(signUpArgs)
       .then((res) => {
@@ -90,8 +91,15 @@ export const useSignUp = () => {
     reset(defaultValues);
   };
 
+  let email;
+
+  if (typeof window !== "undefined") {
+    email = localStorage.getItem("email");
+  }
+
   return {
     control,
+    email,
     errors,
     handleSubmit,
     isDirty,

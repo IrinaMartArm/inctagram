@@ -12,10 +12,9 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   if (isLoading) {
     return <Loader />;
   }
-  // const isAuth = data.userId; // запрос за данными пользователя
 
   if (!isAuth) {
-    router.push("/sign-up");
+    router.push("/sign-in");
   }
 
   return <>{children}</>;

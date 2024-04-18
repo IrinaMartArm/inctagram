@@ -127,7 +127,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
             onKeyDown={handleKeyDown}
             ref={ref}
             type={InputType(type, showPassword)}
-            value={value}
+            value={value || ""}
             {...rest}
           />
           {type === "password" && (

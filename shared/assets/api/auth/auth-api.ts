@@ -1,18 +1,30 @@
 import {
   ConformationArgs,
+  EmailResendingArgs,
   ErrorsMessages,
   LoginArgs,
   LoginResponse,
   MeResponse,
   SignUpArgs,
   emailResendingArgs,
+  NewPasswordArgs,
+  SignUpArgs,
+
 } from "@/shared/assets/api/auth/types";
 import { baseApi } from "@/shared/assets/api/base-api";
 
 export const AuthApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
-      emailResending: builder.mutation<ErrorsMessages, emailResendingArgs>({
+      createNewPassword: builder.mutation<void, NewPasswordArgs>({
+        query: (body) => ({
+          body,
+          method: "POST",
+          providesTags: ["Me"],
+          url: "v1/auth/new-password",
+        }),
+      }),
+      emailResending: builder.mutation<ErrorsMessages, EmailResendingArgs>({
         query: (body) => ({
           body,
           method: "POST",
@@ -58,6 +70,7 @@ export const AuthApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useCreateNewPasswordMutation,
   useEmailResendingMutation,
   useLoginMutation,
   useMeQuery,

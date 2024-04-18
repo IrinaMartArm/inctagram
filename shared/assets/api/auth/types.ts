@@ -11,7 +11,7 @@ export type SignUpArgs = {
   password: string;
   username: string;
 };
-export type emailResendingArgs = {
+export type EmailResendingArgs = {
   email: string;
 };
 export type ErrorsMessages = {
@@ -34,4 +34,8 @@ export type LoginArgs = {
 
 export type LoginResponse = {
   accessToken: string;
+}
+export type NewPasswordArgs = {
+  newPassword: string;
+  recoveryCode: string;
 };

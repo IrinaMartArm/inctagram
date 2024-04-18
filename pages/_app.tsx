@@ -13,13 +13,13 @@ import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 
-export type NextPageWithLayout<P = {}> = NextPage<P> & {
+export type NextPageWithLayout<P = {}> = {
   getLayout?: (page: ReactElement) => ReactNode;
-};
+} & NextPage<P>;
 
-type AppPropsWithLayout = AppProps & {
+type AppPropsWithLayout = {
   Component: NextPageWithLayout;
-};
+} & AppProps;
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   useLoader();
