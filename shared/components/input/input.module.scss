@@ -55,7 +55,7 @@
 .input {
   width: 100%;
   height: 36px;
-  padding: 0 3px;
+ padding: 0 2px;
 
   font-size: var(--font-size-l);
   line-height: var(--line-height-l);
@@ -96,6 +96,7 @@
 
 .errorMessage {
   width: 100%;
-  padding: 2px;
   height: auto;
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
 }

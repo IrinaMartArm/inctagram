@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   gap: 60px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .link {
@@ -18,7 +18,7 @@
 
 .forgotPassword {
   color: var(--color-light-900);
-  margin: 8px 0 24px;
+  margin: 12px 0 24px;
   padding: 0 4px;
   @media screen and (max-width: 768px) {
     margin: 0 0 64px;
