@@ -85,7 +85,7 @@ export const PasswordRecovery = () => {
               <Recaptcha />
             </div>
           </div>
-          {error && <Typography variant={"error"}>{""}</Typography>}
+          {error && <Typography variant={"error"}>hi</Typography>}
         </div>
       )}
     </Card>
