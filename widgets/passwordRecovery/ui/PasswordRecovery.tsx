@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@/shared/components";
 import { usePasswordRecovery } from "@/widgets/passwordRecovery/hook/usePasswordRecovery";
+import { clsx } from "clsx";
 import Link from "next/link";
 
 import s from "./passwordRecovery.module.scss";
@@ -59,7 +60,7 @@ export const PasswordRecovery = () => {
         {t.passwordRecovery.back}
       </Button>
       {!show && (
-        <div className={s.rootRecaptcha}>
+        <div className={clsx(s.rootRecaptcha, error && s.error)}>
           <div className={s.container}>
             <div className={s.wrapper}>
               <div className={s.expired}>

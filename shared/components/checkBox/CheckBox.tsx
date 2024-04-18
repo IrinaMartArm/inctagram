@@ -47,6 +47,7 @@ export const CheckBox = forwardRef<
         disabled ? "var(--color-light-900)" : "var(--color-dark-900)",
       ),
       container: clsx(s.container, className),
+      errorMessage: clsx(s.errorMessage, recaptcha && s.recaptcha),
       label: clsx(s.label, disabled && s.disabled),
       root: clsx(s.root, recaptcha && s.recaptcha),
     };
@@ -87,7 +88,7 @@ export const CheckBox = forwardRef<
             {label}
           </Typography>
         </LabelRadix.Root>
-        <Typography className={s.errorMessage} variant={"small-text"}>
+        <Typography className={classNames.errorMessage} variant={"small-text"}>
           {errorMessage}
         </Typography>
       </div>

@@ -12,7 +12,11 @@ const Verification = () => {
   const { t } = useTranslation();
 
   const [resending] = useEmailResendingMutation();
-  const email = localStorage.getItem("email");
+  let email: string = "";
+
+  if (typeof window !== "undefined") {
+    email = localStorage.getItem("email") || "";
+  }
 
   const resendingHandler = () => {
     resending({ email: email || "" });

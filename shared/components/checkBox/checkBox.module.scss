@@ -73,9 +73,6 @@
     cursor: initial;
   }
 
-  &:not(.disabled) .root:has([data-state="checked"]) {
-  }
-
   &:focus-within {
     background-color: var(--color-dark-100);
     &.recaptcha {
@@ -111,4 +108,9 @@
   left: 0;
   bottom: -18px;
   color: var(--color-danger-500);
+
+  &.recaptcha {
+    bottom: -40px;
+    left: -20px;
+  }
 }

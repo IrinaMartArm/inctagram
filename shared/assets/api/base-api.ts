@@ -1,4 +1,5 @@
 import { baseQueryWithReauth } from "@/shared/assets/api/baseQueryWithReauth/baseQueryWithReauth";
+// import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
