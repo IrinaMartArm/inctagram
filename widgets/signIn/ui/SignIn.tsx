@@ -12,40 +12,13 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clsx } from "clsx";
 import Link from "next/link";
-import { z } from "zod";
 
 import s from "./signIn.module.scss";
-
-export const PASSWORD_REGEX =
-  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~])[0-9A-Za-z!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~]*$/;
-
-export const emailValidation = z
-  .string()
-  .trim()
-  .min(1, "Required")
-  .email("The email must match the format example@example.com");
-export const passwordValidation = z
-  .string()
-  .regex(
-    PASSWORD_REGEX,
-    'Password must contain 0-9, a-z, A-Z, ! " # $ % &\n' +
-      "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
-  )
-  .min(6, "Minimum number of characters 6")
-  .max(20, "Maximum number of characters 30");
-
-export const signInSchema = z.object({
-  email: emailValidation,
-  password: passwordValidation,
-});
-
-type SignInData = {
-  email: string;
-  password: string;
-};
+import { loginSchema } from "@/entities/auth/auth-validation";
+import { LoginArgs } from "@/shared/assets/api/types";
 
 type Props = {
-  onSubmit: SubmitHandler<SignInData>;
+  onSubmit: SubmitHandler<LoginArgs>;
 };
 
 export const SignInCard = ({ onSubmit }: Props) => {
@@ -55,9 +28,9 @@ export const SignInCard = ({ onSubmit }: Props) => {
     control,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<SignInData>({
+  } = useForm<LoginArgs>({
     mode: "onBlur",
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(loginSchema),
   });
 
   const error = useAppSelector((state) => state.auth.error);

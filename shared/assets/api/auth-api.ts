@@ -1,10 +1,14 @@
 import { baseApi } from "@/shared/assets/api/base-api";
-import { SignInArgs, SignInResponse } from "@/shared/assets/api/types";
+import {
+  LoginArgs,
+  LoginResponse,
+  MeResponse,
+} from "@/shared/assets/api/types";
 
 export const AuthApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
-      login: builder.mutation<SignInResponse, SignInArgs>({
+      login: builder.mutation<LoginResponse, LoginArgs>({
         query: (body) => ({
           body: {
             email: body.email,
@@ -15,7 +19,7 @@ export const AuthApi = baseApi.injectEndpoints({
           url: "v1/auth/login",
         }),
       }),
-      me: builder.query<any, void>({
+      me: builder.query<MeResponse, void>({
         providesTags: ["Me"],
         query: () => {
           return {
