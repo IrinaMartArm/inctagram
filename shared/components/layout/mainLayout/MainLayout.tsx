@@ -1,5 +1,7 @@
 import { PropsWithChildren, ReactElement } from "react";
+import { Provider } from "react-redux";
 
+import { store } from "@/shared/assets/api/store";
 import { MainSideBar } from "@/widgets/sideBar/ui";
 import { NextPage } from "next";
 
@@ -11,10 +13,12 @@ export const MainLayout: NextPage<PropsWithChildren> = (props) => {
   const { children } = props;
 
   return (
-    <div className={s.container}>
-      <MainSideBar />
-      <Layout>{children}</Layout>
-    </div>
+    <Provider store={store}>
+      <div className={s.container}>
+        <MainSideBar />
+        <Layout>{children}</Layout>
+      </div>
+    </Provider>
   );
 };
 

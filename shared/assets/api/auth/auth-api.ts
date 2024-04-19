@@ -39,6 +39,13 @@ export const AuthApi = baseApi.injectEndpoints({
           url: "v1/auth/login",
         }),
       }),
+      logout: builder.mutation<void, void>({
+        invalidatesTags: ["Me"],
+        query: () => ({
+          method: "POST",
+          url: "v1/auth/logout",
+        }),
+      }),
       me: builder.query<MeResponse, void>({
         providesTags: ["Me"],
         query: () => "v1/auth/me",
@@ -70,6 +77,7 @@ export const {
   useCreateNewPasswordMutation,
   useEmailResendingMutation,
   useLoginMutation,
+  useLogoutMutation,
   useMeQuery,
   useRegistrationConfirmationMutation,
   useSignUpMutation,
