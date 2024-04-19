@@ -1,60 +1,55 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
+import { usePasswordRecoveryMutation } from "@/shared/assets/api/auth/auth-api";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 export const usePasswordRecovery = () => {
   const { t } = useTranslation();
 
-  let email: string = "";
-
-  if (typeof window !== "undefined") {
-    email = localStorage.getItem("email") || "";
-  }
-
-  const passwordRecoverySchema = z
-    .object({
-      email: z.string().email().trim(),
-      recaptcha: z.boolean(),
-    })
-    .refine((value) => value.recaptcha, {
-      message: t.recaptcha.text,
-      path: ["recaptcha"],
-    })
-    .refine((value) => value.email === email, {
-      message: "User with this email doesn't exist",
-      path: ["email"],
-    });
+  const passwordRecoverySchema = z.object({
+    email: z.string().trim().email(),
+    token: z.string(),
+  });
 
   type PasswordRecoveryFormFields = z.infer<typeof passwordRecoverySchema>;
 
   const defaultValues = {
     email: "",
-    recaptcha: false,
+    token: "",
   };
 
-  const [show, setShow] = useState(false);
-  const [emailResending, { error, isLoading }] = useEmailResendingMutation();
+  const [token, setToken] = useState<null | string>(null);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [passwordRecovery, { error, isLoading }] =
+    usePasswordRecoveryMutation();
   const {
     control,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isValid },
     handleSubmit,
     reset,
+    setValue,
   } = useForm<PasswordRecoveryFormFields>({
     defaultValues,
-    mode: "onTouched",
-    resolver: zodResolver(passwordRecoverySchema),
+    mode: "onSubmit",
+    // resolver: zodResolver(passwordRecoverySchema),
   });
-  const expired = false;
-  const onRecovery = (data: PasswordRecoveryFormFields) => {
-    if (data.email === email) {
-      emailResending(data);
+  const expired = error;
+  const onRecovery = async (data: PasswordRecoveryFormFields) => {
+    if (token) {
+      const body = { email: data.email, reCaptcha: token };
+
+      await passwordRecovery(body)
+        .then(() => setIsVerified(true))
+        .catch(() => setIsVerified(false));
+      reset(defaultValues);
     }
-    reset(defaultValues);
-    setShow(!show);
+  };
+  const handleRecaptchaChange = (token: any) => {
+    setToken(token);
+    setValue("token", token);
   };
 
   return {
@@ -62,12 +57,14 @@ export const usePasswordRecovery = () => {
     error,
     errors,
     expired,
+    handleRecaptchaChange,
     handleSubmit,
-    isDirty,
     isLoading,
+    isSuccess,
     isValid,
+    isVerified,
     onRecovery,
-    show,
     t,
+    token,
   };
 };

@@ -1,14 +1,11 @@
-import { Recaptcha } from "@/public";
+import ReCAPTCHAWidget from "@/pages/password-recovery/recaptcha";
 import {
   Button,
   Card,
-  ControlledCheckBox,
   ControlledTextField,
-  Loader,
   Typography,
 } from "@/shared/components";
 import { usePasswordRecovery } from "@/widgets/passwordRecovery/hook/usePasswordRecovery";
-import { clsx } from "clsx";
 import Link from "next/link";
 
 import s from "./passwordRecovery.module.scss";
@@ -16,15 +13,16 @@ import s from "./passwordRecovery.module.scss";
 export const PasswordRecovery = () => {
   const {
     control,
-    error,
+    errors,
     expired,
+    handleRecaptchaChange,
     handleSubmit,
-    isDirty,
     isLoading,
+    isSuccess,
     isValid,
     onRecovery,
-    show,
     t,
+    token,
   } = usePasswordRecovery();
 
   return (
@@ -34,6 +32,7 @@ export const PasswordRecovery = () => {
       </Typography>
       <ControlledTextField
         control={control}
+        errorMessage={errors.email?.message}
         label={"Email"}
         name={"email"}
         placeholder={"example@example.com"}
@@ -42,12 +41,12 @@ export const PasswordRecovery = () => {
       <Typography className={s.text} variant={"regular_text-14"}>
         {t.passwordRecovery.text}
       </Typography>
-      {show && (
+      {isSuccess && (
         <Typography className={s.hidden} variant={"regular_text-14"}>
           {t.passwordRecovery.hidden}
         </Typography>
       )}
-      <Button disabled={!isDirty || !isValid} fullWidth>
+      <Button disabled={!isValid} fullWidth>
         {t.passwordRecovery.send}
       </Button>
 
@@ -59,35 +58,88 @@ export const PasswordRecovery = () => {
       >
         {t.passwordRecovery.back}
       </Button>
-      {!show && (
-        <div className={clsx(s.rootRecaptcha, error && s.error)}>
-          <div className={s.container}>
-            <div className={s.wrapper}>
-              <div className={s.expired}>
-                {expired && (
-                  <Typography variant={"error"}>
-                    {t.recaptcha.expired}
-                  </Typography>
-                )}
-              </div>
-              <div className={s.box}>
-                {isLoading ? (
-                  <Loader />
-                ) : (
-                  <ControlledCheckBox
-                    control={control}
-                    label={t.recaptcha.title}
-                    name={"recaptcha"}
-                    recaptcha
-                  />
-                )}
-              </div>
-              <Recaptcha />
-            </div>
-          </div>
-          {error && <Typography variant={"error"}>hi</Typography>}
-        </div>
-      )}
+      {!isSuccess && <ReCAPTCHAWidget onChange={handleRecaptchaChange} />}
     </Card>
   );
 };
+{
+  /*<div className={clsx(s.rootRecaptcha, error && s.error)}>*/
+}
+{
+  /*    <div className={s.container}>*/
+}
+{
+  /*        <div className={s.wrapper}>*/
+}
+{
+  /*            <div className={s.expired}>*/
+}
+{
+  /*                {expired && (*/
+}
+{
+  /*                    <Typography variant={"error"}>*/
+}
+{
+  /*                        {t.recaptcha.expired}*/
+}
+{
+  /*                    </Typography>*/
+}
+{
+  /*                )}*/
+}
+{
+  /*            </div>*/
+}
+{
+  /*            <div className={s.box}>*/
+}
+{
+  /*                {isLoading ? (*/
+}
+{
+  /*                    <Loader />*/
+}
+{
+  /*                ) : (*/
+}
+{
+  /*                    <ControlledCheckBox*/
+}
+{
+  /*                        control={control}*/
+}
+{
+  /*                        label={t.recaptcha.title}*/
+}
+{
+  /*                        name={"recaptcha"}*/
+}
+{
+  /*                        recaptcha*/
+}
+{
+  /*                    />*/
+}
+{
+  /*                )}*/
+}
+{
+  /*            </div>*/
+}
+{
+  /*            <Recaptcha />*/
+}
+{
+  /*        </div>*/
+}
+{
+  /*    </div>*/
+}
+{
+  /*    {error && <Typography variant={"error"}>hi</Typography>}*/
+}
+{
+  /*</div>*/
+}
