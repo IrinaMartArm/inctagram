@@ -33,12 +33,17 @@ export const useNewPassword = () => {
     passwordConfirmation: "",
   };
 
-  const { control, handleSubmit, reset, setError } =
-    useForm<NewPasswordFormFields>({
-      defaultValues,
-      mode: "onBlur",
-      resolver: zodResolver(newPasswordSchema),
-    });
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    setError,
+  } = useForm<NewPasswordFormFields>({
+    defaultValues,
+    mode: "onBlur",
+    resolver: zodResolver(newPasswordSchema),
+  });
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation();
 
   const newPasswordCreator = (data: NewPasswordFormFields) => {
@@ -65,5 +70,5 @@ export const useNewPassword = () => {
     reset(defaultValues);
   };
 
-  return { control, handleSubmit, isLoading, newPasswordCreator, t };
+  return { control, errors, handleSubmit, isLoading, newPasswordCreator, t };
 };

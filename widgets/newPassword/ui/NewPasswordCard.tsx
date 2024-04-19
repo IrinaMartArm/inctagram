@@ -10,7 +10,7 @@ import { useNewPassword } from "@/widgets/newPassword/hook/useNewPassword";
 import s from "./newPassword.module.scss";
 
 export const NewPasswordCard = () => {
-  const { control, handleSubmit, isLoading, newPasswordCreator, t } =
+  const { control, errors, handleSubmit, isLoading, newPasswordCreator, t } =
     useNewPassword();
 
   if (isLoading) {
@@ -24,6 +24,7 @@ export const NewPasswordCard = () => {
       </Typography>
       <ControlledTextField
         control={control}
+        errorMessage={errors.password?.message}
         label={"New password"}
         name={"password"}
         placeholder={"New password"}
@@ -31,6 +32,7 @@ export const NewPasswordCard = () => {
       />
       <ControlledTextField
         control={control}
+        errorMessage={errors.passwordConfirmation?.message}
         label={"Password confirmation"}
         name={"passwordConfirmation"}
         placeholder={"Password confirmation"}

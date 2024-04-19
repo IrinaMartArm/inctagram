@@ -24,7 +24,7 @@ export const useSignUp = () => {
     .object({
       agree: z.boolean(),
       confirm: z.string().min(6, confirm).max(20, confirm).trim(),
-      email: z.string().email(formEmail).trim(),
+      email: z.string().min(1).email(formEmail).trim(),
       password: z.string().min(6, passwordMin).max(20, passwordMax).trim(),
       username: z.string().min(6, passwordMin).max(30, username).trim(),
     })
@@ -50,7 +50,7 @@ export const useSignUp = () => {
   const [signUp, { isLoading }] = useSignUpMutation();
   const {
     control,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isValid },
     handleSubmit,
     reset,
     setError,
@@ -99,7 +99,6 @@ export const useSignUp = () => {
     email,
     errors,
     handleSubmit,
-    isDirty,
     isLoading,
     isValid,
     signUpHandler,
