@@ -14,15 +14,13 @@ export const PasswordRecovery = () => {
   const {
     control,
     errors,
-    expired,
     handleRecaptchaChange,
     handleSubmit,
-    isLoading,
+    isChecked,
     isSuccess,
     isValid,
     onRecovery,
     t,
-    token,
   } = usePasswordRecovery();
 
   return (
@@ -31,6 +29,7 @@ export const PasswordRecovery = () => {
         {t.passwordRecovery.title}
       </Typography>
       <ControlledTextField
+        autoComplete={"email"}
         control={control}
         errorMessage={errors.email?.message}
         label={"Email"}
@@ -46,10 +45,9 @@ export const PasswordRecovery = () => {
           {t.passwordRecovery.hidden}
         </Typography>
       )}
-      <Button disabled={!isValid} fullWidth>
-        {t.passwordRecovery.send}
+      <Button disabled={!isValid || !isChecked} fullWidth type={"submit"}>
+        {isSuccess ? t.passwordRecovery.send2 : t.passwordRecovery.send}
       </Button>
-
       <Button
         as={Link}
         className={s.button}
@@ -62,84 +60,3 @@ export const PasswordRecovery = () => {
     </Card>
   );
 };
-{
-  /*<div className={clsx(s.rootRecaptcha, error && s.error)}>*/
-}
-{
-  /*    <div className={s.container}>*/
-}
-{
-  /*        <div className={s.wrapper}>*/
-}
-{
-  /*            <div className={s.expired}>*/
-}
-{
-  /*                {expired && (*/
-}
-{
-  /*                    <Typography variant={"error"}>*/
-}
-{
-  /*                        {t.recaptcha.expired}*/
-}
-{
-  /*                    </Typography>*/
-}
-{
-  /*                )}*/
-}
-{
-  /*            </div>*/
-}
-{
-  /*            <div className={s.box}>*/
-}
-{
-  /*                {isLoading ? (*/
-}
-{
-  /*                    <Loader />*/
-}
-{
-  /*                ) : (*/
-}
-{
-  /*                    <ControlledCheckBox*/
-}
-{
-  /*                        control={control}*/
-}
-{
-  /*                        label={t.recaptcha.title}*/
-}
-{
-  /*                        name={"recaptcha"}*/
-}
-{
-  /*                        recaptcha*/
-}
-{
-  /*                    />*/
-}
-{
-  /*                )}*/
-}
-{
-  /*            </div>*/
-}
-{
-  /*            <Recaptcha />*/
-}
-{
-  /*        </div>*/
-}
-{
-  /*    </div>*/
-}
-{
-  /*    {error && <Typography variant={"error"}>hi</Typography>}*/
-}
-{
-  /*</div>*/
-}

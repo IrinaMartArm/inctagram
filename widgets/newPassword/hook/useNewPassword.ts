@@ -1,17 +1,16 @@
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 import { useCreateNewPasswordMutation } from "@/shared/assets/api/auth/auth-api";
-import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/router";
 import z from "zod";
 
 export const useNewPassword = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const { confirm, created, passwordMax, passwordMin } = t.signUp;
+  const { confirm, passwordMax, passwordMin } = t.signUp;
 
   const code = Array.isArray(router.query.code)
     ? router.query.code[0]
@@ -39,38 +38,31 @@ export const useNewPassword = () => {
     formState: { errors },
     handleSubmit,
     reset,
-    setError,
   } = useForm<NewPasswordFormFields>({
     defaultValues,
-    mode: "onBlur",
+    mode: "onTouched",
     resolver: zodResolver(newPasswordSchema),
   });
 
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation();
 
-  const newPasswordCreator = (data: NewPasswordFormFields) => {
+  const newPasswordCreator = async (data: NewPasswordFormFields) => {
     const args = {
       newPassword: data.newPassword,
       recoveryCode: code || "",
     };
 
-    createNewPassword(args)
-      .then((res) => {
-        if ("error" in res) {
-          return handleErrorResponse(res.error);
-        } else {
-          toast.success(created);
-        }
-      })
-      .then((error) => {
-        if (error && error.fieldErrors) {
-          error.fieldErrors?.forEach((el) => {
-            setError(el.field as keyof NewPasswordFormFields, {
-              message: el.message,
-            });
-          });
-        }
-      });
+    try {
+      await createNewPassword(args).unwrap();
+
+      await router.replace("./sign-in");
+    } catch (err) {
+      const { status } = err as FetchBaseQueryError;
+
+      if (status === 400) {
+        await router.replace("./email-verification");
+      }
+    }
     reset(defaultValues);
   };
 

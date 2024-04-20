@@ -41,7 +41,9 @@ export const NewPasswordCard = () => {
       <Typography className={s.text} variant={"regular_text-14"}>
         {t.passwordRecovery.rules}
       </Typography>
-      <Button fullWidth>{t.passwordRecovery.send}</Button>
+      <Button fullWidth type={"submit"}>
+        {t.passwordRecovery.send}
+      </Button>
     </Card>
   );
 };

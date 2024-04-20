@@ -2,7 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { usePasswordRecoveryMutation } from "@/shared/assets/api/auth/auth-api";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { z } from "zod";
 
 export const usePasswordRecovery = () => {
@@ -21,7 +24,6 @@ export const usePasswordRecovery = () => {
   };
 
   const [token, setToken] = useState<null | string>(null);
-  const [isVerified, setIsVerified] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [passwordRecovery, { error, isLoading }] =
     usePasswordRecoveryMutation();
@@ -30,20 +32,34 @@ export const usePasswordRecovery = () => {
     formState: { errors, isValid },
     handleSubmit,
     reset,
+    setError,
     setValue,
   } = useForm<PasswordRecoveryFormFields>({
     defaultValues,
-    mode: "onSubmit",
-    // resolver: zodResolver(passwordRecoverySchema),
+    mode: "onBlur",
+    resolver: zodResolver(passwordRecoverySchema),
   });
-  const expired = error;
+
+  const isChecked = !!token;
   const onRecovery = async (data: PasswordRecoveryFormFields) => {
     if (token) {
       const body = { email: data.email, reCaptcha: token };
 
-      await passwordRecovery(body)
-        .then(() => setIsVerified(true))
-        .catch(() => setIsVerified(false));
+      try {
+        await passwordRecovery(body).unwrap();
+        setIsSuccess(true);
+      } catch (err: any) {
+        setIsSuccess(false);
+        const { status } = err as FetchBaseQueryError;
+
+        if (status === 404) {
+          setError("email", {
+            message: t.passwordRecovery.emailError,
+            type: "manual",
+          });
+        }
+        handleErrorResponse(err);
+      }
       reset(defaultValues);
     }
   };
@@ -56,13 +72,12 @@ export const usePasswordRecovery = () => {
     control,
     error,
     errors,
-    expired,
     handleRecaptchaChange,
     handleSubmit,
+    isChecked,
     isLoading,
     isSuccess,
     isValid,
-    isVerified,
     onRecovery,
     t,
     token,

@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
 import { SignUpArgs } from "@/shared/assets/api/auth/types";
@@ -10,15 +9,8 @@ import { z } from "zod";
 
 export const useSignUp = () => {
   const { t } = useTranslation();
-  const {
-    checkbox,
-    confirm,
-    created,
-    formEmail,
-    passwordMax,
-    passwordMin,
-    username,
-  } = t.signUp;
+  const { checkbox, confirm, formEmail, passwordMax, passwordMin, username } =
+    t.signUp;
 
   const signUpSchema = z
     .object({
@@ -53,7 +45,6 @@ export const useSignUp = () => {
     formState: { errors, isValid },
     handleSubmit,
     reset,
-    setError,
   } = useForm<SignUpFormFields>({
     defaultValues,
     mode: "onBlur",
@@ -68,23 +59,12 @@ export const useSignUp = () => {
 
     localStorage.setItem("email", data.email);
 
-    signUp(signUpArgs)
-      .then((res) => {
-        if ("error" in res) {
-          return handleErrorResponse(res.error);
-        } else {
-          toast.success(created);
-        }
-      })
-      .then((error) => {
-        if (error && error.fieldErrors) {
-          error.fieldErrors?.forEach((el) => {
-            setError(el.field as keyof SignUpFormFields, {
-              message: el.message,
-            });
-          });
-        }
-      });
+    try {
+      signUp(signUpArgs).unwrap();
+    } catch (err: any) {
+      handleErrorResponse(err);
+    }
+
     reset(defaultValues);
   };
 
