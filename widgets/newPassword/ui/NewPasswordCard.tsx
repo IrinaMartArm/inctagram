@@ -24,9 +24,9 @@ export const NewPasswordCard = () => {
       </Typography>
       <ControlledTextField
         control={control}
-        errorMessage={errors.password?.message}
+        errorMessage={errors.newPassword?.message}
         label={"New password"}
-        name={"password"}
+        name={"newPassword"}
         placeholder={"New password"}
         type={"password"}
       />

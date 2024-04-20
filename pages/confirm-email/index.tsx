@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import s from "../signup.module.scss";
+import s from "../sign-up/signup.module.scss";
 
 const Confirmed = () => {
   const { t } = useTranslation();
@@ -18,12 +18,12 @@ const Confirmed = () => {
     useRegistrationConfirmationMutation();
 
   const Confirmation = useCallback(() => {
-    const code = Array.isArray(router.query.code)
-      ? router.query.code[0]
-      : router.query.code;
+    const code = Array.isArray(router.query) ? router.query[0] : router.query;
 
-    registrationConfirmation({ code: code || "" });
-  }, [registrationConfirmation, router.query.code]);
+    console.log(code);
+
+    registrationConfirmation(code);
+  }, [registrationConfirmation, router.query]);
 
   useEffect(() => {
     Confirmation();

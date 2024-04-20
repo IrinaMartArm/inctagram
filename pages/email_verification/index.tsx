@@ -6,7 +6,7 @@ import { Modal } from "@/shared/components/modals";
 import { EmailSent } from "@/widgets";
 import Image from "next/image";
 
-import s from "../signup.module.scss";
+import s from "../sign-up/signup.module.scss";
 
 const Verification = () => {
   const { t } = useTranslation();
