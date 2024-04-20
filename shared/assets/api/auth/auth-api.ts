@@ -9,6 +9,7 @@ import {
   SignUpArgs,
 } from "@/shared/assets/api/auth/types";
 import { baseApi } from "@/shared/assets/api/base-api";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 
 export const AuthApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
@@ -41,10 +42,22 @@ export const AuthApi = baseApi.injectEndpoints({
       }),
       logout: builder.mutation<void, void>({
         invalidatesTags: ["Me"],
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          const patchResult = dispatch(
+            AuthApi.util.updateQueryData("me", undefined, () => {}),
+          );
+
+          try {
+            await queryFulfilled;
+          } catch {
+            patchResult.undo();
+          }
+        },
         query: () => ({
           method: "POST",
           url: "v1/auth/logout",
         }),
+        transformErrorResponse: (response) => handleErrorResponse(response),
       }),
       me: builder.query<MeResponse, void>({
         providesTags: ["Me"],
