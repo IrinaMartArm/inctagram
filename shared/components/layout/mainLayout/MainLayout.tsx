@@ -13,12 +13,10 @@ export const MainLayout: NextPage<PropsWithChildren> = (props) => {
   const { children } = props;
 
   return (
-    <Provider store={store}>
-      <div className={s.container}>
-        <MainSideBar />
-        <Layout>{children}</Layout>
-      </div>
-    </Provider>
+    <div className={s.container}>
+      <MainSideBar />
+      <Layout>{children}</Layout>
+    </div>
   );
 };
 
