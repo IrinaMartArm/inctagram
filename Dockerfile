@@ -1,7 +1,6 @@
 FROM node:20.11-alpine as dependencies
 WORKDIR /app
 COPY package*.json ./
-RUN npm install -g npm@10.5.2
 RUN npm install
 
 FROM node:20.11-alpine as builder
