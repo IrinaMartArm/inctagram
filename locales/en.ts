@@ -23,12 +23,6 @@ export const en: LocaleType = {
   policy: {
     title: "Privacy Policy",
   },
-  recaptcha: {
-    expired: "Verification expired. Check the checkbox again.",
-
-    text: "Please verify that you are not a robot",
-    title: "I’m not a robot",
-  },
   signIn: {
     errors: {
       email: "The email must match the format\n" + "example@example.com",
