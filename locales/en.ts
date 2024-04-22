@@ -7,6 +7,12 @@ export const en: LocaleType = {
   general: {
     title: "general page",
   },
+  logOut: {
+    buttonNo: "No",
+    buttonYes: "Yes",
+    title: "Log Out",
+    warning: "Are you really want to log out of your account",
+  },
   passwordRecovery: {
     back: "Back to Sign In",
     createTitle: "Create new password",
