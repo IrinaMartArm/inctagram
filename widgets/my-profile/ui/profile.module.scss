@@ -1,0 +1,21 @@
+@import "styles/mixins";
+.info_wrapper {
+  @include flex(row, center, center, 38px);
+  width: 100%;
+  height: 204px;
+  border: 1px solid red;
+}
+
+.info_block {
+  @include flex(column, space-between, center);
+}
+
+.first_row {
+  @include flex(row, space-between, center);
+}
+.second_row {
+  @include flex(row, space-between, center);
+}
+.third_row {
+  @include flex(row, space-between, center);
+}

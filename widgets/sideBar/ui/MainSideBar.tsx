@@ -45,15 +45,15 @@ export const MainSideBar = () => {
             <div
               className={clsx(
                 s.row,
-                isActive("/profile", currentPath) && s.active,
+                isActive("/my-profile", currentPath) && s.active,
               )}
             >
               <Person_outline />
               <Link
                 className={
-                  isActive("/profile", currentPath) ? s.active : s.link
+                  isActive("/my-profile", currentPath) ? s.active : s.link
                 }
-                href={"./profile"}
+                href={"./my-profile"}
               >
                 My Profile
               </Link>

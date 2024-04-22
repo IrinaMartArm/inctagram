@@ -68,7 +68,7 @@ export const SignInCard = ({ onSubmit }: Props) => {
         />
       </>
 
-      <Link className={s.link} href={"/sign-up"}>
+      <Link className={s.link} href={"/password-recovery"}>
         <Typography className={forgotPasswordCN} variant={"regular_text-14"}>
           {forgotPassword}
         </Typography>

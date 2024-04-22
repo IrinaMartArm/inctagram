@@ -4,3 +4,6 @@ export * from "./signIn";
 export * from "./signUp";
 export * from "./passwordRecovery";
 export * from "./newPassword";
+export * from "./email-verification";
+export * from "./email-confirmed";
+export * from "./my-profile";

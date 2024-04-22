@@ -14,10 +14,11 @@ export type SignUpArgs = {
 export type EmailResendingArgs = {
   email: string;
 };
+
 export type ErrorsMessages = {
-  errorsMessages: RootObjectErrorsMessages[];
+  errorsMessages: ErrorsMessage[];
 };
-export type RootObjectErrorsMessages = {
+export type ErrorsMessage = {
   field: string;
   message: string;
 };

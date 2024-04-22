@@ -60,7 +60,7 @@ export const useNewPassword = () => {
       const { status } = err as FetchBaseQueryError;
 
       if (status === 400) {
-        await router.replace("./email-verification");
+        await router.replace("./email-email-verification");
       }
     }
     reset(defaultValues);

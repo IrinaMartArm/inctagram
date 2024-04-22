@@ -56,6 +56,7 @@ export const ru = {
       "example@example.com",
     haveSent:
       "Мы отправили ссылку для подтверждения вашего электронного письма на ",
+    invalidPassword: "Пароль должен содержать",
     name: "Имя пользователя",
     password: "Пароль",
     password2: "Подтверждение пароля",
