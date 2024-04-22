@@ -21,7 +21,6 @@ const Confirmed = () => {
   const Confirmation = useCallback(async () => {
     const code = Array.isArray(router.query) ? router.query[0] : router.query;
 
-    console.log(code);
     await registrationConfirmation(code);
   }, [registrationConfirmation, router.query]);
 
@@ -33,9 +32,9 @@ const Confirmed = () => {
     return <Loader />;
   }
 
-  const status = error as FetchBaseQueryError;
+  const { status } = error as FetchBaseQueryError;
 
-  if (status.status === 400) {
+  if (status === 400) {
     router.replace("./email-verification");
   }
 
