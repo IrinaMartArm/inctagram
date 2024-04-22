@@ -16,17 +16,12 @@ export const en: LocaleType = {
       "If you don’t receive an email send link again",
     rules: "Your password must be between 6 and 20 characters",
     send: "Send Link",
+    send2: "Send Link Again",
     text: "Enter your email address and we will send you further instructions",
     title: "Forgot Password",
   },
   policy: {
     title: "Privacy Policy",
-  },
-  recaptcha: {
-    expired: "Verification expired. Check the checkbox again.",
-
-    text: "Please verify that you are not a robot",
-    title: "I’m not a robot",
   },
   signIn: {
     errors: {

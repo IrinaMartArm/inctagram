@@ -10,7 +10,7 @@ import { useNewPassword } from "@/widgets/newPassword/hook/useNewPassword";
 import s from "./newPassword.module.scss";
 
 export const NewPasswordCard = () => {
-  const { control, handleSubmit, isLoading, newPasswordCreator, t } =
+  const { control, errors, handleSubmit, isLoading, newPasswordCreator, t } =
     useNewPassword();
 
   if (isLoading) {
@@ -24,13 +24,15 @@ export const NewPasswordCard = () => {
       </Typography>
       <ControlledTextField
         control={control}
+        errorMessage={errors.newPassword?.message}
         label={"New password"}
-        name={"password"}
+        name={"newPassword"}
         placeholder={"New password"}
         type={"password"}
       />
       <ControlledTextField
         control={control}
+        errorMessage={errors.passwordConfirmation?.message}
         label={"Password confirmation"}
         name={"passwordConfirmation"}
         placeholder={"Password confirmation"}
@@ -39,7 +41,9 @@ export const NewPasswordCard = () => {
       <Typography className={s.text} variant={"regular_text-14"}>
         {t.passwordRecovery.rules}
       </Typography>
-      <Button fullWidth>{t.passwordRecovery.send}</Button>
+      <Button fullWidth type={"submit"}>
+        {t.passwordRecovery.send}
+      </Button>
     </Card>
   );
 };

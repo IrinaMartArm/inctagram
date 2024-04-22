@@ -34,8 +34,12 @@ export type LoginArgs = {
 
 export type LoginResponse = {
   accessToken: string;
-}
+};
 export type NewPasswordArgs = {
   newPassword: string;
   recoveryCode: string;
+};
+export type PasswordRecoveryArgs = {
+  email: string;
+  reCaptcha: string;
 };
