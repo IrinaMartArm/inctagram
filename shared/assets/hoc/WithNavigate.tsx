@@ -6,8 +6,7 @@ import { useRouter } from "next/router";
 
 export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   const router = useRouter();
-  const { data: isAuth, error, isLoading } = useMeQuery();
-  const isAuthenticated = !error && !isLoading;
+  const { data: isAuth, isLoading } = useMeQuery();
 
   if (isLoading) {
     return <Loader />;

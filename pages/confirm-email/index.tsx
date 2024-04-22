@@ -4,11 +4,12 @@ import { useRegistrationConfirmationMutation } from "@/shared/assets/api/auth/au
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, Loader, PageWrapper, Typography } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import s from "../signup.module.scss";
+import s from "../sign-up/signup.module.scss";
 
 const Confirmed = () => {
   const { t } = useTranslation();
@@ -17,13 +18,19 @@ const Confirmed = () => {
   const [registrationConfirmation, { isLoading }] =
     useRegistrationConfirmationMutation();
 
-  const Confirmation = useCallback(() => {
-    const code = Array.isArray(router.query.code)
-      ? router.query.code[0]
-      : router.query.code;
+  const Confirmation = useCallback(async () => {
+    const code = Array.isArray(router.query) ? router.query[0] : router.query;
 
-    registrationConfirmation({ code: code || "" });
-  }, [registrationConfirmation, router.query.code]);
+    try {
+      await registrationConfirmation(code);
+    } catch (error) {
+      const { status } = error as FetchBaseQueryError;
+
+      if (status === 400) {
+        await router.replace("./email-verification");
+      }
+    }
+  }, [registrationConfirmation, router]);
 
   useEffect(() => {
     Confirmation();

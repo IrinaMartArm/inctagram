@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
 import { SignUpArgs } from "@/shared/assets/api/auth/types";
@@ -10,21 +9,14 @@ import { z } from "zod";
 
 export const useSignUp = () => {
   const { t } = useTranslation();
-  const {
-    checkbox,
-    confirm,
-    created,
-    formEmail,
-    passwordMax,
-    passwordMin,
-    username,
-  } = t.signUp;
+  const { checkbox, confirm, formEmail, passwordMax, passwordMin, username } =
+    t.signUp;
 
   const signUpSchema = z
     .object({
       agree: z.boolean(),
       confirm: z.string().min(6, confirm).max(20, confirm).trim(),
-      email: z.string().email(formEmail).trim(),
+      email: z.string().min(1).email(formEmail).trim(),
       password: z.string().min(6, passwordMin).max(20, passwordMax).trim(),
       username: z.string().min(6, passwordMin).max(30, username).trim(),
     })
@@ -50,10 +42,9 @@ export const useSignUp = () => {
   const [signUp, { isLoading }] = useSignUpMutation();
   const {
     control,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isValid },
     handleSubmit,
     reset,
-    setError,
   } = useForm<SignUpFormFields>({
     defaultValues,
     mode: "onBlur",
@@ -68,23 +59,12 @@ export const useSignUp = () => {
 
     localStorage.setItem("email", data.email);
 
-    signUp(signUpArgs)
-      .then((res) => {
-        if ("error" in res) {
-          return handleErrorResponse(res.error);
-        } else {
-          toast.success(created);
-        }
-      })
-      .then((error) => {
-        if (error && error.fieldErrors) {
-          error.fieldErrors?.forEach((el) => {
-            setError(el.field as keyof SignUpFormFields, {
-              message: el.message,
-            });
-          });
-        }
-      });
+    try {
+      signUp(signUpArgs).unwrap();
+    } catch (err: any) {
+      handleErrorResponse(err);
+    }
+
     reset(defaultValues);
   };
 
@@ -99,7 +79,6 @@ export const useSignUp = () => {
     email,
     errors,
     handleSubmit,
-    isDirty,
     isLoading,
     isValid,
     signUpHandler,

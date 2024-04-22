@@ -25,9 +25,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   useLoader();
   const getLayout = Component.getLayout
     ? (page: ReactElement) => (
-        <Provider store={store}>{Component.getLayout!(page)}</Provider>
+        <Provider store={store}>{Component.getLayout!(page)} </Provider>
       )
-    : (page: ReactElement) => <Provider store={store}>{page}</Provider>;
+    : (page: ReactElement) => <Provider store={store}>{page} </Provider>;
 
   return getLayout(<Component {...pageProps} />);
 }

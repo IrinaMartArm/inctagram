@@ -6,6 +6,7 @@ import {
   LoginResponse,
   MeResponse,
   NewPasswordArgs,
+  PasswordRecoveryArgs,
   SignUpArgs,
 } from "@/shared/assets/api/auth/types";
 import { baseApi } from "@/shared/assets/api/base-api";
@@ -63,6 +64,17 @@ export const AuthApi = baseApi.injectEndpoints({
         providesTags: ["Me"],
         query: () => "v1/auth/me",
       }),
+      passwordRecovery: builder.mutation<void, PasswordRecoveryArgs>({
+        query: (body) => ({
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          providesTags: ["Me"],
+          url: "v1/auth/password-recovery",
+        }),
+      }),
       registrationConfirmation: builder.mutation<
         ErrorsMessages,
         ConformationArgs
@@ -92,6 +104,7 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,
+  usePasswordRecoveryMutation,
   useRegistrationConfirmationMutation,
   useSignUpMutation,
 } = AuthApi;

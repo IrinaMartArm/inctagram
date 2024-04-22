@@ -20,7 +20,6 @@ export const SignUpCard = () => {
     email,
     errors,
     handleSubmit,
-    isDirty,
     isLoading,
     isValid,
     signUpHandler,
@@ -41,7 +40,7 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.email?.message}
+        errorMessage={errors.username?.message}
         label={"Username"}
         name={"username"}
         placeholder={"Username"}
@@ -59,7 +58,7 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.email?.message}
+        errorMessage={errors.password?.message}
         label={"Password"}
         name={"password"}
         placeholder={"Password"}
@@ -68,7 +67,7 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.email?.message}
+        errorMessage={errors.confirm?.message}
         label={"Password confirmation"}
         name={"confirm"}
         placeholder={"Password confirmation"}
@@ -78,7 +77,7 @@ export const SignUpCard = () => {
         <ControlledCheckBox
           control={control}
           disabled={isLoading}
-          errorMessage={errors.email?.message}
+          errorMessage={errors.agree?.message}
           name={"agree"}
         />
         <div className={s.trans}>
@@ -108,7 +107,7 @@ export const SignUpCard = () => {
         trigger={
           <Button
             className={s.button}
-            disabled={!isDirty || !isValid}
+            disabled={!isValid}
             fullWidth
             type={"submit"}
           >
