@@ -15,14 +15,22 @@ const Confirmed = () => {
   const { t } = useTranslation();
   const { confirmed, congratulations, signIn } = t.signUp;
   const router = useRouter();
-  const [registrationConfirmation, { error, isLoading }] =
+  const [registrationConfirmation, { isLoading }] =
     useRegistrationConfirmationMutation();
 
   const Confirmation = useCallback(async () => {
     const code = Array.isArray(router.query) ? router.query[0] : router.query;
 
-    await registrationConfirmation(code);
-  }, [registrationConfirmation, router.query]);
+    try {
+      await registrationConfirmation(code);
+    } catch (error) {
+      const { status } = error as FetchBaseQueryError;
+
+      if (status === 400) {
+        await router.replace("./email-verification");
+      }
+    }
+  }, [registrationConfirmation, router]);
 
   useEffect(() => {
     Confirmation();
@@ -30,12 +38,6 @@ const Confirmed = () => {
 
   if (isLoading) {
     return <Loader />;
-  }
-
-  const { status } = error as FetchBaseQueryError;
-
-  if (status === 400) {
-    router.replace("./email-verification");
   }
 
   return (
