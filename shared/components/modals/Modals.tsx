@@ -27,7 +27,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
 
     return (
       <RadixModal.Root {...rest} onOpenChange={onOpenChange} open={open}>
-        <RadixModal.Trigger asChild>{trigger}</RadixModal.Trigger>      
+        <RadixModal.Trigger asChild>{trigger}</RadixModal.Trigger>
         <AnimatePresence>
           <RadixModal.Portal>
             <motion.div {...modalAnimations.overlay}>
@@ -42,7 +42,11 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
                         {title}
                       </Typography>
                       <ModalClose>
-                        <Button onClick={onOpenChange} icon={<Close />} variant={"icon"} />
+                        <Button
+                          icon={<Close />}
+                          onClick={onOpenChange}
+                          variant={"icon"}
+                        />
                       </ModalClose>
                     </div>
                   )}
