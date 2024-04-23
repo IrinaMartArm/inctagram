@@ -22,21 +22,15 @@ export const SignUpCard = () => {
     errors,
     handleSubmit,
     isLoading,
-    isSuccess,
     isValid,
+    onOpenChangeHandler,
+    open,
     signUpHandler,
     t,
   } = useSignUp();
 
   if (isLoading) {
     return <Loader />;
-  }
-  if (isSuccess) {
-    return (
-      <Modal title={"Email sent"}>
-        <EmailSent email={email || ""} />
-      </Modal>
-    );
   }
 
   return (
@@ -53,9 +47,9 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.username?.message}
+        errorMessage={errors.userName?.message}
         label={"Username"}
-        name={"username"}
+        name={"userName"}
         placeholder={"Username"}
         type={"text"}
       />
@@ -115,14 +109,23 @@ export const SignUpCard = () => {
           />
         </div>
       </div>
-      <Button
-        className={s.button}
-        disabled={!isValid}
-        fullWidth
-        type={"submit"}
+      <Modal
+        onOpenChange={onOpenChangeHandler}
+        open={open}
+        title={"Email sent"}
+        trigger={
+          <Button
+            className={s.button}
+            disabled={!isValid}
+            fullWidth
+            type={"submit"}
+          >
+            {t.signUp.title}
+          </Button>
+        }
       >
-        {t.signUp.title}
-      </Button>
+        <EmailSent email={email || ""} />
+      </Modal>
       <Typography variant={"regular_text-16"}>{t.signUp.question}</Typography>
       <Button
         as={Link}

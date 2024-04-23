@@ -22,11 +22,12 @@ export type Props = {
 
 export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
   (props, ref) => {
-    const { children, className, title, trigger, ...rest } = props;
+    const { children, className, onOpenChange, open, title, trigger, ...rest } =
+      props;
 
     return (
-      <RadixModal.Root {...rest}>
-        <RadixModal.Trigger asChild>{trigger}</RadixModal.Trigger>
+      <RadixModal.Root {...rest} onOpenChange={onOpenChange} open={open}>
+        <RadixModal.Trigger asChild>{trigger}</RadixModal.Trigger>      
         <AnimatePresence>
           <RadixModal.Portal>
             <motion.div {...modalAnimations.overlay}>
@@ -41,7 +42,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
                         {title}
                       </Typography>
                       <ModalClose>
-                        <Button icon={<Close />} variant={"icon"} />
+                        <Button onClick={onOpenChange} icon={<Close />} variant={"icon"} />
                       </ModalClose>
                     </div>
                   )}
