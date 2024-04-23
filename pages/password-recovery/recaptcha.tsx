@@ -7,7 +7,7 @@ type Props = {
 
 const ReCAPTCHAWidget = ({ onChange }: Props) => {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  // const recaptchaSiteKey = process.env.;
+  // const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   const recaptchaSiteKey = "6LexQMApAAAAAM78fgHXvRm05K7dio7fXEtILmI2";
 
   return (
