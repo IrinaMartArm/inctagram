@@ -10,6 +10,7 @@ module.exports = {
     },
   ],
   rules: {
+    "import/extensions": ["off", "never"],
     "import/no-unresolved": "off",
     "prettier/prettier": ["error", { endOfLine: "auto" }],
   },
