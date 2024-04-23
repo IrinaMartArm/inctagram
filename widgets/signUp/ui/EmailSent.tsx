@@ -6,8 +6,9 @@ import s from "./signUp.module.scss";
 
 type Props = {
   email: string;
+  onOpenChange?: () => void;
 };
-export const EmailSent = ({ email }: Props) => {
+export const EmailSent = ({ email, onOpenChange }: Props) => {
   const t = useTranslation();
 
   return (
@@ -17,7 +18,7 @@ export const EmailSent = ({ email }: Props) => {
       </Typography>
       <div className={s.emailSent_btn}>
         <ModalClose>
-          <Button>OK</Button>
+          <Button onClick={onOpenChange}>OK</Button>
         </ModalClose>
       </div>
     </div>

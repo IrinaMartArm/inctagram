@@ -6,7 +6,7 @@ import {
 } from "react";
 
 import { Close } from "@/public";
-import { Button, Card, Typography } from "@/shared/components";
+import { Button, Typography } from "@/shared/components";
 import { ModalClose } from "@/shared/components/modals/ModalClose";
 import * as RadixModal from "@radix-ui/react-dialog";
 
@@ -20,10 +20,11 @@ export type Props = {
 
 export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
   (props, ref) => {
-    const { children, className, title, trigger, ...rest } = props;
+    const { children, className, onOpenChange, open, title, trigger, ...rest } =
+      props;
 
     return (
-      <RadixModal.Root {...rest}>
+      <RadixModal.Root {...rest} onOpenChange={onOpenChange} open={open}>
         <RadixModal.Trigger asChild>{trigger}</RadixModal.Trigger>
         <RadixModal.Portal>
           <RadixModal.Overlay className={s.overlay} />
@@ -39,7 +40,11 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
                     {title}
                   </Typography>
                   <ModalClose>
-                    <Button icon={<Close />} variant={"icon"} />
+                    <Button
+                      icon={<Close />}
+                      onClick={onOpenChange}
+                      variant={"icon"}
+                    />
                   </ModalClose>
                 </div>
               )}

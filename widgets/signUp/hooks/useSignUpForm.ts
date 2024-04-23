@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PASSWORD_REGEX } from "@/entities";
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
-import { ErrorsMessages, SignUpArgs } from "@/shared/assets/api/auth/types";
+import { SignUpArgs } from "@/shared/assets/api/auth/types";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -34,7 +36,7 @@ export const useSignUp = () => {
           `${invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
            ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
         ),
-      username: z.string().min(6, passwordMin).max(30, username).trim(),
+      userName: z.string().min(6, passwordMin).max(30, username).trim(),
     })
     .refine((value) => value.agree, {
       message: checkbox,
@@ -52,10 +54,11 @@ export const useSignUp = () => {
     confirm: "",
     email: "",
     password: "",
-    username: "",
+    userName: "",
   };
 
-  const [signUp, { isLoading, isSuccess }] = useSignUpMutation();
+  const [open, setOpen] = useState(false);
+  const [signUp, { isLoading }] = useSignUpMutation();
   const {
     control,
     formState: { errors, isValid },
@@ -71,23 +74,29 @@ export const useSignUp = () => {
     const signUpArgs = {
       email: data.email,
       password: data.password,
-      username: data.username,
+      userName: data.userName,
     };
 
     localStorage.setItem("email", data.email);
 
     try {
-      await signUp(signUpArgs).unwrap();
-    } catch (err: unknown) {
-      const { errorsMessages } = err as ErrorsMessages;
+      const data = await signUp(signUpArgs).unwrap();
 
-      if (errorsMessages) {
-        errorsMessages.forEach((el) => {
+      if (data.errorsMessages) {
+        data.errorsMessages.forEach((el) => {
           setError(el.field as keyof SignUpArgs, { message: el.message });
         });
+      } else {
+        setOpen(true);
       }
+    } catch (err: any) {
+      handleErrorResponse(err);
     }
     reset(defaultValues);
+  };
+
+  const onOpenChangeHandler = () => {
+    setOpen(false);
   };
 
   let email;
@@ -102,8 +111,9 @@ export const useSignUp = () => {
     errors,
     handleSubmit,
     isLoading,
-    isSuccess,
     isValid,
+    onOpenChangeHandler,
+    open,
     signUpHandler,
     t,
   };
