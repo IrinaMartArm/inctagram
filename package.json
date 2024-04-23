@@ -30,7 +30,6 @@
     "framer-motion": "^11.0.23",
     "next": "14.1.4",
     "nprogress": "^0.2.0",
-    "plaiceholder": "^3.0.0",
     "react": "^18",
     "react-dom": "^18",
     "react-google-recaptcha": "^3.1.0",

@@ -1,14 +1,13 @@
+import noAva from "@/public/images/noAva.webp";
 import clsx from "clsx";
 import Image from "next/image";
 
 import s from "./avatar.module.scss";
 
-type AlertVariant = "error" | "success";
-
 type Props = {
   alt: string;
   className?: string;
-  src: string;
+  src: null | string;
   variant: "lg" | "md" | "sm";
 };
 
@@ -23,7 +22,7 @@ export const Avatar = ({ alt, className, src, variant }: Props) => {
         fill
         priority
         quality={100}
-        src={src}
+        src={src ? src : noAva}
       />
     </div>
   );
