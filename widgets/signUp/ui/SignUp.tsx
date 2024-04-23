@@ -4,6 +4,7 @@ import {
   Card,
   ControlledCheckBox,
   ControlledTextField,
+  Loader,
   Trans,
   Typography,
 } from "@/shared/components";
@@ -21,10 +22,22 @@ export const SignUpCard = () => {
     errors,
     handleSubmit,
     isLoading,
+    isSuccess,
     isValid,
     signUpHandler,
     t,
   } = useSignUp();
+
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isSuccess) {
+    return (
+      <Modal title={"Email sent"}>
+        <EmailSent email={email || ""} />
+      </Modal>
+    );
+  }
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
@@ -102,21 +115,14 @@ export const SignUpCard = () => {
           />
         </div>
       </div>
-      <Modal
-        title={"Email sent"}
-        trigger={
-          <Button
-            className={s.button}
-            disabled={!isValid}
-            fullWidth
-            type={"submit"}
-          >
-            {t.signUp.title}
-          </Button>
-        }
+      <Button
+        className={s.button}
+        disabled={!isValid}
+        fullWidth
+        type={"submit"}
       >
-        <EmailSent email={email || ""} />
-      </Modal>
+        {t.signUp.title}
+      </Button>
       <Typography variant={"regular_text-16"}>{t.signUp.question}</Typography>
       <Button
         as={Link}

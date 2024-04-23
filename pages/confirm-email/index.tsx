@@ -1,43 +1,49 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useLayoutEffect } from "react";
+
+import { ParsedUrlQuery } from "querystring";
 
 import { useRegistrationConfirmationMutation } from "@/shared/assets/api/auth/auth-api";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, Loader, PageWrapper, Typography } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { Verification } from "@/widgets";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import s from "../sign-up/signup.module.scss";
+import s from "@/widgets/email-verification/ui/verification.module.scss";
 
 const Confirmed = () => {
   const { t } = useTranslation();
   const { confirmed, congratulations, signIn } = t.signUp;
   const router = useRouter();
-  const [registrationConfirmation, { isLoading }] =
+  const [registrationConfirmation, { error, isLoading }] =
     useRegistrationConfirmationMutation();
 
   const Confirmation = useCallback(async () => {
-    const code = Array.isArray(router.query) ? router.query[0] : router.query;
+    const query: ParsedUrlQuery = router.query;
+    const code = query.code as string;
 
     try {
-      await registrationConfirmation(code);
-    } catch (error) {
-      const { status } = error as FetchBaseQueryError;
-
-      if (status === 400) {
-        await router.replace("./email-verification");
+      if (code) {
+        await registrationConfirmation({ code: code });
       }
+    } catch (error: any) {
+      handleErrorResponse(error);
     }
   }, [registrationConfirmation, router]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     Confirmation();
   }, [Confirmation]);
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (error) {
+    return <Verification />;
   }
 
   return (

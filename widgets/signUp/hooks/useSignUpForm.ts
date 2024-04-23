@@ -1,23 +1,39 @@
 import { useForm } from "react-hook-form";
 
+import { PASSWORD_REGEX } from "@/entities";
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
-import { SignUpArgs } from "@/shared/assets/api/auth/types";
-import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
+import { ErrorsMessages, SignUpArgs } from "@/shared/assets/api/auth/types";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 export const useSignUp = () => {
   const { t } = useTranslation();
-  const { checkbox, confirm, formEmail, passwordMax, passwordMin, username } =
-    t.signUp;
+  const {
+    checkbox,
+    confirm,
+    formEmail,
+    invalidPassword,
+    passwordMax,
+    passwordMin,
+    username,
+  } = t.signUp;
 
   const signUpSchema = z
     .object({
       agree: z.boolean(),
       confirm: z.string().min(6, confirm).max(20, confirm).trim(),
       email: z.string().min(1).email(formEmail).trim(),
-      password: z.string().min(6, passwordMin).max(20, passwordMax).trim(),
+      password: z
+        .string()
+        .min(6, passwordMin)
+        .max(20, passwordMax)
+        .trim()
+        .regex(
+          PASSWORD_REGEX,
+          `${invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
+           ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
+        ),
       username: z.string().min(6, passwordMin).max(30, username).trim(),
     })
     .refine((value) => value.agree, {
@@ -39,18 +55,19 @@ export const useSignUp = () => {
     username: "",
   };
 
-  const [signUp, { isLoading }] = useSignUpMutation();
+  const [signUp, { isLoading, isSuccess }] = useSignUpMutation();
   const {
     control,
     formState: { errors, isValid },
     handleSubmit,
     reset,
+    setError,
   } = useForm<SignUpFormFields>({
     defaultValues,
     mode: "onBlur",
     resolver: zodResolver(signUpSchema),
   });
-  const signUpHandler = (data: SignUpArgs) => {
+  const signUpHandler = async (data: SignUpArgs) => {
     const signUpArgs = {
       email: data.email,
       password: data.password,
@@ -60,11 +77,16 @@ export const useSignUp = () => {
     localStorage.setItem("email", data.email);
 
     try {
-      signUp(signUpArgs).unwrap();
-    } catch (err: any) {
-      handleErrorResponse(err);
-    }
+      await signUp(signUpArgs).unwrap();
+    } catch (err: unknown) {
+      const { errorsMessages } = err as ErrorsMessages;
 
+      if (errorsMessages) {
+        errorsMessages.forEach((el) => {
+          setError(el.field as keyof SignUpArgs, { message: el.message });
+        });
+      }
+    }
     reset(defaultValues);
   };
 
@@ -80,6 +102,7 @@ export const useSignUp = () => {
     errors,
     handleSubmit,
     isLoading,
+    isSuccess,
     isValid,
     signUpHandler,
     t,
