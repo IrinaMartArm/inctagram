@@ -83,6 +83,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
         disabled && s.disabled,
         errorMessage && s.errorBox,
         className,
+        type === "datePicker" && s.datePickerSpecial,
       ),
     };
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
