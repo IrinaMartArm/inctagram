@@ -3,21 +3,21 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
 
 import { store } from "@/shared/assets/api/store";
-import { SignUpCard } from "@/widgets";
+import { LogOutModal } from "@/widgets";
 
 const meta = {
   argTypes: {},
-  component: SignUpCard,
+  component: LogOutModal,
   tags: ["autodocs"],
-  title: "Widgets/SignUpCard",
-} satisfies Meta<typeof SignUpCard>;
+  title: "Widgets/LogOutModal",
+} satisfies Meta<typeof LogOutModal>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const SignUpForm: Story = {
+export const LogOutModalStory: Story = {
   args: {
-    onSubmit: () => {},
+    email: "heeelp@gmail.ru",
   },
   decorators: [
     (Story) => (

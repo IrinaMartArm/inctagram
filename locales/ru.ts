@@ -5,6 +5,12 @@ export const ru = {
   general: {
     title: "Страница",
   },
+  logOut: {
+    buttonNo: "Нет",
+    buttonYes: "Да",
+    title: "Выход",
+    warning: "Вы действительно хотите выйти из своей учетной записи",
+  },
   passwordRecovery: {
     back: "Назад для входа в систему",
     createTitle: "Создать новый пароль",
