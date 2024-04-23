@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { PASSWORD_REGEX } from "@/entities";
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
 import { SignUpArgs } from "@/shared/assets/api/auth/types";
-import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
+import {
+  handleErrorResponse,
+  validationErrer,
+} from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -82,14 +86,14 @@ export const useSignUp = () => {
     try {
       const data = await signUp(signUpArgs).unwrap();
 
-      if (data.errorsMessages) {
-        data.errorsMessages.forEach((el) => {
-          setError(el.field as keyof SignUpArgs, { message: el.message });
-        });
-      } else {
-        setOpen(true);
-      }
+      setOpen(true);
     } catch (err: any) {
+      const result = validationErrer(err);
+
+      // if (result) {
+      // }
+
+      toast.error(err);
       handleErrorResponse(err);
     }
     reset(defaultValues);

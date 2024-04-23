@@ -12,11 +12,17 @@ export const MyProfile = () => {
   return (
     <PageWrapper>
       <div className={s.info_wrapper}>
-        {/*<Avatar />*/}
+        <div className={s.avatar}>{/*<Avatar />*/}</div>
         <div className={s.info_block}>
           <div className={s.first_row}>
             <Typography variant={"h1"}>URLProfiele</Typography>
-            <Button variant={"secondary"}>Profile Settings</Button>
+            <Button
+              as={Link}
+              href={"./general-information"}
+              variant={"secondary"}
+            >
+              Profile Settings
+            </Button>
           </div>
           <div className={s.second_row}>
             <Info number={following} title={"Following"} />

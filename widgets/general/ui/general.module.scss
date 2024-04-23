@@ -1,0 +1,39 @@
+@import "styles/mixins";
+
+.root {
+  @include flex(column, flex-start, center, 24px);
+  margin: 0 30px 0 4px;
+  min-height: 100vh;
+}
+
+.tabs {
+  width: 100%;
+  //max-width: 100%;
+}
+.container {
+  @include flex(row, center, flex-start, 40px);
+  width: 100%;
+  border-bottom: 1px solid var(--color-dark-300);
+}
+
+.avatar {
+  min-width: 192px;
+  height: 192px;
+  margin-top: 25px;
+  border: 1px solid green;
+}
+.form {
+  @include flex(column, space-between, center, 24px);
+  width: 100%;
+}
+
+.selectors {
+  @include flex(row, center, center, 24px);
+  width: 100%;
+}
+
+.button {
+  //width: 100%;
+  align-self: flex-end;
+  margin: 24px 0;
+}

@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 
+import { SignUpArgs } from "@/shared/assets/api/auth/types";
 import { Nullable } from "@/shared/assets/types/types";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -75,4 +76,20 @@ export const handleErrorResponse = (
       };
     }
   }
+};
+
+export const validationErrer = (err: any): RootObject | null => {
+  if ("errorMessages" in err) {
+    return err.errorsMessages;
+  }
+
+  return null;
+};
+
+export type RootObject = {
+  errorsMessages: RootObjectErrorsMessages[];
+};
+export type RootObjectErrorsMessages = {
+  field: string;
+  message: string;
 };
