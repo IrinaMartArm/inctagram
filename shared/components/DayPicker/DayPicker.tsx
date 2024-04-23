@@ -36,6 +36,7 @@ export const DayPicker = () => {
     caption: clsx(styles.caption, s.caption),
     day: clsx(styles.day, s.day),
     nav_button: clsx(styles.nav_button, s.nav_button),
+    root: clsx(styles.root, s.root),
   };
 
   return (
