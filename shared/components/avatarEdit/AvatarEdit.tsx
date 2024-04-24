@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 
+import s from "./avatarEdit.module.scss";
+
 type Props = {
   photo: string;
 };
@@ -17,9 +19,9 @@ export const AvatarEdit = ({ photo }: Props) => {
   };
 
   return (
-    <div onWheel={handleWheel}>
+    <div className={s.wrapper} onWheel={handleWheel}>
       <AvatarEditor
-        border={20}
+        border={10}
         borderRadius={150}
         color={[23, 23, 23, 0.87]}
         height={312}
