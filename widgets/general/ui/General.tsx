@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 
 import {
   Button,
+  ControlledTextArea,
   ControlledTextField,
   PageWrapper,
   Select,
@@ -30,31 +31,52 @@ export const General = () => {
     <div className={s.root}>
       <Tab defaultValue={"General information"} options={options} />
       <div className={s.container}>
-        <div className={s.avatar}></div>
+        <div className={s.avatarBox}>
+          <div className={s.avatar}></div>
+          <Button variant={"outlined"}>Add a Profile Photo</Button>
+        </div>
         <div className={s.form}>
           <ControlledTextField
             control={control}
-            label={"Username*"}
+            label={"Username"}
             name={"Username"}
+            required
             type={"text"}
           />
           <ControlledTextField
             control={control}
-            label={"First Name*"}
+            label={"First Name"}
             name={"firstName*"}
+            required
             type={"text"}
           />
           <ControlledTextField
             control={control}
-            label={"Last Name*"}
+            label={"Last Name"}
             name={"lastName*"}
-            placeholder={"Last Name*"}
+            required
             type={"text"}
           />
           <div className={s.selectors}>
-            <Select items={[]} onChange={() => {}} />
-            <Select items={[]} onChange={() => {}} />
+            <Select
+              className={s.general}
+              items={[]}
+              label={"Select your country"}
+              onChange={() => {}}
+            />
+            <Select
+              className={s.general}
+              items={[]}
+              label={"Select your city"}
+              onChange={() => {}}
+            />
           </div>
+          <ControlledTextArea
+            control={control}
+            label={"About Me"}
+            name={"textArea"}
+            placeholder={"Text-area"}
+          />
         </div>
       </div>
       <Button className={s.button}>Save Changes</Button>

@@ -8,12 +8,16 @@
 
 .tabs {
   width: 100%;
-  //max-width: 100%;
 }
 .container {
   @include flex(row, center, flex-start, 40px);
   width: 100%;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--color-dark-300);
+}
+
+.avatarBox {
+  @include flex(column, center, center, 24px);
 }
 
 .avatar {
@@ -33,7 +37,10 @@
 }
 
 .button {
-  //width: 100%;
   align-self: flex-end;
   margin: 24px 0;
+}
+
+.general {
+  width: 100%;
 }

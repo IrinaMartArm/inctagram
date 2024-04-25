@@ -91,7 +91,7 @@ export const AuthApi = baseApi.injectEndpoints({
           body,
           method: "POST",
           providesTags: ["Me"],
-          url: "v1/auth/opregistration",
+          url: "v1/auth/registration",
         }),
       }),
     };
