@@ -34,7 +34,7 @@ export const Tab: FC<Props> = ({
     onValueChange={onChange}
     value={value}
   >
-    <Tabs.List aria-label={label}>
+    <Tabs.List aria-label={label} className={s.container}>
       {options.map((option) => (
         <Tabs.Trigger
           className={s.tabsTrigger}

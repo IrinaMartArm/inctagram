@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 
-import { SignUpArgs } from "@/shared/assets/api/auth/types";
 import { Nullable } from "@/shared/assets/types/types";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -19,6 +18,10 @@ export interface CatchingData {
   error: Nullable<string>;
   fieldErrors: Nullable<FieldError[]>;
 }
+
+export type ErrorsMessages = {
+  errorsMessages: FieldError[];
+};
 
 export const handleErrorResponse = (
   error?: FetchBaseQueryError | SerializedError,
@@ -78,18 +81,10 @@ export const handleErrorResponse = (
   }
 };
 
-export const validationErrer = (err: any): RootObject | null => {
+export const validationError = (err: any): ErrorsMessages | null => {
   if ("errorMessages" in err) {
     return err.errorsMessages;
   }
 
   return null;
-};
-
-export type RootObject = {
-  errorsMessages: RootObjectErrorsMessages[];
-};
-export type RootObjectErrorsMessages = {
-  field: string;
-  message: string;
 };

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import { useCreateNewPasswordMutation } from "@/shared/assets/api/auth/auth-api";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -54,14 +55,14 @@ export const useNewPassword = () => {
 
     try {
       await createNewPassword(args).unwrap();
-
       await router.replace("./sign-in");
-    } catch (err) {
+    } catch (err: any) {
       const { status } = err as FetchBaseQueryError;
 
       if (status === 400) {
-        await router.replace("./email-email-verification");
+        await router.replace("./email-verification");
       }
+      handleErrorResponse(err);
     }
     reset(defaultValues);
   };
