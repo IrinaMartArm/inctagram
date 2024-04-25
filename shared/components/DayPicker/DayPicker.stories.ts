@@ -12,6 +12,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DayPickerDemo: Story = {
-  args: {},
+export const DayPickerSingle: Story = {
+  args: { mode: "single" },
+};
+
+export const DayPickerRange: Story = {
+  args: { mode: "range" },
 };
