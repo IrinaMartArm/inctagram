@@ -21,6 +21,17 @@ export const EditProfilePhoto = ({
         <div className={s.wrapperButton}>
           <Button variant={"primary"}>Save</Button>
         </div>
+        <div className={s.wrapperInput}>
+          <input
+            className={s.input}
+            id={"input__file"}
+            name={"file"}
+            type={"file"}
+          />
+          <Button as={"label"} htmlFor={"input__file"}>
+            Select from Computer
+          </Button>
+        </div>
       </div>
     </Modal>
   );
