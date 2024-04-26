@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, PageWrapper, Typography } from "@/shared/components";
 import { Modal } from "@/shared/components/modals";
@@ -18,8 +21,21 @@ export const Verification = () => {
     email = localStorage.getItem("email") || "";
   }
 
+  const [open, setOpen] = useState(false);
+  const onOpenChangeHandler = () => {
+    setOpen(false);
+  };
+
   const resendingHandler = () => {
-    resending({ email: email || "" });
+    try {
+      resending({ email: email || "" }).unwrap();
+      debugger;
+      setOpen(true);
+    } catch (err: any) {
+      debugger;
+      console.log(err.data.errorsMessages);
+      handleErrorResponse(err);
+    }
   };
 
   return (
@@ -31,6 +47,8 @@ export const Verification = () => {
         {sendAgain}
       </Typography>
       <Modal
+        onOpenChange={onOpenChangeHandler}
+        open={open}
         title={"Email sent"}
         trigger={<Button onClick={resendingHandler}>{resend}</Button>}
       >

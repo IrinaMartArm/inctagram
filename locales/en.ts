@@ -5,7 +5,7 @@ export const en: LocaleType = {
     title: "favorites page",
   },
   general: {
-    title: "general page",
+    title: "general-information page",
   },
   logOut: {
     buttonNo: "No",

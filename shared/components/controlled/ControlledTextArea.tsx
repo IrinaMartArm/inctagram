@@ -4,17 +4,16 @@ import {
   useController,
 } from "react-hook-form";
 
-import { Input, InputProps } from "@/shared/components";
+import { TextAreaProps, Textarea } from "@/shared/components/textarea/Textarea";
 
 type PropsType<T extends FieldValues> = Omit<
   UseControllerProps<T>,
   "defaultValue" | "disabled" | "rules"
 > &
-  Omit<InputProps, "onChange" | "value">;
-export const ControlledTextField = <T extends FieldValues>({
+  Omit<TextAreaProps, "onChange" | "value">;
+export const ControlledTextArea = <T extends FieldValues>({
   control,
   label,
-  required,
   shouldUnregister,
   ...rest
 }: PropsType<T>) => {
@@ -25,5 +24,5 @@ export const ControlledTextField = <T extends FieldValues>({
     shouldUnregister,
   });
 
-  return <Input {...rest} {...field} label={label} required={required} />;
+  return <Textarea {...rest} {...field} label={label} />;
 };

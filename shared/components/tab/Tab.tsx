@@ -14,7 +14,7 @@ export type TabOptions = {
 type Props = {
   defaultValue?: string;
   disabled?: boolean;
-  label: string;
+  label?: string;
   onChange?: (value: string) => void;
   options: TabOptions[];
   value?: string;
@@ -28,8 +28,13 @@ export const Tab: FC<Props> = ({
   options,
   value,
 }) => (
-  <Tabs.Root defaultValue={defaultValue} onValueChange={onChange} value={value}>
-    <Tabs.List aria-label={label}>
+  <Tabs.Root
+    className={s.root}
+    defaultValue={defaultValue}
+    onValueChange={onChange}
+    value={value}
+  >
+    <Tabs.List aria-label={label} className={s.container}>
       {options.map((option) => (
         <Tabs.Trigger
           className={s.tabsTrigger}

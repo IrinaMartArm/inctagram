@@ -86,7 +86,7 @@ export const AuthApi = baseApi.injectEndpoints({
           url: "v1/auth/registration-confirmation",
         }),
       }),
-      signUp: builder.mutation<ErrorsMessages, SignUpArgs>({
+      signUp: builder.mutation<void, SignUpArgs>({
         query: (body) => ({
           body,
           method: "POST",
