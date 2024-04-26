@@ -1,13 +1,10 @@
-import { Provider } from "react-redux";
-
 import { LogOut_outline } from "@/public";
-import { useLogoutMutation } from "@/shared/assets/api/auth/auth-api";
-import { store } from "@/shared/assets/api/store";
 import { Button, Typography } from "@/shared/components";
 import { Modal, ModalClose } from "@/shared/components/modals";
 import { useLogOut } from "@/widgets";
 
 import s from "./logOutModal.module.scss";
+
 type Props = {
   email?: string;
 };

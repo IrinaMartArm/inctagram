@@ -61,15 +61,15 @@ export const Select = forwardRef<
       onChange("itemsPerPage", newValue ?? "10");
 
     return (
-      <SelectRadix.Root
-        defaultValue={!value ? defaultValue : undefined}
-        name={name}
-        onOpenChange={toggle}
-        onValueChange={ValueChangeHandler}
-        value={value}
-        {...rest}
-      >
-        <div className={classNames.Container}>
+      <div className={classNames.Container}>
+        <SelectRadix.Root
+          defaultValue={!value ? defaultValue : undefined}
+          name={name}
+          onOpenChange={toggle}
+          onValueChange={ValueChangeHandler}
+          value={value}
+          {...rest}
+        >
           {label && (
             <Typography className={s.label} variant={"regular_text-14"}>
               {label}
@@ -125,8 +125,8 @@ export const Select = forwardRef<
               </SelectRadix.Viewport>
             </SelectRadix.Content>
           </SelectRadix.Portal>
-        </div>
-      </SelectRadix.Root>
+        </SelectRadix.Root>
+      </div>
     );
   },
 );

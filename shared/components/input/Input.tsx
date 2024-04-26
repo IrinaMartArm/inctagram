@@ -23,6 +23,7 @@ export type InputProps = {
   label?: ReactNode;
   onClearClick?: (value: string) => void;
   onEnter?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  required?: boolean;
   type: InputTypes;
   value?: string;
 } & ComponentPropsWithoutRef<"input">;
@@ -53,6 +54,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
       onChange,
       onClearClick,
       onEnter,
+      required,
       type,
       value,
       ...rest
@@ -113,6 +115,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
       <div className={classNames.root}>
         <Typography className={classNames.label} variant={"regular_text-14"}>
           {label}
+          {required && <span className={s.required}>*</span>}
         </Typography>
         <div className={classNames.input_wrapper}>
           {type === "search" && (
