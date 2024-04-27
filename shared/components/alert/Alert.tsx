@@ -10,13 +10,25 @@ type AlertVariant = "error" | "success";
 
 type Props = {
   className?: string;
+  isShowClose?: boolean;
   onClick?: () => void;
   title: string;
   variant: AlertVariant;
 };
 
-export const Alert: FC<Props> = ({ className, onClick, title, variant }) => {
-  const alertCN = clsx(s.alert, s[variant], className);
+export const Alert: FC<Props> = ({
+  className,
+  isShowClose = true,
+  onClick,
+  title,
+  variant,
+}) => {
+  const alertCN = clsx(
+    s.alert,
+    s[variant],
+    !isShowClose && s.withoutClose,
+    className,
+  );
 
   return (
     <div className={alertCN}>
@@ -26,9 +38,11 @@ export const Alert: FC<Props> = ({ className, onClick, title, variant }) => {
         )}
         <Typography variant={"regular_text-16"}>{title}</Typography>
       </div>
-      <button aria-label={"close alert"} onClick={onClick}>
-        <Close />
-      </button>
+      {isShowClose && (
+        <button aria-label={"close alert"} onClick={onClick}>
+          <Close />
+        </button>
+      )}
     </div>
   );
 };

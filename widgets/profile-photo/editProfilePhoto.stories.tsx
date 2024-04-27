@@ -22,3 +22,12 @@ export const Default: Story = {
     title: "Add a Profile Photo",
   },
 };
+
+export const WithError: Story = {
+  args: {
+    defaultOpen: true,
+    error: "The format of the uploaded photo must be\n" + "PNG and JPEG",
+    photo: PHOTO,
+    title: "Add a Profile Photo",
+  },
+};

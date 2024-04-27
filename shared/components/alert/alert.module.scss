@@ -20,3 +20,11 @@
   border: 1px solid rgb(20, 204, 112);
   background: var(--color-success-900);
 }
+
+.withoutClose {
+  justify-content: center;
+  gap: 0;
+  .text{
+    text-align: center;
+  }
+}
