@@ -6,12 +6,10 @@ import { MyProfile } from "@/widgets";
 
 const Profile = () => {
   return (
-    <WithNavigate>
-      <PageWrapper>
-        <HeadMeta title={"Profile"} />
-        <MyProfile />
-      </PageWrapper>
-    </WithNavigate>
+    <PageWrapper>
+      <HeadMeta title={"Profile"} />
+      <MyProfile />
+    </PageWrapper>
   );
 };
 

@@ -5,12 +5,10 @@ import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout"
 
 const Home = () => {
   return (
-    <WithNavigate>
-      <PageWrapper>
-        <HeadMeta title={"Posts"} />
-        <div>Home🌼</div>
-      </PageWrapper>
-    </WithNavigate>
+    <PageWrapper>
+      <HeadMeta title={"Posts"} />
+      <div>Home🌼</div>
+    </PageWrapper>
   );
 };
 

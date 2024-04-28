@@ -1,15 +1,11 @@
-import { useForm } from "react-hook-form";
-
 import {
   Button,
   ControlledTextArea,
   ControlledTextField,
-  PageWrapper,
   Select,
   Tab,
-  Typography,
 } from "@/shared/components";
-import { Textarea } from "@/shared/components/textarea/Textarea";
+import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
 
 import s from "./general.module.scss";
 
@@ -25,7 +21,7 @@ const options = [
 ];
 
 export const General = () => {
-  const { control } = useForm();
+  const { control, handleSubmit, onSubmit } = useProfileForm();
 
   return (
     <div className={s.root}>
@@ -39,21 +35,21 @@ export const General = () => {
           <ControlledTextField
             control={control}
             label={"Username"}
-            name={"Username"}
+            name={"username"}
             required
             type={"text"}
           />
           <ControlledTextField
             control={control}
             label={"First Name"}
-            name={"firstName*"}
+            name={"firstName"}
             required
             type={"text"}
           />
           <ControlledTextField
             control={control}
             label={"Last Name"}
-            name={"lastName*"}
+            name={"lastName"}
             required
             type={"text"}
           />
@@ -74,12 +70,18 @@ export const General = () => {
           <ControlledTextArea
             control={control}
             label={"About Me"}
-            name={"textArea"}
+            name={"aboutMe"}
             placeholder={"Text-area"}
           />
         </div>
       </div>
-      <Button className={s.button}>Save Changes</Button>
+      <Button
+        className={s.button}
+        onSubmut={handleSubmit(onSubmit)}
+        type={"submit"}
+      >
+        Save Changes
+      </Button>
     </div>
   );
 };

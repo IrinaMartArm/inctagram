@@ -4,7 +4,7 @@ import { PageWrapper, Typography } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 
-import s from "@/pages/privacy-policy/policy.module.scss";
+import s from "@/pages/auth/policy/policy.module.scss";
 
 const TermsOfService = () => {
   const { t } = useTranslation();
