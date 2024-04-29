@@ -24,6 +24,8 @@ export const DayPicker = (props: DayPickerProps) => {
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true);
 
+  const [isPickerRangeHidden, setIsPickerRangeHidden] = useState<boolean>(true);
+
   if (props.mode === "range") {
     ({ range, setRange } = props as RangeDayPickerProps);
   } else if (props.mode === "single") {
@@ -68,6 +70,7 @@ export const DayPicker = (props: DayPickerProps) => {
       ];
 
       setRange(formattedDates);
+      setIsPickerRangeHidden(true);
     }
   };
 
@@ -101,8 +104,12 @@ export const DayPicker = (props: DayPickerProps) => {
     return selected ? parse(selected, DateFormat, new Date()) : undefined;
   };
 
-  const onClick = () => {
+  const onClickSingle = () => {
     setIsPickerSingleHidden(false);
+  };
+
+  const onClickRange = () => {
+    setIsPickerRangeHidden(false);
   };
 
   return (
@@ -115,7 +122,7 @@ export const DayPicker = (props: DayPickerProps) => {
                 ? s.inputSingleContainer
                 : s.inputRangeContainer
             }
-            onClick={onClick}
+            onClick={onClickSingle}
           >
             <Input
               onChange={(e) => setSelected(e.target.value)}
@@ -148,7 +155,7 @@ export const DayPicker = (props: DayPickerProps) => {
                 ? s.inputRangeContainer
                 : s.inputSingleContainer
             }
-            onClick={onClick}
+            onClick={onClickRange}
           >
             <Input
               onChange={(e) => setRange([e.target.value])}
@@ -156,18 +163,22 @@ export const DayPicker = (props: DayPickerProps) => {
               value={dateRange || ""}
             />
           </div>
-          <div className={s.pickerContainer}>
-            <ReactDayPicker
-              classNames={classNames}
-              mode={"range"}
-              modifiers={{ weekend: (day) => weekends.includes(day.getDay()) }}
-              modifiersStyles={{ weekend: weekendStyle }}
-              onDayClick={handleDayClick}
-              onSelect={handleRangeSelect}
-              selected={selectedRange}
-              showOutsideDays
-            />
-          </div>
+          {!isPickerRangeHidden && (
+            <div className={s.pickerContainer}>
+              <ReactDayPicker
+                classNames={classNames}
+                mode={"range"}
+                modifiers={{
+                  weekend: (day) => weekends.includes(day.getDay()),
+                }}
+                modifiersStyles={{ weekend: weekendStyle }}
+                onDayClick={handleDayClick}
+                onSelect={handleRangeSelect}
+                selected={selectedRange}
+                showOutsideDays
+              />
+            </div>
+          )}
         </>
       )}
     </div>
