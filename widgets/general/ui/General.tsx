@@ -2,6 +2,7 @@ import {
   Button,
   ControlledTextArea,
   ControlledTextField,
+  Input,
   Select,
   Tab,
 } from "@/shared/components";
@@ -53,6 +54,7 @@ export const General = () => {
             required
             type={"text"}
           />
+          <Input name={"date"} type={"text"} />
           <div className={s.selectors}>
             <Select
               className={s.general}

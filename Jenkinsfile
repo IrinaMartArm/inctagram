@@ -2,14 +2,14 @@ def app
 
 pipeline {
     agent any
-    environment {
+environment {
         ENV_TYPE = "production"
-        PORT = 3299
+        PORT = 3380
         NAMESPACE = "inctagram-org"
         REGISTRY_HOSTNAME = "irinamartoyan"
         REGISTRY = "registry.hub.docker.com"
-        PROJECT = "inctagram-org"
-        DEPLOYMENT_NAME = "inctagram-org-deployment"
+        PROJECT = "instagram-front"
+        DEPLOYMENT_NAME = "instagram-front-deployment"
         IMAGE_NAME = "${env.BUILD_ID}_${env.ENV_TYPE}_${env.GIT_COMMIT}"
         DOCKER_BUILD_NAME = "${env.REGISTRY_HOSTNAME}/${env.PROJECT}:${env.IMAGE_NAME}"
     }

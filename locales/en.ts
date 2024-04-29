@@ -4,9 +4,6 @@ export const en: LocaleType = {
   favorites: {
     title: "favorites page",
   },
-  general: {
-    title: "general-information page",
-  },
   logOut: {
     buttonNo: "No",
     buttonYes: "Yes",
@@ -28,6 +25,16 @@ export const en: LocaleType = {
   },
   policy: {
     title: "Privacy Policy",
+  },
+  profile: {
+    followers: "Followers",
+    following: "Following",
+    general: {
+      1: "Privacy Policy",
+      child: "A user under 13 cannot create a\n" + "profile. <1></1>",
+    },
+    publications: "Publications",
+    settingsBtn: "Profile Settings",
   },
   signIn: {
     errors: {
