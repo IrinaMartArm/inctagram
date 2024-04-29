@@ -27,7 +27,7 @@ const SignIn = () => {
 
         localStorage.setItem("accessToken", accessToken);
 
-        await router.replace("/my-profile");
+        await router.replace("/profile");
       }
 
       dispatch(authActions.setError(undefined));

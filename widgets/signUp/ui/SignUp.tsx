@@ -47,9 +47,9 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.userName?.message}
+        errorMessage={errors.username?.message}
         label={"Username"}
-        name={"userName"}
+        name={"username"}
         placeholder={"Username"}
         type={"text"}
       />

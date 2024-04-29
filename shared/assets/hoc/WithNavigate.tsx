@@ -7,9 +7,8 @@ import { useRouter } from "next/router";
 
 export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   const router = useRouter();
-  // const { data: isAuth, isLoading } = useMeQuery();
-  const isAuth = true;
-  const isLoading = false;
+  const { data: isAuth, isLoading } = useMeQuery();
+
   const remainingPath: string = router.pathname.replace(
     /^\/profile(\/[^/]+)?|\/profile\?(.+)/,
     "/profile",
