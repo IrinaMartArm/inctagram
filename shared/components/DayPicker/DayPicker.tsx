@@ -1,46 +1,42 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ClassNames,
   DateRange,
   DayPicker as ReactDayPicker,
+  SelectRangeEventHandler,
+  SelectSingleEventHandler,
 } from "react-day-picker";
 
 import { Input } from "@/shared/components";
 import { clsx } from "clsx";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
-import styles from "../../../node_modules/react-day-picker/dist/style.module.css";
 import s from "./DayPicker.module.scss";
+import styles from "react-day-picker/dist/style.module.css";
 
-export const DayPicker = (props: PropsType) => {
-  const [selected, setSelected] = useState<Date>();
-  const [range, setRange] = useState<DateRange | undefined>(undefined);
+export const DayPicker = (props: DayPickerProps) => {
+  // let mode: 'range' | 'single'
+  let range: Array<string> | undefined;
+  let setRange: (newRange: Array<string>) => void;
+  let selected: string | undefined;
+  let setSelected: (value: string) => void;
+
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true);
 
-  const onClick = () => {
-    setIsPickerSingleHidden(false);
-  };
-
-  const onSelect = (date: "" | Date) => {
-    if (!date) {
-      return;
-    }
-    setSelected(date);
-    setIsPickerSingleHidden(true);
-  };
-
-  const dateSingle = selected
-    ? `${(selected.getDate() < 10 ? "0" : "") + selected.getDate()}.${(selected.getMonth() < 9 ? "0" : "") + (selected.getMonth() + 1)}.${selected.getFullYear()}`
-    : "";
-
-  const DateFormat = "dd.MM.yyyy";
-  const dateFrom = range?.from ? format(range.from, DateFormat) : "";
-  const dateTo = range?.to ? format(range.to, DateFormat) : "";
-  const dateRange = dateFrom && dateTo ? dateFrom + " - " + dateTo : "";
+  if (props.mode === "range") {
+    ({ range, setRange } = props as RangeDayPickerProps);
+  } else if (props.mode === "single") {
+    ({ selected, setSelected } = props as SingleDayPickerProps);
+  }
 
   const weekends = [5, 6];
   const weekendStyle = { color: "#F23D61" };
+
+  const DateFormat = "dd.MM.yyyy";
+  const dateFrom = range ? range[0] : "";
+  const dateTo = range ? range[1] : "";
+  const dateRange = dateFrom && dateTo ? dateFrom + " - " + dateTo : "";
 
   const classNames: ClassNames = {
     ...styles,
@@ -51,25 +47,82 @@ export const DayPicker = (props: PropsType) => {
     root: clsx(styles.root, s.root),
   };
 
+  // Internal state to track selected start and end dates in 'range' mode
+  const [selectedRange, setSelectedRange] = useState<DateRange>({
+    from: undefined,
+    to: undefined,
+  });
+  // Flag to track if start date is selected
+  const [startSelected, setStartSelected] = useState<boolean>(false);
+
+  // Function to handle date selection in 'range' mode
+  const handleRangeSelect: SelectRangeEventHandler = (
+    dates: DateRange | undefined,
+  ) => {
+    if (dates && dates.from && dates.to) {
+      // Check if both dates are present
+      setSelectedRange(dates); // Update internal state
+      const formattedDates = [
+        format(dates.from, DateFormat),
+        format(dates.to, DateFormat),
+      ];
+
+      setRange(formattedDates);
+    }
+  };
+
+  // Function to handle click on date in 'range' mode
+  const handleDayClick = (date: Date) => {
+    if (!startSelected) {
+      // If start date is not selected yet
+      setStartSelected(true); // Set flag that start date is selected
+      setSelectedRange({ from: date, to: date }); // Set start and end dates simultaneously
+    } else {
+      // If start date is already selected
+      setSelectedRange((prevState) => ({ from: prevState.from, to: date })); // Set only end date
+      setStartSelected(false); // Reset flag
+    }
+  };
+
+  // Function to handle date selection in 'single' mode
+  const handleSingleSelect: SelectSingleEventHandler = (
+    date: Date | undefined,
+  ) => {
+    if (date) {
+      setSelected(format(date, DateFormat));
+      setIsPickerSingleHidden(true);
+    }
+  };
+
+  // Function to parse selected date if it exists
+  const parseSelectedDate = (
+    selected: string | undefined,
+  ): Date | undefined => {
+    return selected ? parse(selected, DateFormat, new Date()) : undefined;
+  };
+
+  const onClick = () => {
+    setIsPickerSingleHidden(false);
+  };
+
   return (
-    <>
-      <div
-        className={
-          props.mode === "single"
-            ? s.inputSingleContainer
-            : s.inputRangeContainer
-        }
-        onClick={onClick}
-      >
-        <Input
-          isShowButton
-          label={"Date select"}
-          type={"datePicker"}
-          value={props.mode === "single" ? dateSingle : dateRange}
-        />
-      </div>
+    <div className={s.pickerContainer}>
       {props.mode === "single" && (
         <>
+          <div
+            className={
+              props.mode === "single"
+                ? s.inputSingleContainer
+                : s.inputRangeContainer
+            }
+            onClick={onClick}
+          >
+            <Input
+              onChange={(e) => setSelected(e.target.value)}
+              type={"datePicker"}
+              value={selected || ""}
+            />
+          </div>
           {!isPickerSingleHidden && (
             <div className={s.pickerContainer}>
               <ReactDayPicker
@@ -79,8 +132,8 @@ export const DayPicker = (props: PropsType) => {
                   weekend: (day) => weekends.includes(day.getDay()),
                 }}
                 modifiersStyles={{ weekend: weekendStyle }}
-                onSelect={(date) => onSelect(date ? date : "")}
-                selected={selected}
+                onSelect={handleSingleSelect}
+                selected={parseSelectedDate(selected)}
                 showOutsideDays
               />
             </div>
@@ -89,25 +142,48 @@ export const DayPicker = (props: PropsType) => {
       )}
       {props.mode === "range" && (
         <>
+          <div
+            className={
+              props.mode === "range"
+                ? s.inputRangeContainer
+                : s.inputSingleContainer
+            }
+            onClick={onClick}
+          >
+            <Input
+              onChange={(e) => setRange([e.target.value])}
+              type={"datePicker"}
+              value={dateRange || ""}
+            />
+          </div>
           <div className={s.pickerContainer}>
             <ReactDayPicker
               classNames={classNames}
               mode={"range"}
-              modifiers={{
-                weekend: (day) => weekends.includes(day.getDay()),
-              }}
+              modifiers={{ weekend: (day) => weekends.includes(day.getDay()) }}
               modifiersStyles={{ weekend: weekendStyle }}
-              onSelect={setRange}
-              selected={range}
+              onDayClick={handleDayClick}
+              onSelect={handleRangeSelect}
+              selected={selectedRange}
               showOutsideDays
             />
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
-type PropsType = {
-  mode: "range" | "single";
+type DayPickerProps = RangeDayPickerProps | SingleDayPickerProps;
+
+type SingleDayPickerProps = {
+  mode: "single";
+  selected: string;
+  setSelected: (value: string) => void;
+};
+
+type RangeDayPickerProps = {
+  mode: "range";
+  range: Array<string>;
+  setRange: (newRange: Array<string>) => void;
 };
