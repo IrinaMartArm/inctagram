@@ -1,5 +1,7 @@
 import { NextPage } from "next";
 
-export const Account: NextPage = () => {
+const Account: NextPage = () => {
   return <div></div>;
 };
+
+export default Account;

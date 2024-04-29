@@ -1,5 +1,7 @@
 import { NextPage } from "next";
 
-export const Device: NextPage = () => {
+const Device: NextPage = () => {
   return <div></div>;
 };
+
+export default Device;
