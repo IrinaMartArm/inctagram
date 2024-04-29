@@ -116,14 +116,7 @@ export const DayPicker = (props: DayPickerProps) => {
     <div className={s.pickerContainer}>
       {props.mode === "single" && (
         <>
-          <div
-            className={
-              props.mode === "single"
-                ? s.inputSingleContainer
-                : s.inputRangeContainer
-            }
-            onClick={onClickSingle}
-          >
+          <div className={s.inputSingleContainer} onClick={onClickSingle}>
             <Input
               onChange={(e) => setSelected(e.target.value)}
               type={"datePicker"}
@@ -149,14 +142,7 @@ export const DayPicker = (props: DayPickerProps) => {
       )}
       {props.mode === "range" && (
         <>
-          <div
-            className={
-              props.mode === "range"
-                ? s.inputRangeContainer
-                : s.inputSingleContainer
-            }
-            onClick={onClickRange}
-          >
+          <div className={s.inputRangeContainer} onClick={onClickRange}>
             <Input
               onChange={(e) => setRange([e.target.value])}
               type={"datePicker"}
