@@ -4,11 +4,13 @@ import Image from "next/image";
 
 import s from "./avatar.module.scss";
 
+type AvatarSize = "lg" | "md" | "sm";
+
 type Props = {
   alt: string;
   className?: string;
-  src: null | string;
-  variant: "lg" | "md" | "sm";
+  src?: string;
+  variant: AvatarSize;
 };
 
 export const Avatar = ({ alt, className, src, variant }: Props) => {
@@ -22,7 +24,7 @@ export const Avatar = ({ alt, className, src, variant }: Props) => {
         fill
         priority
         quality={100}
-        src={src ? src : noAva}
+        src={src || noAva}
       />
     </div>
   );
