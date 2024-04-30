@@ -1,3 +1,5 @@
+import { ChangeEvent, useRef, useState } from "react";
+
 import { AvatarEdit, Button } from "@/shared/components";
 import { Alert } from "@/shared/components/alert";
 import { Modal } from "@/shared/components/modals";
@@ -8,31 +10,77 @@ type Props = {
   defaultOpen: boolean;
   error?: string;
   photo?: string;
+  setIsShowModal?: (isShowModal: boolean) => void;
   title: "Add a Profile Photo";
 };
 
-export const EditProfilePhoto = ({
-  defaultOpen,
-  error,
-  photo = "https://png.pngtree.com/thumb_back/fw800/background/20230527/pngtree-cute-little-dog-sitting-in-the-field-image_2689739.jpg",
-  title,
-}: Props) => {
+export const EditProfilePhoto = ({ defaultOpen, error, title }: Props) => {
+  const [src, setSrc] = useState<any>(null);
+
+  const inputRef = useRef<any>(null);
+
+  const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
+      const file = e.target.files[0];
+
+      console.log("file: ", file);
+
+      if (file.size < 4000000) {
+        convertFileToBase64(file, (file64: string) => {
+          console.log("file64: ", file64);
+          setSrc(file64);
+        });
+      } else {
+        console.error("Error: ", "Файл слишком большого размера");
+      }
+    }
+  };
+
+  const convertFileToBase64 = (
+    file: File,
+    callBack: (value: string) => void,
+  ) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const file64 = reader.result as string;
+
+      callBack(file64);
+    };
+    reader.readAsDataURL(file);
+  };
+  const handleInputClick = (e: any) => {
+    e.preventDefault();
+    inputRef.current.click();
+  };
+
+  const saveImage = () => {};
+
   return (
     <Modal defaultOpen={defaultOpen} title={title}>
       <div className={s.wrapper}>
         {error && <Alert isShowClose={false} title={error} variant={"error"} />}
-        <AvatarEdit photo={photo} />
+        <AvatarEdit photo={src} />
         <div className={s.wrapperButton}>
-          <Button variant={"primary"}>Save</Button>
+          <Button onClick={saveImage} variant={"primary"}>
+            Save
+          </Button>
         </div>
+
         <div className={s.wrapperInput}>
           <input
             className={s.input}
             id={"input__file"}
             name={"file"}
+            onChange={handleImgChange}
+            ref={inputRef}
             type={"file"}
           />
-          <Button as={"label"} htmlFor={"input__file"}>
+          <Button
+            as={"label"}
+            htmlFor={"input__file"}
+            onClick={handleInputClick}
+          >
             Select from Computer
           </Button>
         </div>

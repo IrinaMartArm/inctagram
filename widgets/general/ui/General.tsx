@@ -1,15 +1,14 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import {
   Button,
   ControlledTextArea,
   ControlledTextField,
-  PageWrapper,
   Select,
   Tab,
-  Typography,
 } from "@/shared/components";
-import { Textarea } from "@/shared/components/textarea/Textarea";
+import { EditProfilePhoto } from "@/widgets/profile-photo";
 
 import s from "./general.module.scss";
 
@@ -26,6 +25,7 @@ const options = [
 
 export const General = () => {
   const { control } = useForm();
+  const [isShowModal, setIsShowModal] = useState(false);
 
   return (
     <div className={s.root}>
@@ -33,7 +33,9 @@ export const General = () => {
       <div className={s.container}>
         <div className={s.avatarBox}>
           <div className={s.avatar}></div>
-          <Button variant={"outlined"}>Add a Profile Photo</Button>
+          <Button onClick={() => setIsShowModal(true)} variant={"outlined"}>
+            Add a Profile Photo
+          </Button>
         </div>
         <div className={s.form}>
           <ControlledTextField
@@ -80,6 +82,13 @@ export const General = () => {
         </div>
       </div>
       <Button className={s.button}>Save Changes</Button>
+      {isShowModal && (
+        <EditProfilePhoto
+          defaultOpen={isShowModal}
+          setIsShowModal={setIsShowModal}
+          title={"Add a Profile Photo"}
+        />
+      )}
     </div>
   );
 };
