@@ -11,6 +11,16 @@ const nextConfig = {
     defaultLocale: "ru",
     locales: ["en", "ru"],
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "example.com",
+        pathname: "/account123/**",
+        port: "",
+        protocol: "https",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

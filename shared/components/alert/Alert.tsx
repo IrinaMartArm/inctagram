@@ -6,7 +6,7 @@ import { clsx } from "clsx";
 
 import s from "./alert.module.scss";
 
-type AlertVariant = "error" | "success";
+export type AlertVariant = "error" | "success";
 
 type Props = {
   className?: string;

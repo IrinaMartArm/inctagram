@@ -12,4 +12,6 @@ export * from "./loader";
 export * from "./tab";
 export * from "./input";
 export * from "./controlled";
+export * from "./alert";
+export * from "./avatar";
 export * from "./avatarEdit";

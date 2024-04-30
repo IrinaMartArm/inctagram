@@ -47,9 +47,9 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.userName?.message}
+        errorMessage={errors.username?.message}
         label={"Username"}
-        name={"userName"}
+        name={"username"}
         placeholder={"Username"}
         type={"text"}
       />
@@ -91,14 +91,14 @@ export const SignUpCard = () => {
           <Trans
             tags={{
               1: () => (
-                <Link href={"./terms-of-service"}>
+                <Link href={"./auth/terms"}>
                   <Typography variant={"small_link"}>
                     {t.signUp["1"]}
                   </Typography>
                 </Link>
               ),
               2: () => (
-                <Link href={"./privacy-policy"}>
+                <Link href={"./auth/policy"}>
                   <Typography variant={"small_link"}>
                     {t.signUp["2"]}
                   </Typography>

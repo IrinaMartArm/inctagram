@@ -98,10 +98,10 @@ export const Select = forwardRef<
             >
               <SelectRadix.Viewport className={s.SelectViewport}>
                 <SelectRadix.Group>
-                  {items.map((el, index) => (
+                  {items.map((el) => (
                     <SelectRadix.Item
                       className={classNames.selectItem}
-                      key={index}
+                      key={el.value}
                       value={el.value}
                     >
                       <SelectRadix.ItemText asChild>
