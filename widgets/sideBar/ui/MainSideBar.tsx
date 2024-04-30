@@ -2,13 +2,13 @@ import {
   Account,
   Bookmark_outline,
   Home_outline,
-  LogOut_outline,
   Person_outline,
   PlusSquare_outline,
   Search_outline,
   TrendingUp,
 } from "@/public";
 import { SideBar } from "@/shared/components/sideBar/SideBar";
+import { LogOutModal } from "@/widgets";
 import { clsx } from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -45,15 +45,15 @@ export const MainSideBar = () => {
             <div
               className={clsx(
                 s.row,
-                isActive("/profile", currentPath) && s.active,
+                isActive("/my-profile", currentPath) && s.active,
               )}
             >
               <Person_outline />
               <Link
                 className={
-                  isActive("/profile", currentPath) ? s.active : s.link
+                  isActive("/my-profile", currentPath) ? s.active : s.link
                 }
-                href={"./profile"}
+                href={"./my-profile"}
               >
                 My Profile
               </Link>
@@ -124,11 +124,8 @@ export const MainSideBar = () => {
             </div>
           </div>
         </div>
-        <div>
-          <div className={s.row}>
-            <LogOut_outline />
-            <div className={s.link}>Log Out</div>
-          </div>
+        <div className={s.row}>
+          <LogOutModal email={"заглушка@gmail.com"} />
         </div>
       </div>
     </SideBar>

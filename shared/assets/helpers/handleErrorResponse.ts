@@ -19,6 +19,10 @@ export interface CatchingData {
   fieldErrors: Nullable<FieldError[]>;
 }
 
+export type ErrorsMessages = {
+  errorsMessages: FieldError[];
+};
+
 export const handleErrorResponse = (
   error?: FetchBaseQueryError | SerializedError,
 ): CatchingData | undefined => {
@@ -75,4 +79,12 @@ export const handleErrorResponse = (
       };
     }
   }
+};
+
+export const validationError = (err: any): ErrorsMessages | null => {
+  if ("errorMessages" in err) {
+    return err.errorsMessages;
+  }
+
+  return null;
 };

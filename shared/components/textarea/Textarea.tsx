@@ -6,7 +6,7 @@ import s from "./textarea.module.scss";
 
 import { Typography } from "../typography";
 
-type Props = {
+export type TextAreaProps = {
   className?: string;
   error?: string;
   id?: string;
@@ -21,16 +21,21 @@ export const Textarea = ({
   className,
   error,
   isDisabled,
+  label,
   onChangeValue,
   placeholder,
   value,
-}: Props) => {
-  const textAreaClassName = clsx(className && className, error && s.error);
+}: TextAreaProps) => {
+  const textAreaClassName = clsx(
+    s.textarea,
+    className && className,
+    error && s.error,
+  );
 
   return (
-    <div className={s.textarea}>
-      <Typography as={"h2"} variant={"h2"}>
-        {placeholder}
+    <div className={s.root}>
+      <Typography className={s.text} variant={"regular_text-14"}>
+        {label}
       </Typography>
 
       <textarea

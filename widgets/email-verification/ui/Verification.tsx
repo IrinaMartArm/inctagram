@@ -1,15 +1,18 @@
+import { useState } from "react";
+
 import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, PageWrapper, Typography } from "@/shared/components";
-import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { Modal } from "@/shared/components/modals";
 import { EmailSent } from "@/widgets";
 import Image from "next/image";
 
-import s from "../signup.module.scss";
+import s from "./verification.module.scss";
 
-const Verification = () => {
+export const Verification = () => {
   const { t } = useTranslation();
+  const { expired, resend, sendAgain } = t.signUp;
 
   const [resending] = useEmailResendingMutation();
   let email: string = "";
@@ -18,21 +21,36 @@ const Verification = () => {
     email = localStorage.getItem("email") || "";
   }
 
+  const [open, setOpen] = useState(false);
+  const onOpenChangeHandler = () => {
+    setOpen(false);
+  };
+
   const resendingHandler = () => {
-    resending({ email: email || "" });
+    try {
+      resending({ email: email || "" }).unwrap();
+      debugger;
+      setOpen(true);
+    } catch (err: any) {
+      debugger;
+      console.log(err.data.errorsMessages);
+      handleErrorResponse(err);
+    }
   };
 
   return (
     <PageWrapper>
       <Typography className={s.title} variant={"h1"}>
-        {t.signup.expired}
+        {expired}
       </Typography>
       <Typography className={s.expired} variant={"regular_text-16"}>
-        {t.signup.sendAgain}
+        {sendAgain}
       </Typography>
       <Modal
+        onOpenChange={onOpenChangeHandler}
+        open={open}
         title={"Email sent"}
-        trigger={<Button onClick={resendingHandler}>{t.signup.resend}</Button>}
+        trigger={<Button onClick={resendingHandler}>{resend}</Button>}
       >
         <EmailSent email={email || ""} />
       </Modal>
@@ -46,6 +64,3 @@ const Verification = () => {
     </PageWrapper>
   );
 };
-
-Verification.getLayout = getLayout;
-export default Verification;

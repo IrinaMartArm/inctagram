@@ -8,14 +8,14 @@ import s from "@/pages/privacy-policy/policy.module.scss";
 
 const TermsOfService = () => {
   const { t } = useTranslation();
-  const arrow = t.signup.back;
+  const arrow = t.signUp.back;
 
   return (
     <PageWrapper>
       <HeadMeta title={"Terms of Service"} />
       <Back href={"./sign-up"} text={arrow} />
       <Typography className={s.title} variant={"h1"}>
-        {t.signup.service}
+        {t.signUp.service}
       </Typography>
       <Typography className={s.text} variant={"regular_text-14"}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

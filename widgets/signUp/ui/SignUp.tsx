@@ -4,6 +4,7 @@ import {
   Card,
   ControlledCheckBox,
   ControlledTextField,
+  Loader,
   Trans,
   Typography,
 } from "@/shared/components";
@@ -20,26 +21,35 @@ export const SignUpCard = () => {
     email,
     errors,
     handleSubmit,
-    isDirty,
     isLoading,
     isValid,
+    onOpenChangeHandler,
+    open,
     signUpHandler,
     t,
   } = useSignUp();
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
-      <Typography variant={"h1"}>{t.signup.title}</Typography>
+      <Typography variant={"h1"}>{t.signUp.title}</Typography>
       <div className={s.socials}>
-        <Button icon={<Google />} variant={"link"} />
-        <Button icon={<GitHubBig />} variant={"link"} />
+        <Link aria-label={"sign in with Google"} href={""}>
+          <Google />
+        </Link>
+        <Link aria-label={"sign in with GitHub"} href={""}>
+          <GitHubBig />
+        </Link>
       </div>
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.email?.message}
+        errorMessage={errors.userName?.message}
         label={"Username"}
-        name={"username"}
+        name={"userName"}
         placeholder={"Username"}
         type={"text"}
       />
@@ -55,7 +65,7 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.email?.message}
+        errorMessage={errors.password?.message}
         label={"Password"}
         name={"password"}
         placeholder={"Password"}
@@ -64,7 +74,7 @@ export const SignUpCard = () => {
       <ControlledTextField
         control={control}
         disabled={isLoading}
-        errorMessage={errors.email?.message}
+        errorMessage={errors.confirm?.message}
         label={"Password confirmation"}
         name={"confirm"}
         placeholder={"Password confirmation"}
@@ -74,7 +84,7 @@ export const SignUpCard = () => {
         <ControlledCheckBox
           control={control}
           disabled={isLoading}
-          errorMessage={errors.email?.message}
+          errorMessage={errors.agree?.message}
           name={"agree"}
         />
         <div className={s.trans}>
@@ -83,45 +93,47 @@ export const SignUpCard = () => {
               1: () => (
                 <Link href={"./terms-of-service"}>
                   <Typography variant={"small_link"}>
-                    {t.signup["1"]}
+                    {t.signUp["1"]}
                   </Typography>
                 </Link>
               ),
               2: () => (
                 <Link href={"./privacy-policy"}>
                   <Typography variant={"small_link"}>
-                    {t.signup["2"]}
+                    {t.signUp["2"]}
                   </Typography>
                 </Link>
               ),
             }}
-            text={t.signup.agree}
+            text={t.signUp.agree}
           />
         </div>
       </div>
       <Modal
+        onOpenChange={onOpenChangeHandler}
+        open={open}
         title={"Email sent"}
         trigger={
           <Button
             className={s.button}
-            disabled={!isDirty || !isValid}
+            disabled={!isValid}
             fullWidth
             type={"submit"}
           >
-            {t.signup.title}
+            {t.signUp.title}
           </Button>
         }
       >
         <EmailSent email={email || ""} />
       </Modal>
-      <Typography variant={"regular_text-16"}>{t.signup.question}</Typography>
+      <Typography variant={"regular_text-16"}>{t.signUp.question}</Typography>
       <Button
         as={Link}
         className={s.signupBtn}
         href={"./sign-in"}
         variant={"link"}
       >
-        {t.signup.signIn}
+        {t.signUp.signIn}
       </Button>
     </Card>
   );

@@ -1,30 +1,40 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useLayoutEffect } from "react";
+
+import { ParsedUrlQuery } from "querystring";
 
 import { useRegistrationConfirmationMutation } from "@/shared/assets/api/auth/auth-api";
+import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, Loader, PageWrapper, Typography } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
+import { Verification } from "@/widgets";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import s from "../signup.module.scss";
+import s from "@/widgets/email-verification/ui/verification.module.scss";
 
 const Confirmed = () => {
   const { t } = useTranslation();
+  const { confirmed, congratulations, signIn } = t.signUp;
   const router = useRouter();
-  const [registrationConfirmation, { isLoading }] =
+  const [registrationConfirmation, { error, isLoading }] =
     useRegistrationConfirmationMutation();
 
-  const Confirmation = useCallback(() => {
-    const code = Array.isArray(router.query.code)
-      ? router.query.code[0]
-      : router.query.code;
+  const Confirmation = useCallback(async () => {
+    const query: ParsedUrlQuery = router.query;
+    const code = query.code as string;
 
-    registrationConfirmation({ code: code || "" });
-  }, [registrationConfirmation, router.query.code]);
+    try {
+      if (code) {
+        await registrationConfirmation({ code: code });
+      }
+    } catch (error: any) {
+      handleErrorResponse(error);
+    }
+  }, [registrationConfirmation, router]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     Confirmation();
   }, [Confirmation]);
 
@@ -32,14 +42,18 @@ const Confirmed = () => {
     return <Loader />;
   }
 
+  if (error) {
+    return <Verification />;
+  }
+
   return (
     <PageWrapper>
-      <Typography variant={"h1"}>{t.signup.congratulations}</Typography>
+      <Typography variant={"h1"}>{congratulations}</Typography>
       <Typography className={s.confirmed} variant={"regular_text-16"}>
-        {t.signup.confirmed}
+        {confirmed}
       </Typography>
       <Button as={Link} className={s.btn} href={"./../../sign-in"}>
-        {t.signup.signIn}
+        {signIn}
       </Button>
       <Image
         alt={"Congratulations!"}

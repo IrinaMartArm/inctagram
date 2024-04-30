@@ -4,7 +4,7 @@ import { NextPage } from "next";
 
 import { Layout } from "../Layout";
 
-export const BaseLayout: NextPage<PropsWithChildren> = (props) => {
+const BaseLayout: NextPage<PropsWithChildren> = (props) => {
   const { children } = props;
 
   return (

@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { SignInCard } from "./SignIn";
+import { Provider } from "react-redux";
 
+import { store } from "@/shared/assets/api/store";
+
+import { SignInCard } from "./SignIn";
 const meta = {
   argTypes: {},
   component: SignInCard,
@@ -16,4 +19,11 @@ export const SignInForm: Story = {
   args: {
     onSubmit: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        <Story />
+      </Provider>
+    ),
+  ],
 };

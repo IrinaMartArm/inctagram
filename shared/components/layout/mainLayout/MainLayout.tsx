@@ -7,7 +7,7 @@ import s from "./../layout.module.scss";
 
 import { Layout } from "../Layout";
 
-export const MainLayout: NextPage<PropsWithChildren> = (props) => {
+const MainLayout: NextPage<PropsWithChildren> = (props) => {
   const { children } = props;
 
   return (

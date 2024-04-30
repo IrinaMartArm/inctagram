@@ -14,6 +14,7 @@ type PropsType<T extends FieldValues> = Omit<
 export const ControlledTextField = <T extends FieldValues>({
   control,
   label,
+  required,
   shouldUnregister,
   ...rest
 }: PropsType<T>) => {
@@ -24,5 +25,5 @@ export const ControlledTextField = <T extends FieldValues>({
     shouldUnregister,
   });
 
-  return <Input {...rest} {...field} label={label} />;
+  return <Input {...rest} {...field} label={label} required={required} />;
 };

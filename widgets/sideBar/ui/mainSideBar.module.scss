@@ -1,12 +1,12 @@
 @import "../../../styles/mixins";
 
 .root {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0 auto;
+  position: fixed;
+  @include flex(column, space-between, center, 180px);
+  margin-left: 48px;
   width: fit-content;
-  height: 100%;
+  height: 100vh;
+  padding-bottom: 200px;
 }
 
 .row {

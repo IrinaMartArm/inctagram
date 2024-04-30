@@ -5,7 +5,13 @@ export const en: LocaleType = {
     title: "favorites page",
   },
   general: {
-    title: "general page",
+    title: "general-information page",
+  },
+  logOut: {
+    buttonNo: "No",
+    buttonYes: "Yes",
+    title: "Log Out",
+    warning: "Are you really want to log out of your account",
   },
   passwordRecovery: {
     back: "Back to Sign In",
@@ -16,17 +22,12 @@ export const en: LocaleType = {
       "If you don’t receive an email send link again",
     rules: "Your password must be between 6 and 20 characters",
     send: "Send Link",
+    send2: "Send Link Again",
     text: "Enter your email address and we will send you further instructions",
     title: "Forgot Password",
   },
   policy: {
     title: "Privacy Policy",
-  },
-  recaptcha: {
-    expired: "Verification expired. Check the checkbox again.",
-
-    text: "Please verify that you are not a robot",
-    title: "I’m not a robot",
   },
   signIn: {
     errors: {
@@ -44,7 +45,7 @@ export const en: LocaleType = {
     signUp: "Sign Up",
     title: "Sign In",
   },
-  signup: {
+  signUp: {
     1: "Terms of Service",
     2: "Privacy Policy",
     agree: "I agree to the <1></1> and <2></2>",
@@ -54,17 +55,19 @@ export const en: LocaleType = {
     confirmed: "Your email has been confirmed",
     congratulations: "Congratulations!",
     created: "The account has been created.",
-    email: "The email must match the format\n" + "example@example.com",
-    expired: "Email verification link expired",
+    expired: "Email email-verification link expired",
+    formEmail: "The email must match the format\n" + "example@example.com",
+    haveSent: "We have sent a link to confirm your email to",
+    invalidPassword: "Password must contain",
     name: "Username",
     password: "Password",
     password2: "Password confirmation",
     passwordMax: "Maximum number of characters 20",
     passwordMin: "Minimum number of characters 6",
     question: "Do you have an account?",
-    resend: "Resend verification link",
+    resend: "Resend email-verification link",
     sendAgain:
-      "Looks like the verification link has expired. Not to worry, we can send the link again",
+      "Looks like the email-verification link has expired. Not to worry, we can send the link again",
     service: "Terms of Service",
     signIn: "Sign In",
     title: "Sign Up",
