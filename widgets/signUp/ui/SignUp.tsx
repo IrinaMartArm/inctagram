@@ -91,14 +91,14 @@ export const SignUpCard = () => {
           <Trans
             tags={{
               1: () => (
-                <Link href={"./terms"}>
+                <Link href={"./auth/terms"}>
                   <Typography variant={"small_link"}>
                     {t.signUp["1"]}
                   </Typography>
                 </Link>
               ),
               2: () => (
-                <Link href={"./policy"}>
+                <Link href={"./auth/policy"}>
                   <Typography variant={"small_link"}>
                     {t.signUp["2"]}
                   </Typography>

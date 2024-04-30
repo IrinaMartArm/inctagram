@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
   return (
     <PageWrapper>
       <HeadMeta title={"Privacy Policy"} />
-      <Back href={"./sign-up"} text={"Back to Sign Up"} />
+      <Back text={"Back to Sign Up"} />
       <Typography className={s.title} variant={"h1"}>
         {t.policy.title}
       </Typography>

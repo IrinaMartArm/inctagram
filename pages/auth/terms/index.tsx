@@ -13,7 +13,7 @@ const TermsOfService = () => {
   return (
     <PageWrapper>
       <HeadMeta title={"Terms of Service"} />
-      <Back href={"./sign-up"} text={arrow} />
+      <Back text={arrow} />
       <Typography className={s.title} variant={"h1"}>
         {t.signUp.service}
       </Typography>

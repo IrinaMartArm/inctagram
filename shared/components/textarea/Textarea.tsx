@@ -1,4 +1,9 @@
-import { ChangeEvent, ComponentPropsWithoutRef } from "react";
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+} from "react";
 
 import clsx from "clsx";
 
@@ -17,35 +22,40 @@ export type TextAreaProps = {
   value: string;
 } & ComponentPropsWithoutRef<"textarea">;
 
-export const Textarea = ({
-  className,
-  error,
-  isDisabled,
-  label,
-  onChangeValue,
-  placeholder,
-  value,
-}: TextAreaProps) => {
-  const textAreaClassName = clsx(
-    s.textarea,
-    className && className,
-    error && s.error,
-  );
+export const Textarea = forwardRef<ElementRef<"textarea">, TextAreaProps>(
+  (props, ref) => {
+    const {
+      className,
+      error,
+      isDisabled,
+      label,
+      onChangeValue,
+      placeholder,
+      value,
+    } = props;
 
-  return (
-    <div className={s.root}>
-      <Typography className={s.text} variant={"regular_text-14"}>
-        {label}
-      </Typography>
+    const textAreaClassName = clsx(
+      s.textarea,
+      className && className,
+      error && s.error,
+    );
 
-      <textarea
-        className={textAreaClassName}
-        disabled={isDisabled}
-        onChange={onChangeValue}
-        placeholder={placeholder}
-        value={value}
-      />
-      <div className={s.error__message}>{error && error}</div>
-    </div>
-  );
-};
+    return (
+      <div className={s.root}>
+        <Typography className={s.text} variant={"regular_text-14"}>
+          {label}
+        </Typography>
+
+        <textarea
+          className={textAreaClassName}
+          disabled={isDisabled}
+          onChange={onChangeValue}
+          placeholder={placeholder}
+          ref={ref}
+          value={value}
+        />
+        <div className={s.error__message}>{error && error}</div>
+      </div>
+    );
+  },
+);

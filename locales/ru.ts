@@ -30,6 +30,8 @@ export const ru = {
     general: {
       1: "Privacy Policy",
       child: "A user under 13 cannot create a\n" + "profile. <1></1>",
+      fell: "Ошибка! Сервер недоступен!",
+      success: "Ваши настройки сохранены!",
     },
     publications: "Публикации",
     settingsBtn: "Настройки профиля",

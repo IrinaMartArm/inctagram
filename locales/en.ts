@@ -32,6 +32,8 @@ export const en: LocaleType = {
     general: {
       1: "Privacy Policy",
       child: "A user under 13 cannot create a\n" + "profile. <1></1>",
+      fell: "Error! Server is not available!",
+      success: "Your settings are saved!",
     },
     publications: "Publications",
     settingsBtn: "Profile Settings",
