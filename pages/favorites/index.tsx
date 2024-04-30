@@ -7,12 +7,10 @@ import s from "./favorites.module.scss";
 
 const Favorites = () => {
   return (
-    <WithNavigate>
-      <PageWrapper>
-        <HeadMeta title={"Favorites"} />
-        <div className={s.root}>Favorites</div>
-      </PageWrapper>
-    </WithNavigate>
+    <PageWrapper>
+      <HeadMeta title={"Favorites"} />
+      <div className={s.root}>Favorites</div>
+    </PageWrapper>
   );
 };
 
