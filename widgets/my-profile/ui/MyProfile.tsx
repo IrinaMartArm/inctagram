@@ -1,14 +1,18 @@
 import { Info } from "@/features/info/Info";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, PageWrapper, Typography } from "@/shared/components";
 import Link from "next/link";
 
 import s from "./profile.module.scss";
 
-const following = 746;
-const followers = 345;
-const publications = 465;
+const followingN = 746;
+const followersN = 345;
+const publicationsN = 465;
 
 export const MyProfile = () => {
+  const { t } = useTranslation();
+  const { followers, following, publications, settingsBtn } = t.profile;
+
   return (
     <PageWrapper>
       <div className={s.info_wrapper}>
@@ -18,16 +22,16 @@ export const MyProfile = () => {
             <Typography variant={"h1"}>URLProfiele</Typography>
             <Button
               as={Link}
-              href={"./general-information"}
+              href={"./profile-settings/general"}
               variant={"secondary"}
             >
-              Profile Settings
+              {settingsBtn}
             </Button>
           </div>
           <div className={s.second_row}>
-            <Info number={following} title={"Following"} />
-            <Info number={followers} title={"Followers"} />
-            <Info number={publications} title={"Publications"} />
+            <Info number={followingN} title={following} />
+            <Info number={followersN} title={followers} />
+            <Info number={publicationsN} title={publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={"regular_text-16"}>

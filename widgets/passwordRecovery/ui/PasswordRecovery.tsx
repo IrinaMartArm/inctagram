@@ -1,4 +1,4 @@
-import ReCAPTCHAWidget from "@/pages/password-recovery/recaptcha";
+import ReCAPTCHAWidget from "@/pages/auth/password-recovery/recaptcha";
 import {
   Button,
   Card,

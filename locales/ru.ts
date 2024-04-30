@@ -2,9 +2,6 @@ export const ru = {
   favorites: {
     title: "Страница",
   },
-  general: {
-    title: "Страница",
-  },
   logOut: {
     buttonNo: "Нет",
     buttonYes: "Да",
@@ -26,6 +23,18 @@ export const ru = {
   },
   policy: {
     title: "Политика конфиденциальности",
+  },
+  profile: {
+    followers: "Подписчики",
+    following: "Following",
+    general: {
+      1: "Privacy Policy",
+      child: "A user under 13 cannot create a\n" + "profile. <1></1>",
+      fell: "Ошибка! Сервер недоступен!",
+      success: "Ваши настройки сохранены!",
+    },
+    publications: "Публикации",
+    settingsBtn: "Настройки профиля",
   },
   signIn: {
     errors: {

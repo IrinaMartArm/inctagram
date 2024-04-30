@@ -5,12 +5,10 @@ import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout"
 
 const Messenger = () => {
   return (
-    <WithNavigate>
-      <PageWrapper>
-        <HeadMeta title={"Messenger"} />
-        <div>Messenger</div>
-      </PageWrapper>
-    </WithNavigate>
+    <PageWrapper>
+      <HeadMeta title={"Messenger"} />
+      <div>Messenger</div>
+    </PageWrapper>
   );
 };
 

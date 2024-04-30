@@ -32,7 +32,7 @@ export const MainSideBar = () => {
               <Home_outline />
               <Link
                 className={isActive("/", currentPath) ? s.active : s.link}
-                href={"./home"}
+                href={"./main"}
                 passHref
               >
                 Home

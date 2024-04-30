@@ -1,8 +1,5 @@
 import { authActions } from "@/entities";
-import {
-  useLoginMutation,
-  useMeQuery,
-} from "@/shared/assets/api/auth/auth-api";
+import { useLoginMutation } from "@/shared/assets/api/auth/auth-api";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
@@ -18,7 +15,6 @@ const SignIn = () => {
   const { errors, title } = t.signIn;
   const [login] = useLoginMutation();
 
-  useMeQuery();
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -31,7 +27,7 @@ const SignIn = () => {
 
         localStorage.setItem("accessToken", accessToken);
 
-        await router.replace("/my-profile");
+        await router.replace("/profile");
       }
 
       dispatch(authActions.setError(undefined));

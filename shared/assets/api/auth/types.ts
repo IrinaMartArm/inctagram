@@ -9,7 +9,7 @@ type MeErrorResponse = "Unauthorized";
 export type SignUpArgs = {
   email: string;
   password: string;
-  userName: string;
+  username: string;
 };
 export type EmailResendingArgs = {
   email: string;

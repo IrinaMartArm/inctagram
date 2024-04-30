@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 import { PASSWORD_REGEX } from "@/entities";
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
@@ -40,7 +39,7 @@ export const useSignUp = () => {
           `${invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
            ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
         ),
-      userName: z.string().min(6, passwordMin).max(30, username).trim(),
+      username: z.string().min(6, passwordMin).max(30, username).trim(),
     })
     .refine((value) => value.agree, {
       message: checkbox,
@@ -58,7 +57,7 @@ export const useSignUp = () => {
     confirm: "",
     email: "",
     password: "",
-    userName: "",
+    username: "",
   };
 
   const [open, setOpen] = useState(false);
@@ -78,7 +77,7 @@ export const useSignUp = () => {
     const signUpArgs = {
       email: data.email,
       password: data.password,
-      userName: data.userName,
+      username: data.username,
     };
 
     localStorage.setItem("email", data.email);

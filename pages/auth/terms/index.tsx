@@ -4,17 +4,18 @@ import { PageWrapper, Typography } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 
-import s from "./policy.module.scss";
+import s from "@/pages/auth/policy/policy.module.scss";
 
-const PrivacyPolicy = () => {
+const TermsOfService = () => {
   const { t } = useTranslation();
+  const arrow = t.signUp.back;
 
   return (
     <PageWrapper>
-      <HeadMeta title={"Privacy Policy"} />
-      <Back href={"./sign-up"} text={"Back to Sign Up"} />
+      <HeadMeta title={"Terms of Service"} />
+      <Back text={arrow} />
       <Typography className={s.title} variant={"h1"}>
-        {t.policy.title}
+        {t.signUp.service}
       </Typography>
       <Typography className={s.text} variant={"regular_text-14"}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -97,5 +98,5 @@ const PrivacyPolicy = () => {
   );
 };
 
-PrivacyPolicy.getLayout = getLayout;
-export default PrivacyPolicy;
+TermsOfService.getLayout = getLayout;
+export default TermsOfService;

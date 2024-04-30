@@ -10,7 +10,7 @@
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
-  @include flex("", start, center, 12px);
+  @include flex("", flex-start, center, 12px);
   &:hover {
     color: var(--color-accent-100);
   }
