@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useRef } from "react";
 
 import { AvatarEdit, Button } from "@/shared/components";
 import { Alert } from "@/shared/components/alert";
@@ -7,16 +7,22 @@ import { Modal } from "@/shared/components/modals";
 import s from "./edit-profilePhoto.module.scss";
 
 type Props = {
+  ava?: any;
   defaultOpen: boolean;
   error?: string;
   photo?: string;
+  setAva?: (ava: any) => void;
   setIsShowModal?: (isShowModal: boolean) => void;
   title: "Add a Profile Photo";
 };
 
-export const EditProfilePhoto = ({ defaultOpen, error, title }: Props) => {
-  const [src, setSrc] = useState<any>(null);
-
+export const EditProfilePhoto = ({
+  ava,
+  defaultOpen,
+  error,
+  setAva,
+  title,
+}: Props) => {
   const inputRef = useRef<any>(null);
 
   const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +34,7 @@ export const EditProfilePhoto = ({ defaultOpen, error, title }: Props) => {
       if (file.size < 4000000) {
         convertFileToBase64(file, (file64: string) => {
           console.log("file64: ", file64);
-          setSrc(file64);
+          setAva && setAva(file64);
         });
       } else {
         console.error("Error: ", "Файл слишком большого размера");
@@ -60,7 +66,7 @@ export const EditProfilePhoto = ({ defaultOpen, error, title }: Props) => {
     <Modal defaultOpen={defaultOpen} title={title}>
       <div className={s.wrapper}>
         {error && <Alert isShowClose={false} title={error} variant={"error"} />}
-        <AvatarEdit photo={src} />
+        <AvatarEdit photo={ava} />
         <div className={s.wrapperButton}>
           <Button onClick={saveImage} variant={"primary"}>
             Save

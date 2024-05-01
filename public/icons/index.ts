@@ -13,6 +13,7 @@ export { GitHubBig } from "./GitHubBig";
 export { Google } from "./Google";
 export { Home } from "./Home";
 export { Home_outline } from "./Home_outline";
+export { ImageProfile } from "./ImageProfile";
 export { LogOut_outline } from "./LogOut_outline";
 export { Paid } from "./Paid";
 export { PayPal } from "./PayPal";

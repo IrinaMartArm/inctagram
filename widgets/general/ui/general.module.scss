@@ -21,10 +21,9 @@
 }
 
 .avatar {
-  min-width: 192px;
+  width: 192px;
   height: 192px;
   margin-top: 25px;
-  border: 1px solid green;
 }
 .form {
   @include flex(column, space-between, center, 24px);

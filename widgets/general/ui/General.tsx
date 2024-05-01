@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import {
   Alert,
+  Avatar,
   Button,
   ControlledTextArea,
   ControlledTextField,
@@ -45,6 +46,7 @@ const belarus = [
 ];
 
 export const General = () => {
+  const [ava, setAva] = useState<any>();
   const {
     alertHandler,
     alertMessage,
@@ -56,7 +58,7 @@ export const General = () => {
     showAlert,
   } = useProfileForm();
   const [selectedCountry, setSelectedCountry] = useState("");
-    const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const handleCountryChange = (key: string, value: string) => {
     setSelectedCountry(value);
@@ -88,7 +90,7 @@ export const General = () => {
       <Tab defaultValue={"General information"} options={options} />
       <div className={s.container}>
         <div className={s.avatarBox}>
-          <div className={s.avatar}></div>
+          <Avatar alt={"avatar"} className={s.avatar} isEditProfile />
           <Button onClick={() => setIsShowModal(true)} variant={"outlined"}>
             Add a Profile Photo
           </Button>
@@ -145,13 +147,15 @@ export const General = () => {
       <Button className={s.button} disabled={!isValid} type={"submit"}>
         Save Changes
       </Button>
-        {isShowModal && (
-            <EditProfilePhoto
-                defaultOpen={isShowModal}
-                setIsShowModal={setIsShowModal}
-                title={"Add a Profile Photo"}
-            />
-        )}
+      {isShowModal && (
+        <EditProfilePhoto
+          ava={ava}
+          defaultOpen={isShowModal}
+          setAva={setAva}
+          setIsShowModal={setIsShowModal}
+          title={"Add a Profile Photo"}
+        />
+      )}
     </form>
   );
 };

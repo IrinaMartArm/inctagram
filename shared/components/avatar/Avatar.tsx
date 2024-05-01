@@ -1,3 +1,4 @@
+import { ImageProfile } from "@/public";
 import noAva from "@/public/images/noAva.webp";
 import clsx from "clsx";
 import Image from "next/image";
@@ -9,23 +10,35 @@ type AvatarSize = "lg" | "md" | "sm";
 type Props = {
   alt: string;
   className?: string;
+  isEditProfile?: boolean;
+  size?: AvatarSize;
   src?: string;
-  variant: AvatarSize;
 };
 
-export const Avatar = ({ alt, className, src, variant }: Props) => {
-  const avatarCN = clsx(s[variant], className);
+export const Avatar = ({
+  alt,
+  className,
+  isEditProfile = false,
+  size = "lg",
+  src,
+}: Props) => {
+  const avatarCN = clsx(s.avatar, s[size], className);
+
+  const isEditWithSrc = isEditProfile && src;
 
   return (
     <div className={avatarCN}>
-      <Image
-        alt={alt}
-        className={s.img}
-        fill
-        priority
-        quality={100}
-        src={src || noAva}
-      />
+      {(!isEditProfile || isEditWithSrc) && (
+        <Image
+          alt={alt}
+          className={s.img}
+          fill
+          priority
+          quality={100}
+          src={src || noAva}
+        />
+      )}
+      {!src && isEditProfile && <ImageProfile />}
     </div>
   );
 };

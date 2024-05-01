@@ -1,48 +1,39 @@
-@mixin img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0 !important;
-  bottom: 0 !important;
-  object-fit: contain;
-}
-
-@mixin avatarCommon {
-  border-radius: 100%;
+.avatar {
+  border-radius: 50%;
+  background-color: var(--color-dark-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   overflow: hidden;
-  background-color: white;
-}
-
-
-.lg {
-  @include avatarCommon();
-  max-width: 204px;
-  height: 204px;
 
   .img {
-    @include img()
+    position: absolute;
+    object-fit: contain;
   }
 }
 
+.lg {
+  width: 204px;
+  height: 204px;
+}
+
 .md {
-  @include avatarCommon();
   max-width: 48px;
   height: 48px;
 
-
-  .img {
-    @include img()
+  svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
 .sm {
-  @include avatarCommon();
   max-width: 36px;
   height: 36px;
 
-  .img {
-    @include img()
+  svg {
+    width: 18px;
+    height: 18px;
   }
 }
