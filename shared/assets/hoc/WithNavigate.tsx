@@ -17,12 +17,12 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   const isProtectedPage: boolean = !commonRoutes.includes(remainingPath);
 
   useEffect(() => {
-    if (
+    /* if (
       (!isLoading && !isAuth && isProtectedPage) ||
       router.pathname === "./github"
     ) {
       router.push(Paths.MAIN);
-    }
+    } */
 
     return;
   }, [isAuth, isProtectedPage, router, isLoading]);

@@ -45,6 +45,7 @@ export const useProfileForm = () => {
     control,
     formState: { isValid },
     handleSubmit,
+    setValue,
   } = useForm<ProfileFormSchema>();
 
   const [fillOutProfile, {}] = useFillOutProfileMutation();
@@ -55,6 +56,8 @@ export const useProfileForm = () => {
 
   const onSubmit = async (data: ProfileFormSchema) => {
     try {
+      console.log(data);
+
       await fillOutProfile(data).unwrap();
       setAlertMessage(success);
       setAlertVariant("success");
@@ -71,9 +74,11 @@ export const useProfileForm = () => {
     alertMessage,
     alertVariant,
     control,
+
     handleSubmit,
     isValid,
     onSubmit,
+    setValue,
     showAlert,
   };
 };

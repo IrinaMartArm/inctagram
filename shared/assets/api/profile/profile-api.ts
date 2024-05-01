@@ -11,8 +11,15 @@ export const ProfileApi = baseApi.injectEndpoints({
           url: "v1/user/fill-out-profile",
         }),
       }),
+      getProfileInfo: builder.query<UserProfileArgs, void>({
+        query: (arg) => ({
+          arg,
+          method: "GET",
+          url: "v1/user/profile-information",
+        }),
+      }),
     };
   },
 });
 
-export const { useFillOutProfileMutation } = ProfileApi;
+export const { useFillOutProfileMutation, useGetProfileInfoQuery } = ProfileApi;

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useGetProfileInfoQuery } from "@/shared/assets/api/profile/profile-api";
+import { UserProfileArgs } from "@/shared/assets/api/profile/types";
 import {
   Alert,
   Button,
@@ -52,8 +54,29 @@ export const General = () => {
     handleSubmit,
     isValid,
     onSubmit,
+    setValue,
     showAlert,
   } = useProfileForm();
+
+  const { data: userInfo, error, isLoading } = useGetProfileInfoQuery();
+
+  const userInfoData: UserProfileArgs = {
+    //заглушка для userInfo
+    aboutMe: "I'm a sportsman",
+    city: "Gomel",
+    dateOfBirth: "01.12.1990",
+    firstName: "Novak",
+    lastName: "Jokovic",
+    username: "Just_Novak",
+  };
+
+  useEffect(() => {
+    for (const key in userInfoData) {
+      //@ts-ignore
+      setValue(key, userInfoData[key]);
+    }
+  }, []);
+
   const [selectedCountry, setSelectedCountry] = useState("");
 
   const handleCountryChange = (key: string, value: string) => {
@@ -130,12 +153,24 @@ export const General = () => {
               onChange={() => {}}
             />
           </div>
-          <ControlledTextArea
+          <ControlledTextArea /* value is not changing on typing without onChangeValue function here!!!!*/
+            control={control}
+            label={"About Me"}
+            name={"aboutMe"}
+            onChangeValue={(e: any) => {
+              const value = e.currentTarget.value;
+
+              setValue("aboutMe", value);
+            }}
+            placeholder={"Text-area"}
+          />
+          {/* value is not changing on typing */}
+          {/* <ControlledTextField
             control={control}
             label={"About Me"}
             name={"aboutMe"}
             placeholder={"Text-area"}
-          />
+          /> */}
         </div>
       </div>
       <Button className={s.button} disabled={!isValid} type={"submit"}>
