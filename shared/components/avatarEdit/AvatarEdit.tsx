@@ -4,10 +4,10 @@ import AvatarEditor from "react-avatar-editor";
 import s from "./avatarEdit.module.scss";
 
 type Props = {
-  photo: string;
+  image: string;
 };
 
-export const AvatarEdit = forwardRef<AvatarEditor, Props>(({ photo }, ref) => {
+export const AvatarEdit = forwardRef<AvatarEditor, Props>(({ image }, ref) => {
   const [scale, setScale] = useState(1.2);
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
@@ -25,7 +25,7 @@ export const AvatarEdit = forwardRef<AvatarEditor, Props>(({ photo }, ref) => {
         borderRadius={150}
         color={[23, 23, 23, 0.87]}
         height={312}
-        image={photo}
+        image={image}
         ref={ref}
         rotate={0}
         scale={scale}

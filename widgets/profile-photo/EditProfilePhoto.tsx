@@ -8,27 +8,30 @@ import { Modal } from "@/shared/components/modals";
 import s from "./edit-profilePhoto.module.scss";
 
 type Props = {
-  ava?: string;
   defaultOpen: boolean;
   error?: string;
+  isShowAvatarEditor?: boolean;
   photo?: string;
-  setAva?: (ava: string) => void;
-  setIsShowModal?: (isShowModal: boolean) => void;
+  setIsShowModal: (isShowModal: boolean) => void;
   title: string;
+  updateAvatar: (avatar: string) => void;
 };
 
 export const EditProfilePhoto = ({
-  ava,
   defaultOpen,
   error,
-  setAva,
+  isShowAvatarEditor,
+  photo,
   setIsShowModal,
   title,
+  updateAvatar,
 }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const editorRef = useRef<AvatarEditor | null>(null);
-  const [isShowEditor, setIsShowEditor] = useState(false);
-  const [image, setImage] = useState<ArrayBuffer | null | string>(null);
+  const [isShowEditor, setIsShowEditor] = useState(isShowAvatarEditor);
+  const [image, setImage] = useState<ArrayBuffer | null | string>(
+    photo ?? null,
+  );
 
   const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -53,9 +56,9 @@ export const EditProfilePhoto = ({
     if (editorRef.current) {
       const canvas = editorRef.current.getImage();
 
-      setAva && setAva(canvas.toDataURL());
+      updateAvatar(canvas.toDataURL());
       setIsShowEditor(false);
-      setIsShowModal && setIsShowModal(false);
+      setIsShowModal(false);
     }
   };
 
@@ -65,7 +68,7 @@ export const EditProfilePhoto = ({
         {error && <Alert isShowClose={false} title={error} variant={"error"} />}
         {isShowEditor && (
           <>
-            <AvatarEdit photo={image as string} ref={editorRef} />
+            <AvatarEdit image={image as string} ref={editorRef} />
             <div className={s.wrapperButton}>
               <Button onClick={saveImage} variant={"primary"}>
                 Save
@@ -81,7 +84,7 @@ export const EditProfilePhoto = ({
             <div className={s.wrapperInput}>
               <input
                 className={s.input}
-                id={"input__file"}
+                id={"input-file"}
                 name={"file"}
                 onChange={handleImgChange}
                 ref={inputRef}
@@ -90,7 +93,7 @@ export const EditProfilePhoto = ({
               <Button
                 as={"label"}
                 className={s.selectButton}
-                htmlFor={"input__file"}
+                htmlFor={"input-file"}
                 onClick={handleInputClick}
               >
                 Select from Computer

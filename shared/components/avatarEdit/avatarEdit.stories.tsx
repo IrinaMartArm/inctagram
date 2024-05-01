@@ -17,6 +17,6 @@ const PHOTO =
 
 export const Default: Story = {
   args: {
-    photo: PHOTO,
+    image: PHOTO,
   },
 };
