@@ -46,7 +46,7 @@ const belarus = [
 ];
 
 export const General = () => {
-  const [ava, setAva] = useState<any>();
+  const [ava, setAva] = useState<string | undefined>();
   const {
     alertHandler,
     alertMessage,
@@ -74,9 +74,10 @@ export const General = () => {
     }
   };
 
+  const onChangeAva = (newAva: string | undefined) => {
+    setAva(newAva);
+  };
   const cities = getCityOptions();
-
-  console.log(cities[0].value);
 
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
@@ -90,7 +91,7 @@ export const General = () => {
       <Tab defaultValue={"General information"} options={options} />
       <div className={s.container}>
         <div className={s.avatarBox}>
-          <Avatar alt={"avatar"} className={s.avatar} isEditProfile />
+          <Avatar alt={"avatar"} className={s.avatar} isEditProfile src={ava} />
           <Button onClick={() => setIsShowModal(true)} variant={"outlined"}>
             Add a Profile Photo
           </Button>
@@ -151,7 +152,7 @@ export const General = () => {
         <EditProfilePhoto
           ava={ava}
           defaultOpen={isShowModal}
-          setAva={setAva}
+          setAva={onChangeAva}
           setIsShowModal={setIsShowModal}
           title={"Add a Profile Photo"}
         />

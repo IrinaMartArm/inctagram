@@ -1,5 +1,13 @@
 .wrapper {
-  padding: 28px 24px 36px
+  padding: 28px 24px 36px;
+
+  .avatar {
+    border-radius: 0;
+    margin: 40px auto 0;
+    width: 222px;
+    height: 228px;
+
+  }
 }
 
 .wrapperButton {
@@ -11,7 +19,7 @@
 .wrapperInput {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin: 60px 0 70px;
 }
 
 .input {
