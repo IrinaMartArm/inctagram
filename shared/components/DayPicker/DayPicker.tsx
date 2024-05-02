@@ -112,12 +112,24 @@ export const DayPicker = (props: DayPickerProps) => {
     setIsPickerRangeHidden(false);
   };
 
+  const isValidDateFormat = (dateString: string) => {
+    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/;
+
+    return dateRegex.test(dateString);
+  };
+
+  const dateSingleChecker = () => {
+    return selected && !isValidDateFormat(selected) ? "Error!" : "";
+  };
+
   return (
     <div className={s.pickerContainer}>
       {props.mode === "single" && (
         <>
-          <div className={s.inputSingleContainer} onClick={onClickSingle}>
+          <div className={s.inputSingleContainer}>
             <Input
+              errorMessage={dateSingleChecker()}
+              onButtonClick={onClickSingle}
               onChange={(e) => setSelected(e.target.value)}
               type={"datePicker"}
               value={selected || ""}

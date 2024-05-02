@@ -21,6 +21,7 @@ export type InputProps = {
   fullWidth?: boolean;
   isShowButton?: boolean;
   label?: ReactNode;
+  onButtonClick?: () => void; // for datePicker type only
   onClearClick?: (value: string) => void;
   onEnter?: (e: KeyboardEvent<HTMLInputElement>) => void;
   required?: boolean;
@@ -51,6 +52,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
       errorMessage,
       fullWidth,
       label,
+      onButtonClick,
       onChange,
       onClearClick,
       onEnter,
@@ -146,7 +148,11 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
           )}
           {type === "datePicker" && (
             <>
-              <button className={s.iconStart} type={"button"}>
+              <button
+                className={s.iconStart}
+                onClick={onButtonClick}
+                type={"button"}
+              >
                 {<DatePicker />}
               </button>
             </>
