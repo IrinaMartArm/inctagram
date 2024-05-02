@@ -9,6 +9,7 @@
 .tabs {
   width: 100%;
 }
+
 .container {
   @include flex(row, center, flex-start, 40px);
   width: 100%;
@@ -18,6 +19,7 @@
 
 .avatarBox {
   @include flex(column, center, center, 24px);
+  position: relative;
 }
 
 .avatar {
@@ -25,6 +27,7 @@
   height: 192px;
   margin-top: 25px;
 }
+
 .form {
   @include flex(column, space-between, center, 24px);
   width: 100%;
@@ -42,4 +45,10 @@
 
 .general {
   width: 100%;
+}
+
+.buttonDeleteAvatar {
+  position: absolute;
+  top: 36px;
+  right: 14px;
 }

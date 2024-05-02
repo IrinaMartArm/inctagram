@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+import { CloseRound } from "@/public";
+import {
+  useDeleteUserPhotoMutation,
+  useUploadUserPhotoMutation,
+} from "@/shared/assets/api/profile/profile-api";
 import {
   Alert,
   Avatar,
@@ -60,6 +65,9 @@ export const General = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
 
+  const [setPhoto] = useUploadUserPhotoMutation();
+  const [deletePhoto] = useDeleteUserPhotoMutation();
+
   const handleCountryChange = (key: string, value: string) => {
     setSelectedCountry(value);
   };
@@ -74,8 +82,18 @@ export const General = () => {
     }
   };
 
-  const updateAvatar = (newAvatar: string | undefined) => {
+  const updateAvatar = async (newAvatar: string | undefined) => {
+    if (newAvatar) {
+      await setPhoto({ file: newAvatar });
+    } else {
+      await deletePhoto();
+    }
     setAvatar(newAvatar);
+  };
+
+  const deletePhotoHandler = async () => {
+    await deletePhoto();
+    setAvatar(undefined);
   };
 
   const cities = getCityOptions();
@@ -98,6 +116,15 @@ export const General = () => {
             isEditProfile
             src={avatar}
           />
+          {avatar && (
+            <button
+              className={s.buttonDeleteAvatar}
+              onClick={deletePhotoHandler}
+              type={"button"}
+            >
+              <CloseRound />
+            </button>
+          )}
           <Button onClick={() => setIsShowModal(true)} variant={"outlined"}>
             Add a Profile Photo
           </Button>

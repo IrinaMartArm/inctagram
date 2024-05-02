@@ -6,3 +6,7 @@ export type UserProfileArgs = {
   lastName: string;
   username: string;
 };
+
+export type UserPhotoArgs = {
+  file: string;
+};
