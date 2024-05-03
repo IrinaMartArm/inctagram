@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <Provider store={store}>
       <WithNavigate>
         <ToastContainer
-          autoClose={5000}
+        autoClose={5000}
           pauseOnHover
           position={"top-right"}
           rtl={false}

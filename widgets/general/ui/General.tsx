@@ -114,7 +114,7 @@ export const General = () => {
           <Input name={"date"} type={"text"} />
           <div className={s.selectors}>
             <Select
-              className={s.general}
+              className={s.select}
               defaultValue={countries[0].value}
               items={countries}
               label={"Select your country"}
@@ -122,7 +122,7 @@ export const General = () => {
               onChange={handleCountryChange}
             />
             <Select
-              className={s.general}
+              className={s.select}
               defaultValue={cities[0].value}
               items={cities}
               label={"Select your city"}

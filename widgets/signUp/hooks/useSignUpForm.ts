@@ -81,6 +81,7 @@ export const useSignUp = () => {
     };
 
     localStorage.setItem("email", data.email);
+    localStorage.setItem("username", data.username);
 
     try {
       await signUp(signUpArgs).unwrap();

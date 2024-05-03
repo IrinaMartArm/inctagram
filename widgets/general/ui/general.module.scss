@@ -26,6 +26,7 @@
   margin-top: 25px;
   border: 1px solid green;
 }
+
 .form {
   @include flex(column, space-between, center, 24px);
   width: 100%;
@@ -36,11 +37,12 @@
   width: 100%;
 }
 
+.select {
+  width: 100%;
+}
+
 .button {
   align-self: flex-end;
   margin: 24px 0;
 }
 
-.general {
-  width: 100%;
-}
