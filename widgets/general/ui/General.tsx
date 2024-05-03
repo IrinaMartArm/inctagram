@@ -6,6 +6,7 @@ import {
   useUploadUserPhotoMutation,
 } from "@/shared/assets/api/profile/profile-api";
 import { convertFileToBase64 } from "@/shared/assets/helpers";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import {
   Alert,
   Avatar,
@@ -52,6 +53,7 @@ const belarus = [
 ];
 
 export const General = () => {
+  const { t } = useTranslation();
   const [avatar, setAvatar] = useState<string | undefined>(
     localStorage.getItem("myAvatar") ?? undefined,
   );
@@ -136,7 +138,7 @@ export const General = () => {
             </button>
           )}
           <Button onClick={() => setIsShowModal(true)} variant={"outlined"}>
-            Add a Profile Photo
+            {t.profileSettings.general.addPhoto}
           </Button>
         </div>
         <div className={s.form}>
@@ -196,7 +198,6 @@ export const General = () => {
           defaultOpen={isShowModal}
           photo={avatar}
           setIsShowModal={setIsShowModal}
-          title={"Add a Profile Photo"}
           updateAvatar={updateAvatar}
         />
       )}

@@ -38,6 +38,18 @@ export const en: LocaleType = {
     publications: "Publications",
     settingsBtn: "Profile Settings",
   },
+  profileSettings: {
+    general: {
+      addPhoto: "Add a Profile photo",
+      errors: {
+        formatFile:
+          "Error! The format of the uploaded photo must be PNG and JPEG",
+        maxSize: "Photo size must be less than 10 MB!",
+      },
+      savePhoto: "Save",
+      selectPhoto: "Select from Computer",
+    },
+  },
   signIn: {
     errors: {
       email: "The email must match the format\n" + "example@example.com",

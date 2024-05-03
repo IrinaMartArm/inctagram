@@ -7,6 +7,7 @@ import { Alert } from "@/shared/components/alert";
 import { Modal } from "@/shared/components/modals";
 
 import s from "./edit-profilePhoto.module.scss";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 
 const MAX_SIZE_FILE = 10 * 1024 * 1024;
 
@@ -15,8 +16,8 @@ type Props = {
   isShowAvatarEditor?: boolean;
   photo?: string;
   setIsShowModal: (isShowModal: boolean) => void;
-  title: string;
   updateAvatar: (avatar: File | undefined) => void;
+  error?: string;
 };
 
 export const EditProfilePhoto = ({
@@ -24,8 +25,8 @@ export const EditProfilePhoto = ({
   isShowAvatarEditor,
   photo,
   setIsShowModal,
-  title,
   updateAvatar,
+  error,
 }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const editorRef = useRef<AvatarEditor | null>(null);
@@ -33,15 +34,18 @@ export const EditProfilePhoto = ({
   const [image, setImage] = useState<ArrayBuffer | null | string>(
     photo ?? null,
   );
+  const { t } = useTranslation();
+  const { errors, savePhoto, selectPhoto, addPhoto } =
+    t.profileSettings.general;
 
-  const [error, setError] = useState<null | string>(null);
+  const [errorFile, setErrorFile] = useState<null | string>(null);
 
   const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0];
 
       if (file.size > MAX_SIZE_FILE) {
-        setError("Файл слишком большого размера");
+        setErrorFile(errors.maxSize);
 
         return;
       }
@@ -49,12 +53,12 @@ export const EditProfilePhoto = ({
       const validFileTypes = ["image/jpeg", "image/png"];
 
       if (!validFileTypes.includes(file.type)) {
-        setError("Неверный формат файла");
+        setErrorFile(errors.formatFile);
 
         return;
       }
       convertFileToBase64(file, (file64: string) => {
-        setError(null);
+        setErrorFile(null);
         setImage(file64);
         setIsShowEditor(true);
       });
@@ -87,17 +91,21 @@ export const EditProfilePhoto = ({
   };
 
   return (
-    <Modal defaultOpen={defaultOpen} title={title}>
+    <Modal defaultOpen={defaultOpen} title={addPhoto}>
       <div className={s.wrapper}>
-        {error && (
-          <Alert isShowClose={false} title={error ?? ""} variant={"error"} />
+        {(errorFile || error) && (
+          <Alert
+            isShowClose={false}
+            title={errorFile || error || ""}
+            variant={"error"}
+          />
         )}
         {isShowEditor && (
           <>
             <AvatarEdit image={image as string} ref={editorRef} />
             <div className={s.wrapperButton}>
               <Button onClick={saveImage} variant={"primary"}>
-                Save
+                {savePhoto}
               </Button>
             </div>
           </>
@@ -122,7 +130,7 @@ export const EditProfilePhoto = ({
                 htmlFor={"input-file"}
                 onClick={handleInputClick}
               >
-                Select from Computer
+                {selectPhoto}
               </Button>
             </div>
           </>

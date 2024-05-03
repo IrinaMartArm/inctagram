@@ -36,6 +36,18 @@ export const ru = {
     publications: "Публикации",
     settingsBtn: "Настройки профиля",
   },
+  profileSettings: {
+    general: {
+      addPhoto: "Добавить фото профиля",
+      errors: {
+        formatFile:
+          "Ошибка! Формат загружаемой фотографии должен быть PNG и JPEG.",
+        maxSize: "Размер фотографии должен быть меньше 10 МБ!",
+      },
+      savePhoto: "Сохранить",
+      selectPhoto: "Выбрать с компьютера",
+    },
+  },
   signIn: {
     errors: {
       email:

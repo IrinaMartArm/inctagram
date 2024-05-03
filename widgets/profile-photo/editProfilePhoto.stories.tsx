@@ -18,7 +18,6 @@ export const Default: Story = {
   args: {
     defaultOpen: true,
     setIsShowModal: () => {},
-    title: "Add a Profile Photo",
     updateAvatar: () => {},
   },
 };
@@ -28,7 +27,6 @@ export const WithError: Story = {
     defaultOpen: true,
     error: "The format of the uploaded photo must be\n" + "PNG and JPEG",
     setIsShowModal: () => {},
-    title: "Add a Profile Photo",
     updateAvatar: () => {},
   },
 };
@@ -39,7 +37,6 @@ export const WithEditor: Story = {
     isShowAvatarEditor: true,
     photo: Girl.src,
     setIsShowModal: () => {},
-    title: "Add a Profile Photo",
     updateAvatar: () => {},
   },
 };
