@@ -1,25 +1,26 @@
 import React, { ChangeEvent, useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 
+import { convertFileToBase64 } from "@/shared/assets/helpers";
 import { Avatar, AvatarEdit, Button } from "@/shared/components";
 import { Alert } from "@/shared/components/alert";
 import { Modal } from "@/shared/components/modals";
 
 import s from "./edit-profilePhoto.module.scss";
 
+const MAX_SIZE_FILE = 10 * 1024 * 1024;
+
 type Props = {
   defaultOpen: boolean;
-  error?: string;
   isShowAvatarEditor?: boolean;
   photo?: string;
   setIsShowModal: (isShowModal: boolean) => void;
   title: string;
-  updateAvatar: (avatar: string) => void;
+  updateAvatar: (avatar: File | undefined) => void;
 };
 
 export const EditProfilePhoto = ({
   defaultOpen,
-  error,
   isShowAvatarEditor,
   photo,
   setIsShowModal,
@@ -33,15 +34,30 @@ export const EditProfilePhoto = ({
     photo ?? null,
   );
 
-  const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
+  const [error, setError] = useState<null | string>(null);
 
-      reader.onload = () => {
-        setImage(reader.result);
+  const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
+      const file = e.target.files[0];
+
+      if (file.size > MAX_SIZE_FILE) {
+        setError("Файл слишком большого размера");
+
+        return;
+      }
+
+      const validFileTypes = ["image/jpeg", "image/png"];
+
+      if (!validFileTypes.includes(file.type)) {
+        setError("Неверный формат файла");
+
+        return;
+      }
+      convertFileToBase64(file, (file64: string) => {
+        setError(null);
+        setImage(file64);
         setIsShowEditor(true);
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      });
     }
   };
 
@@ -55,8 +71,16 @@ export const EditProfilePhoto = ({
   const saveImage = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImage();
+      const dataUrl = canvas.toDataURL();
 
-      updateAvatar(canvas.toDataURL());
+      fetch(dataUrl)
+        .then((res) => res.blob())
+        .then((blob) => {
+          const file = new File([blob], "avatar.jpg", { type: "image/jpeg" });
+
+          updateAvatar(file);
+        });
+
       setIsShowEditor(false);
       setIsShowModal(false);
     }
@@ -65,7 +89,9 @@ export const EditProfilePhoto = ({
   return (
     <Modal defaultOpen={defaultOpen} title={title}>
       <div className={s.wrapper}>
-        {error && <Alert isShowClose={false} title={error} variant={"error"} />}
+        {error && (
+          <Alert isShowClose={false} title={error ?? ""} variant={"error"} />
+        )}
         {isShowEditor && (
           <>
             <AvatarEdit image={image as string} ref={editorRef} />

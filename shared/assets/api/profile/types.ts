@@ -8,5 +8,5 @@ export type UserProfileArgs = {
 };
 
 export type UserPhotoArgs = {
-  file: string;
+  file: FormData;
 };

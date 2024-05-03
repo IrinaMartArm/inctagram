@@ -5,6 +5,7 @@ import {
   useDeleteUserPhotoMutation,
   useUploadUserPhotoMutation,
 } from "@/shared/assets/api/profile/profile-api";
+import { convertFileToBase64 } from "@/shared/assets/helpers";
 import {
   Alert,
   Avatar,
@@ -51,7 +52,9 @@ const belarus = [
 ];
 
 export const General = () => {
-  const [avatar, setAvatar] = useState<string | undefined>();
+  const [avatar, setAvatar] = useState<string | undefined>(
+    localStorage.getItem("myAvatar") ?? undefined,
+  );
   const {
     alertHandler,
     alertMessage,
@@ -82,18 +85,25 @@ export const General = () => {
     }
   };
 
-  const updateAvatar = async (newAvatar: string | undefined) => {
+  const updateAvatar = async (newAvatar: File | undefined) => {
     if (newAvatar) {
-      await setPhoto({ file: newAvatar });
+      const formData = new FormData();
+
+      formData.append("file", newAvatar);
+      await setPhoto({ file: formData });
+      convertFileToBase64(newAvatar, (file64: string) => {
+        setAvatar(file64);
+        localStorage.setItem("myAvatar", file64);
+      });
     } else {
-      await deletePhoto();
+      await deletePhotoHandler();
     }
-    setAvatar(newAvatar);
   };
 
   const deletePhotoHandler = async () => {
     await deletePhoto();
     setAvatar(undefined);
+    localStorage.removeItem("myAvatar");
   };
 
   const cities = getCityOptions();

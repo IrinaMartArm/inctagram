@@ -22,7 +22,7 @@ export const ProfileApi = baseApi.injectEndpoints({
       }),
       uploadUserPhoto: builder.mutation<void, UserPhotoArgs>({
         query: (body) => ({
-          body,
+          body: body.file,
           method: "POST",
           url: "v1/user/upload-user-photo",
         }),
