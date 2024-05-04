@@ -17,6 +17,7 @@ export const useProfileForm = () => {
     .object({
       aboutMe: z.string().max(200).optional(),
       city: z.string().min(1).optional(),
+      country: z.string().min(1).optional(),
       dateOfBirth: z.date().refine(
         (value) => {
           const dateOfBirth = new Date(value);
@@ -74,7 +75,6 @@ export const useProfileForm = () => {
     alertMessage,
     alertVariant,
     control,
-
     handleSubmit,
     isValid,
     onSubmit,
