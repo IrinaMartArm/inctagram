@@ -53,7 +53,6 @@ export const General = () => {
     isValid,
     onSubmit,
     showAlert,
-    username,
   } = useProfileForm();
   const [selectedCountry, setSelectedCountry] = useState("");
 
