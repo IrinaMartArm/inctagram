@@ -17,6 +17,7 @@ export const useSignUp = () => {
   const {
     checkbox,
     confirm,
+    emailMin,
     formEmail,
     invalidPassword,
     passwordMax,
@@ -28,7 +29,7 @@ export const useSignUp = () => {
     .object({
       agree: z.boolean(),
       confirm: z.string().min(6, confirm).max(20, confirm).trim(),
-      email: z.string().min(1).email(formEmail).trim(),
+      email: z.string().min(1, emailMin).email(formEmail).trim(),
       password: z
         .string()
         .min(6, passwordMin)
