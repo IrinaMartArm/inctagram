@@ -1,8 +1,7 @@
 import React from "react";
 
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Button, Typography } from "@/shared/components";
-import { Modal } from "@/shared/components/modals";
+import { useTranslation } from "@/shared/assets/hooks";
+import { Button, Modal, Typography } from "@/shared/components";
 
 import s from "./deletePhotoModal.module.scss";
 

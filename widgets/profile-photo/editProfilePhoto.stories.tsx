@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import Girl from "@/public/images/Girl.png";
-
-import { EditProfilePhoto } from "./EditProfilePhoto";
+import { EditProfilePhoto } from "@/widgets";
 
 const meta = {
   argTypes: {},

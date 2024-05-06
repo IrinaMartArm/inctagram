@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { AvatarEdit } from "@/shared/components/avatarEdit/AvatarEdit";
+import { AvatarEdit } from "@/shared/components";
 
 const meta = {
   argTypes: {},

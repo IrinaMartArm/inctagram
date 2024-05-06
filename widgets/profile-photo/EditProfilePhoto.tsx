@@ -1,15 +1,11 @@
 import React, { ChangeEvent, useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 
-import { convertFileToBase64 } from "@/shared/assets/helpers";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Avatar, AvatarEdit, Button } from "@/shared/components";
-import { Alert } from "@/shared/components/alert";
-import { Modal } from "@/shared/components/modals";
+import { checkPhoto, convertFileToBase64 } from "@/shared/assets/helpers";
+import { useTranslation } from "@/shared/assets/hooks";
+import { Alert, Avatar, AvatarEdit, Button, Modal } from "@/shared/components";
 
 import s from "./edit-profilePhoto.module.scss";
-
-const MAX_SIZE_FILE = 10 * 1024 * 1024;
 
 type Props = {
   defaultOpen: boolean;
@@ -44,19 +40,14 @@ export const EditProfilePhoto = ({
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0];
 
-      if (file.size > MAX_SIZE_FILE) {
-        setErrorFile(errors.maxSize);
+      const error = checkPhoto(file, errors.maxSize, errors.formatFile);
+
+      if (error) {
+        setErrorFile(error);
 
         return;
       }
 
-      const validFileTypes = ["image/jpeg", "image/png"];
-
-      if (!validFileTypes.includes(file.type)) {
-        setErrorFile(errors.formatFile);
-
-        return;
-      }
       convertFileToBase64(file, (file64: string) => {
         setErrorFile(null);
         setImage(file64);

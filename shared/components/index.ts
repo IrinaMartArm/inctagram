@@ -15,3 +15,4 @@ export * from "./controlled";
 export * from "./alert";
 export * from "./avatar";
 export * from "./avatarEdit";
+export * from "./modals";

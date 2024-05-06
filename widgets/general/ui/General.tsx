@@ -5,7 +5,7 @@ import {
   useUploadUserPhotoMutation,
 } from "@/shared/assets/api/profile/profile-api";
 import { convertFileToBase64 } from "@/shared/assets/helpers";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useTranslation } from "@/shared/assets/hooks";
 import {
   Alert,
   Avatar,
@@ -16,8 +16,8 @@ import {
   Select,
   Tab,
 } from "@/shared/components";
+import { EditProfilePhoto } from "@/widgets";
 import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
-import { EditProfilePhoto } from "@/widgets/profile-photo";
 
 import s from "./general.module.scss";
 

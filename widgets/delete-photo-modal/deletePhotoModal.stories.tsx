@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { DeletePhotoModal } from "./DeletePhotoModal";
+import { DeletePhotoModal } from "@/widgets";
 
 const meta = {
   argTypes: {},
