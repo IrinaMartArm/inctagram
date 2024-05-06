@@ -1,6 +1,7 @@
 import React, { forwardRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 
+import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
 import { useIsMobile } from "@/shared/assets/hooks";
 
 import s from "./avatarEdit.module.scss";
@@ -8,8 +9,6 @@ import s from "./avatarEdit.module.scss";
 type Props = {
   image: string;
 };
-
-const MOBILE_BREAKPOINT = 576;
 
 export const AvatarEdit = forwardRef<AvatarEditor, Props>(({ image }, ref) => {
   const [scale, setScale] = useState(1.2);

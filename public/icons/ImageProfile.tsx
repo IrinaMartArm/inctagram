@@ -3,11 +3,12 @@ import { forwardRef, memo } from "react";
 import { IconProps } from "@/shared/assets/types/types";
 
 export const ImageProfile = memo(
-  forwardRef<SVGSVGElement, IconProps>(({}) => {
+  forwardRef<SVGSVGElement, IconProps>(({}, ref) => {
     return (
       <svg
         fill={"none"}
         height={"48"}
+        ref={ref}
         viewBox={"0 0 48 48"}
         width={"48"}
         xmlns={"http://www.w3.org/2000/svg"}
