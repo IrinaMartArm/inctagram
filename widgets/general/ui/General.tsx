@@ -72,8 +72,6 @@ export const General = () => {
 
   const cities = getCityOptions();
 
-  console.log(cities[0].value);
-
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
       {showAlert && (

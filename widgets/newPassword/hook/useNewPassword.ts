@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+import { ParsedUrlQuery } from "querystring";
 
 import { useCreateNewPasswordMutation } from "@/shared/assets/api/auth/auth-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
@@ -12,10 +15,6 @@ export const useNewPassword = () => {
   const router = useRouter();
   const { t } = useTranslation();
   const { confirm, passwordMax, passwordMin } = t.signUp;
-
-  const code = Array.isArray(router.query.code)
-    ? router.query.code[0]
-    : router.query.code;
 
   const newPasswordSchema = z
     .object({
@@ -47,6 +46,9 @@ export const useNewPassword = () => {
 
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation();
 
+  const query: ParsedUrlQuery = router.query;
+  const code = query.recoveryCode as string;
+
   const newPasswordCreator = async (data: NewPasswordFormFields) => {
     const args = {
       newPassword: data.newPassword,
@@ -55,12 +57,12 @@ export const useNewPassword = () => {
 
     try {
       await createNewPassword(args).unwrap();
-      await router.replace("./sign-in");
+      await router.replace("/sign-in");
     } catch (err: any) {
       const { status } = err as FetchBaseQueryError;
 
       if (status === 400) {
-        await router.replace("./email-verification");
+        await router.replace("/auth/email-verification");
       }
       handleErrorResponse(err);
     }

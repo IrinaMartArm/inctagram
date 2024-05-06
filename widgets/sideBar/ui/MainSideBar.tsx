@@ -27,6 +27,10 @@ export const MainSideBar = () => {
         <div className={s.box}>
           <div className={s.pages}>
             <div
+              className={clsx(
+                s.row,
+                isActive("/main", currentPath) && s.active,
+              )}
               className={clsx(s.row, isActive("/main", currentPath) && s.active)}
             >
               <Home_outline />
