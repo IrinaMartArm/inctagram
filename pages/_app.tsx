@@ -30,8 +30,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <Provider store={store}>
-      <WithNavigate>
-        <ToastContainer
+      {/*<WithNavigate>*/}
+      <ToastContainer
           autoClose={5000}
           pauseOnHover
           position={"top-right"}
@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           transition={Bounce}
         />
         {getLayout(<Component {...pageProps} />)}
-      </WithNavigate>
+      {/*</WithNavigate>*/}
     </Provider>
   );
 }

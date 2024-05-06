@@ -53,6 +53,7 @@ export const General = () => {
     isValid,
     onSubmit,
     showAlert,
+    username,
   } = useProfileForm();
   const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -71,8 +72,6 @@ export const General = () => {
   };
 
   const cities = getCityOptions();
-
-  console.log(cities[0].value);
 
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
