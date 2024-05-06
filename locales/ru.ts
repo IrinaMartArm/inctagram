@@ -1,6 +1,12 @@
 export const ru = {
   common: {
     error: "Ошибка!",
+    no: "Нет",
+    yes: "Да",
+  },
+  deleteAvatar: {
+    text: "Вы действительно хотите удалить свою фотографию профиля?",
+    title: "Удалить фотографию",
   },
   favorites: {
     title: "Страница",

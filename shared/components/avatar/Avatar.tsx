@@ -1,5 +1,9 @@
+import { useState } from "react";
+
 import { CloseRound, ImageProfile } from "@/public";
 import noAva from "@/public/images/noAva.webp";
+import { useTranslation } from "@/shared/assets/hooks";
+import { DeletePhotoModal } from "@/widgets";
 import clsx from "clsx";
 import Image from "next/image";
 
@@ -24,6 +28,8 @@ export const Avatar = ({
   size = "lg",
   src,
 }: Props) => {
+  const { t } = useTranslation();
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const avatarCN = clsx(s.avatar, s[size], className);
 
   const isEditWithSrc = isEditProfile && src;
@@ -46,11 +52,20 @@ export const Avatar = ({
       {src && (
         <button
           className={s.buttonDeleteAvatar}
-          onClick={deleteAvatar}
+          onClick={() => setIsShowDeleteModal(true)}
           type={"button"}
         >
           <CloseRound />
         </button>
+      )}
+      {isShowDeleteModal && deleteAvatar && (
+        <DeletePhotoModal
+          defaultOpen={isShowDeleteModal}
+          deletePhoto={deleteAvatar}
+          setIsShowModal={setIsShowDeleteModal}
+          text={t.deleteAvatar.text}
+          title={t.deleteAvatar.title}
+        />
       )}
     </div>
   );

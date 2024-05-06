@@ -3,6 +3,12 @@ import { LocaleType } from "locales/ru";
 export const en: LocaleType = {
   common: {
     error: "Error!",
+    no: "No",
+    yes: "Yes",
+  },
+  deleteAvatar: {
+    text: "Do you really want to delete your profile photo?",
+    title: "Delete Photo",
   },
   favorites: {
     title: "favorites page",
