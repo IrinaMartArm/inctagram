@@ -20,6 +20,7 @@
 .avatarBox {
   @include flex(column, center, center, 24px);
   position: relative;
+  width: 196px;
 }
 
 .avatar {
@@ -47,8 +48,12 @@
   width: 100%;
 }
 
+.buttonAddPhoto {
+  width: inherit;
+}
+
 .buttonDeleteAvatar {
   position: absolute;
-  top: 36px;
+  top: 38px;
   right: 14px;
 }

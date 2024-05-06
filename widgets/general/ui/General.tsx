@@ -16,6 +16,7 @@ import {
   Input,
   Select,
   Tab,
+  Typography,
 } from "@/shared/components";
 import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
 import { EditProfilePhoto } from "@/widgets/profile-photo";
@@ -137,7 +138,11 @@ export const General = () => {
               <CloseRound />
             </button>
           )}
-          <Button onClick={() => setIsShowModal(true)} variant={"outlined"}>
+          <Button
+            className={s.buttonAddPhoto}
+            onClick={() => setIsShowModal(true)}
+            variant={"outlined"}
+          >
             {t.profileSettings.general.addPhoto}
           </Button>
         </div>
