@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { CloseRound } from "@/public";
 import {
   useDeleteUserPhotoMutation,
   useUploadUserPhotoMutation,
@@ -16,7 +15,6 @@ import {
   Input,
   Select,
   Tab,
-  Typography,
 } from "@/shared/components";
 import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
 import { EditProfilePhoto } from "@/widgets/profile-photo";
@@ -126,18 +124,10 @@ export const General = () => {
           <Avatar
             alt={"avatar"}
             className={s.avatar}
+            deleteAvatar={deletePhotoHandler}
             isEditProfile
             src={avatar}
           />
-          {avatar && (
-            <button
-              className={s.buttonDeleteAvatar}
-              onClick={deletePhotoHandler}
-              type={"button"}
-            >
-              <CloseRound />
-            </button>
-          )}
           <Button
             className={s.buttonAddPhoto}
             onClick={() => setIsShowModal(true)}

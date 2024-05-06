@@ -1,3 +1,7 @@
+.wrapper {
+  position: relative;
+}
+
 .avatar {
   border-radius: 50%;
   background-color: var(--color-dark-500);
@@ -11,6 +15,12 @@
     position: absolute;
     object-fit: contain;
   }
+}
+
+.buttonDeleteAvatar {
+  position: absolute;
+  top: 36px;
+  right: 14px;
 }
 
 .lg {

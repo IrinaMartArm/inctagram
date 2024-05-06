@@ -2,31 +2,31 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 
 import { convertFileToBase64 } from "@/shared/assets/helpers";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Avatar, AvatarEdit, Button } from "@/shared/components";
 import { Alert } from "@/shared/components/alert";
 import { Modal } from "@/shared/components/modals";
 
 import s from "./edit-profilePhoto.module.scss";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 
 const MAX_SIZE_FILE = 10 * 1024 * 1024;
 
 type Props = {
   defaultOpen: boolean;
+  error?: string;
   isShowAvatarEditor?: boolean;
   photo?: string;
   setIsShowModal: (isShowModal: boolean) => void;
   updateAvatar: (avatar: File | undefined) => void;
-  error?: string;
 };
 
 export const EditProfilePhoto = ({
   defaultOpen,
+  error,
   isShowAvatarEditor,
   photo,
   setIsShowModal,
   updateAvatar,
-  error,
 }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const editorRef = useRef<AvatarEditor | null>(null);
@@ -35,7 +35,7 @@ export const EditProfilePhoto = ({
     photo ?? null,
   );
   const { t } = useTranslation();
-  const { errors, savePhoto, selectPhoto, addPhoto } =
+  const { addPhoto, errors, savePhoto, selectPhoto } =
     t.profileSettings.general;
 
   const [errorFile, setErrorFile] = useState<null | string>(null);
@@ -104,7 +104,11 @@ export const EditProfilePhoto = ({
           <>
             <AvatarEdit image={image as string} ref={editorRef} />
             <div className={s.wrapperButton}>
-              <Button onClick={saveImage} variant={"primary"}>
+              <Button
+                className={s.selectButton}
+                onClick={saveImage}
+                variant={"primary"}
+              >
                 {savePhoto}
               </Button>
             </div>

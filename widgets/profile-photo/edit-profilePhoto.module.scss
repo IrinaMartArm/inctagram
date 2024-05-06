@@ -1,12 +1,14 @@
 .wrapper {
   padding: 28px 24px 36px;
+  @media screen and (max-width: 576px) {
+    padding: 28px 15px 36px;
+  }
 
   .avatar {
     border-radius: 0;
     margin: 40px auto 0;
     width: 222px;
     height: 228px;
-
   }
 }
 
@@ -20,6 +22,12 @@
   display: flex;
   justify-content: center;
   margin: 60px 0 70px;
+}
+
+.selectButton {
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
 }
 
 .input {
