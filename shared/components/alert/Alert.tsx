@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import { Close } from "@/public";
+import { useTranslation } from "@/shared/assets/hooks";
 import { Typography } from "@/shared/components";
 import { clsx } from "clsx";
 
@@ -23,6 +24,7 @@ export const Alert: FC<Props> = ({
   title,
   variant,
 }) => {
+  const { t } = useTranslation();
   const alertCN = clsx(
     s.alert,
     s[variant],
@@ -33,10 +35,9 @@ export const Alert: FC<Props> = ({
   return (
     <div className={alertCN}>
       <div className={s.text}>
-        {variant === "error" && (
-          <Typography variant={"Bold_text-16"}>Error!</Typography>
-        )}
-        <Typography variant={"regular_text-16"}>{title}</Typography>
+        <Typography variant={"regular_text-16"}>
+          <b>{t.common.error}</b> {title}
+        </Typography>
       </div>
       {isShowClose && (
         <button aria-label={"close alert"} onClick={onClick}>

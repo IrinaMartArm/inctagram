@@ -1,6 +1,9 @@
 import { LocaleType } from "locales/ru";
 
 export const en: LocaleType = {
+  common: {
+    error: "Error!",
+  },
   favorites: {
     title: "favorites page",
   },
@@ -42,8 +45,7 @@ export const en: LocaleType = {
     general: {
       addPhoto: "Add a Profile photo",
       errors: {
-        formatFile:
-          "Error! The format of the uploaded photo must be PNG and JPEG",
+        formatFile: "The format of the uploaded photo must be PNG and JPEG",
         maxSize: "Photo size must be less than 10 MB!",
       },
       savePhoto: "Save",

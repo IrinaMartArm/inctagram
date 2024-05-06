@@ -7,7 +7,6 @@
 
   .text {
     display: flex;
-    gap: 5px;
   }
 }
 
@@ -24,7 +23,8 @@
 .withoutClose {
   justify-content: center;
   gap: 0;
-  .text{
+
+  .text {
     text-align: center;
   }
 }

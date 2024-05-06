@@ -1,4 +1,7 @@
 export const ru = {
+  common: {
+    error: "Ошибка!",
+  },
   favorites: {
     title: "Страница",
   },
@@ -40,8 +43,7 @@ export const ru = {
     general: {
       addPhoto: "Добавить фото профиля",
       errors: {
-        formatFile:
-          "Ошибка! Формат загружаемой фотографии должен быть PNG и JPEG.",
+        formatFile: "Формат загружаемой фотографии должен быть PNG и JPEG.",
         maxSize: "Размер фотографии должен быть меньше 10 МБ!",
       },
       savePhoto: "Сохранить",
