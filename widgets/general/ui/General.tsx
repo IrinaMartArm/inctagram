@@ -1,10 +1,5 @@
 import { useState } from "react";
 
-import {
-  useDeleteUserPhotoMutation,
-  useUploadUserPhotoMutation,
-} from "@/shared/assets/api/profile/profile-api";
-import { convertFileToBase64 } from "@/shared/assets/helpers";
 import { useTranslation } from "@/shared/assets/hooks";
 import {
   Alert,
@@ -17,9 +12,10 @@ import {
   Tab,
 } from "@/shared/components";
 import { EditProfilePhoto } from "@/widgets";
-import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
 
 import s from "./general.module.scss";
+
+import { useProfileForm, useUpdateAvatar } from "../hook";
 
 const options = [
   {
@@ -53,9 +49,6 @@ const belarus = [
 
 export const General = () => {
   const { t } = useTranslation();
-  const [avatar, setAvatar] = useState<string | undefined>(
-    localStorage.getItem("myAvatar") ?? undefined,
-  );
   const {
     alertHandler,
     alertMessage,
@@ -69,8 +62,7 @@ export const General = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
 
-  const [setPhoto] = useUploadUserPhotoMutation();
-  const [deletePhoto] = useDeleteUserPhotoMutation();
+  const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
   const handleCountryChange = (key: string, value: string) => {
     setSelectedCountry(value);
@@ -84,27 +76,6 @@ export const General = () => {
     } else {
       return belarus;
     }
-  };
-
-  const updateAvatar = async (newAvatar: File | undefined) => {
-    if (newAvatar) {
-      const formData = new FormData();
-
-      formData.append("file", newAvatar);
-      await setPhoto({ file: formData });
-      convertFileToBase64(newAvatar, (file64: string) => {
-        setAvatar(file64);
-        localStorage.setItem("myAvatar", file64);
-      });
-    } else {
-      await deletePhotoHandler();
-    }
-  };
-
-  const deletePhotoHandler = async () => {
-    await deletePhoto();
-    setAvatar(undefined);
-    localStorage.removeItem("myAvatar");
   };
 
   const cities = getCityOptions();
