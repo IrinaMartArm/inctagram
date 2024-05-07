@@ -5,6 +5,7 @@ export { Bookmark_outline } from "./Bookmark_outline";
 export { Check } from "./Check";
 export { CheckMark } from "./CheckMark";
 export { Close } from "./Close";
+export { DatePicker } from "./DatePicker";
 export { CloseRound } from "./CloseRound";
 export { Eye } from "./Eye";
 export { EyeOff } from "./EyeOff";

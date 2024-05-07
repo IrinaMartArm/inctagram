@@ -84,6 +84,7 @@ export const en: LocaleType = {
     confirmed: "Your email has been confirmed",
     congratulations: "Congratulations!",
     created: "The account has been created.",
+    emailMin: "String must contain at least 1 character(s)",
     expired: "Email email-verification link expired",
     formEmail: "The email must match the format\n" + "example@example.com",
     haveSent: "We have sent a link to confirm your email to",
