@@ -1,9 +1,7 @@
 import { useState } from "react";
 
-import { useTranslation } from "@/shared/assets/hooks";
 import {
   Alert,
-  Avatar,
   Button,
   ControlledTextArea,
   ControlledTextField,
@@ -16,6 +14,7 @@ import { EditProfilePhoto } from "@/widgets";
 import s from "./general.module.scss";
 
 import { useProfileForm, useUpdateAvatar } from "../hook";
+import { AvatarBox } from "./avatarBox";
 
 const options = [
   {
@@ -48,7 +47,6 @@ const belarus = [
 ];
 
 export const General = () => {
-  const { t } = useTranslation();
   const {
     alertHandler,
     alertMessage,
@@ -91,22 +89,11 @@ export const General = () => {
       )}
       <Tab defaultValue={"General information"} options={options} />
       <div className={s.container}>
-        <div className={s.avatarBox}>
-          <Avatar
-            alt={"avatar"}
-            className={s.avatar}
-            deleteAvatar={deletePhotoHandler}
-            isEditProfile
-            src={avatar}
-          />
-          <Button
-            className={s.buttonAddPhoto}
-            onClick={() => setIsShowModal(true)}
-            variant={"outlined"}
-          >
-            {t.profileSettings.general.addPhoto}
-          </Button>
-        </div>
+        <AvatarBox
+          avatar={avatar}
+          deletePhoto={deletePhotoHandler}
+          setIsShowModal={setIsShowModal}
+        />
         <div className={s.form}>
           <ControlledTextField
             control={control}

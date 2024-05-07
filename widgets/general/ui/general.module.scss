@@ -25,21 +25,6 @@
   }
 }
 
-.avatarBox {
-  @include flex(column, center, center, 24px);
-  position: relative;
-  width: 196px;
-  @media screen and (max-width: 576px) {
-    width: 100%;
-  }
-}
-
-.avatar {
-  width: 192px;
-  height: 192px;
-  margin-top: 25px;
-}
-
 .form {
   @include flex(column, space-between, center, 24px);
   width: 100%;
@@ -57,10 +42,6 @@
 
 .general {
   width: 100%;
-}
-
-.buttonAddPhoto {
-  width: inherit;
 }
 
 .buttonDeleteAvatar {
