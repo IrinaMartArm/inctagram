@@ -30,6 +30,22 @@ export const AuthApi = baseApi.injectEndpoints({
           url: "v1/auth/registration-email-resending",
         }),
       }),
+      githubAuth: builder.query<{ accessToken: "string" }, void>({
+        query: () => ({
+          method: "GET",
+          providesTags: ["Me"],
+          redirect: "follow", // Enable automatic following of redirects
+          url: "/v1/auth/github/login",
+        }),
+      }),
+      googleAuth: builder.query<{ accessToken: "string" }, void>({
+        query: () => ({
+          method: "GET",
+          providesTags: ["Me"],
+          redirect: "follow", // Enable automatic following of redirects
+          url: "/v1/auth/google/login",
+        }),
+      }),
       login: builder.mutation<LoginResponse, LoginArgs>({
         query: (body) => ({
           body: {
@@ -102,6 +118,8 @@ export const AuthApi = baseApi.injectEndpoints({
 export const {
   useCreateNewPasswordMutation,
   useEmailResendingMutation,
+  useLazyGithubAuthQuery,
+  useLazyGoogleAuthQuery,
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,

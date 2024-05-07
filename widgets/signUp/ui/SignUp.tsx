@@ -1,5 +1,9 @@
 import { GitHubBig, Google } from "@/public";
 import {
+  useLazyGithubAuthQuery,
+  useLazyGoogleAuthQuery,
+} from "@/shared/assets/api/auth/auth-api";
+import {
   Button,
   Card,
   ControlledCheckBox,
@@ -29,6 +33,10 @@ export const SignUpCard = () => {
     t,
   } = useSignUp();
 
+  const [authWithGoogle, { data: googleData }] = useLazyGoogleAuthQuery();
+
+  const [authWithGithub, { data: githubData }] = useLazyGithubAuthQuery();
+
   if (isLoading) {
     return <Loader />;
   }
@@ -37,12 +45,20 @@ export const SignUpCard = () => {
     <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
       <Typography variant={"h1"}>{t.signUp.title}</Typography>
       <div className={s.socials}>
-        <Link aria-label={"sign in with Google"} href={""}>
+        <Button
+          onClick={() => authWithGoogle()}
+          type={"button"}
+          variant={"icon"}
+        >
           <Google />
-        </Link>
-        <Link aria-label={"sign in with GitHub"} href={""}>
+        </Button>
+        <Button
+          onClick={() => authWithGithub()}
+          type={"button"}
+          variant={"icon"}
+        >
           <GitHubBig />
-        </Link>
+        </Button>
       </div>
       <ControlledTextField
         control={control}
