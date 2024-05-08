@@ -1,6 +1,15 @@
 import { LocaleType } from "locales/ru";
 
 export const en: LocaleType = {
+  common: {
+    error: "Error!",
+    no: "No",
+    yes: "Yes",
+  },
+  deleteAvatar: {
+    text: "Do you really want to delete your profile photo?",
+    title: "Delete Photo",
+  },
   favorites: {
     title: "favorites page",
   },
@@ -37,6 +46,17 @@ export const en: LocaleType = {
     },
     publications: "Publications",
     settingsBtn: "Profile Settings",
+  },
+  profileSettings: {
+    general: {
+      addPhoto: "Add a Profile photo",
+      errors: {
+        formatFile: "The format of the uploaded photo must be PNG and JPEG",
+        maxSize: "Photo size must be less than 10 MB!",
+      },
+      savePhoto: "Save",
+      selectPhoto: "Select from Computer",
+    },
   },
   signIn: {
     errors: {

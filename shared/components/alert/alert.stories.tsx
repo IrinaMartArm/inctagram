@@ -14,15 +14,31 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Error: Story = {
+export const ErrorWithCloseButton: Story = {
   args: {
     title: "Server is not available",
     variant: "error",
   },
 };
 
+export const Error: Story = {
+  args: {
+    isShowClose: false,
+    title: "Server is not available",
+    variant: "error",
+  },
+};
+
+export const SuccessWithCloseButton: Story = {
+  args: {
+    title: "Your settings are saved",
+    variant: "success",
+  },
+};
+
 export const Success: Story = {
   args: {
+    isShowClose: false,
     title: "Your settings are saved",
     variant: "success",
   },
