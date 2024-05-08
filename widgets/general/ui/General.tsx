@@ -1,3 +1,4 @@
+"use client";
 import { ChangeEvent, useEffect, useState } from "react";
 
 import { useGetProfileInfoQuery } from "@/shared/assets/api/profile/profile-api";
@@ -50,7 +51,6 @@ const belarus = [
 type UserInfoKeys =
   | "aboutMe"
   | "city"
-  /* | "country" */
   | "dateOfBirth"
   | "firstName"
   | "lastName"
@@ -69,24 +69,25 @@ export const General = () => {
     showAlert,
   } = useProfileForm();
 
-  const { data: userInfo, error, isLoading } = useGetProfileInfoQuery();
+  const { data: userInfoData, error, isLoading } = useGetProfileInfoQuery();
 
-  const userInfoData: UserProfileArgs = {
-    //заглушка для userInfo
+  console.log(userInfoData);
+
+  //заглушка для userInfo
+  /* const userInfoData: UserProfileArgs = {
     aboutMe: "I'm a sportsman",
     city: "Gomel",
-    /* country: "Belarus", */
     dateOfBirth: "01.12.1990",
     firstName: "Novak",
     lastName: "Jokovic",
     username: "Just_Novak",
-  };
+  }; */
 
   useEffect(() => {
     for (const key in userInfoData) {
       setValue(key as UserInfoKeys, userInfoData[key as UserInfoKeys]);
     }
-  }, []);
+  }, [userInfoData]);
 
   const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -118,8 +119,6 @@ export const General = () => {
   };
 
   const cities = getCityOptions();
-
-  console.log(cities[0].value);
 
   return (
     <>
@@ -173,7 +172,7 @@ export const General = () => {
 
               <Select
                 className={s.general}
-                defaultValue={userInfoData.city || cities[0].value}
+                defaultValue={/* userInfoData.city || */ cities[0].value}
                 items={cities}
                 label={"Select your city"}
                 name={"city"}
@@ -208,7 +207,7 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button className={s.button} disabled={isValid} type={"submit"}>
+        <Button className={s.button} disabled={!isValid} type={"submit"}>
           Save Changes
         </Button>
       </form>

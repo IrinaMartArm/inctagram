@@ -4,16 +4,15 @@ import { UserProfileArgs } from "@/shared/assets/api/profile/types";
 export const ProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
-      fillOutProfile: builder.mutation<void, UserProfileArgs>({
+      fillOutProfile: builder.mutation<any, UserProfileArgs>({
         query: (arg) => ({
-          arg,
+          body: arg,
           method: "PUT",
           url: "v1/user/fill-out-profile",
         }),
       }),
       getProfileInfo: builder.query<UserProfileArgs, void>({
-        query: (arg) => ({
-          arg,
+        query: () => ({
           method: "GET",
           url: "v1/user/profile-information",
         }),
