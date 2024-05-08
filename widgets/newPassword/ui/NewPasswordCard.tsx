@@ -42,7 +42,7 @@ export const NewPasswordCard = () => {
         {t.passwordRecovery.rules}
       </Typography>
       <Button fullWidth type={"submit"}>
-        {t.passwordRecovery.send}
+        {t.passwordRecovery.createTitle}
       </Button>
     </Card>
   );

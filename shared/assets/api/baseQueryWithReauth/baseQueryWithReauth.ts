@@ -11,7 +11,7 @@ const TOKEN =
   typeof window !== "undefined" && window.localStorage.getItem("accessToken");
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://instagram-api-dw99.onrender.com/api/",
+  baseUrl: "https://inctagram.org/api/",
   credentials: "include",
   headers: {
     Authorization: `Bearer ${TOKEN}`,

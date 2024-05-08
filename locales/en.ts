@@ -69,6 +69,7 @@ export const en: LocaleType = {
     formEmail: "The email must match the format\n" + "example@example.com",
     haveSent: "We have sent a link to confirm your email to",
     invalidPassword: "Password must contain",
+    invalidUsername: "The username must contain",
     name: "Username",
     password: "Password",
     password2: "Password confirmation",

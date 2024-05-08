@@ -21,7 +21,7 @@ const Confirmed = () => {
   const [registrationConfirmation, { error, isLoading }] =
     useRegistrationConfirmationMutation();
 
-  const Confirmation = useCallback(async () => {
+  const confirmation = useCallback(async () => {
     const query: ParsedUrlQuery = router.query;
     const code = query.code as string;
 
@@ -35,8 +35,8 @@ const Confirmed = () => {
   }, [registrationConfirmation, router]);
 
   useLayoutEffect(() => {
-    Confirmation();
-  }, [Confirmation]);
+    confirmation();
+  }, [confirmation]);
 
   if (isLoading) {
     return <Loader />;
@@ -52,7 +52,7 @@ const Confirmed = () => {
       <Typography className={s.confirmed} variant={"regular_text-16"}>
         {confirmed}
       </Typography>
-      <Button as={Link} className={s.btn} href={"./../../sign-in"}>
+      <Button as={Link} className={s.btn} href={"/sign-in"}>
         {signIn}
       </Button>
       <Image
