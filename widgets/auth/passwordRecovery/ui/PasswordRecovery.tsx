@@ -5,7 +5,7 @@ import {
   ControlledTextField,
   Typography,
 } from "@/shared/components";
-import { usePasswordRecovery } from "@/widgets/passwordRecovery/hook/usePasswordRecovery";
+import { usePasswordRecovery } from "@/widgets/auth/passwordRecovery/hook/usePasswordRecovery";
 import Link from "next/link";
 
 import s from "./passwordRecovery.module.scss";

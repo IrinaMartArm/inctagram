@@ -5,7 +5,7 @@ import {
   Loader,
   Typography,
 } from "@/shared/components";
-import { useNewPassword } from "@/widgets/newPassword/hook/useNewPassword";
+import { useNewPassword } from "@/widgets/auth/newPassword/hook/useNewPassword";
 
 import s from "./newPassword.module.scss";
 

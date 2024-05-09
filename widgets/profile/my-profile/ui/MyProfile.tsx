@@ -22,7 +22,7 @@ export const MyProfile = () => {
             <Typography variant={"h1"}>URLProfiele</Typography>
             <Button
               as={Link}
-              href={"./profile-settings/general"}
+              href={"/profile-settings/general"}
               variant={"secondary"}
             >
               {settingsBtn}

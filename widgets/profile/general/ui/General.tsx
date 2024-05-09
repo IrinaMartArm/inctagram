@@ -5,11 +5,11 @@ import {
   Button,
   ControlledTextArea,
   ControlledTextField,
-  Input,
   Select,
   Tab,
 } from "@/shared/components";
-import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
+import { ControlledDayPicker } from "@/shared/components/controlled/ControlledDayPicker";
+import { useProfileForm } from "@/widgets/profile/general/hook/useProfileForm";
 
 import s from "./general.module.scss";
 
@@ -109,7 +109,12 @@ export const General = () => {
             required
             type={"text"}
           />
-          <Input name={"date"} type={"text"} />
+          <ControlledDayPicker
+            control={control}
+            label={"Date of birth"}
+            name={"dateOfBirth"}
+            type={"datePicker"}
+          />
           <div className={s.selectors}>
             <Select
               className={s.select}

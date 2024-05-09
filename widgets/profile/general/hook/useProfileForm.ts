@@ -45,7 +45,7 @@ export const useProfileForm = () => {
     })
     .transform((data) => ({
       ...data,
-      dateOfBirth: data.dateOfBirth.toISOString(), // Конвертация date в string
+      dateOfBirth: data.dateOfBirth?.toISOString(), // Конвертация date в string
     }));
 
   type ProfileFormSchema = z.infer<typeof profileFormSchema>;
