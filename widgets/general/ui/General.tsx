@@ -14,8 +14,9 @@ import {
 } from "@/shared/components";
 import { ControlledSelect } from "@/shared/components/controlled/ControlledSelect";
 import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
-import { DevTool } from "@hookform/devtools";
 
+/* import { DevTool } from "@hookform/devtools";
+ */
 import s from "./general.module.scss";
 
 const options = [
@@ -87,7 +88,7 @@ export const General = () => {
     for (const key in userInfoData) {
       setValue(key as UserInfoKeys, userInfoData[key as UserInfoKeys]);
     }
-  }, [userInfoData]);
+  }, [setValue, userInfoData]);
 
   const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -122,7 +123,7 @@ export const General = () => {
 
   return (
     <>
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
       <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
         {showAlert && (
           <Alert

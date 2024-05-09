@@ -5,7 +5,7 @@ export const ProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
       fillOutProfile: builder.mutation<any, UserProfileArgs>({
-        invalidatesTags: ["Profile"],
+        invalidatesTags: ["Me"],
         query: (arg) => ({
           body: arg,
           method: "PUT",
@@ -13,6 +13,7 @@ export const ProfileApi = baseApi.injectEndpoints({
         }),
       }),
       getProfileInfo: builder.query<UserProfileArgs, void>({
+        providesTags: ["Me"],
         query: () => ({
           method: "GET",
           url: "v1/user/profile-information",
