@@ -7,6 +7,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import { store } from "@/shared/assets/api/store";
 import { WithNavigate } from "@/shared/assets/hoc/WithNavigate";
 import { useLoader } from "@/shared/assets/hooks/useLoader";
+import { Toast } from "@/shared/components";
 import { NextPage } from "next";
 
 import "@/styles/index.scss";
@@ -31,14 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <Provider store={store}>
       <WithNavigate>
-        <ToastContainer
-        autoClose={5000}
-          pauseOnHover
-          position={"top-right"}
-          rtl={false}
-          theme={"dark"}
-          transition={Bounce}
-        />
+        <Toast />
         {getLayout(<Component {...pageProps} />)}
       </WithNavigate>
     </Provider>
