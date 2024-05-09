@@ -12,7 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import s from "@/widgets/email-verification/ui/verification.module.scss";
+import s from "@/widgets/auth/email-verification/ui/verification.module.scss";
 
 const Confirmed = () => {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
-import { General } from "@/widgets/general";
+import { General } from "@/widgets/profile/general";
 
 const GeneralInformation = () => {
   return (

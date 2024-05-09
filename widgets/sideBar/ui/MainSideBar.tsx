@@ -29,14 +29,13 @@ export const MainSideBar = () => {
             <div
               className={clsx(
                 s.row,
-                isActive("/main", currentPath) && s.active,
+                isActive("/home", currentPath) && s.active,
               )}
-              className={clsx(s.row, isActive("/main", currentPath) && s.active)}
             >
               <Home_outline />
               <Link
-                className={isActive("/main", currentPath) ? s.active : s.link}
-                href={"./main"}
+                className={isActive("/home", currentPath) ? s.active : s.link}
+                href={"/home"}
                 passHref
               >
                 Home
@@ -57,7 +56,7 @@ export const MainSideBar = () => {
                 className={
                   isActive("/profile", currentPath) ? s.active : s.link
                 }
-                href={"./profile"}
+                href={"/profile"}
               >
                 My Profile
               </Link>
@@ -73,7 +72,7 @@ export const MainSideBar = () => {
                 className={
                   isActive("/messenger", currentPath) ? s.active : s.link
                 }
-                href={"./messenger"}
+                href={"/messenger"}
               >
                 Messenger
               </Link>
@@ -87,7 +86,7 @@ export const MainSideBar = () => {
               <Search_outline />
               <Link
                 className={isActive("/search", currentPath) ? s.active : s.link}
-                href={"./search"}
+                href={"/search"}
               >
                 Search
               </Link>
@@ -105,7 +104,7 @@ export const MainSideBar = () => {
                 className={
                   isActive("/statistics", currentPath) ? s.active : s.link
                 }
-                href={"./statistics"}
+                href={"/statistics"}
               >
                 Statistics
               </Link>
@@ -121,7 +120,7 @@ export const MainSideBar = () => {
                 className={
                   isActive("/favorites", currentPath) ? s.active : s.link
                 }
-                href={"./favorites"}
+                href={"/favorites"}
               >
                 Favorites
               </Link>
