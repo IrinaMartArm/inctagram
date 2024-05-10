@@ -1,15 +1,29 @@
 @import "../../../../styles/mixins";
 
-.notifications {
-  position: absolute;
-  @include flex("", center, center);
-  top: 4px;
-  left: 10px;
-  min-width: 13px;
-  height: 13px;
-  padding: 2px;
-  font-size: 8px;
-  border-radius: 50%;
-  color: var(--color-light-100);
-  background-color: var(--color-danger-500);
+.wrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  .notifications {
+    position: absolute;
+    @include flex("", center, center);
+    top: -4px;
+    right: -4px;
+    min-width: 14px;
+    height: 14px;
+    padding: 2px;
+    font-size: 8px;
+    border-radius: 50%;
+    color: var(--color-light-100);
+    background-color: var(--color-danger-500);
+  }
+  svg {
+   fill: var(--color-light-100);
+  }
+  &:hover {
+    svg {
+      fill: var(--color-accent-500);
+    }
+  }
 }

@@ -10,7 +10,7 @@ export const Notifications = ({ notificationsCount = 0 }: Props) => {
   const isShowMessagesCont = notificationsCount > 0;
 
   return (
-    <button>
+    <button className={s.wrapper}>
       {isShowMessagesCont && (
         <div className={s.notifications}>{notificationsCount}</div>
       )}
