@@ -1,4 +1,6 @@
 import { Bell } from "@/public";
+import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
+import { useIsMobile } from "@/shared/assets/hooks";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button } from "@/shared/components/button";
 import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
@@ -6,17 +8,22 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import s from "./header.module.scss";
+
 export const Header = () => {
   const { pathname: currentPath } = useRouter();
   const { t } = useTranslation();
+  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
 
   const publicPage = currentPath === "/";
-  const messagesCount = 0;
+  const messagesCount = 2;
+  const isShowMessagesCont = !isMobile && messagesCount > 0;
 
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <p className={s.logo}>Inctagram</p>
+        <Link className={s.logo} href={"./"}>
+          Inctagram
+        </Link>
         {publicPage ? (
           <div className={s.buttons}>
             <LangSelect />
@@ -31,10 +38,10 @@ export const Header = () => {
           </div>
         ) : (
           <div className={s.bell}>
-            {messagesCount > 0 && (
+            {isShowMessagesCont && (
               <div className={s.bellMessage}>{messagesCount}</div>
             )}
-            <Bell />
+            {!isMobile && <Bell />}
             <LangSelect />
           </div>
         )}

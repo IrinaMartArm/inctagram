@@ -28,6 +28,9 @@
     width: 50px;
     padding: 0 6px;
   }
+  &.isHiddenText {
+    width: 84px;
+  }
 
   &:hover {
     color: var(--color-light-900);
@@ -70,6 +73,9 @@
   &.pagination {
     width: 48px;
     padding: 0 6px;
+  }
+  &.isHiddenText {
+    width: 82px;
   }
 }
 
