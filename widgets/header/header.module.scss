@@ -31,23 +31,9 @@
   font-weight: var(--font-weight-semi-bold);
 }
 
-.bell {
+.wrapper {
   position: relative;
   @include flex("", space-between, center, 50px);
-}
-
-.bellMessage {
-  position: absolute;
-  @include flex("", center, center);
-  top: 4px;
-  left: 10px;
-  min-width: 13px;
-  height: 13px;
-  padding: 2px;
-  font-size: 8px;
-  border-radius: 50%;
-  color: var(--color-light-100);
-  background-color: var(--color-danger-500);
 }
 
 .buttons {

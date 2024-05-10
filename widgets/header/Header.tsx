@@ -1,7 +1,7 @@
-import { Bell } from "@/public";
 import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
 import { useIsMobile } from "@/shared/assets/hooks";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { Paths } from "@/shared/assets/paths";
 import { Button } from "@/shared/components/button";
 import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
 import Link from "next/link";
@@ -9,39 +9,41 @@ import { useRouter } from "next/router";
 
 import s from "./header.module.scss";
 
+import { Notifications } from "./ui";
+
+const NOTIFICATIONS_COUNT = 5;
+
 export const Header = () => {
   const { pathname: currentPath } = useRouter();
   const { t } = useTranslation();
   const isMobile = useIsMobile(MOBILE_BREAKPOINT);
 
-  const publicPage = currentPath === "/";
-  const messagesCount = 2;
-  const isShowMessagesCont = !isMobile && messagesCount > 0;
+  const publicPage = currentPath === Paths.HOME;
 
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <Link className={s.logo} href={"./"}>
+        <Link className={s.logo} href={Paths.HOME}>
           Inctagram
         </Link>
-        {publicPage ? (
+        {publicPage && (
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
-              <Button as={Link} href={"./sign-in"} variant={"link"}>
-                Log in
+              <Button as={Link} href={Paths.LOGIN} variant={"link"}>
+                {t.signUp.signIn}
               </Button>
-              <Button as={Link} href={"./sign-up"}>
+              <Button as={Link} href={Paths.REGISTRATION}>
                 {t.signUp.title}
               </Button>
             </div>
           </div>
-        ) : (
-          <div className={s.bell}>
-            {isShowMessagesCont && (
-              <div className={s.bellMessage}>{messagesCount}</div>
+        )}
+        {!publicPage && (
+          <div className={s.wrapper}>
+            {!isMobile && (
+              <Notifications notificationsCount={NOTIFICATIONS_COUNT} />
             )}
-            {!isMobile && <Bell />}
             <LangSelect />
           </div>
         )}

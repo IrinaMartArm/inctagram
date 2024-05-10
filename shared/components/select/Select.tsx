@@ -1,4 +1,4 @@
-import { ElementRef, forwardRef, Ref, useState } from "react";
+import { ElementRef, Ref, forwardRef, useState } from "react";
 
 import { Typography } from "@/shared/components";
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
