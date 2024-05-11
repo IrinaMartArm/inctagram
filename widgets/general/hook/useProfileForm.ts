@@ -55,7 +55,7 @@ export const useProfileForm = () => {
 
   const {
     control,
-    formState: { errors, isValid },
+    formState: { errors, isDirty, isValid },
     handleSubmit,
     setValue,
   } = useForm<ProfileFormSchema>({ resolver: zodResolver(profileFormSchema) });
@@ -88,6 +88,7 @@ export const useProfileForm = () => {
     control,
     errors,
     handleSubmit,
+    isDirty,
     isValid,
     onSubmit,
     setValue,

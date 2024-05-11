@@ -81,6 +81,7 @@ export const General = () => {
     control,
     errors,
     handleSubmit,
+    isDirty,
     isValid,
     onSubmit,
     setValue,
@@ -138,9 +139,6 @@ export const General = () => {
   };
 
   const cities = getCityOptions(selectedCountry);
-
-  console.log(userInfoData?.city || cities[0].value);
-  console.log(!(Object.keys(errors).length === 0));
 
   return (
     <>
@@ -219,7 +217,7 @@ export const General = () => {
         </div>
         <Button
           className={s.button}
-          disabled={/* !isValid */ !(Object.keys(errors).length === 0)}
+          disabled={!isValid && !isDirty}
           type={"submit"}
         >
           Save Changes
