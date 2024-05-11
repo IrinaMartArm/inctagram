@@ -47,10 +47,27 @@ const belarus = [
   { title: "Gomel", value: "Gomel" },
   { title: "Brest", value: "Brest" },
 ];
+///get country with city name
+
+const getCountryWithCityName = (cityFromServer: string) => {
+  const countriesWithCities = {
+    Belarus: belarus,
+    Russia: russ,
+  };
+
+  for (const [country, cities] of Object.entries(countriesWithCities)) {
+    // Проверяем, есть ли город в массиве городов текущей страны
+    if (cities.some((city) => city.value === cityFromServer)) {
+      return country;
+    }
+  }
+
+  return null;
+};
 
 type UserInfoKeys =
   | "aboutMe"
-  /* | "city" */
+  | "city"
   /* | "dateOfBirth" */
   | "firstName"
   | "lastName"
@@ -76,6 +93,12 @@ export const General = () => {
     for (const key in userInfoData) {
       setValue(key as UserInfoKeys, userInfoData[key as UserInfoKeys]);
     }
+
+    if (userInfoData?.city) {
+      const country = getCountryWithCityName(userInfoData.city) as string;
+
+      setSelectedCountry(country);
+    }
   }, [setValue, userInfoData]);
 
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -97,6 +120,13 @@ export const General = () => {
     setSelectedCountry(value);
   };
 
+  const handleSelectCity = (key: string, value: string) => {
+    setValue("city", value, {
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
+
   const getCityOptions = (country: string) => {
     if (country === "Russia") {
       return russ;
@@ -109,8 +139,8 @@ export const General = () => {
 
   const cities = getCityOptions(selectedCountry);
 
-  console.log(errors);
-  console.log(isValid);
+  console.log(userInfoData?.city || cities[0].value);
+  console.log(!(Object.keys(errors).length === 0));
 
   return (
     <>
@@ -156,49 +186,26 @@ export const General = () => {
             />
             <Input name={"date"} type={"text"} />
             <div className={s.selectors}>
-              <Select
-                className={s.general}
-                defaultValue={countries[0].value}
-                items={countries}
-                label={"Select your country"}
-                name={"countries"}
-                onChange={handleSelectChange}
-              />
+              {selectedCountry && (
+                <Select
+                  className={s.general}
+                  defaultValue={selectedCountry || countries[0].value}
+                  items={countries}
+                  label={"Select your country"}
+                  name={"countries"}
+                  onChange={handleSelectChange}
+                />
+              )}
 
-              <Select
-                className={s.general}
-                defaultValue={userInfoData?.city || cities[0].value}
-                items={cities}
-                label={"Select your city"}
-                name={"city"}
-                onChange={(e) => {}}
-              />
-              {/* <ControlledSelect
-                className={s.general}
-                control={control}
-                defaultValue={countries[0].value}
-                items={countries}
-                label={"Select your country"}
-                name={"country"}
-                onChange={(e) => handleSelectChange("country", e)}
-              /> */}
-
-              {/* <ControlledSelect
+              <ControlledSelect
                 className={s.general}
                 control={control}
                 defaultValue={userInfoData?.city || cities[0].value}
                 items={cities}
                 label={"City"}
                 name={"city"}
-                onChange={(e) => {
-                  const value = e;
-
-                  setValue("city", value, {
-                    shouldDirty: true,
-                    shouldTouch: true,
-                  });
-                }}
-              /> */}
+                onChange={handleSelectCity}
+              />
             </div>
             <ControlledTextArea
               control={control}
@@ -210,7 +217,11 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button className={s.button} disabled={!isValid} type={"submit"}>
+        <Button
+          className={s.button}
+          disabled={/* !isValid */ !(Object.keys(errors).length === 0)}
+          type={"submit"}
+        >
           Save Changes
         </Button>
       </form>

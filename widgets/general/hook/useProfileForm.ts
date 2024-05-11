@@ -19,7 +19,7 @@ export const useProfileForm = () => {
       .string()
       .max(200, { message: t.profile.errors.aboutMeMax })
       .optional(),
-    //city: z.string().min(1).optional(),
+    city: z.string().min(1).optional(),
     /* dateOfBirth: z.date().refine(
       (value) => {
         const dateOfBirth = new Date(value);
