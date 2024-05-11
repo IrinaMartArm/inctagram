@@ -14,9 +14,8 @@ import {
 } from "@/shared/components";
 import { ControlledSelect } from "@/shared/components/controlled/ControlledSelect";
 import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
+import { DevTool } from "@hookform/devtools";
 
-/* import { DevTool } from "@hookform/devtools";
- */
 import s from "./general.module.scss";
 
 const options = [
@@ -63,6 +62,7 @@ export const General = () => {
     alertMessage,
     alertVariant,
     control,
+    errors,
     handleSubmit,
     isValid,
     onSubmit,
@@ -71,8 +71,6 @@ export const General = () => {
   } = useProfileForm();
 
   const { data: userInfoData, error, isLoading } = useGetProfileInfoQuery();
-
-  console.log(userInfoData);
 
   //заглушка для userInfo
   /* const userInfoData: UserProfileArgs = {
@@ -84,6 +82,8 @@ export const General = () => {
     username: "Just_Novak",
   }; */
 
+  console.log(errors);
+
   useEffect(() => {
     for (const key in userInfoData) {
       setValue(key as UserInfoKeys, userInfoData[key as UserInfoKeys]);
@@ -92,7 +92,7 @@ export const General = () => {
 
   const [selectedCountry, setSelectedCountry] = useState("");
 
-  const handleCountryChange = (key: string, value: string) => {
+  const handleCountryChange = (value: string) => {
     setSelectedCountry(value);
   };
 
@@ -109,21 +109,21 @@ export const General = () => {
     setSelectedCountry(value);
   };
 
-  const getCityOptions = () => {
-    if (selectedCountry === "Russia") {
+  const getCityOptions = (country: string) => {
+    if (country === "Russia") {
       return russ;
-    } else if (selectedCountry === "Belarus") {
+    } else if (country === "Belarus") {
       return belarus;
     } else {
       return belarus;
     }
   };
 
-  const cities = getCityOptions();
+  const cities = getCityOptions(selectedCountry);
 
   return (
     <>
-      {/* <DevTool control={control} /> */}
+      <DevTool control={control} />
       <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
         {showAlert && (
           <Alert
@@ -141,6 +141,7 @@ export const General = () => {
           <div className={s.form}>
             <ControlledTextField
               control={control}
+              errorMessage={errors.username?.message}
               label={"Username"}
               name={"username"}
               required
@@ -148,6 +149,7 @@ export const General = () => {
             />
             <ControlledTextField
               control={control}
+              errorMessage={errors.firstName?.message}
               label={"First Name"}
               name={"firstName"}
               required
@@ -155,6 +157,7 @@ export const General = () => {
             />
             <ControlledTextField
               control={control}
+              errorMessage={errors.lastName?.message}
               label={"Last Name"}
               name={"lastName"}
               required
@@ -168,12 +171,12 @@ export const General = () => {
                 items={countries}
                 label={"Select your country"}
                 name={"countries"}
-                onChange={handleCountryChange}
+                onChange={handleSelectChange}
               />
 
               <Select
                 className={s.general}
-                defaultValue={/* userInfoData.city || */ cities[0].value}
+                defaultValue={userInfoData?.city || cities[0].value}
                 items={cities}
                 label={"Select your city"}
                 name={"city"}
@@ -192,15 +195,23 @@ export const General = () => {
               {/* <ControlledSelect
                 className={s.general}
                 control={control}
-                defaultValue={userInfoData.city || cities[0].value}
+                defaultValue={userInfoData?.city || cities[0].value}
                 items={cities}
                 label={"City"}
                 name={"city"}
-                onChange={(e) => handleSelectChange("city", e)}
+                onChange={(e) => {
+                  const value = e;
+
+                  setValue("city", value, {
+                    shouldDirty: true,
+                    shouldTouch: true,
+                  });
+                }}
               /> */}
             </div>
             <ControlledTextArea
               control={control}
+              error={errors.aboutMe?.message}
               label={"About Me"}
               name={"aboutMe"}
               onChangeValue={handleAboutMeChange}
@@ -208,7 +219,7 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button className={s.button} disabled={!isValid} type={"submit"}>
+        <Button className={s.button} disabled={isValid} type={"submit"}>
           Save Changes
         </Button>
       </form>

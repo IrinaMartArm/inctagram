@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useFillOutProfileMutation } from "@/shared/assets/api/profile/profile-api";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { AlertVariant } from "@/shared/components/alert/Alert";
+import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 
 export const useProfileForm = () => {
@@ -15,7 +16,10 @@ export const useProfileForm = () => {
 
   const profileFormSchema = z
     .object({
-      aboutMe: z.string().max(200).optional(),
+      aboutMe: z
+        .string()
+        .max(200, { message: "Maximum number of characters 200" })
+        .optional(),
       city: z.string().min(1).optional(),
       dateOfBirth: z.date().refine(
         (value) => {
@@ -30,9 +34,18 @@ export const useProfileForm = () => {
         },
         { message: child },
       ),
-      firstName: z.string().min(1).max(50),
-      lastName: z.string().min(1).max(50),
-      username: z.string().min(6).max(30),
+      firstName: z
+        .string()
+        .min(1, { message: "Minimum number of characters 1" })
+        .max(50, { message: "Maximum number of characters 50" }),
+      lastName: z
+        .string()
+        .min(1, { message: "Minimum number of characters 1" })
+        .max(50, { message: "Maximum number of characters 50" }),
+      username: z
+        .string()
+        .min(6, { message: "Minimum number of characters 6" })
+        .max(30, { message: "Maximum number of characters 30" }),
     })
     .transform((data) => ({
       ...data,
@@ -43,14 +56,12 @@ export const useProfileForm = () => {
 
   const {
     control,
-    formState: { isValid },
+    formState: { errors, isValid },
     handleSubmit,
     setValue,
-  } = useForm<ProfileFormSchema>();
+  } = useForm<ProfileFormSchema>({ resolver: zodResolver(profileFormSchema) });
 
   const [fillOutProfile, { error }] = useFillOutProfileMutation();
-
-  console.log(error);
 
   const alertHandler = () => {
     setShowAlert(!showAlert);
@@ -76,6 +87,7 @@ export const useProfileForm = () => {
     alertMessage,
     alertVariant,
     control,
+    errors,
     handleSubmit,
     isValid,
     onSubmit,
