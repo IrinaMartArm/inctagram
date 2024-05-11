@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactElement } from "react";
 
 import { TABLET_BREAKPOINT } from "@/shared/assets/constants";
 import { useIsMobile } from "@/shared/assets/hooks";
-import { MainSideBar } from "@/widgets/sideBar/ui";
+import { MainSideBar } from "@/widgets";
 import { NextPage } from "next";
 
 import s from "./../layout.module.scss";
