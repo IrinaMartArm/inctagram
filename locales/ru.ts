@@ -1,4 +1,13 @@
 export const ru = {
+  common: {
+    error: "Ошибка!",
+    no: "Нет",
+    yes: "Да",
+  },
+  deleteAvatar: {
+    text: "Вы действительно хотите удалить свою фотографию профиля?",
+    title: "Удалить фотографию",
+  },
   favorites: {
     title: "Страница",
   },
@@ -35,6 +44,17 @@ export const ru = {
     },
     publications: "Публикации",
     settingsBtn: "Настройки профиля",
+  },
+  profileSettings: {
+    general: {
+      addPhoto: "Добавить фото профиля",
+      errors: {
+        formatFile: "Формат загружаемой фотографии должен быть PNG и JPEG.",
+        maxSize: "Размер фотографии должен быть меньше 10 МБ!",
+      },
+      savePhoto: "Сохранить",
+      selectPhoto: "Выбрать с компьютера",
+    },
   },
   signIn: {
     errors: {
@@ -73,6 +93,7 @@ export const ru = {
     haveSent:
       "Мы отправили ссылку для подтверждения вашего электронного письма на ",
     invalidPassword: "Пароль должен содержать",
+    invalidUsername: "Имя должно содержать",
     name: "Имя пользователя",
     password: "Пароль",
     password2: "Подтверждение пароля",

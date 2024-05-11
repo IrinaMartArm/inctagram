@@ -9,9 +9,12 @@ import {
   Select,
   Tab,
 } from "@/shared/components";
-import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
+import { EditProfilePhoto } from "@/widgets";
 
 import s from "./general.module.scss";
+
+import { useProfileForm, useUpdateAvatar } from "../hook";
+import { AvatarBox } from "./avatarBox";
 
 const options = [
   {
@@ -55,6 +58,9 @@ export const General = () => {
     showAlert,
   } = useProfileForm();
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
   const handleCountryChange = (key: string, value: string) => {
     setSelectedCountry(value);
@@ -72,8 +78,6 @@ export const General = () => {
 
   const cities = getCityOptions();
 
-  console.log(cities[0].value);
-
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
       {showAlert && (
@@ -85,10 +89,11 @@ export const General = () => {
       )}
       <Tab defaultValue={"General information"} options={options} />
       <div className={s.container}>
-        <div className={s.avatarBox}>
-          <div className={s.avatar}></div>
-          <Button variant={"outlined"}>Add a Profile Photo</Button>
-        </div>
+        <AvatarBox
+          avatar={avatar}
+          deletePhoto={deletePhotoHandler}
+          setIsShowModal={setIsShowModal}
+        />
         <div className={s.form}>
           <ControlledTextField
             control={control}
@@ -141,6 +146,14 @@ export const General = () => {
       <Button className={s.button} disabled={!isValid} type={"submit"}>
         Save Changes
       </Button>
+      {isShowModal && (
+        <EditProfilePhoto
+          defaultOpen={isShowModal}
+          photo={avatar}
+          setIsShowModal={setIsShowModal}
+          updateAvatar={updateAvatar}
+        />
+      )}
     </form>
   );
 };

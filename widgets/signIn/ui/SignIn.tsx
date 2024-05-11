@@ -68,7 +68,7 @@ export const SignInCard = ({ onSubmit }: Props) => {
         />
       </>
 
-      <Link className={s.link} href={"/password-recovery"}>
+      <Link className={s.link} href={"/auth/password-recovery"}>
         <Typography className={forgotPasswordCN} variant={"regular_text-14"}>
           {forgotPassword}
         </Typography>
@@ -81,11 +81,9 @@ export const SignInCard = ({ onSubmit }: Props) => {
       >
         {title}
       </Button>
-      <Link href={""}>
-        <Typography className={s.question} variant={"regular_text-16"}>
-          {question}
-        </Typography>
-      </Link>
+      <Typography className={s.question} variant={"regular_text-16"}>
+        {question}
+      </Typography>
       <Link href={"/sign-up"}>
         <Typography className={s.signUp} variant={"h3"}>
           {signUp}

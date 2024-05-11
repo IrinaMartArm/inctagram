@@ -29,6 +29,12 @@
   @include flex(row, space-between, center);
 }
 
+.posts {
+  width: 100%;
+  min-height: 100vh;
+  @include flex(row, space-between, center, 12px);
+  flex-wrap: wrap;
+}
 
 
 

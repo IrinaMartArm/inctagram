@@ -4,11 +4,20 @@ import { useForm } from "react-hook-form";
 import { useFillOutProfileMutation } from "@/shared/assets/api/profile/profile-api";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { AlertVariant } from "@/shared/components/alert/Alert";
+import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 
 export const useProfileForm = () => {
   const { t } = useTranslation();
+  let initUsername;
+
+  if (typeof window !== "undefined") {
+    initUsername = localStorage.getItem("username");
+  }
+
   const { child, fell, success } = t.profile.general;
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertVariant, setAlertVariant] = useState<AlertVariant>("success");
@@ -41,11 +50,21 @@ export const useProfileForm = () => {
 
   type ProfileFormSchema = z.infer<typeof profileFormSchema>;
 
+  const defaultValues = {
+    firstName: firstName,
+    lastName: lastName,
+    username: initUsername || "",
+  };
+
   const {
     control,
     formState: { isValid },
     handleSubmit,
-  } = useForm<ProfileFormSchema>();
+  } = useForm<ProfileFormSchema>({
+    defaultValues,
+    mode: "onBlur",
+    resolver: zodResolver(profileFormSchema),
+  });
 
   const [fillOutProfile, {}] = useFillOutProfileMutation();
 
@@ -54,6 +73,8 @@ export const useProfileForm = () => {
   };
 
   const onSubmit = async (data: ProfileFormSchema) => {
+    setFirstName(data.firstName);
+    setLastName(data.lastName);
     try {
       await fillOutProfile(data).unwrap();
       setAlertMessage(success);
