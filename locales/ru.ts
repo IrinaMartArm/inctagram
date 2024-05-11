@@ -25,6 +25,15 @@ export const ru = {
     title: "Политика конфиденциальности",
   },
   profile: {
+    errors: {
+      aboutMeMax: "Максимальное количество символов 200",
+      firstNameMax: "Максимальное количество символов 50",
+      firstNameMin: "Минимальное количество символов 1",
+      lastNameMax: "Максимальное количество символов 50",
+      lastNameMin: "Минимальное количество символов 1",
+      usernameMax: "Максимальное количество символов 30",
+      usernameMin: "Минимальное количество символов 6",
+    },
     followers: "Подписчики",
     following: "Following",
     general: {

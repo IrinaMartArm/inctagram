@@ -50,8 +50,8 @@ const belarus = [
 
 type UserInfoKeys =
   | "aboutMe"
-  | "city"
-  | "dateOfBirth"
+  /* | "city" */
+  /* | "dateOfBirth" */
   | "firstName"
   | "lastName"
   | "username";
@@ -71,18 +71,6 @@ export const General = () => {
   } = useProfileForm();
 
   const { data: userInfoData, error, isLoading } = useGetProfileInfoQuery();
-
-  //заглушка для userInfo
-  /* const userInfoData: UserProfileArgs = {
-    aboutMe: "I'm a sportsman",
-    city: "Gomel",
-    dateOfBirth: "01.12.1990",
-    firstName: "Novak",
-    lastName: "Jokovic",
-    username: "Just_Novak",
-  }; */
-
-  console.log(errors);
 
   useEffect(() => {
     for (const key in userInfoData) {
@@ -121,6 +109,9 @@ export const General = () => {
 
   const cities = getCityOptions(selectedCountry);
 
+  console.log(errors);
+  console.log(isValid);
+
   return (
     <>
       <DevTool control={control} />
@@ -142,7 +133,7 @@ export const General = () => {
             <ControlledTextField
               control={control}
               errorMessage={errors.username?.message}
-              label={"Username"}
+              label={"User name"}
               name={"username"}
               required
               type={"text"}
@@ -219,7 +210,7 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button className={s.button} disabled={isValid} type={"submit"}>
+        <Button className={s.button} disabled={!isValid} type={"submit"}>
           Save Changes
         </Button>
       </form>

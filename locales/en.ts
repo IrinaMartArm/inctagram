@@ -4,6 +4,7 @@ export const en: LocaleType = {
   favorites: {
     title: "favorites page",
   },
+
   logOut: {
     buttonNo: "No",
     buttonYes: "Yes",
@@ -27,6 +28,15 @@ export const en: LocaleType = {
     title: "Privacy Policy",
   },
   profile: {
+    errors: {
+      aboutMeMax: "Maximum number of characters 200",
+      firstNameMax: "Maximum number of characters 50",
+      firstNameMin: "Minimum number of characters 1",
+      lastNameMax: "Maximum number of characters 50",
+      lastNameMin: "Minimum number of characters 1",
+      usernameMax: "Maximum number of characters 30",
+      usernameMin: "Minimum number of characters 6",
+    },
     followers: "Followers",
     following: "Following",
     general: {

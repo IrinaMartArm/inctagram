@@ -14,43 +14,42 @@ export const useProfileForm = () => {
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertVariant, setAlertVariant] = useState<AlertVariant>("success");
 
-  const profileFormSchema = z
-    .object({
-      aboutMe: z
-        .string()
-        .max(200, { message: "Maximum number of characters 200" })
-        .optional(),
-      city: z.string().min(1).optional(),
-      dateOfBirth: z.date().refine(
-        (value) => {
-          const dateOfBirth = new Date(value);
-          const today = new Date();
-          const monthDiff = today.getMonth() - dateOfBirth.getMonth();
-          const isUnderage =
-            monthDiff < 0 ||
-            (monthDiff === 0 && today.getDate() < dateOfBirth.getDate());
+  const profileFormSchema = z.object({
+    aboutMe: z
+      .string()
+      .max(200, { message: t.profile.errors.aboutMeMax })
+      .optional(),
+    //city: z.string().min(1).optional(),
+    /* dateOfBirth: z.date().refine(
+      (value) => {
+        const dateOfBirth = new Date(value);
+        const today = new Date();
+        const monthDiff = today.getMonth() - dateOfBirth.getMonth();
+        const isUnderage =
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < dateOfBirth.getDate());
 
-          return !isUnderage;
-        },
-        { message: child },
-      ),
-      firstName: z
-        .string()
-        .min(1, { message: "Minimum number of characters 1" })
-        .max(50, { message: "Maximum number of characters 50" }),
-      lastName: z
-        .string()
-        .min(1, { message: "Minimum number of characters 1" })
-        .max(50, { message: "Maximum number of characters 50" }),
-      username: z
-        .string()
-        .min(6, { message: "Minimum number of characters 6" })
-        .max(30, { message: "Maximum number of characters 30" }),
-    })
-    .transform((data) => ({
+        return !isUnderage;
+      },
+      { message: child },
+    ), */
+    firstName: z
+      .string()
+      .min(1, { message: t.profile.errors.firstNameMin })
+      .max(50, { message: t.profile.errors.firstNameMax }),
+    lastName: z
+      .string()
+      .min(1, { message: t.profile.errors.lastNameMin })
+      .max(50, { message: t.profile.errors.lastNameMax }),
+    username: z
+      .string()
+      .min(6, { message: t.profile.errors.usernameMin })
+      .max(30, { message: t.profile.errors.usernameMax }),
+  });
+  /* .transform((data) => ({
       ...data,
       dateOfBirth: data.dateOfBirth.toISOString(), // Конвертация date в string
-    }));
+    })); */
 
   type ProfileFormSchema = z.infer<typeof profileFormSchema>;
 
