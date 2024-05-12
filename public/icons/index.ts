@@ -17,6 +17,7 @@ export { Home } from "./Home";
 export { Home_outline } from "./Home_outline";
 export { ImageProfile } from "./ImageProfile";
 export { LogOut_outline } from "./LogOut_outline";
+export { More } from "./More";
 export { Paid } from "./Paid";
 export { PayPal } from "./PayPal";
 export { Person_outline } from "./Person_outline";

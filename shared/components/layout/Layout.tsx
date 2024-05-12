@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import { Header } from "@/widgets/header/Header";
+import { Header } from "@/widgets";
 import { NextPage } from "next";
 
 import "react-toastify/dist/ReactToastify.css";

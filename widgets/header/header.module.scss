@@ -1,4 +1,5 @@
 @import "../../styles/mixins";
+
 .root {
   position: fixed;
   z-index: 999;
@@ -18,11 +19,14 @@
   @include flex("", space-between, center);
 
   width: 100%;
-  //max-width: 1100px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 0 35px;
 
   color: var(--color-light-100);
+  @media screen and (max-width: 576px) {
+    padding: 0;
+  }
 }
 
 .logo {
@@ -34,11 +38,15 @@
 .wrapper {
   position: relative;
   @include flex("", space-between, center, 50px);
+  @media screen and (max-width: 576px) {
+    @include flex("", space-between, center, 24px);
+  }
 }
 
 .buttons {
   @include flex("", space-between, center, 36px);
 }
+
 .buttonsBox {
   @include flex("", space-between, center, 24px);
 }

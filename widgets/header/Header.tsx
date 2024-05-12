@@ -1,9 +1,9 @@
+import { LangSelect } from "@/features";
+import { More } from "@/public";
 import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
-import { useIsMobile } from "@/shared/assets/hooks";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
 import { Paths } from "@/shared/assets/paths";
-import { Button } from "@/shared/components/button";
-import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
+import { Button } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -45,6 +45,9 @@ export const Header = () => {
               <Notifications notificationsCount={NOTIFICATIONS_COUNT} />
             )}
             <LangSelect />
+            <button>
+              <More />
+            </button>
           </div>
         )}
       </div>

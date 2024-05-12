@@ -1,9 +1,6 @@
-@import "../../../styles/mixins";
 .root {
-  @include flex(column, center, center, 20px);
-  padding: 20px;
   width: 100%;
-  min-height: 100vh;
+  height:100vh;
   @media screen and (max-width: 576px) {
     padding: 15px;
     justify-content: normal;
@@ -11,10 +8,26 @@
 }
 
 .main {
+  max-height: calc(100vh - 60px);
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
   width: 100%;
-  margin-top: 60px;
-  padding-bottom: 10px;
-  overflow: hidden;
+  max-width: 1920px;
+  margin: 60px auto 0;
+
+  &::-webkit-scrollbar {
+    //background-color: transparent;
+    background-color: var(--color-dark-500);
+    width: 5px;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    //background: transparent;
+    background-color: var(--color-dark-900);
+    border-radius: 10px;
+  }
 }
 
 .container {

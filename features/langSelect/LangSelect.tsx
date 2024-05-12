@@ -10,6 +10,7 @@ export const LangSelect = () => {
   const changeLangHandler = (key: string, value: string) => {
     const locale = value;
 
+    // noinspection Annotator
     push({ pathname, query }, asPath, { locale });
   };
 
