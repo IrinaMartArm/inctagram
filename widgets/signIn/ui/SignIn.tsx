@@ -4,6 +4,10 @@ import { useLoginValidation } from "@/entities";
 import { GitHubBig, Google } from "@/public";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppSelector } from "@/shared/assets/api/store";
+import {
+  githubAuthRedirect,
+  googleAuthRedirect,
+} from "@/shared/assets/helpers/authentication";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import {
   Button,
@@ -33,18 +37,22 @@ export const SignInCard = ({ onSubmit }: Props) => {
     errors.password?.message && s.withError,
   );
 
+  const onGoogleLogin = () => googleAuthRedirect();
+
+  const onGithubLogin = () => githubAuthRedirect();
+
   return (
     <Card as={"form"} className={s.wrapper} onSubmit={handleSubmit(onSubmit)}>
       <Typography as={"h1"} className={s.title} variant={"h1"}>
         {title}
       </Typography>
       <div className={s.socials}>
-        <Link aria-label={"sign in with Google"} href={""}>
+        <Button onClick={onGoogleLogin} type={"button"} variant={"icon"}>
           <Google />
-        </Link>
-        <Link aria-label={"sign in with GitHub"} href={""}>
+        </Button>
+        <Button onClick={onGithubLogin} type={"button"} variant={"icon"}>
           <GitHubBig />
-        </Link>
+        </Button>
       </div>
       <>
         <ControlledTextField

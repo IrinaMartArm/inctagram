@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { setAccessToken } from "@/shared/assets/helpers/authentication";
 import { HeadMeta, Loader } from "@/shared/components";
 
-const GoogleAuth = () => {
+const GithubAuth = () => {
   useEffect(() => {
     const queryString = window.location.search;
 
@@ -12,10 +12,10 @@ const GoogleAuth = () => {
 
   return (
     <>
-      <HeadMeta title={"Google auth"} />
+      <HeadMeta title={"Github auth"} />
       <Loader />
     </>
   );
 };
 
-export default GoogleAuth;
+export default GithubAuth;
