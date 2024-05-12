@@ -14,10 +14,11 @@ export type PathOption = {
 };
 
 type Props = {
+  isTextHidden?: boolean;
   path: PathOption;
 };
 
-export const NavLink = ({ path }: Props) => {
+export const NavLink = ({ isTextHidden = false, path }: Props) => {
   const { pathname: currentPath } = useRouter();
 
   const isActive = (pathname: string) => {
@@ -31,7 +32,9 @@ export const NavLink = ({ path }: Props) => {
       passHref
     >
       {path.icon}
-      <Typography variant={"Medium_text-14"}>{path.title}</Typography>
+      {!isTextHidden && (
+        <Typography variant={"Medium_text-14"}>{path.title}</Typography>
+      )}
     </Link>
   );
 };
