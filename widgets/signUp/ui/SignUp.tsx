@@ -1,8 +1,8 @@
 import { GitHubBig, Google } from "@/public";
 import {
-  useLazyGithubAuthQuery,
-  useLazyGoogleAuthQuery,
-} from "@/shared/assets/api/auth/auth-api";
+  githubAuthRedirect,
+  googleAuthRedirect,
+} from "@/shared/assets/helpers/authentication";
 import {
   Button,
   Card,
@@ -33,30 +33,22 @@ export const SignUpCard = () => {
     t,
   } = useSignUp();
 
-  const [authWithGoogle, { data: googleData }] = useLazyGoogleAuthQuery();
-
-  const [authWithGithub, { data: githubData }] = useLazyGithubAuthQuery();
-
   if (isLoading) {
     return <Loader />;
   }
+
+  const onGoogleLogin = () => googleAuthRedirect();
+
+  const onGithubLogin = () => githubAuthRedirect();
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
       <Typography variant={"h1"}>{t.signUp.title}</Typography>
       <div className={s.socials}>
-        <Button
-          onClick={() => authWithGoogle()}
-          type={"button"}
-          variant={"icon"}
-        >
+        <Button onClick={onGoogleLogin} type={"button"} variant={"icon"}>
           <Google />
         </Button>
-        <Button
-          onClick={() => authWithGithub()}
-          type={"button"}
-          variant={"icon"}
-        >
+        <Button onClick={onGithubLogin} type={"button"} variant={"icon"}>
           <GitHubBig />
         </Button>
       </div>
