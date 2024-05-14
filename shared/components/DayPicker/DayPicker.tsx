@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useRef, useState} from "react"
 import {ClassNames, DayPicker as ReactDayPicker, SelectSingleEventHandler,} from "react-day-picker"
 
 import {Input} from "@/shared/components"
@@ -7,6 +7,7 @@ import {format, parse} from "date-fns"
 
 import s from "./DayPicker.module.scss"
 import styles from "react-day-picker/dist/style.module.css"
+import {useOutsideDayClick} from "@/shared/components/DayPicker/OutsideDayClickHook"
 
 export const DayPicker = (props: DayPickerProps) => {
 
@@ -60,8 +61,16 @@ export const DayPicker = (props: DayPickerProps) => {
     return selected && !isValidDateFormat(selected) ? "Error!" : ""
   }
 
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const handleOutsideClick = () => {
+     setIsPickerSingleHidden(true)
+  };
+
+  useOutsideDayClick(calendarRef, handleOutsideClick);
+
   return (
-    <div className={s.pickerContainer}>
+    <div className={s.pickerContainer} >
       <div className={s.inputSingleContainer}>
         <Input
           errorMessage={dateSingleChecker()}
@@ -72,7 +81,7 @@ export const DayPicker = (props: DayPickerProps) => {
         />
       </div>
       {!isPickerSingleHidden && (
-        <div className={s.pickerContainer}>
+        <div className={s.pickerContainer} ref={calendarRef}>
           <ReactDayPicker
             classNames={classNames}
             mode={"single"}
