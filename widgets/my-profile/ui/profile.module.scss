@@ -23,7 +23,7 @@
   width: 100%;
 }
 .second_row {
-  @include flex(row, flax-start, center, 80px);
+  @include flex(row, flex-start, center, 80px);
   width: 100%;
 }
 .third_row {

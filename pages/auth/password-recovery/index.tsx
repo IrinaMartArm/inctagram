@@ -1,13 +1,13 @@
-import { HeadMeta, PageWrapper } from "@/shared/components";
+import { HeadMeta } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { PasswordRecovery } from "@/widgets";
 
 const Password_recovery = () => {
   return (
-    <PageWrapper>
+    <>
       <HeadMeta title={"Password recovery"} />
       <PasswordRecovery />
-    </PageWrapper>
+    </>
   );
 };
 

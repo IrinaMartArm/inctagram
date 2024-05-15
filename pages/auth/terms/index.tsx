@@ -1,7 +1,6 @@
 import { Back } from "@/features";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { PageWrapper, Typography } from "@/shared/components";
-import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
+import { useTranslation } from "@/shared/assets/hooks";
+import { HeadMeta, Typography } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 
 import s from "@/pages/auth/policy/policy.module.scss";
@@ -11,13 +10,13 @@ const TermsOfService = () => {
   const arrow = t.signUp.back;
 
   return (
-    <PageWrapper>
+    <>
       <HeadMeta title={"Terms of Service"} />
-      <Back text={arrow} />
+      <Back className={s.back} text={arrow} />
       <Typography className={s.title} variant={"h1"}>
         {t.signUp.service}
       </Typography>
-      <Typography className={s.text} variant={"regular_text-14"}>
+      <Typography as={"p"} className={s.text} variant={"regular_text-14"}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis
         egestas integer eget aliquet nibh. Amet consectetur adipiscing elit ut
@@ -94,7 +93,7 @@ const TermsOfService = () => {
         volutpat est velit egestas dui id ornare. Feugiat nibh sed pulvinar
         proin.
       </Typography>
-    </PageWrapper>
+    </>
   );
 };
 

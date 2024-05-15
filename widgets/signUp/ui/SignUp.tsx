@@ -5,10 +5,10 @@ import {
   ControlledCheckBox,
   ControlledTextField,
   Loader,
+  Modal,
   Trans,
   Typography,
 } from "@/shared/components";
-import { Modal } from "@/shared/components/modals";
 import { useSignUp } from "@/widgets/signUp/hooks/useSignUpForm";
 import { EmailSent } from "@/widgets/signUp/ui/EmailSent";
 import Link from "next/link";
@@ -34,7 +34,11 @@ export const SignUpCard = () => {
   }
 
   return (
-    <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
+    <Card
+      as={"form"}
+      className={s.wrapper}
+      onSubmit={handleSubmit(signUpHandler)}
+    >
       <Typography variant={"h1"}>{t.signUp.title}</Typography>
       <div className={s.socials}>
         <Link aria-label={"sign in with Google"} href={""}>
@@ -72,6 +76,7 @@ export const SignUpCard = () => {
         type={"password"}
       />
       <ControlledTextField
+        className={s.lastInput}
         control={control}
         disabled={isLoading}
         errorMessage={errors.confirm?.message}
@@ -126,7 +131,9 @@ export const SignUpCard = () => {
       >
         <EmailSent email={email || ""} />
       </Modal>
-      <Typography variant={"regular_text-16"}>{t.signUp.question}</Typography>
+      <Typography className={s.question} variant={"regular_text-16"}>
+        {t.signUp.question}
+      </Typography>
       <Button
         as={Link}
         className={s.signupBtn}

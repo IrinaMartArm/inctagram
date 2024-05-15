@@ -1,3 +1,15 @@
+.wrapper {
+   @media screen and (max-width: 768px) {
+     background-color: transparent;
+     border: none;
+     padding: 0;
+     width: 100%;
+     .lastInput {
+       margin-bottom: 6px;
+     }
+   }
+}
+
 .title {
   margin-bottom: 12px;
   @media screen and (max-width: 576px) {
@@ -38,17 +50,6 @@
   }
 }
 
-.wrapper {
-  @media screen and (max-width: 768px) {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    width: 100%;
-    .lastInput {
-      margin-bottom: 6px;
-    }
-  }
-}
 
 .button {
   @media screen and (max-width: 768px) {

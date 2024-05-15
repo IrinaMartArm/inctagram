@@ -1,8 +1,21 @@
 @import "./../../../styles/mixins";
 
+.wrapper {
+  @media screen and (max-width: 768px) {
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+    width: 100%;
+  }
+}
+
+
 .socials {
   @include flex("", "", "", 60px);
-  margin: 13px auto 24px;
+  margin: 12px auto 24px;
+  @media screen and (max-width: 768px) {
+    margin: 20px auto 10px;
+  }
 }
 
 .policy {
@@ -19,19 +32,24 @@
 }
 
 .button {
-  width: 100%;
-  margin: 18px 0 18px;
+  margin: 12px 0 18px;
+  @media screen and (max-width: 768px) {
+    margin: 24px 0 18px;
+    height: 48px;
+    border-radius: 2px;
+  }
+}
+
+.question {
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
 }
 
 .signupBtn {
   margin-top: 6px;
 }
-
-// Congratulations page
-
-// Expired page
-
-// EmailSent
 
 .emailSent_root {
   position: relative;
@@ -67,8 +85,13 @@
   padding: 30px 24px 0;
   text-align: start;
 }
+
 .emailSent_btn {
   @include flex("", flex-end, center);
   width: 100%;
   padding: 18px 24px 36px;
+}
+
+.lastInput {
+  margin-bottom: 10px;
 }

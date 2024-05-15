@@ -2,8 +2,7 @@ import { authActions } from "@/entities";
 import { useLoginMutation } from "@/shared/assets/api/auth/auth-api";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { PageWrapper } from "@/shared/components";
+import { useTranslation } from "@/shared/assets/hooks";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { SignInCard } from "@/widgets";
@@ -41,10 +40,10 @@ const SignIn = () => {
   };
 
   return (
-    <PageWrapper>
+    <>
       <HeadMeta title={title} />
       <SignInCard onSubmit={loginHandler} />
-    </PageWrapper>
+    </>
   );
 };
 
