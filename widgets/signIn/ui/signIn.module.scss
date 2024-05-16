@@ -1,60 +1,43 @@
-.wrapper {
-   @media screen and (max-width: 768px) {
-     background-color: transparent;
-     border: none;
-     padding: 0;
-     width: 100%;
-     .lastInput {
-       margin-bottom: 6px;
-     }
-   }
-}
-
-.title {
-  margin-bottom: 12px;
-  @media screen and (max-width: 576px) {
-    padding: 4px 0;
-  }
-}
-
-.socials {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  margin-bottom: 20px;
+.lastInput {
+  margin-bottom: 6px;
 }
 
 .link {
   align-self: end;
+  margin-top: 12px;
+  margin-bottom: 24px;
+
+  .forgotPassword {
+    color: var(--color-light-900);
+    padding: 0 4px;
+    @media screen and (max-width: 768px) {
+      margin: 0 0 64px;
+    }
+  }
 }
 
-.forgotPassword {
-  color: var(--color-light-900);
-  margin: 12px 0 24px;
-  padding: 0 4px;
+.button {
+  margin-bottom: 20px;
   @media screen and (max-width: 768px) {
-    margin: 0 0 64px;
+    height: 48px;
+    border-radius: 2px;
   }
 }
 
 .question {
   text-align: center;
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .signUp {
   margin-top: 12px;
-  color: var(--color-accent-500);
+
   @media screen and (max-width: 768px) {
     margin-top: 18px;
   }
-}
 
-
-.button {
-  @media screen and (max-width: 768px) {
-    height: 48px;
-    border-radius: 2px;
+  .signUpLink {
+    color: var(--color-accent-500);
   }
 }
 

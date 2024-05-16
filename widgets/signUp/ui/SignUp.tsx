@@ -1,4 +1,4 @@
-import { GitHubBig, Google } from "@/public";
+import { Paths } from "@/shared/assets/paths";
 import {
   Button,
   Card,
@@ -6,9 +6,11 @@ import {
   ControlledTextField,
   Loader,
   Modal,
+  PageTitle,
   Trans,
   Typography,
 } from "@/shared/components";
+import { AuthWithSocial } from "@/widgets";
 import { useSignUp } from "@/widgets/signUp/hooks/useSignUpForm";
 import { EmailSent } from "@/widgets/signUp/ui/EmailSent";
 import Link from "next/link";
@@ -34,20 +36,9 @@ export const SignUpCard = () => {
   }
 
   return (
-    <Card
-      as={"form"}
-      className={s.wrapper}
-      onSubmit={handleSubmit(signUpHandler)}
-    >
-      <Typography variant={"h1"}>{t.signUp.title}</Typography>
-      <div className={s.socials}>
-        <Link aria-label={"sign in with Google"} href={""}>
-          <Google />
-        </Link>
-        <Link aria-label={"sign in with GitHub"} href={""}>
-          <GitHubBig />
-        </Link>
-      </div>
+    <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
+      <PageTitle title={t.signUp.title} />
+      <AuthWithSocial />
       <ControlledTextField
         control={control}
         disabled={isLoading}
@@ -67,6 +58,7 @@ export const SignUpCard = () => {
         type={"email"}
       />
       <ControlledTextField
+        autoComplete={"off"}
         control={control}
         disabled={isLoading}
         errorMessage={errors.password?.message}
@@ -76,7 +68,8 @@ export const SignUpCard = () => {
         type={"password"}
       />
       <ControlledTextField
-        className={s.lastInput}
+        autoComplete={"off"}
+        className={errors.confirm?.message ? s.lastInput : ""}
         control={control}
         disabled={isLoading}
         errorMessage={errors.confirm?.message}
@@ -96,14 +89,14 @@ export const SignUpCard = () => {
           <Trans
             tags={{
               1: () => (
-                <Link href={"./auth/terms"}>
+                <Link href={Paths.SERVICE}>
                   <Typography variant={"small_link"}>
                     {t.signUp["1"]}
                   </Typography>
                 </Link>
               ),
               2: () => (
-                <Link href={"./auth/policy"}>
+                <Link href={Paths.POLICY}>
                   <Typography variant={"small_link"}>
                     {t.signUp["2"]}
                   </Typography>
@@ -136,8 +129,8 @@ export const SignUpCard = () => {
       </Typography>
       <Button
         as={Link}
-        className={s.signupBtn}
-        href={"./sign-in"}
+        className={s.signInBtn}
+        href={Paths.LOGIN}
         variant={"link"}
       >
         {t.signUp.signIn}

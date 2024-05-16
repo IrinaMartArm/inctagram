@@ -1,16 +1,18 @@
 import { SubmitHandler } from "react-hook-form";
 
 import { useLoginValidation } from "@/entities";
-import { GitHubBig, Google } from "@/public";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppSelector } from "@/shared/assets/api/store";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { Paths } from "@/shared/assets/paths";
 import {
   Button,
   Card,
   ControlledTextField,
+  PageTitle,
   Typography,
 } from "@/shared/components";
+import { AuthWithSocial } from "@/widgets";
 import { clsx } from "clsx";
 import Link from "next/link";
 
@@ -34,18 +36,9 @@ export const SignInCard = ({ onSubmit }: Props) => {
   );
 
   return (
-    <Card as={"form"} className={s.wrapper} onSubmit={handleSubmit(onSubmit)}>
-      <Typography as={"h1"} className={s.title} variant={"h1"}>
-        {title}
-      </Typography>
-      <div className={s.socials}>
-        <Link aria-label={"sign in with Google"} href={""}>
-          <Google />
-        </Link>
-        <Link aria-label={"sign in with GitHub"} href={""}>
-          <GitHubBig />
-        </Link>
-      </div>
+    <Card as={"form"} onSubmit={handleSubmit(onSubmit)}>
+      <PageTitle title={title} />
+      <AuthWithSocial />
       <>
         <ControlledTextField
           autoComplete={"email"}
@@ -68,7 +61,7 @@ export const SignInCard = ({ onSubmit }: Props) => {
         />
       </>
 
-      <Link className={s.link} href={"/auth/password-recovery"}>
+      <Link className={s.link} href={Paths.RECOVERY_PASSWORD}>
         <Typography className={forgotPasswordCN} variant={"regular_text-14"}>
           {forgotPassword}
         </Typography>
@@ -84,8 +77,8 @@ export const SignInCard = ({ onSubmit }: Props) => {
       <Typography className={s.question} variant={"regular_text-16"}>
         {question}
       </Typography>
-      <Link href={"/sign-up"}>
-        <Typography className={s.signUp} variant={"h3"}>
+      <Link className={s.signUp} href={Paths.REGISTRATION}>
+        <Typography className={s.signUpLink} variant={"h3"}>
           {signUp}
         </Typography>
       </Link>

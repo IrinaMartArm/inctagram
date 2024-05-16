@@ -1,11 +1,17 @@
-.confirmed {
-  margin: 20px auto 55px;
-}
+.wrapper {
+  margin: 0 auto;
+  text-align: center;
 
-.btn {
-  width: 182px;
-}
+  .confirmed {
+    margin: 20px 0 55px;
+  }
 
-.image {
-  margin-top: 70px;
+  .btn {
+    width: 182px;
+    margin: 0 auto;
+  }
+
+  .image {
+    margin: 70px auto;
+  }
 }

@@ -1,0 +1,13 @@
+.title {
+  text-align: left;
+  display: inline-block;
+  @media screen and (max-width: 576px) {
+    padding: 4px 0;
+    font-size: var(--line-height-x);
+    line-height: var(--line-height-l);
+  }
+}
+
+.center {
+  text-align: center;
+}

@@ -1,8 +1,10 @@
 import ReCAPTCHAWidget from "@/pages/auth/password-recovery/recaptcha";
+import { Paths } from "@/shared/assets/paths";
 import {
   Button,
   Card,
   ControlledTextField,
+  PageTitle,
   Typography,
 } from "@/shared/components";
 import { usePasswordRecovery } from "@/widgets/passwordRecovery/hook/usePasswordRecovery";
@@ -25,9 +27,7 @@ export const PasswordRecovery = () => {
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(onRecovery)}>
-      <Typography className={s.title} variant={"h1"}>
-        {t.passwordRecovery.title}
-      </Typography>
+      <PageTitle className={s.title} title={t.passwordRecovery.title} />
       <ControlledTextField
         autoComplete={"email"}
         control={control}
@@ -51,7 +51,7 @@ export const PasswordRecovery = () => {
       <Button
         as={Link}
         className={s.button}
-        href={"./sign-in"}
+        href={Paths.LOGIN}
         variant={"link"}
       >
         {t.passwordRecovery.back}

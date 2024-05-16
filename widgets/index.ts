@@ -12,3 +12,4 @@ export * from "./delete-photo-modal";
 export * from "./profile-photo";
 export * from "./mobileMenuMar";
 export * from "./general";
+export * from "./auth-with-social";
