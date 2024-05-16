@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { DayPicker } from "./";
 
+import s from './DayPicker.module.scss'
+
 const meta = {
   argTypes: {},
   component: DayPicker,
@@ -24,10 +26,13 @@ export const DayPickerSingle: Story = {
 
     return (
       <>
-        <DayPicker
-          selected={selected}
-          setSelected={setSelected}
-        />
+        <div className={s.inputSingleContainer}>
+          <DayPicker
+            selected={selected}
+            setSelected={setSelected}
+          />
+        </div>
+
       </>
     );
   },

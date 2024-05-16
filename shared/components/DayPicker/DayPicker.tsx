@@ -61,25 +61,23 @@ export const DayPicker = (props: DayPickerProps) => {
     return selected && !isValidDateFormat(selected) ? "Error!" : ""
   }
 
-  const calendarRef = useRef<HTMLDivElement>(null);
+  const calendarRef = useRef<HTMLDivElement>(null)
 
   const handleOutsideClick = () => {
-     setIsPickerSingleHidden(true)
-  };
+    setIsPickerSingleHidden(true)
+  }
 
-  useOutsideDayClick(calendarRef, handleOutsideClick);
+  useOutsideDayClick(calendarRef, handleOutsideClick)
 
   return (
-    <div className={s.pickerContainer} >
-      <div className={s.inputSingleContainer}>
-        <Input
-          errorMessage={dateSingleChecker()}
-          onButtonClick={onClickSingle}
-          onChange={(e) => setSelected(e.target.value)}
-          type={"datePicker"}
-          value={selected || ""}
-        />
-      </div>
+    <div className={s.pickerContainer}>
+      <Input
+        errorMessage={dateSingleChecker()}
+        onButtonClick={onClickSingle}
+        onChange={(e) => setSelected(e.target.value)}
+        type={"datePicker"}
+        value={selected || ""}
+      />
       {!isPickerSingleHidden && (
         <div className={s.pickerContainer} ref={calendarRef}>
           <ReactDayPicker
