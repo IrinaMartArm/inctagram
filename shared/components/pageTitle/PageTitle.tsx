@@ -1,7 +1,7 @@
 import { Typography } from "@/shared/components";
 import { clsx } from "clsx";
 
-import s from "@/widgets/signIn/ui/signIn.module.scss";
+import s from "./pageTitle.module.scss";
 
 type TextAlign = "center" | "left";
 

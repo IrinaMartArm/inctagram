@@ -10,18 +10,15 @@
   .forgotPassword {
     color: var(--color-light-900);
     padding: 0 4px;
-    @media screen and (max-width: 768px) {
-      margin: 0 0 64px;
-    }
+  }
+
+  @media screen and (max-width: 576px) {
+    margin-bottom: 64px;
   }
 }
 
 .button {
   margin-bottom: 20px;
-  @media screen and (max-width: 768px) {
-    height: 48px;
-    border-radius: 2px;
-  }
 }
 
 .question {
@@ -37,7 +34,7 @@
   }
 
   .signUpLink {
-    color: var(--color-accent-500);
+    color: var(--color-accent-500) !important;
   }
 }
 

@@ -1,6 +1,7 @@
 .back {
   @media screen and (max-width: 576px) {
     position: fixed;
+    padding: 0;
   }
 }
 
@@ -9,7 +10,7 @@
   text-align: center;
   @media screen and (max-width: 576px) {
     max-width: 80%;
-    margin: 4px auto 10px;
+    margin: 0 auto 10px;
   }
 }
 

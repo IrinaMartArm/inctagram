@@ -1,17 +1,37 @@
 .wrapper {
-  margin: 0 auto;
+  margin: 14px auto;
   text-align: center;
+  @media screen and (max-width: 576px) {
+    margin-top: 0;
+  }
 
   .confirmed {
+    display: block;
     margin: 20px 0 55px;
+    @media screen and (max-width: 576px) {
+      margin-top: 8px;
+    }
   }
 
-  .btn {
-    width: 182px;
-    margin: 0 auto;
-  }
+  .imageWithButton {
+    @media screen and (max-width: 576px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
 
-  .image {
-    margin: 70px auto;
+    .btn {
+      width: 182px;
+      margin: 0 auto;
+      @media screen and (max-width: 576px) {
+        width: 100%;
+      }
+    }
+
+    .image {
+      margin: 70px auto;
+      @media screen and (max-width: 576px) {
+        margin: 10px auto 46px;
+      }
+    }
   }
 }
