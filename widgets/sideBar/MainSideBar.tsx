@@ -1,13 +1,14 @@
 import {
-  Account,
   Bookmark_outline,
+  Dialog,
   Home_outline,
   Person_outline,
   PlusSquare_outline,
   Search_outline,
-  TrendingUp,
+  Statistics,
 } from "@/public";
 import { RootState, useAppSelector } from "@/shared/assets/api/store";
+import { useTranslation } from "@/shared/assets/hooks";
 import { Paths } from "@/shared/assets/paths";
 import { SideBar } from "@/shared/components";
 import { LogOutModal } from "@/widgets";
@@ -16,20 +17,31 @@ import s from "./mainSideBar.module.scss";
 
 import { NavLinks } from "./ui";
 
-const basicPaths = [
-  { icon: <Home_outline />, path: Paths.MAIN, title: "Home" },
-  { icon: <PlusSquare_outline />, path: Paths.CREATE, title: "Create" },
-  { icon: <Person_outline />, path: Paths.PROFILE, title: "My Profile" },
-  { icon: <Bookmark_outline />, path: Paths.MESSENGER, title: "Messenger" },
-  { icon: <Search_outline />, path: Paths.SEARCH, title: "Search" },
-];
-
-const otherPaths = [
-  { icon: <Account />, path: Paths.STATISTIC, title: "Statistics" },
-  { icon: <TrendingUp />, path: Paths.FAVORITES, title: "Favorites" },
-];
-
 export const MainSideBar = () => {
+  const { t } = useTranslation();
+  const { create, favorites, home, messenger, myProfile, search, statistics } =
+    t.menu;
+
+  const basicPaths = [
+    { icon: <Home_outline />, path: Paths.MAIN, title: home },
+    { icon: <PlusSquare_outline />, path: Paths.CREATE, title: create },
+    { icon: <Person_outline />, path: Paths.PROFILE, title: myProfile },
+    {
+      icon: <Dialog />,
+      path: Paths.MESSENGER,
+      title: messenger,
+    },
+    { icon: <Search_outline />, path: Paths.SEARCH, title: search },
+  ];
+
+  const otherPaths = [
+    { icon: <Statistics />, path: Paths.STATISTIC, title: statistics },
+    {
+      icon: <Bookmark_outline />,
+      path: Paths.FAVORITES,
+      title: favorites,
+    },
+  ];
   const email = useAppSelector((state: RootState) => state.auth.email);
 
   return (

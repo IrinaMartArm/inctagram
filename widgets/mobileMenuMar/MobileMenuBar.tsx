@@ -1,5 +1,5 @@
 import {
-  Account,
+  Dialog,
   Home_outline,
   Person_outline,
   PlusSquare_outline,
@@ -13,7 +13,7 @@ import s from "./MobileMenuBar.module.scss";
 const paths = [
   { icon: <Home_outline />, path: Paths.MAIN, title: "Home" },
   { icon: <PlusSquare_outline />, path: Paths.CREATE, title: "Create" },
-  { icon: <Account />, path: Paths.MESSENGER, title: "Messenger" },
+  { icon: <Dialog />, path: Paths.MESSENGER, title: "Messenger" },
   { icon: <Search_outline />, path: Paths.SEARCH, title: "Search" },
   { icon: <Person_outline />, path: Paths.PROFILE, title: "My Profile" },
 ];

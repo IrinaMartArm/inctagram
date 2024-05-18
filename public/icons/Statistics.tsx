@@ -2,7 +2,7 @@ import { forwardRef, memo } from "react";
 
 import { IconProps } from "@/shared/assets/types/types";
 
-export const TrendingUp = memo(
+export const Statistics = memo(
   forwardRef<SVGSVGElement, IconProps>(({}, ref) => {
     return (
       <svg
@@ -21,11 +21,6 @@ export const TrendingUp = memo(
             fill={"currentColor"}
           />
         </g>
-        <defs>
-          <clipPath id={"clip0_301_4749"}>
-            <rect fill={"white"} height={"24"} width={"24"} />
-          </clipPath>
-        </defs>
       </svg>
     );
   }),

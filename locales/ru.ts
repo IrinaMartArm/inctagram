@@ -17,6 +17,15 @@ export const ru = {
     title: "Выход",
     warning: "Вы действительно хотите выйти из своей учетной записи",
   },
+  menu: {
+    create: "Создать",
+    favorites: "Избранное",
+    home: "Главная",
+    messenger: "Сообщения",
+    myProfile: "Мой профиль",
+    search: "Поиск",
+    statistics: "Статистика",
+  },
   passwordRecovery: {
     back: "Назад для входа в систему",
     createTitle: "Создать новый пароль",
