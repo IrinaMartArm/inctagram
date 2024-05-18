@@ -45,9 +45,11 @@ export const Header = () => {
               <Notifications notificationsCount={NOTIFICATIONS_COUNT} />
             )}
             <LangSelect />
-            <button>
-              <More />
-            </button>
+            {isMobile && (
+              <button>
+                <More />
+              </button>
+            )}
           </div>
         )}
       </div>

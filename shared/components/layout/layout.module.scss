@@ -22,14 +22,14 @@
 
   &::-webkit-scrollbar {
     //background-color: transparent;
-    background-color: var(--color-dark-500);
+    background-color: var(--color-dark-300);
     width: 5px;
     border-radius: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
     //background: transparent;
-    background-color: var(--color-dark-900);
+    background-color: var(--color-dark-100);
     border-radius: 10px;
   }
 }

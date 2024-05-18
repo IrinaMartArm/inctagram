@@ -7,6 +7,7 @@ import {
   Search_outline,
   TrendingUp,
 } from "@/public";
+import { RootState, useAppSelector } from "@/shared/assets/api/store";
 import { Paths } from "@/shared/assets/paths";
 import { SideBar } from "@/shared/components";
 import { LogOutModal } from "@/widgets";
@@ -29,6 +30,8 @@ const otherPaths = [
 ];
 
 export const MainSideBar = () => {
+  const email = useAppSelector((state: RootState) => state.auth.email);
+
   return (
     <SideBar>
       <div className={s.root}>
@@ -37,7 +40,7 @@ export const MainSideBar = () => {
           <NavLinks paths={otherPaths} />
         </div>
 
-        <LogOutModal email={"заглушка@gmail.com"} />
+        <LogOutModal email={email} />
       </div>
     </SideBar>
   );
