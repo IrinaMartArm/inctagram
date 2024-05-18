@@ -1,4 +1,5 @@
 @import "styles/mixins";
+
 .info_wrapper {
   @include flex(row, center, center);
   width: 100%;
@@ -22,7 +23,7 @@
   width: 100%;
 }
 .second_row {
-  @include flex(row, flax-start, center, 80px);
+  @include flex(row, flex-start, center, 80px);
   width: 100%;
 }
 .third_row {
@@ -31,10 +32,6 @@
 
 .posts {
   width: 100%;
-  min-height: 100vh;
   @include flex(row, space-between, center, 12px);
   flex-wrap: wrap;
 }
-
-
-

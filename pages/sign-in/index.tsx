@@ -2,9 +2,8 @@ import { authActions } from "@/entities";
 import { useLoginMutation } from "@/shared/assets/api/auth/auth-api";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { PageWrapper } from "@/shared/components";
-import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
+import { useTranslation } from "@/shared/assets/hooks";
+import { HeadMeta } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { SignInCard } from "@/widgets";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -28,6 +27,7 @@ const SignIn = () => {
         localStorage.setItem("accessToken", accessToken);
 
         await router.replace("/profile");
+        dispatch(authActions.setEmail(args.email));
       }
 
       dispatch(authActions.setError(undefined));
@@ -41,10 +41,10 @@ const SignIn = () => {
   };
 
   return (
-    <PageWrapper>
+    <>
       <HeadMeta title={title} />
       <SignInCard onSubmit={loginHandler} />
-    </PageWrapper>
+    </>
   );
 };
 

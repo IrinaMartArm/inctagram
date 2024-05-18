@@ -19,6 +19,15 @@ export const en: LocaleType = {
     title: "Log Out",
     warning: "Are you really want to log out of your account",
   },
+  menu: {
+    create: "Create",
+    favorites: "Favorites",
+    home: "Home",
+    messenger: "Messenger",
+    myProfile: "My Profile",
+    search: "Search",
+    statistics: "Statistics",
+  },
   passwordRecovery: {
     back: "Back to Sign In",
     createTitle: "Create new password",

@@ -2,7 +2,7 @@ import { forwardRef, memo } from "react";
 
 import { IconProps } from "@/shared/assets/types/types";
 
-export const Account = memo(
+export const Dialog = memo(
   forwardRef<SVGSVGElement, IconProps>(({}, ref) => {
     return (
       <svg
@@ -39,11 +39,6 @@ export const Account = memo(
             fill={"currentColor"}
           />
         </g>
-        <defs>
-          <clipPath id={"clip0_9015_14854"}>
-            <rect fill={"white"} height={"24"} width={"24"} />
-          </clipPath>
-        </defs>
       </svg>
     );
   }),

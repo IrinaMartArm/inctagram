@@ -1,13 +1,12 @@
-import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
-import { General } from "@/widgets/general";
+import { HeadMeta, PageWrapper, getMainLayout } from "@/shared/components";
+import { General } from "@/widgets";
 
 const GeneralInformation = () => {
   return (
-    <>
+    <PageWrapper>
       <HeadMeta title={"General"} />
       <General />
-    </>
+    </PageWrapper>
   );
 };
 

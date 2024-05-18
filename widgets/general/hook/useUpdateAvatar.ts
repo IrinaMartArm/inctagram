@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   useDeleteUserPhotoMutation,
   useUploadUserPhotoMutation,
-} from "@/shared/assets/api";
+} from "@/shared/assets/api/profile/profile-api";
 import {
   convertFileToBase64,
   handleErrorResponse,

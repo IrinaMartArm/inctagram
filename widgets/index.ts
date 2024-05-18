@@ -10,3 +10,6 @@ export * from "./my-profile";
 export * from "./logOut";
 export * from "./delete-photo-modal";
 export * from "./profile-photo";
+export * from "./mobileMenuMar";
+export * from "./general";
+export * from "./auth-with-social";

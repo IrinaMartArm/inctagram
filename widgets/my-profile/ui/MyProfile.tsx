@@ -1,6 +1,6 @@
-import { Info } from "@/features/info/Info";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Button, PageWrapper, Typography } from "@/shared/components";
+import { Info } from "@/features";
+import { useTranslation } from "@/shared/assets/hooks";
+import { Button, Typography } from "@/shared/components";
 import Link from "next/link";
 
 import s from "./profile.module.scss";
@@ -14,7 +14,7 @@ export const MyProfile = () => {
   const { followers, following, publications, settingsBtn } = t.profile;
 
   return (
-    <PageWrapper>
+    <>
       <div className={s.info_wrapper}>
         <div className={s.avatar}>{/*<Avatar />*/}</div>
         <div className={s.info_block}>
@@ -46,6 +46,6 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}></div>
-    </PageWrapper>
+    </>
   );
 };
