@@ -41,9 +41,6 @@ export const en: LocaleType = {
     text: "Enter your email address and we will send you further instructions",
     title: "Forgot Password",
   },
-  policy: {
-    title: "Privacy Policy",
-  },
   profile: {
     followers: "Followers",
     following: "Following",
