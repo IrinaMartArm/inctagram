@@ -11,7 +11,7 @@ import {useOutsideDayClick} from "@/shared/components/DayPicker/OutsideDayClickH
 
 export const DayPicker = (props: DayPickerProps) => {
 
-  const {selected, setSelected} = props
+  const {selected, setSelected, isSuperMode} = props
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true)
@@ -25,9 +25,11 @@ export const DayPicker = (props: DayPickerProps) => {
     ...styles,
     ...s,
     caption: clsx(styles.caption, s.caption),
+    // table: clsx(styles.table, s.table),
     day: clsx(styles.day, s.day),
     nav_button: clsx(styles.nav_button, s.nav_button),
     root: clsx(styles.root, s.root),
+    dropdown: clsx(styles.dropdown, s.dropdown),
   }
 
   // Function to handle date selection in 'single' mode
@@ -69,6 +71,10 @@ export const DayPicker = (props: DayPickerProps) => {
 
   useOutsideDayClick(calendarRef, handleOutsideClick)
 
+  let currentTime = new Date()
+  let currentYear = currentTime.getFullYear()
+  let maxHumanAge = 122
+
   return (
     <div className={s.pickerContainer}>
       <Input
@@ -90,6 +96,11 @@ export const DayPicker = (props: DayPickerProps) => {
             onSelect={handleSingleSelect}
             selected={parseSelectedDate(selected)}
             showOutsideDays
+            captionLayout='dropdown-buttons'
+            {...(isSuperMode && {
+              fromYear: currentYear - maxHumanAge,
+              toYear: currentYear,
+            })}
           />
         </div>
       )}
@@ -98,8 +109,9 @@ export const DayPicker = (props: DayPickerProps) => {
 }
 
 
-type DayPickerProps = {
+export type DayPickerProps = {
   selected: string;
   setSelected: (value: string) => void;
+  isSuperMode?: boolean
 };
 

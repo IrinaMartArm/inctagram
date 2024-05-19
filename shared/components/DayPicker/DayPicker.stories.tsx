@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { useState } from "react";
-
-import { DayPicker } from "./";
-
-import s from './DayPicker.module.scss'
+import {DayPicker, DayPickerProps} from "./"
+import s from './DayPicker.module.scss';
 
 const meta = {
   argTypes: {},
@@ -16,24 +13,31 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const renderDayPicker = (isSuperMode: boolean) => (args: DayPickerProps) => {
+  const [selected, setSelected] = useState<string>("");
+
+  return (
+    <div className={s.inputSingleContainer}>
+      <DayPicker
+        selected={selected}
+        setSelected={setSelected}
+        isSuperMode={isSuperMode}
+      />
+    </div>
+  );
+};
+
+const commonArgs = {
+  selected: "",
+  setSelected: (selected: string) => {},
+};
+
 export const DayPickerSingle: Story = {
-  args: {
-    selected: "",
-    setSelected: (selected: string) => {},
-  },
-  render: (args) => {
-    const [selected, setSelected] = useState<string>("");
+  args: commonArgs,
+  render: renderDayPicker(false),
+};
 
-    return (
-      <>
-        <div className={s.inputSingleContainer}>
-          <DayPicker
-            selected={selected}
-            setSelected={setSelected}
-          />
-        </div>
-
-      </>
-    );
-  },
+export const DayPickerSingleSuper: Story = {
+  args: commonArgs,
+  render: renderDayPicker(true),
 };
