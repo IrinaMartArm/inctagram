@@ -1,10 +1,10 @@
 import { Back } from "@/features";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { HeadMeta, PageTitle } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { Blocks, InformationTextBlock } from "@/widgets";
 
 import s from "./policy.module.scss";
-import { useTranslationPages } from "@/shared/assets/hooks/useTranslation";
 
 const PrivacyPolicy = () => {
   const { t } = useTranslationPages();

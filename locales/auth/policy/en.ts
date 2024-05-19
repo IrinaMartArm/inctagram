@@ -1,15 +1,13 @@
 export default {
-  title: "Privacy Policy",
   block1: {
-    title: "1. General provisions",
-    text: "This personal data processing policy is compiled in accordance with the requirements of the Federal Law of July 27, 2006. No. 152-FZ “On Personal Data” (hereinafter - the Law on Personal Data) and determines the procedure for processing personal data and measures to ensure the security of personal data taken by Inctagram (hereinafter - the Operator).",
     options: [
       "The operator sets as its most important goal and condition for carrying out its activities the observance of the rights and freedoms of the individual and citizen when processing his personal data, including the protection of rights to inviolability of private life, personal and family secrets.",
       "The current policy of the Operator in relation to the processing of personal data (hereinafter - the Policy) applies to all information that the Operator can receive about visitors to the website https://inctagram.org.",
     ],
+    text: "This personal data processing policy is compiled in accordance with the requirements of the Federal Law of July 27, 2006. No. 152-FZ “On Personal Data” (hereinafter - the Law on Personal Data) and determines the procedure for processing personal data and measures to ensure the security of personal data taken by Inctagram (hereinafter - the Operator).",
+    title: "1. General provisions",
   },
   block2: {
-    title: "2. Basic concepts used in the Policy",
     options: [
       "Automated processing of personal data is the processing of personal data using computer technology.",
       "Blocking of personal data is a temporary cessation of personal data processing (except in cases where processing is necessary to clarify personal data).",
@@ -25,19 +23,18 @@ export default {
       "Cross-border transfer of personal data is the transfer of personal data to the territory of a foreign state to the authority of a foreign state, a foreign individual or a foreign legal entity.",
       "The destruction of personal data is any actions as a result of which personal data are irretrievably destroyed with the impossibility of further restoring the content of personal data in the personal data information system and/or material carriers of personal data are destroyed.",
     ],
+    title: "2. Basic concepts used in the Policy",
   },
   block3: {
-    title: "3. Basic rights and obligations of the Operator",
     section1: {
-      title: "3.1. The operator has the right:",
       options: [
         "receive from the subject of personal data reliable information and/or documents containing personal data;",
         "in case of withdrawal by the subject of personal data consent to the processing of personal data, as well as, the direction of the appeal with the requirement to stop processing personal data, the Operator has the right to continue processing personal data without the consent of the subject of personal data in the presence of grounds specified in the Law on personal data;",
         "independently determine the composition and list of measures necessary and sufficient to ensure the fulfillment of obligations provided for by the Law on personal data and regulatory legal acts adopted in accordance with it, unless otherwise provided by the Law on personal data or other federal laws.",
       ],
+      title: "3.1. The operator has the right:",
     },
     section2: {
-      title: "3.2. The operator is obliged:",
       options: [
         "provide the subject of personal data with information concerning the processing of his personal data upon his request;",
         "organize the processing of personal data in the manner established by the current legislation of the Russian Federation;",
@@ -48,12 +45,12 @@ export default {
         "terminate the transfer (distribution, provision, access) of personal data, stop processing and destroy personal data in the manner and cases provided for by the Law on Personal Data;",
         "perform other duties provided for by the Law on Personal Data.",
       ],
+      title: "3.2. The operator is obliged:",
     },
+    title: "3. Basic rights and obligations of the Operator",
   },
   block4: {
-    title: "4. Basic rights and obligations of personal data subjects",
     section1: {
-      title: "4.1. Subjects of personal data have the right:",
       options: [
         "to receive information related to the processing of his personal data, except in cases provided for by federal laws. The information is provided to the subject of personal data by the Operator in an accessible form, and it should not contain personal data relating to other subjects of personal data, except in cases where there are legal grounds for disclosing such personal data. The list of information and the procedure for its receipt are established by the Law on Personal Data;",
         "to demand from the operator clarification of his personal data, their blocking or destruction if the personal data are incomplete, outdated, inaccurate, illegally obtained or are not necessary for the declared purpose of processing, as well as to take measures provided for by law to protect their rights;",
@@ -62,21 +59,22 @@ export default {
         "to appeal to the authorized body for the protection of the rights of personal data subjects or in court against the illegal actions or inaction of the Operator when processing his personal data;",
         "to exercise other rights provided for by the legislation of the Russian Federation.",
       ],
+      title: "4.1. Subjects of personal data have the right:",
     },
     section2: {
-      title: "4.2. Subjects of personal data are obliged:",
       options: [
         "to provide the Operator with reliable data about oneself;",
         "to inform the Operator about the specification (update, change) of their personal data.",
       ],
+      title: "4.2. Subjects of personal data are obliged:",
     },
     section3: {
       title:
         "4.3. Persons who have provided the Operator with unreliable information about themselves, or information about another subject of personal data without his consent, are liable in accordance with Russian legislation.",
     },
+    title: "4. Basic rights and obligations of personal data subjects",
   },
   block5: {
-    title: "5. Principles of personal data processing",
     options: [
       "The processing of personal data is carried out on a lawful and fair basis.",
       "The processing of personal data is limited to achieving specific, predetermined, and lawful purposes. Processing of personal data incompatible with the purposes of collecting personal data is not allowed.",
@@ -86,40 +84,40 @@ export default {
       "When processing personal data, the accuracy of personal data, their sufficiency, and in necessary cases, relevance in relation to the purposes of processing personal data are ensured. The Operator takes necessary measures and/or ensures their adoption for the deletion or clarification of incomplete or inaccurate data.",
       "The storage of personal data is carried out in a form that allows determining the subject of personal data, no longer than the purposes of processing personal data require, if the period for storing personal data is not established by federal law, a contract, a party to which, a beneficiary or a guarantor under which is the subject of personal data. Processed personal data are destroyed or depersonalized upon achieving the purposes of processing or in case of loss of the need to achieve these purposes, unless otherwise provided by federal law.",
     ],
+    title: "5. Principles of personal data processing",
   },
   block6: {
-    title: "6. Goals of personal data processing",
     section1: {
-      title: "Purpose of processing",
       options: [
         "providing the User with access to services, information and/or materials contained on the website",
       ],
+      title: "Purpose of processing",
     },
     section2: {
-      title: "Personal data",
       options: [
         "email address",
         "year, month, date and place of birth",
         "photos",
         "surname and name",
       ],
+      title: "Personal data",
     },
     section3: {
-      title: "Legal basis",
       options: [
         "contracts concluded between the operator and the subject of personal data",
       ],
+      title: "Legal basis",
     },
     section4: {
-      title: "Types of personal data processing",
       options: [
         "Collection, recording, systematization, accumulation, storage, destruction and depersonalization of personal data",
         "Sending informational letters to the email address",
       ],
+      title: "Types of personal data processing",
     },
+    title: "6. Goals of personal data processing",
   },
   block7: {
-    title: "7. Conditions for processing personal data",
     options: [
       "Personal data processing is carried out with the consent of the personal data subject to the processing of his personal data.",
       "Personal data processing is necessary to achieve the goals provided for by an international treaty of the Russian Federation or the law, to carry out the functions, powers and duties imposed on the operator by the legislation of the Russian Federation.",
@@ -129,11 +127,9 @@ export default {
       "Processing of personal data is carried out, access to which is provided to an unlimited circle of persons by the personal data subject or at his request (hereinafter - publicly available personal data).",
       "Processing of personal data subject to publication or mandatory disclosure in accordance with federal law is carried out.",
     ],
+    title: "7. Conditions for processing personal data",
   },
   block8: {
-    title:
-      "8. Procedure for collection, storage, transfer and other types of personal data processing",
-    text: "The security of personal data processed by the Operator is ensured by the implementation of legal, organizational and technical measures necessary to fully comply with the requirements of current legislation in the field of personal data protection.",
     options: [
       "The Operator ensures the safety of personal data and takes all possible measures to prevent access to personal data by unauthorized persons.",
       "The User's personal data will never, under any circumstances, be transferred to third parties, except in cases related to the execution of current legislation or in the event that the subject of personal data has given consent to the Operator to transfer data to a third party for the performance of obligations under a civil law contract.",
@@ -145,32 +141,36 @@ export default {
       "The Operator carries out the storage of personal data in a form that allows determining the subject of personal data, no longer than this requires the purposes of processing personal data, if the term of storage of personal data is not established by federal law, a contract, a party to which, a beneficiary or a guarantor under which is the subject of personal data.",
       "The condition for termination of personal data processing may be the achievement of the goals of personal data processing, the expiration of the validity period of the subject's consent to personal data, the withdrawal of consent by the subject of personal data or the requirement to terminate the processing of personal data, as well as the detection of illegal processing of personal data.",
     ],
+    text: "The security of personal data processed by the Operator is ensured by the implementation of legal, organizational and technical measures necessary to fully comply with the requirements of current legislation in the field of personal data protection.",
+    title:
+      "8. Procedure for collection, storage, transfer and other types of personal data processing",
   },
   block9: {
-    title:
-      "9. List of actions performed by the Operator with the received personal data",
     options: [
       "The Operator carries out collection, recording, systematization, accumulation, storage, clarification (updating, changing), extraction, use, transfer (distribution, provision, access), depersonalization, blocking, deletion and destruction of personal data.",
       "The Operator carries out automated processing of personal data with the receipt and/or transmission of the received information via information and telecommunication networks or without it.",
     ],
+    title:
+      "9. List of actions performed by the Operator with the received personal data",
   },
   block10: {
-    title: "10. Cross-border transfer of personal data",
     options: [
       "The Operator, before starting activities on the cross-border transfer of personal data, is obliged to notify the authorized body for the protection of the rights of personal data subjects about its intention to carry out the cross-border transfer of personal data (such notification is sent separately from the notification of the intention to process personal data).",
       "The Operator, before submitting the above notification, is obliged to obtain from the authorities of a foreign state, foreign individuals, foreign legal entities, to whom the cross-border transfer of personal data is planned, the corresponding information.",
     ],
+    title: "10. Cross-border transfer of personal data",
   },
   block11: {
-    title: "11. Confidentiality of personal data",
     text: "The Operator and other persons who have gained access to personal data are obliged not to disclose to third parties and not to disseminate personal data without the consent of the personal data subject, unless otherwise provided by federal law.",
+    title: "11. Confidentiality of personal data",
   },
   block12: {
-    title: "12. Final provisions",
     options: [
       "The User can receive any explanations on the issues of interest related to the processing of his personal data by contacting the Operator via email inctagram@gmail.com.",
       "This document will reflect any changes in the Operator's personal data processing policy. The policy is in effect indefinitely until it is replaced with a new version.",
       "The current version of the Policy is freely available on the Internet at https://inctagram.org.",
     ],
+    title: "12. Final provisions",
   },
+  title: "Privacy Policy",
 };
