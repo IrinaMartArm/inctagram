@@ -1,2 +1,2 @@
 export { InformationTextBlock } from "./InformationTextBlock";
-export { InformationText, InformationTitle } from "./ui";
+export type { Blocks } from "./InformationTextBlock";

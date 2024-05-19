@@ -2,11 +2,7 @@ import { Back } from "@/features";
 import { useTranslation } from "@/shared/assets/hooks";
 import { HeadMeta, PageTitle } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
-import {
-  InformationText,
-  InformationTextBlock,
-  InformationTitle,
-} from "@/widgets";
+import { Blocks, InformationTextBlock } from "@/widgets";
 
 import s from "@/pages/auth/policy/policy.module.scss";
 
@@ -59,6 +55,28 @@ const TermsOfService = () => {
     "предоставить всю доступную информацию о Пользователе уполномоченным на то органам государственной власти в случаях, установленных законом",
   ];
 
+  const rightsAndResponsibilities: Blocks = {
+    sections: [
+      {
+        content: userRights,
+        title: "Пользователь имеет право:",
+      },
+      {
+        content: administrationRights,
+        title: "Администрация имеет право:",
+      },
+      {
+        content: userResponsibilities,
+        title: "Пользователь обязуется:",
+      },
+
+      {
+        content: administrationResponsibilities,
+        title: "Администрация обязуется:",
+      },
+    ],
+  };
+
   const generalResponsibility = [
     "пользователь лично несет полную ответственность за распространяемую им информацию",
     "администрация не несет никакой ответственности за достоверность информации, скопированной из других источников",
@@ -77,26 +95,17 @@ const TermsOfService = () => {
         title={t.signUp.service}
       />
 
-      <InformationText
+      <InformationTextBlock
+        subTitle={
+          "Если Вы не согласны с условиями данного соглашения, не используйте сайт inctagram!"
+        }
         text={
           "Настоящее Пользовательское Соглашение (Далее Соглашение) регулирует\n" +
           "отношения между inctagram (далее inctagram или Администрация) с одной\n" +
           "стороны и пользователем сайта с другой. Сайт inctagram не является\n" +
-          "средством массовой информации."
+          "средством массовой информации. Используя сайт, Вы соглашаетесь с условиями данного соглашения."
         }
       />
-
-      <InformationText
-        text={"Используя сайт, Вы соглашаетесь с условиями данного соглашения."}
-      />
-
-      <InformationTitle
-        isSubTitle
-        text={
-          "Если Вы не согласны с условиями данного соглашения, не используйте сайт inctagram!"
-        }
-      />
-
       <InformationTextBlock
         options={information}
         subTitle={
@@ -106,40 +115,19 @@ const TermsOfService = () => {
       />
 
       <InformationTextBlock
-        options={userRights}
-        subTitle={"Пользователь имеет право:"}
+        blocks={rightsAndResponsibilities}
         title={"Права и обязанности сторон"}
       />
 
       <InformationTextBlock
-        options={administrationRights}
-        subTitle={"Администрация имеет право:"}
-      />
-
-      <InformationTextBlock
-        options={userResponsibilities}
-        subTitle={"Пользователь обязуется:"}
-      />
-
-      <InformationTextBlock
-        options={administrationResponsibilities}
-        subTitle={"Администрация обязуется:"}
-      />
-
-      <InformationTextBlock
+        additionalText={
+          "Администрация не гарантирует сохранность информации, размещённой\n" +
+          "Пользователем, а также бесперебойную работу информационного ресурса"
+        }
         options={generalResponsibility}
         title={"Ответственность сторон"}
       />
-
-      <InformationText
-        text={
-          " Администрация не гарантирует сохранность информации, размещённой\n" +
-          "Пользователем, а также бесперебойную работу информационного ресурса"
-        }
-      />
-
-      <InformationTitle text={"Условия действия Соглашения"} />
-      <InformationText
+      <InformationTextBlock
         text={
           "Данное Соглашение вступает в силу при любом использовании данного " +
           "сайта. Соглашение перестает действовать при появлении его новой " +
@@ -148,6 +136,7 @@ const TermsOfService = () => {
           "изменении соглашения, в некоторых случаях, администрация может " +
           "оповестить пользователей удобным для нее способом."
         }
+        title={"Условия действия Соглашения"}
       />
     </div>
   );
