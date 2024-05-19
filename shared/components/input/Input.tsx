@@ -8,19 +8,20 @@ import {
   useState,
 } from "react";
 
-import { Close, Eye, EyeOff, Search_outline } from "@/public";
+import { Close, DatePicker, Eye, EyeOff, Search_outline } from "@/public";
 import { Typography } from "@/shared/components";
 import { clsx } from "clsx";
 
 import s from "./input.module.scss";
 
-type InputTypes = "email" | "password" | "search" | "text";
+type InputTypes = "datePicker" | "email" | "password" | "search" | "text";
 
 export type InputProps = {
   errorMessage?: string;
   fullWidth?: boolean;
   isShowButton?: boolean;
   label?: ReactNode;
+  onButtonClick?: () => void; // for datePicker type only
   onClearClick?: (value: string) => void;
   onEnter?: (e: KeyboardEvent<HTMLInputElement>) => void;
   required?: boolean;
@@ -51,6 +52,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
       errorMessage,
       fullWidth,
       label,
+      onButtonClick,
       onChange,
       onClearClick,
       onEnter,
@@ -85,6 +87,7 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
         disabled && s.disabled,
         errorMessage && s.errorBox,
         className,
+        type === "datePicker" && s.datePickerSpecial,
       ),
     };
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -142,6 +145,17 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
             >
               {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </button>
+          )}
+          {type === "datePicker" && (
+            <>
+              <button
+                className={s.iconStart}
+                onClick={onButtonClick}
+                type={"button"}
+              >
+                {<DatePicker />}
+              </button>
+            </>
           )}
           {isShowButton && (
             <button

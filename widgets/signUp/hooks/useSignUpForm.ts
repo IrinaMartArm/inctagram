@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PASSWORD_REGEX } from "@/entities";
+import { USERNAME_REGEX } from "@/entities/auth/model/auth-validation";
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
 import { SignUpArgs } from "@/shared/assets/api/auth/types";
 import {
@@ -17,8 +18,10 @@ export const useSignUp = () => {
   const {
     checkbox,
     confirm,
+    emailMin,
     formEmail,
     invalidPassword,
+    invalidUsername,
     passwordMax,
     passwordMin,
     username,
@@ -27,19 +30,24 @@ export const useSignUp = () => {
   const signUpSchema = z
     .object({
       agree: z.boolean(),
-      confirm: z.string().min(6, confirm).max(20, confirm).trim(),
-      email: z.string().min(1).email(formEmail).trim(),
+      confirm: z.string().trim().min(6, confirm).max(20, confirm),
+      email: z.string().trim().min(1, emailMin).email(formEmail),
       password: z
         .string()
+        .trim()
         .min(6, passwordMin)
         .max(20, passwordMax)
-        .trim()
         .regex(
           PASSWORD_REGEX,
           `${invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
            ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
         ),
-      username: z.string().min(6, passwordMin).max(30, username).trim(),
+      username: z
+        .string()
+        .trim()
+        .min(6, passwordMin)
+        .max(30, username)
+        .regex(USERNAME_REGEX, `${invalidUsername} a-zA-Z0-9_-`),
     })
     .refine((value) => value.agree, {
       message: checkbox,
@@ -81,6 +89,7 @@ export const useSignUp = () => {
     };
 
     localStorage.setItem("email", data.email);
+    localStorage.setItem("username", data.username);
 
     try {
       await signUp(signUpArgs).unwrap();

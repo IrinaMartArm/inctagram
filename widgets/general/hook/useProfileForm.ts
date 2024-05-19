@@ -9,7 +9,15 @@ import z from "zod";
 
 export const useProfileForm = () => {
   const { t } = useTranslation();
+  let initUsername;
+
+  if (typeof window !== "undefined") {
+    initUsername = localStorage.getItem("username");
+  }
+
   const { child, fell, success } = t.profile.general;
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertVariant, setAlertVariant] = useState<AlertVariant>("success");
@@ -53,12 +61,22 @@ export const useProfileForm = () => {
 
   type ProfileFormSchema = z.infer<typeof profileFormSchema>;
 
+  const defaultValues = {
+    firstName: firstName,
+    lastName: lastName,
+    username: initUsername || "",
+  };
+
   const {
     control,
     formState: { errors, isDirty, isValid },
     handleSubmit,
     setValue,
-  } = useForm<ProfileFormSchema>({ resolver: zodResolver(profileFormSchema) });
+  } = useForm<ProfileFormSchema>({
+    defaultValues,
+    mode: "onBlur",
+    resolver: zodResolver(profileFormSchema),
+  });
 
   const [fillOutProfile, { error }] = useFillOutProfileMutation();
 
@@ -67,6 +85,8 @@ export const useProfileForm = () => {
   };
 
   const onSubmit = async (data: ProfileFormSchema) => {
+    /* setFirstName(data.firstName);
+    setLastName(data.lastName); */
     try {
       console.log(data);
 

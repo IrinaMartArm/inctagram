@@ -45,7 +45,7 @@ export const MyProfile = () => {
           </div>
         </div>
       </div>
-      <div></div>
+      <div className={s.posts}></div>
     </PageWrapper>
   );
 };

@@ -29,11 +29,8 @@ export const Verification = () => {
   const resendingHandler = () => {
     try {
       resending({ email: email || "" }).unwrap();
-      // debugger;
       setOpen(true);
     } catch (err: any) {
-      // debugger;
-      console.log(err.data.errorsMessages);
       handleErrorResponse(err);
     }
   };

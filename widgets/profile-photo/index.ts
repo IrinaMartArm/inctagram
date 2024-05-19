@@ -1,0 +1,1 @@
+export { EditProfilePhoto } from "./EditProfilePhoto";

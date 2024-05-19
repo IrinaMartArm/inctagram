@@ -1,4 +1,3 @@
-import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, PageWrapper, Typography } from "@/shared/components";
 import Image from "next/image";
@@ -16,7 +15,7 @@ export const EmailConfirmedCard = () => {
       <Typography className={s.confirmed} variant={"regular_text-16"}>
         {confirmed}
       </Typography>
-      <Button as={Link} className={s.btn} href={"./../../sign-in"}>
+      <Button as={Link} className={s.btn} href={"/sign-in"}>
         {signIn}
       </Button>
       <Image

@@ -1,0 +1,49 @@
+.inputSingleContainer {
+    max-width: 158px;
+}
+
+.inputRangeContainer {
+    max-width: 250px;
+}
+
+.pickerContainer {
+    .root {
+        margin: 0;
+    }
+
+    .day_today {
+        color: var(--color-accent-500);
+    }
+
+    .table {
+        .tbody {
+            .day {
+                &:hover {
+                    background-color: var(--color-accent-900);
+                }
+            }
+
+            .day_selected {
+                background-color: var(--color-accent-900);
+            }
+        }
+    }
+
+    .table,
+    .caption {
+        color: white;
+        background-color: var(--color-dark-500);
+    }
+
+    .caption {
+        .nav {
+            .nav_button {
+                background-color: var(--color-dark-100);
+
+                &:hover {
+                    background-color: var(--color-dark-100);
+                }
+            }
+        }
+    }
+}

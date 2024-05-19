@@ -27,12 +27,15 @@ export const MainSideBar = () => {
         <div className={s.box}>
           <div className={s.pages}>
             <div
-              className={clsx(s.row, isActive("/", currentPath) && s.active)}
+              className={clsx(
+                s.row,
+                isActive("/main", currentPath) && s.active,
+              )}
             >
               <Home_outline />
               <Link
-                className={isActive("/", currentPath) ? s.active : s.link}
-                href={"/main"}
+                className={isActive("/main", currentPath) ? s.active : s.link}
+                href={"./main"}
                 passHref
               >
                 Home

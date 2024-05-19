@@ -8,3 +8,5 @@ export * from "./email-verification";
 export * from "./email-confirmed";
 export * from "./my-profile";
 export * from "./logOut";
+export * from "./delete-photo-modal";
+export * from "./profile-photo";

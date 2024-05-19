@@ -13,10 +13,13 @@ import {
   Tab,
 } from "@/shared/components";
 import { ControlledSelect } from "@/shared/components/controlled/ControlledSelect";
-import { useProfileForm } from "@/widgets/general/hook/useProfileForm";
+import { EditProfilePhoto } from "@/widgets";
 import { DevTool } from "@hookform/devtools";
 
 import s from "./general.module.scss";
+
+import { useProfileForm, useUpdateAvatar } from "../hook";
+import { AvatarBox } from "./avatarBox";
 
 const options = [
   {
@@ -47,11 +50,18 @@ const belarus = [
   { title: "Gomel", value: "Gomel" },
   { title: "Brest", value: "Brest" },
 ];
+const kazakhstan = [
+  { title: "Astana", value: "Astana" },
+  { title: "Aqtobe", value: "Aqtobe" },
+  { title: "Kostanai", value: "Kostanai" },
+  { title: "Karaganda", value: "Karaganda" },
+];
 ///get country with city name
 
 const getCountryWithCityName = (cityFromServer: string) => {
   const countriesWithCities = {
     Belarus: belarus,
+    Kazakhstan: kazakhstan,
     Russia: russ,
   };
 
@@ -98,11 +108,16 @@ export const General = () => {
     if (userInfoData?.city) {
       const country = getCountryWithCityName(userInfoData.city) as string;
 
+      setInitialCity(userInfoData.city);
       setSelectedCountry(country);
     }
   }, [setValue, userInfoData]);
 
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [initialCity, setInitialCity] = useState("");
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
   const handleCountryChange = (value: string) => {
     setSelectedCountry(value);
@@ -119,6 +134,7 @@ export const General = () => {
 
   const handleSelectChange = (key: string, value: string) => {
     setSelectedCountry(value);
+    setInitialCity(cities[0].value);
   };
 
   const handleSelectCity = (key: string, value: string) => {
@@ -126,6 +142,7 @@ export const General = () => {
       shouldDirty: true,
       shouldTouch: true,
     });
+    setInitialCity(value);
   };
 
   const getCityOptions = (country: string) => {
@@ -133,12 +150,24 @@ export const General = () => {
       return russ;
     } else if (country === "Belarus") {
       return belarus;
+    } else if (country === "Kazakhstan") {
+      return kazakhstan;
     } else {
       return belarus;
     }
   };
 
   const cities = getCityOptions(selectedCountry);
+  const isDisabled = !isValid && !isDirty;
+
+  /* console.log(selectedCountry + " " + userInfoData?.city);
+
+  console.log(
+    `isValid: ${isValid} and isDirty: ${isDirty} and it's ${isDisabled}`
+  ); */
+
+  //console.log(cities[0].value);
+  console.log(initialCity);
 
   return (
     <>
@@ -153,10 +182,11 @@ export const General = () => {
         )}
         <Tab defaultValue={"General information"} options={options} />
         <div className={s.container}>
-          <div className={s.avatarBox}>
-            <div className={s.avatar}></div>
-            <Button variant={"outlined"}>Add a Profile Photo</Button>
-          </div>
+          <AvatarBox
+            avatar={avatar}
+            deletePhoto={deletePhotoHandler}
+            setIsShowModal={setIsShowModal}
+          />
           <div className={s.form}>
             <ControlledTextField
               control={control}
@@ -187,7 +217,7 @@ export const General = () => {
               {selectedCountry && (
                 <Select
                   className={s.general}
-                  defaultValue={selectedCountry || countries[0].value}
+                  defaultValue={selectedCountry /* || countries[0].value */}
                   items={countries}
                   label={"Select your country"}
                   name={"countries"}
@@ -195,15 +225,19 @@ export const General = () => {
                 />
               )}
 
-              <ControlledSelect
-                className={s.general}
-                control={control}
-                defaultValue={userInfoData?.city || cities[0].value}
-                items={cities}
-                label={"City"}
-                name={"city"}
-                onChange={handleSelectCity}
-              />
+              {initialCity && (
+                <ControlledSelect
+                  className={s.general}
+                  control={control}
+                  defaultValue={
+                    userInfoData?.city || cities[0].value || initialCity
+                  }
+                  items={cities}
+                  label={"City"}
+                  name={"city"}
+                  onChange={handleSelectCity}
+                />
+              )}
             </div>
             <ControlledTextArea
               control={control}
@@ -215,13 +249,17 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button
-          className={s.button}
-          disabled={!isValid && !isDirty}
-          type={"submit"}
-        >
+        <Button className={s.button} disabled={!isValid} type={"submit"}>
           Save Changes
         </Button>
+        {isShowModal && (
+          <EditProfilePhoto
+            defaultOpen={isShowModal}
+            photo={avatar}
+            setIsShowModal={setIsShowModal}
+            updateAvatar={updateAvatar}
+          />
+        )}
       </form>
     </>
   );
