@@ -28,7 +28,7 @@ export const useProfileForm = () => {
       .max(200, { message: t.profile.errors.aboutMeMax })
       .optional(),
     city: z.string().min(1).optional(),
-    /* dateOfBirth: z.date().refine(
+    dateOfBirth: z.date().refine(
       (value) => {
         const dateOfBirth = new Date(value);
         const today = new Date();
@@ -40,7 +40,7 @@ export const useProfileForm = () => {
         return !isUnderage;
       },
       { message: child },
-    ), */
+    ),
     firstName: z
       .string()
       .min(1, { message: t.profile.errors.firstNameMin })

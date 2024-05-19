@@ -1,5 +1,6 @@
 "use client";
 import { ChangeEvent, useEffect, useState } from "react";
+import { Controller } from "react-hook-form";
 
 import { useGetProfileInfoQuery } from "@/shared/assets/api/profile/profile-api";
 import { UserProfileArgs } from "@/shared/assets/api/profile/types";
@@ -12,6 +13,7 @@ import {
   Select,
   Tab,
 } from "@/shared/components";
+import { DayPicker } from "@/shared/components/DayPicker";
 import { ControlledSelect } from "@/shared/components/controlled/ControlledSelect";
 import { EditProfilePhoto } from "@/widgets";
 import { DevTool } from "@hookform/devtools";
@@ -20,6 +22,23 @@ import s from "./general.module.scss";
 
 import { useProfileForm, useUpdateAvatar } from "../hook";
 import { AvatarBox } from "./avatarBox";
+
+const convertStringToDate = (value: string): Date => {
+  ///trnsfer to util function file
+  const dateString = value;
+  const parts = dateString.split(".");
+
+  // Ensure the parts are in the correct order (day, month, year)
+  const day = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1; // JavaScript Date month is 0-indexed
+  const year = parseInt(parts[2], 10);
+
+  const date = new Date(year, month, day);
+
+  console.log(date);
+
+  return date;
+};
 
 const options = [
   {
@@ -78,7 +97,7 @@ const getCountryWithCityName = (cityFromServer: string) => {
 type UserInfoKeys =
   | "aboutMe"
   | "city"
-  /* | "dateOfBirth" */
+  | "dateOfBirth"
   | "firstName"
   | "lastName"
   | "username";
@@ -116,6 +135,7 @@ export const General = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [initialCity, setInitialCity] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
+  const [birthDate, setBirthDate] = useState<string>("");
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
@@ -159,12 +179,6 @@ export const General = () => {
 
   const cities = getCityOptions(selectedCountry);
   const isDisabled = !isValid && !isDirty;
-
-  /* console.log(selectedCountry + " " + userInfoData?.city);
-
-  console.log(
-    `isValid: ${isValid} and isDirty: ${isDirty} and it's ${isDisabled}`
-  ); */
 
   //console.log(cities[0].value);
   console.log(initialCity);
@@ -212,7 +226,27 @@ export const General = () => {
               required
               type={"text"}
             />
-            <Input name={"date"} type={"text"} />
+
+            <Controller
+              control={control}
+              name={"dateOfBirth"}
+              render={({ field: { onBlur, onChange, ref, value } }) => (
+                <DayPicker
+                  mode={"single"}
+                  selected={birthDate}
+                  setSelected={(value: string) => {
+                    const date = convertStringToDate(value);
+
+                    setValue("dateOfBirth", date, {
+                      shouldDirty: true,
+                      shouldTouch: true,
+                    });
+
+                    setBirthDate(value);
+                  }}
+                />
+              )}
+            />
             <div className={s.selectors}>
               {selectedCountry && (
                 <Select
