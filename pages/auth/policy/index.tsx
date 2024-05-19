@@ -63,7 +63,7 @@ const PrivacyPolicy = () => {
   return (
     <div className={s.wrapper}>
       <HeadMeta title={"Privacy Policy"} />
-      <Back className={s.back} text={"Back to Sign Up"} />
+      <Back className={s.back} text={t.back} />
       <PageTitle className={s.title} textAlign={"center"} title={t.title} />
 
       <InformationTextBlock

@@ -1,4 +1,5 @@
 export default {
+  back: "Back to Sign Up",
   block1: {
     options: [
       "The operator sets as its most important goal and condition for carrying out its activities the observance of the rights and freedoms of the individual and citizen when processing his personal data, including the protection of rights to inviolability of private life, personal and family secrets.",
