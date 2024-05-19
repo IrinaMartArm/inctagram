@@ -13,4 +13,4 @@ export * from "./profile-photo";
 export * from "./mobileMenuMar";
 export * from "./general";
 export * from "./auth-with-social";
-export * from "./InformationTextBlock";
+export * from "./infoPage";

@@ -1,2 +1,2 @@
 export { InformationTextBlock } from "./InformationTextBlock";
-export type { Blocks } from "./InformationTextBlock";
+export type { Content } from "./InformationTextBlock";
