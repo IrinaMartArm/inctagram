@@ -11,7 +11,7 @@ import {useOutsideDayClick} from "@/shared/components/DayPicker/OutsideDayClickH
 
 export const DayPicker = (props: DayPickerProps) => {
 
-  const {selected, setSelected, isSuperMode} = props
+  const {selected, setSelected, isSuperMode, errorText} = props
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true)
@@ -60,7 +60,7 @@ export const DayPicker = (props: DayPickerProps) => {
   }
 
   const dateSingleChecker = () => {
-    return selected && !isValidDateFormat(selected) ? "Error!" : ""
+    return selected && !isValidDateFormat(selected) ? "Date format error!" : ""
   }
 
   const calendarRef = useRef<HTMLDivElement>(null)
@@ -78,7 +78,7 @@ export const DayPicker = (props: DayPickerProps) => {
   return (
     <div className={s.pickerContainer}>
       <Input
-        errorMessage={dateSingleChecker()}
+        errorMessage={dateSingleChecker() || errorText}
         onButtonClick={onClickSingle}
         onChange={(e) => setSelected(e.target.value)}
         type={"datePicker"}
@@ -112,6 +112,7 @@ export const DayPicker = (props: DayPickerProps) => {
 export type DayPickerProps = {
   selected: string;
   setSelected: (value: string) => void;
+  errorText?: string
   isSuperMode?: boolean
 };
 

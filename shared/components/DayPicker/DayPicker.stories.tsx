@@ -13,7 +13,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const renderDayPicker = (isSuperMode: boolean) => (args: DayPickerProps) => {
+const renderDayPicker = (isSuperMode?: boolean, errorText?: string) => (args: DayPickerProps) => {
   const [selected, setSelected] = useState<string>("");
 
   return (
@@ -22,6 +22,7 @@ const renderDayPicker = (isSuperMode: boolean) => (args: DayPickerProps) => {
         selected={selected}
         setSelected={setSelected}
         isSuperMode={isSuperMode}
+        errorText={errorText}
       />
     </div>
   );
@@ -34,10 +35,15 @@ const commonArgs = {
 
 export const DayPickerSingle: Story = {
   args: commonArgs,
-  render: renderDayPicker(false),
+  render: renderDayPicker(),
 };
 
 export const DayPickerSingleSuper: Story = {
   args: commonArgs,
   render: renderDayPicker(true),
+};
+
+export const DayPickerCustomError: Story = {
+  args: commonArgs,
+  render: renderDayPicker(false, 'A user under 13 cannot create a profile. Privacy Policy'),
 };
