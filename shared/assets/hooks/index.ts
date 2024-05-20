@@ -1,2 +1,3 @@
 export { useIsMobile } from "./useIsMobile";
-export { useTranslation, useTranslationPages } from "./useTranslation";
+export { useTranslation } from "./useTranslation";
+export { useTranslationPages } from "./useTranslationPages";
