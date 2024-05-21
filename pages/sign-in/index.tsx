@@ -27,6 +27,7 @@ const SignIn = () => {
 
         await router.replace("/profile");
         dispatch(authActions.setEmail(args.email));
+        dispatch(authActions.setIsAuth(true));
       }
 
       dispatch(authActions.setError(undefined));

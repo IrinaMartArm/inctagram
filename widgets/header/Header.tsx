@@ -5,7 +5,6 @@ import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
 import { Paths } from "@/shared/assets/paths";
 import { Button } from "@/shared/components";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import s from "./header.module.scss";
 
@@ -13,12 +12,13 @@ import { Notifications } from "./ui";
 
 const NOTIFICATIONS_COUNT = 5;
 
-export const Header = () => {
-  const { pathname: currentPath } = useRouter();
+type Props = {
+  isAuth: boolean;
+};
+
+export const Header = ({ isAuth }: Props) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile(MOBILE_BREAKPOINT);
-
-  const publicPage = currentPath === Paths.HOME;
 
   return (
     <div className={s.root}>
@@ -26,7 +26,7 @@ export const Header = () => {
         <Link className={s.logo} href={Paths.HOME}>
           Inctagram
         </Link>
-        {publicPage && (
+        {!isAuth && (
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
@@ -39,7 +39,7 @@ export const Header = () => {
             </div>
           </div>
         )}
-        {!publicPage && (
+        {isAuth && (
           <div className={s.wrapper}>
             {!isMobile && (
               <Notifications notificationsCount={NOTIFICATIONS_COUNT} />

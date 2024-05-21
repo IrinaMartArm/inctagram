@@ -1,5 +1,6 @@
 import { Info } from "@/features";
 import { useTranslationPages } from "@/shared/assets/hooks";
+import { Paths } from "@/shared/assets/paths";
 import { Button, Typography } from "@/shared/components";
 import Link from "next/link";
 
@@ -21,7 +22,7 @@ export const MyProfile = () => {
             <Typography variant={"h1"}>URLProfiele</Typography>
             <Button
               as={Link}
-              href={"./profile-settings/general"}
+              href={Paths.PROFILE_GENERAL}
               variant={"secondary"}
             >
               {t.settingsBtn}

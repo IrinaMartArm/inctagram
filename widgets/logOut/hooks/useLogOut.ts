@@ -18,6 +18,7 @@ export const useLogOut = () => {
       } else {
         router.push("/");
         dispatch(authActions.setEmail());
+        dispatch(authActions.setIsAuth(false));
       }
     });
   };

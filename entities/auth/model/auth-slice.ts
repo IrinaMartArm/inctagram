@@ -17,6 +17,7 @@ const slice = createSlice({
   initialState: {
     email: undefined as string | undefined,
     error: undefined as string | undefined,
+    isAuth: false,
   },
   name: "authSlice",
   reducers: {
@@ -25,6 +26,9 @@ const slice = createSlice({
     },
     setError: (state, action: PayloadAction<string | undefined>) => {
       state.error = action.payload;
+    },
+    setIsAuth: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload;
     },
   },
 });
