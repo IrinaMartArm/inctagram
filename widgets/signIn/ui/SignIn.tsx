@@ -3,7 +3,6 @@ import { SubmitHandler } from "react-hook-form";
 import { useLoginValidation } from "@/entities";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppSelector } from "@/shared/assets/api/store";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Paths } from "@/shared/assets/paths";
 import {
   Button,
@@ -23,10 +22,7 @@ type Props = {
 };
 
 export const SignInCard = ({ onSubmit }: Props) => {
-  const { t } = useTranslation();
-  const { forgotPassword, password, question, signUp, title } = t.signIn;
-
-  const { control, errors, handleSubmit, isValid } = useLoginValidation();
+  const { control, errors, handleSubmit, isValid, t } = useLoginValidation();
 
   const error = useAppSelector((state) => state.auth.error);
 
@@ -37,7 +33,7 @@ export const SignInCard = ({ onSubmit }: Props) => {
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(onSubmit)}>
-      <PageTitle title={title} />
+      <PageTitle title={t.title} />
       <AuthWithSocial />
       <>
         <ControlledTextField
@@ -54,16 +50,16 @@ export const SignInCard = ({ onSubmit }: Props) => {
           className={s.lastInput}
           control={control}
           errorMessage={errors.password?.message || error}
-          label={password}
+          label={t.password}
           name={"password"}
-          placeholder={password}
+          placeholder={t.password}
           type={"password"}
         />
       </>
 
       <Link className={s.link} href={Paths.RECOVERY_PASSWORD}>
         <Typography className={forgotPasswordCN} variant={"regular_text-14"}>
-          {forgotPassword}
+          {t.forgotPassword}
         </Typography>
       </Link>
       <Button
@@ -72,14 +68,14 @@ export const SignInCard = ({ onSubmit }: Props) => {
         fullWidth
         type={"submit"}
       >
-        {title}
+        {t.title}
       </Button>
       <Typography className={s.question} variant={"regular_text-16"}>
-        {question}
+        {t.question}
       </Typography>
       <Link className={s.signUp} href={Paths.REGISTRATION}>
         <Typography className={s.signUpLink} variant={"h3"}>
-          {signUp}
+          {t.signUp}
         </Typography>
       </Link>
     </Card>

@@ -2,7 +2,7 @@ import { authActions } from "@/entities";
 import { useLoginMutation } from "@/shared/assets/api/auth/auth-api";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
-import { useTranslation } from "@/shared/assets/hooks";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { HeadMeta } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { SignInCard } from "@/widgets";
@@ -10,8 +10,7 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/router";
 
 const SignIn = () => {
-  const { t } = useTranslation();
-  const { errors, title } = t.signIn;
+  const { t } = useTranslationPages();
   const [login] = useLoginMutation();
 
   const router = useRouter();
@@ -33,8 +32,7 @@ const SignIn = () => {
       dispatch(authActions.setError(undefined));
     } catch (err: unknown) {
       const { status } = err as FetchBaseQueryError;
-      const errorMessage =
-        status === 401 ? errors.loginError : errors.unknownError;
+      const errorMessage = status === 401 ? t.loginError : t.unknownError;
 
       dispatch(authActions.setError(errorMessage));
     }
@@ -42,7 +40,7 @@ const SignIn = () => {
 
   return (
     <>
-      <HeadMeta title={title} />
+      <HeadMeta title={t.title} />
       <SignInCard onSubmit={loginHandler} />
     </>
   );

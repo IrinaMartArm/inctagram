@@ -37,15 +37,15 @@ export const SignUpCard = () => {
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(signUpHandler)}>
-      <PageTitle title={t.signUp.title} />
+      <PageTitle title={t.title} />
       <AuthWithSocial />
       <ControlledTextField
         control={control}
         disabled={isLoading}
         errorMessage={errors.username?.message}
-        label={"Username"}
+        label={t.name}
         name={"username"}
-        placeholder={"Username"}
+        placeholder={t.name}
         type={"text"}
       />
       <ControlledTextField
@@ -62,9 +62,9 @@ export const SignUpCard = () => {
         control={control}
         disabled={isLoading}
         errorMessage={errors.password?.message}
-        label={"Password"}
+        label={t.password}
         name={"password"}
-        placeholder={"Password"}
+        placeholder={t.password}
         type={"password"}
       />
       <ControlledTextField
@@ -73,9 +73,9 @@ export const SignUpCard = () => {
         control={control}
         disabled={isLoading}
         errorMessage={errors.confirm?.message}
-        label={"Password confirmation"}
+        label={t.passwordConfirmation}
         name={"confirm"}
-        placeholder={"Password confirmation"}
+        placeholder={t.passwordConfirmation}
         type={"password"}
       />
       <div className={s.policy}>
@@ -90,20 +90,16 @@ export const SignUpCard = () => {
             tags={{
               1: () => (
                 <Link href={Paths.SERVICE}>
-                  <Typography variant={"small_link"}>
-                    {t.signUp["1"]}
-                  </Typography>
+                  <Typography variant={"small_link"}>{t["1"]}</Typography>
                 </Link>
               ),
               2: () => (
                 <Link href={Paths.POLICY}>
-                  <Typography variant={"small_link"}>
-                    {t.signUp["2"]}
-                  </Typography>
+                  <Typography variant={"small_link"}>{t["2"]}</Typography>
                 </Link>
               ),
             }}
-            text={t.signUp.agree}
+            text={t.agree}
           />
         </div>
       </div>
@@ -118,14 +114,14 @@ export const SignUpCard = () => {
             fullWidth
             type={"submit"}
           >
-            {t.signUp.title}
+            {t.title}
           </Button>
         }
       >
         <EmailSent email={email || ""} />
       </Modal>
       <Typography className={s.question} variant={"regular_text-16"}>
-        {t.signUp.question}
+        {t.question}
       </Typography>
       <Button
         as={Link}
@@ -133,7 +129,7 @@ export const SignUpCard = () => {
         href={Paths.LOGIN}
         variant={"link"}
       >
-        {t.signUp.signIn}
+        {t.signIn}
       </Button>
     </Card>
   );

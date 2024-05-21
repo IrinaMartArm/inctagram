@@ -27,7 +27,7 @@ export const PasswordRecovery = () => {
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(onRecovery)}>
-      <PageTitle className={s.title} title={t.passwordRecovery.title} />
+      <PageTitle className={s.title} title={t.title} />
       <ControlledTextField
         autoComplete={"email"}
         control={control}
@@ -38,15 +38,15 @@ export const PasswordRecovery = () => {
         type={"email"}
       />
       <Typography className={s.text} variant={"regular_text-14"}>
-        {t.passwordRecovery.text}
+        {t.text}
       </Typography>
       {isSuccess && (
         <Typography className={s.hidden} variant={"regular_text-14"}>
-          {t.passwordRecovery.hidden}
+          {t.hidden}
         </Typography>
       )}
       <Button disabled={!isValid || !isChecked} fullWidth type={"submit"}>
-        {isSuccess ? t.passwordRecovery.send2 : t.passwordRecovery.send}
+        {isSuccess ? t.send2 : t.send}
       </Button>
       <Button
         as={Link}
@@ -54,7 +54,7 @@ export const PasswordRecovery = () => {
         href={Paths.LOGIN}
         variant={"link"}
       >
-        {t.passwordRecovery.back}
+        {t.back}
       </Button>
       {!isSuccess && <ReCAPTCHAWidget onChange={handleRecaptchaChange} />}
     </Card>
