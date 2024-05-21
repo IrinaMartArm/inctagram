@@ -1,22 +1,17 @@
 import { Back } from "@/features";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { PageTitle } from "@/shared/components";
 
 import s from "./infoPage.module.scss";
 
-import { Content, InformationTextBlock } from "./ui";
-
-export type LocaleInfo = {
-  [key: number]: Content;
-  back: string;
-  title: string;
-};
+import { InformationTextBlock } from "./ui";
 
 type Props = {
   numbersOfBlocks: number;
-  t: LocaleInfo;
 };
 
-export const InfoPage = ({ numbersOfBlocks, t }: Props) => {
+export const InfoPage = ({ numbersOfBlocks }: Props) => {
+  const { t } = useTranslationPages();
   const contentBlocks = Array.from(
     { length: numbersOfBlocks },
     (_, i) => i + 1,
