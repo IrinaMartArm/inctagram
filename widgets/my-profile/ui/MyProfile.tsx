@@ -1,5 +1,5 @@
 import { Info } from "@/features";
-import { useTranslation } from "@/shared/assets/hooks";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { Button, Typography } from "@/shared/components";
 import Link from "next/link";
 
@@ -10,8 +10,7 @@ const followersN = 345;
 const publicationsN = 465;
 
 export const MyProfile = () => {
-  const { t } = useTranslation();
-  const { followers, following, publications, settingsBtn } = t.profile;
+  const { t } = useTranslationPages();
 
   return (
     <>
@@ -25,13 +24,13 @@ export const MyProfile = () => {
               href={"./profile-settings/general"}
               variant={"secondary"}
             >
-              {settingsBtn}
+              {t.settingsBtn}
             </Button>
           </div>
           <div className={s.second_row}>
-            <Info number={followingN} title={following} />
-            <Info number={followersN} title={followers} />
-            <Info number={publicationsN} title={publications} />
+            <Info number={followingN} title={t.following} />
+            <Info number={followersN} title={t.followers} />
+            <Info number={publicationsN} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={"regular_text-16"}>

@@ -31,10 +31,10 @@ export const Header = () => {
             <LangSelect />
             <div className={s.buttonsBox}>
               <Button as={Link} href={Paths.LOGIN} variant={"link"}>
-                {t.signUp.signIn}
+                {t.signIn}
               </Button>
               <Button as={Link} href={Paths.REGISTRATION}>
-                {t.signUp.title}
+                {t.signUp}
               </Button>
             </div>
           </div>

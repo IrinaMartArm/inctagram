@@ -2,20 +2,19 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useFillOutProfileMutation } from "@/shared/assets/api/profile/profile-api";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { AlertVariant } from "@/shared/components/alert/Alert";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 
 export const useProfileForm = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslationPages();
   let initUsername;
 
   if (typeof window !== "undefined") {
     initUsername = localStorage.getItem("username");
   }
 
-  const { child, fell, success } = t.profile.general;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -37,7 +36,7 @@ export const useProfileForm = () => {
 
           return !isUnderage;
         },
-        { message: child },
+        { message: t.errors.child },
       ),
       firstName: z.string().min(1).max(50),
       lastName: z.string().min(1).max(50),
@@ -77,11 +76,11 @@ export const useProfileForm = () => {
     setLastName(data.lastName);
     try {
       await fillOutProfile(data).unwrap();
-      setAlertMessage(success);
+      setAlertMessage(t.success);
       setAlertVariant("success");
       alertHandler();
     } catch (error) {
-      setAlertMessage(fell);
+      setAlertMessage(t.errors.fell);
       setAlertVariant("error");
       alertHandler();
     }
