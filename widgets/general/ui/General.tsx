@@ -4,6 +4,7 @@ import { Controller } from "react-hook-form";
 
 import { useGetProfileInfoQuery } from "@/shared/assets/api/profile/profile-api";
 import { UserProfileArgs } from "@/shared/assets/api/profile/types";
+import { Nullable } from "@/shared/assets/types/types";
 import {
   Alert,
   Button,
@@ -128,9 +129,13 @@ export const General = () => {
       setInitialCity(userInfoData.city);
       setSelectedCountry(country);
     }
+    if (userInfoData?.dateOfBirth) {
+      setSelectedDate(userInfoData.dateOfBirth);
+    }
   }, [setValue, userInfoData]);
 
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedCountry, setSelectedCountry] = useState("Belarus");
   const [initialCity, setInitialCity] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
 
@@ -151,7 +156,11 @@ export const General = () => {
 
   const handleSelectChange = (key: string, value: string) => {
     setSelectedCountry(value);
-    setInitialCity(cities[0].value);
+    setInitialCity(cities[0].value); ////when i pick country i need to pick corresponding city
+    /* setValue("city", cities[0].value, {
+      shouldDirty: true,
+      shouldTouch: true,
+    }); */
   };
 
   const handleSelectCity = (key: string, value: string) => {
@@ -178,7 +187,7 @@ export const General = () => {
   const isDisabled = !isValid && !isDirty;
 
   console.log(initialCity);
-  console.log(errors);
+  console.log(selectedCountry);
 
   return (
     <>
@@ -230,27 +239,31 @@ export const General = () => {
               render={({ field: { onChange } }) => (
                 <DayPicker
                   mode={"single"}
-                  selected={userInfoData?.dateOfBirth || "01.01.2001"}
+                  selected={selectedDate}
                   setSelected={(value: string) => {
                     onChange(value);
+                    setSelectedDate(value);
                   }}
                 />
               )}
             />
             <div className={s.selectors}>
-              <Select
-                className={s.general}
-                defaultValue={countries[0].value || selectedCountry} ///
-                items={countries}
-                label={"Select your country"}
-                name={"countries"}
-                onChange={handleSelectChange}
-              />
+              {selectedCountry && (
+                <Select
+                  className={s.general}
+                  defaultValue={/* selectedCountry ||*/ countries[0].value} ///
+                  items={countries}
+                  label={"Select your country"}
+                  name={"countries"}
+                  onChange={handleSelectChange}
+                />
+              )}
               <ControlledSelect
                 className={s.general}
                 control={control}
                 defaultValue={
-                  userInfoData?.city || cities[0].value || initialCity
+                  /* userInfoData?.city || */ cities[0]
+                    .value /*  || initialCity */
                 }
                 items={cities}
                 label={"City"}
