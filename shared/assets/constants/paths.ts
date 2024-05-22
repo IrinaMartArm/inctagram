@@ -23,8 +23,9 @@ export const Paths = {
   STATISTIC: "/statistics",
 };
 
-export const commonRoutes = [
-  Paths.PROFILE,
+export const commonRoutes = [Paths.PROFILE, Paths.MAIN];
+
+export const authRoutes = [
   Paths.LOGIN,
   Paths.REGISTRATION,
   Paths.GITHUB,
@@ -34,5 +35,4 @@ export const commonRoutes = [
   Paths.LOGOUT,
   Paths.SERVICE,
   Paths.RECOVERY_PASSWORD,
-  Paths.MAIN,
 ];

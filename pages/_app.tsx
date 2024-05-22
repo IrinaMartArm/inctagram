@@ -2,7 +2,6 @@ import type { AppProps } from "next/app";
 
 import { ReactElement, ReactNode } from "react";
 import { Provider } from "react-redux";
-import { Bounce, ToastContainer } from "react-toastify";
 
 import { store } from "@/shared/assets/api/store";
 import { WithNavigate } from "@/shared/assets/hoc/WithNavigate";

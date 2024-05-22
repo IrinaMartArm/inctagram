@@ -16,49 +16,47 @@ export const useProfileForm = () => {
   }
 
   const { child, fell, success } = t.profile.general;
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertVariant, setAlertVariant] = useState<AlertVariant>("success");
 
-  const profileFormSchema = z
-    .object({
-      aboutMe: z.string().max(200).optional(),
-      city: z.string().min(1).optional(),
-      dateOfBirth: z.date().refine(
-        (value) => {
-          const dateOfBirth = new Date(value);
-          const today = new Date();
-          const monthDiff = today.getMonth() - dateOfBirth.getMonth();
-          const isUnderage =
-            monthDiff < 0 ||
-            (monthDiff === 0 && today.getDate() < dateOfBirth.getDate());
+  const sixteenYearsAgo = new Date();
 
-          return !isUnderage;
+  sixteenYearsAgo.setFullYear(sixteenYearsAgo.getFullYear() - 16);
+
+  const profileFormSchema = z.object({
+    aboutMe: z.string().max(20).optional(),
+    city: z.string().optional(),
+    dateOfBirth: z
+      .string()
+      .refine(
+        (dateString) => {
+          const dateOfBirth = new Date(dateString);
+
+          return dateOfBirth <= sixteenYearsAgo;
         },
-        { message: child },
-      ),
-      firstName: z.string().min(1).max(50),
-      lastName: z.string().min(1).max(50),
-      username: z.string().min(6).max(30),
-    })
-    .transform((data) => ({
-      ...data,
-      dateOfBirth: data.dateOfBirth?.toISOString(), // Конвертация date в string
-    }));
+        {
+          message: child,
+        },
+      )
+      .optional(),
+    firstName: z.string().min(1).max(50),
+    lastName: z.string().min(1).max(50),
+    username: z.string().min(6).max(30),
+  });
 
   type ProfileFormSchema = z.infer<typeof profileFormSchema>;
 
   const defaultValues = {
-    firstName: firstName,
-    lastName: lastName,
+    firstName: "",
+    lastName: "",
     username: initUsername || "",
   };
 
   const {
     control,
-    formState: { isValid },
+    formState: { errors, isValid },
+    getValues,
     handleSubmit,
   } = useForm<ProfileFormSchema>({
     defaultValues,
@@ -73,8 +71,6 @@ export const useProfileForm = () => {
   };
 
   const onSubmit = async (data: ProfileFormSchema) => {
-    setFirstName(data.firstName);
-    setLastName(data.lastName);
     try {
       await fillOutProfile(data).unwrap();
       setAlertMessage(success);
@@ -92,6 +88,7 @@ export const useProfileForm = () => {
     alertMessage,
     alertVariant,
     control,
+    errors,
     handleSubmit,
     isValid,
     onSubmit,

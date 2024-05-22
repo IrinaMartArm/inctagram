@@ -34,28 +34,6 @@ const SignIn = () => {
 
         const res = await getUser().unwrap();
 
-        console.log(accessToken);
-
-        console.log(res.userId);
-
-        // const response = await fetch("https://inctagram.org/api/v1/auth/me", {
-        //   headers: {
-        //     Authorization: `Bearer ${accessToken}`,
-        //     "Content-Type": "application/json",
-        //   },
-        //   method: "GET",
-        // });
-        //
-        // if (!response.ok) {
-        //   console.error("Network response was not ok");
-        //
-        //   // Handle error...
-        //   return;
-        // }
-        // const dataMe = await response.json();
-        //
-        // console.log("Data received:", dataMe.userId);
-
         await push(`${Paths.PROFILE}/?id=${res?.userId!}`);
       }
 

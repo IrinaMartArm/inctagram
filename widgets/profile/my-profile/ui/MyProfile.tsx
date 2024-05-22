@@ -1,7 +1,9 @@
 import { Info } from "@/features/info/Info";
+import { useProfileInformationQuery } from "@/shared/assets/api/profile/profile-api";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { Button, PageWrapper, Typography } from "@/shared/components";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import s from "./profile.module.scss";
 
@@ -12,6 +14,9 @@ const publicationsN = 465;
 export const MyProfile = () => {
   const { t } = useTranslation();
   const { followers, following, publications, settingsBtn } = t.profile;
+  const router = useRouter();
+  const { id } = router.query;
+  // const { data: profile } = useProfileInformationQuery();
 
   return (
     <PageWrapper>

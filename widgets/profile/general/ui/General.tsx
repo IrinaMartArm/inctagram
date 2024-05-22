@@ -10,6 +10,7 @@ import {
 } from "@/shared/components";
 import { ControlledDayPicker } from "@/shared/components/controlled/ControlledDayPicker";
 import { useProfileForm } from "@/widgets/profile/general/hook/useProfileForm";
+import { useRouter } from "next/router";
 
 import s from "./general.module.scss";
 
@@ -44,11 +45,15 @@ const belarus = [
 ];
 
 export const General = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
   const {
     alertHandler,
     alertMessage,
     alertVariant,
     control,
+    errors,
     handleSubmit,
     isValid,
     onSubmit,
@@ -90,6 +95,7 @@ export const General = () => {
         <div className={s.form}>
           <ControlledTextField
             control={control}
+            errorMessage={errors.username?.message}
             label={"Username"}
             name={"username"}
             required
@@ -97,6 +103,7 @@ export const General = () => {
           />
           <ControlledTextField
             control={control}
+            errorMessage={errors.firstName?.message}
             label={"First Name"}
             name={"firstName"}
             required
@@ -104,6 +111,7 @@ export const General = () => {
           />
           <ControlledTextField
             control={control}
+            errorMessage={errors.lastName?.message}
             label={"Last Name"}
             name={"lastName"}
             required
@@ -111,9 +119,10 @@ export const General = () => {
           />
           <ControlledDayPicker
             control={control}
+            // errorMessage={errors.dateOfBirth?.message}
             label={"Date of birth"}
+            mode={"single"}
             name={"dateOfBirth"}
-            type={"datePicker"}
           />
           <div className={s.selectors}>
             <Select
@@ -135,6 +144,7 @@ export const General = () => {
           </div>
           <ControlledTextArea
             control={control}
+            // errorMessage={errors.aboutMe?.message}
             label={"About Me"}
             name={"aboutMe"}
             placeholder={"Text-area"}
