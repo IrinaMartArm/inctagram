@@ -35,8 +35,6 @@ const convertStringToDate = (value: string): Date => {
 
   const date = new Date(year, month, day);
 
-  console.log(date);
-
   return date;
 };
 
@@ -135,7 +133,6 @@ export const General = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [initialCity, setInitialCity] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
-  const [birthDate, setBirthDate] = useState<string>("");
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
@@ -180,8 +177,8 @@ export const General = () => {
   const cities = getCityOptions(selectedCountry);
   const isDisabled = !isValid && !isDirty;
 
-  //console.log(cities[0].value);
   console.log(initialCity);
+  console.log(errors);
 
   return (
     <>
@@ -230,48 +227,36 @@ export const General = () => {
             <Controller
               control={control}
               name={"dateOfBirth"}
-              render={({ field: { onBlur, onChange, ref, value } }) => (
+              render={({ field: { onChange } }) => (
                 <DayPicker
                   mode={"single"}
-                  selected={birthDate}
+                  selected={userInfoData?.dateOfBirth || "01.01.2001"}
                   setSelected={(value: string) => {
-                    const date = convertStringToDate(value);
-
-                    setValue("dateOfBirth", date, {
-                      shouldDirty: true,
-                      shouldTouch: true,
-                    });
-
-                    setBirthDate(value);
+                    onChange(value);
                   }}
                 />
               )}
             />
             <div className={s.selectors}>
-              {selectedCountry && (
-                <Select
-                  className={s.general}
-                  defaultValue={selectedCountry /* || countries[0].value */}
-                  items={countries}
-                  label={"Select your country"}
-                  name={"countries"}
-                  onChange={handleSelectChange}
-                />
-              )}
-
-              {initialCity && (
-                <ControlledSelect
-                  className={s.general}
-                  control={control}
-                  defaultValue={
-                    userInfoData?.city || cities[0].value || initialCity
-                  }
-                  items={cities}
-                  label={"City"}
-                  name={"city"}
-                  onChange={handleSelectCity}
-                />
-              )}
+              <Select
+                className={s.general}
+                defaultValue={countries[0].value || selectedCountry} ///
+                items={countries}
+                label={"Select your country"}
+                name={"countries"}
+                onChange={handleSelectChange}
+              />
+              <ControlledSelect
+                className={s.general}
+                control={control}
+                defaultValue={
+                  userInfoData?.city || cities[0].value || initialCity
+                }
+                items={cities}
+                label={"City"}
+                name={"city"}
+                onChange={handleSelectCity}
+              />
             </div>
             <ControlledTextArea
               control={control}

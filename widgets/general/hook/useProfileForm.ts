@@ -28,19 +28,19 @@ export const useProfileForm = () => {
       .max(200, { message: t.profile.errors.aboutMeMax })
       .optional(),
     city: z.string().min(1).optional(),
-    dateOfBirth: z.date().refine(
-      (value) => {
-        const dateOfBirth = new Date(value);
-        const today = new Date();
-        const monthDiff = today.getMonth() - dateOfBirth.getMonth();
-        const isUnderage =
-          monthDiff < 0 ||
-          (monthDiff === 0 && today.getDate() < dateOfBirth.getDate());
+    dateOfBirth: z.string() /* .date().refine(
+        (value) => {
+          const dateOfBirth = new Date(value);
+          const today = new Date();
+          const monthDiff = today.getMonth() - dateOfBirth.getMonth();
+          const isUnderage =
+            monthDiff < 0 ||
+            (monthDiff === 0 && today.getDate() < dateOfBirth.getDate());
 
-        return !isUnderage;
-      },
-      { message: child },
-    ),
+          return !isUnderage;
+        },
+        { message: child },
+      ) */,
     firstName: z
       .string()
       .min(1, { message: t.profile.errors.firstNameMin })
@@ -85,8 +85,8 @@ export const useProfileForm = () => {
   };
 
   const onSubmit = async (data: ProfileFormSchema) => {
-    /* setFirstName(data.firstName);
-    setLastName(data.lastName); */
+    setFirstName(data.firstName);
+    setLastName(data.lastName);
     try {
       console.log(data);
 
