@@ -1,1 +1,1 @@
-export * from "./ui";
+export { MainSideBar } from "./MainSideBar";

@@ -3,6 +3,7 @@ import {
   Card,
   ControlledTextField,
   Loader,
+  PageTitle,
   Typography,
 } from "@/shared/components";
 import { useNewPassword } from "@/widgets/auth/newPassword/hook/useNewPassword";
@@ -19,9 +20,8 @@ export const NewPasswordCard = () => {
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(newPasswordCreator)}>
-      <Typography className={s.title} variant={"h1"}>
-        {t.passwordRecovery.createTitle}
-      </Typography>
+      <PageTitle className={s.title} title={t.passwordRecovery.createTitle} />
+
       <ControlledTextField
         control={control}
         errorMessage={errors.newPassword?.message}

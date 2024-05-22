@@ -1,4 +1,5 @@
 @import "../../styles/mixins";
+
 .root {
   position: fixed;
   z-index: 999;
@@ -8,21 +9,24 @@
 
   width: 100%;
   height: 60px;
-  padding: 12px;
+  padding: 12px 60px;
 
   background-color: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-300);
+  @media screen and (max-width: 576px) {
+    padding: 12px 14px;
+  }
 }
 
 .header {
   @include flex("", space-between, center);
 
   width: 100%;
-  //max-width: 1100px;
+  max-width: 1920px;
   margin: 0 auto;
-  padding: 0 35px;
 
   color: var(--color-light-100);
+
 }
 
 .logo {
@@ -31,28 +35,18 @@
   font-weight: var(--font-weight-semi-bold);
 }
 
-.bell {
+.wrapper {
   position: relative;
   @include flex("", space-between, center, 50px);
-}
-
-.bellMessage {
-  position: absolute;
-  @include flex("", center, center);
-  top: 4px;
-  left: 10px;
-  min-width: 13px;
-  height: 13px;
-  padding: 2px;
-  font-size: 8px;
-  border-radius: 50%;
-  color: var(--color-light-100);
-  background-color: var(--color-danger-500);
+  @media screen and (max-width: 576px) {
+    @include flex("", space-between, center, 24px);
+  }
 }
 
 .buttons {
   @include flex("", space-between, center, 36px);
 }
+
 .buttonsBox {
   @include flex("", space-between, center, 24px);
 }

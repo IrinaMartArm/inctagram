@@ -29,6 +29,11 @@
     padding: 0 6px;
   }
 
+  &.isHiddenText {
+    width: 60px;
+    border: none;
+  }
+
   &:hover {
     color: var(--color-light-900);
   }
@@ -72,6 +77,10 @@
     width: 48px;
     padding: 0 6px;
   }
+
+  &.isHiddenText {
+    width: 58px;
+  }
 }
 
 .SelectItem[data-disabled] {
@@ -95,4 +104,3 @@
 .label {
   color: var(--color-light-900);
 }
-

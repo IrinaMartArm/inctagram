@@ -1,32 +1,28 @@
 @import "../../../../styles/mixins";
 
-
-.root{
+.root {
   padding: 24px;
 }
-.button{
+
+.button {
   width: 86px;
 }
-.row {
+
+.trigger {
   @include flex(null, null, center, 12px);
   padding: 0;
   color: var(--color-light-100) !important;
+
   &:hover {
     color: var(--color-accent-100);
   }
 }
 
-
-.triggerButtonText{
-  color: var(--color-light-100);
-  &:hover {
-    color: var(--color-accent-100);
-  }
- }
-.textButton{
+.textButton {
   width: 30px;
 }
-.controller{
+
+.controller {
   padding-top: 24px;
   display: flex;
   flex-direction: row;

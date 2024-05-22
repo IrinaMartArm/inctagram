@@ -1,4 +1,13 @@
 export const ru = {
+  common: {
+    error: "Ошибка!",
+    no: "Нет",
+    yes: "Да",
+  },
+  deleteAvatar: {
+    text: "Вы действительно хотите удалить свою фотографию профиля?",
+    title: "Удалить фотографию",
+  },
   favorites: {
     title: "Страница",
   },
@@ -7,6 +16,15 @@ export const ru = {
     buttonYes: "Да",
     title: "Выход",
     warning: "Вы действительно хотите выйти из своей учетной записи",
+  },
+  menu: {
+    create: "Создать",
+    favorites: "Избранное",
+    home: "Главная",
+    messenger: "Сообщения",
+    myProfile: "Мой профиль",
+    search: "Поиск",
+    statistics: "Статистика",
   },
   passwordRecovery: {
     back: "Назад для входа в систему",
@@ -35,6 +53,17 @@ export const ru = {
     },
     publications: "Публикации",
     settingsBtn: "Настройки профиля",
+  },
+  profileSettings: {
+    general: {
+      addPhoto: "Добавить фото профиля",
+      errors: {
+        formatFile: "Формат загружаемой фотографии должен быть PNG и JPEG.",
+        maxSize: "Размер фотографии должен быть меньше 10 МБ!",
+      },
+      savePhoto: "Сохранить",
+      selectPhoto: "Выбрать с компьютера",
+    },
   },
   signIn: {
     errors: {
@@ -65,6 +94,7 @@ export const ru = {
     confirmed: "Ваш адрес электронной почты подтвержден",
     congratulations: "Поздравляем!",
     created: "Аккаунт создан.",
+    emailMin: "Строка должна содержать не менее 1 символа",
     expired: "Срок действия ссылки для подтверждения электронной почты истек",
     formEmail:
       "Электронная почта должна соответствовать формату\n" +

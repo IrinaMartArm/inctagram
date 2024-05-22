@@ -18,6 +18,7 @@ type SelectType = {
   className?: string;
   defaultValue?: string;
   disabled?: boolean;
+  isHiddenText?: boolean;
   isPagination?: boolean;
   items: ItemsType[];
   label?: string;
@@ -33,6 +34,7 @@ export const Select = forwardRef<
     {
       className,
       defaultValue,
+      isHiddenText = false,
       isPagination,
       items,
       label,
@@ -48,9 +50,15 @@ export const Select = forwardRef<
       SelectTrigger: clsx(
         s.SelectTrigger,
         isPagination && s.pagination,
+        isHiddenText && s.isHiddenText,
         className,
       ),
-      selectItem: clsx(s.SelectItem, isPagination && s.pagination, className),
+      selectItem: clsx(
+        s.SelectItem,
+        isPagination && s.pagination,
+        isHiddenText && s.isHiddenText,
+        className,
+      ),
     };
 
     const [open, setOpen] = useState(false);
@@ -114,9 +122,11 @@ export const Select = forwardRef<
                               width={20}
                             />
                           )}
-                          <Typography variant={"regular_text-16"}>
-                            {el.title}
-                          </Typography>
+                          {!isHiddenText && (
+                            <Typography variant={"regular_text-16"}>
+                              {el.title}
+                            </Typography>
+                          )}
                         </div>
                       </SelectRadix.ItemText>
                     </SelectRadix.Item>

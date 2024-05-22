@@ -1,3 +1,6 @@
+import { Info } from "@/features";
+import { useTranslation } from "@/shared/assets/hooks";
+import { Button, Typography } from "@/shared/components";
 import { Info } from "@/features/info/Info";
 import { useProfileInformationQuery } from "@/shared/assets/api/profile/profile-api";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
@@ -19,7 +22,7 @@ export const MyProfile = () => {
   // const { data: profile } = useProfileInformationQuery();
 
   return (
-    <PageWrapper>
+    <>
       <div className={s.info_wrapper}>
         <div className={s.avatar}>{/*<Avatar />*/}</div>
         <div className={s.info_block}>
@@ -51,6 +54,6 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}></div>
-    </PageWrapper>
+    </>
   );
 };

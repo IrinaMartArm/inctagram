@@ -1,6 +1,5 @@
 import { LogOut_outline } from "@/public";
-import { Button, Typography } from "@/shared/components";
-import { Modal, ModalClose } from "@/shared/components/modals";
+import { Button, Modal, ModalClose, Typography } from "@/shared/components";
 import { useLogOut } from "@/widgets";
 
 import s from "./logOutModal.module.scss";
@@ -15,14 +14,9 @@ export const LogOutModal = ({ email }: Props) => {
     <Modal
       title={t.logOut.title}
       trigger={
-        <Button className={s.row} variant={"link"}>
-          <LogOut_outline color={"#FFF"} />
-          <Typography
-            className={s.triggerButtonText}
-            variant={"Medium_text-14"}
-          >
-            {t.logOut.title}
-          </Typography>
+        <Button className={s.trigger} variant={"link"}>
+          <LogOut_outline />
+          <Typography variant={"Medium_text-14"}>{t.logOut.title}</Typography>
         </Button>
       }
     >

@@ -5,6 +5,8 @@ import {
 } from "@/shared/assets/api/auth/auth-api";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
+import { useTranslation } from "@/shared/assets/hooks";
+import { HeadMeta } from "@/shared/components";
 import { Paths } from "@/shared/assets/constants/paths";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { PageWrapper } from "@/shared/components";
@@ -32,6 +34,8 @@ const SignIn = () => {
 
         localStorage.setItem("accessToken", accessToken);
 
+        await router.replace("/profile");
+        dispatch(authActions.setEmail(args.email));
         const res = await getUser().unwrap();
 
         await push(`${Paths.PROFILE}/?id=${res?.userId!}`);
@@ -48,10 +52,10 @@ const SignIn = () => {
   };
 
   return (
-    <PageWrapper>
+    <>
       <HeadMeta title={title} />
       <SignInCard onSubmit={loginHandler} />
-    </PageWrapper>
+    </>
   );
 };
 

@@ -1,0 +1,13 @@
+@import '../../../styles/mixins';
+
+.row {
+  @include flex(null, null, center, 12px);
+
+  &:hover {
+    color: var(--color-accent-100);
+  }
+}
+
+.active {
+  color: var(--color-accent-500) !important;
+}

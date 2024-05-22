@@ -11,7 +11,7 @@
 
   box-sizing: border-box;
   width: fit-content;
-  padding: 6px 23px;
+  padding: 6px 24px;
 
   font-family: var(--font-family);
   font-size: var(--font-size-l);
@@ -19,12 +19,16 @@
   line-height: var(--line-height-l);
   text-align: center;
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
 
   border-radius: 4px;
 
   &:focus-visible {
     outline: 2px solid var(--color-info-700);
+  }
+  @media screen and (max-width: 576px) {
+   padding: 12px 24px;
+    width: 100%;
   }
 }
 
@@ -104,7 +108,7 @@
 .link {
   @include button;
 
-  color: var(--color-accent-500) !important;
+  color: var(--color-accent-500);
   background-color: transparent;
   border: none;
 

@@ -14,3 +14,7 @@ export type UserProfileResponse = {
   lastName: string;
   username: string;
 };
+
+export type UserPhotoArgs = {
+  file: FormData;
+};

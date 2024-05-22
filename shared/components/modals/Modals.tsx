@@ -38,7 +38,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
                 <motion.div {...modalAnimations.window}>
                   {title && (
                     <div className={s.title}>
-                      <Typography as={"h1"} variant={"h2"}>
+                      <Typography as={"h1"} variant={"h1"}>
                         {title}
                       </Typography>
                       <ModalClose>

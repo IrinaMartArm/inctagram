@@ -54,8 +54,10 @@ const SignUp = () => {
   }
 
   return (
-    <PageWrapper>
+    <>
       <HeadMeta title={"Sign Up"} />
+      <SignUpCard />
+
       <Modal
         onOpenChange={onOpenChangeHandler}
         open={open}
@@ -64,7 +66,7 @@ const SignUp = () => {
         <EmailSent email={email || ""} />
       </Modal>
       <SignUpCard isLoading={isLoading} onSubmit={handleSubmit} />
-    </PageWrapper>
+	</>
   );
 };
 
