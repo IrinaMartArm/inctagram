@@ -24,21 +24,6 @@ import s from "./general.module.scss";
 import { useProfileForm, useUpdateAvatar } from "../hook";
 import { AvatarBox } from "./avatarBox";
 
-const convertStringToDate = (value: string): Date => {
-  ///trnsfer to util function file
-  const dateString = value;
-  const parts = dateString.split(".");
-
-  // Ensure the parts are in the correct order (day, month, year)
-  const day = parseInt(parts[0], 10);
-  const month = parseInt(parts[1], 10) - 1; // JavaScript Date month is 0-indexed
-  const year = parseInt(parts[2], 10);
-
-  const date = new Date(year, month, day);
-
-  return date;
-};
-
 const options = [
   {
     disabled: false,
@@ -126,7 +111,6 @@ export const General = () => {
     if (userInfoData?.city) {
       const country = getCountryWithCityName(userInfoData.city) as string;
 
-      setInitialCity(userInfoData.city);
       setSelectedCountry(country);
     }
     if (userInfoData?.dateOfBirth) {
@@ -136,14 +120,10 @@ export const General = () => {
 
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedCountry, setSelectedCountry] = useState("Belarus");
-  const [initialCity, setInitialCity] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
+  const [citiesRange, setCitiesRange] = useState(belarus);
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
-
-  const handleCountryChange = (value: string) => {
-    setSelectedCountry(value);
-  };
 
   const handleAboutMeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.currentTarget.value;
@@ -154,21 +134,26 @@ export const General = () => {
     });
   };
 
-  const handleSelectChange = (key: string, value: string) => {
+  const handleSelectCountry = (key: string, value: string) => {
+    const cities = getCityOptions(value);
+
     setSelectedCountry(value);
-    setInitialCity(cities[0].value); ////when i pick country i need to pick corresponding city
-    /* setValue("city", cities[0].value, {
-      shouldDirty: true,
-      shouldTouch: true,
-    }); */
+    setCitiesRange(cities);
+    console.log(cities); ///acheived behavior setValue!!!!
+    console.log(cities[0].value);
+
+    setValue("city", cities[0].value);
   };
 
   const handleSelectCity = (key: string, value: string) => {
-    setValue("city", value, {
+    const pickedCity = value.trim() === "" ? citiesRange[0].value : value;
+
+    console.log(pickedCity);
+
+    setValue("city", pickedCity, {
       shouldDirty: true,
       shouldTouch: true,
     });
-    setInitialCity(value);
   };
 
   const getCityOptions = (country: string) => {
@@ -185,9 +170,6 @@ export const General = () => {
 
   const cities = getCityOptions(selectedCountry);
   const isDisabled = !isValid && !isDirty;
-
-  console.log(initialCity);
-  console.log(selectedCountry);
 
   return (
     <>
@@ -251,21 +233,18 @@ export const General = () => {
               {selectedCountry && (
                 <Select
                   className={s.general}
-                  defaultValue={/* selectedCountry ||*/ countries[0].value} ///
+                  defaultValue={countries[0].value}
                   items={countries}
                   label={"Select your country"}
                   name={"countries"}
-                  onChange={handleSelectChange}
+                  onChange={handleSelectCountry}
                 />
               )}
               <ControlledSelect
                 className={s.general}
                 control={control}
-                defaultValue={
-                  /* userInfoData?.city || */ cities[0]
-                    .value /*  || initialCity */
-                }
-                items={cities}
+                defaultValue={userInfoData?.city || citiesRange[0].value}
+                items={citiesRange}
                 label={"City"}
                 name={"city"}
                 onChange={handleSelectCity}
