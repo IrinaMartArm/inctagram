@@ -181,8 +181,6 @@ export const General = () => {
   const cities = getCityOptions(selectedCountry);
   const isDisabled = !isValid && !isDirty;
 
-  console.log(isSubmitSuccessful);
-
   return (
     <>
       <DevTool control={control} />
@@ -242,16 +240,16 @@ export const General = () => {
               )}
             />
             <div className={s.selectors}>
-              {selectedCountry && (
-                <Select
-                  className={s.general}
-                  defaultValue={countries[0].value}
-                  items={countries}
-                  label={"Select your country"}
-                  name={"countries"}
-                  onChange={handleSelectCountry}
-                />
-              )}
+              {/* {selectedCountry && ( */}
+              <Select
+                className={s.general}
+                defaultValue={countries[0].value}
+                items={countries}
+                label={"Select your country"}
+                name={"countries"}
+                onChange={handleSelectCountry}
+              />
+              {/* )} */}
               <ControlledSelect
                 className={s.general}
                 control={control}
@@ -272,11 +270,7 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button
-          className={s.button}
-          disabled={isDisabled /* !isValid */}
-          type={"submit"}
-        >
+        <Button className={s.button} disabled={isDisabled} type={"submit"}>
           Save Changes
         </Button>
         {isShowModal && (
