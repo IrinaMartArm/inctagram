@@ -26,7 +26,7 @@ export const Header = ({ isAuth }: Props) => {
         <Link className={s.logo} href={Paths.HOME}>
           Inctagram
         </Link>
-        {!isAuth && (
+        {!isAuth && !isMobile && (
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
@@ -45,12 +45,12 @@ export const Header = ({ isAuth }: Props) => {
               <Notifications notificationsCount={NOTIFICATIONS_COUNT} />
             )}
             <LangSelect />
-            {isMobile && (
-              <button>
-                <More />
-              </button>
-            )}
           </div>
+        )}
+        {isMobile && (
+          <button>
+            <More />
+          </button>
         )}
       </div>
     </div>
