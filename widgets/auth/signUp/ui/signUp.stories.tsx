@@ -17,6 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const SignUpForm: Story = {
   args: {
+    isLoading: false,
     onSubmit: () => {},
   },
   decorators: [
