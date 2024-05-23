@@ -4,7 +4,6 @@ import { Controller } from "react-hook-form";
 
 import { useGetProfileInfoQuery } from "@/shared/assets/api/profile/profile-api";
 import { UserProfileArgs } from "@/shared/assets/api/profile/types";
-import { Nullable } from "@/shared/assets/types/types";
 import {
   Alert,
   Button,
@@ -95,8 +94,10 @@ export const General = () => {
     errors,
     handleSubmit,
     isDirty,
+    isSubmitSuccessful,
     isValid,
     onSubmit,
+    reset,
     setValue,
     showAlert,
   } = useProfileForm();
@@ -117,6 +118,15 @@ export const General = () => {
       setSelectedDate(userInfoData.dateOfBirth);
     }
   }, [setValue, userInfoData]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(undefined, {
+        keepDefaultValues: false,
+        keepDirty: false,
+      });
+    }
+  }, [isSubmitSuccessful, reset]);
 
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedCountry, setSelectedCountry] = useState("Belarus");
@@ -170,6 +180,8 @@ export const General = () => {
 
   const cities = getCityOptions(selectedCountry);
   const isDisabled = !isValid && !isDirty;
+
+  console.log(isSubmitSuccessful);
 
   return (
     <>
@@ -260,7 +272,11 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button className={s.button} disabled={!isValid} type={"submit"}>
+        <Button
+          className={s.button}
+          disabled={isDisabled /* !isValid */}
+          type={"submit"}
+        >
           Save Changes
         </Button>
         {isShowModal && (

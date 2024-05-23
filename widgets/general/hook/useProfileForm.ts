@@ -26,6 +26,7 @@ export const useProfileForm = () => {
     aboutMe: z
       .string()
       .max(200, { message: t.profile.errors.aboutMeMax })
+      .trim()
       .optional(),
     city: z.string().min(1).optional(),
     dateOfBirth: z.string() /* .date().refine(
@@ -44,15 +45,18 @@ export const useProfileForm = () => {
     firstName: z
       .string()
       .min(1, { message: t.profile.errors.firstNameMin })
-      .max(50, { message: t.profile.errors.firstNameMax }),
+      .max(50, { message: t.profile.errors.firstNameMax })
+      .trim(),
     lastName: z
       .string()
       .min(1, { message: t.profile.errors.lastNameMin })
-      .max(50, { message: t.profile.errors.lastNameMax }),
+      .max(50, { message: t.profile.errors.lastNameMax })
+      .trim(),
     username: z
       .string()
       .min(6, { message: t.profile.errors.usernameMin })
-      .max(30, { message: t.profile.errors.usernameMax }),
+      .max(30, { message: t.profile.errors.usernameMax })
+      .trim(),
   });
   /* .transform((data) => ({
       ...data,
@@ -69,8 +73,9 @@ export const useProfileForm = () => {
 
   const {
     control,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isSubmitSuccessful, isValid },
     handleSubmit,
+    reset,
     setValue,
   } = useForm<ProfileFormSchema>({
     defaultValues,
@@ -88,8 +93,6 @@ export const useProfileForm = () => {
     setFirstName(data.firstName);
     setLastName(data.lastName);
     try {
-      console.log(data);
-
       await fillOutProfile(data).unwrap();
       setAlertMessage(success);
       setAlertVariant("success");
@@ -109,8 +112,10 @@ export const useProfileForm = () => {
     errors,
     handleSubmit,
     isDirty,
+    isSubmitSuccessful,
     isValid,
     onSubmit,
+    reset,
     setValue,
     showAlert,
   };
