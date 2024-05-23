@@ -5,19 +5,19 @@ import {
   Button,
   ControlledTextArea,
   ControlledTextField,
-  Input,
   Select,
   Tab,
 } from "@/shared/components";
 import { ControlledDayPicker } from "@/shared/components/controlled/ControlledDayPicker";
-import { useProfileForm } from "@/widgets/profile/general/hook/useProfileForm";
-import { useRouter } from "next/router";
 import { EditProfilePhoto } from "@/widgets";
+import {
+  useProfileForm,
+  useUpdateAvatar,
+} from "@/widgets/profile/general/hook";
+import { AvatarBox } from "@/widgets/profile/general/ui/avatarBox";
+import { useRouter } from "next/router";
 
 import s from "./general.module.scss";
-
-import { useProfileForm, useUpdateAvatar } from "../hook";
-import { AvatarBox } from "./avatarBox";
 
 const options = [
   {

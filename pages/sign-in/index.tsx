@@ -5,12 +5,9 @@ import {
 } from "@/shared/assets/api/auth/auth-api";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
-import { useTranslation } from "@/shared/assets/hooks";
-import { HeadMeta } from "@/shared/components";
 import { Paths } from "@/shared/assets/constants/paths";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { PageWrapper } from "@/shared/components";
-import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
+import { HeadMeta } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { SignInCard } from "@/widgets";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -22,7 +19,7 @@ const SignIn = () => {
   const [login] = useLoginMutation();
   const [getUser, {}] = useLazyMeQuery();
 
-  const { push } = useRouter();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const loginHandler = async (args: LoginArgs) => {
@@ -34,11 +31,10 @@ const SignIn = () => {
 
         localStorage.setItem("accessToken", accessToken);
 
-        await router.replace("/profile");
         dispatch(authActions.setEmail(args.email));
         const res = await getUser().unwrap();
 
-        await push(`${Paths.PROFILE}/?id=${res?.userId!}`);
+        await router.push(`${Paths.PROFILE}/?id=${res?.userId!}`);
       }
 
       dispatch(authActions.setError(undefined));

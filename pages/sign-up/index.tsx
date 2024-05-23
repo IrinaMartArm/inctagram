@@ -4,7 +4,6 @@ import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { setToLocalStorage } from "@/shared/assets/helpers/setToLocalStorage";
 import { UseFormRef } from "@/shared/assets/types/form";
-import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { Modal } from "@/shared/components/modals";
@@ -56,7 +55,6 @@ const SignUp = () => {
   return (
     <>
       <HeadMeta title={"Sign Up"} />
-      <SignUpCard />
 
       <Modal
         onOpenChange={onOpenChangeHandler}
@@ -66,7 +64,7 @@ const SignUp = () => {
         <EmailSent email={email || ""} />
       </Modal>
       <SignUpCard isLoading={isLoading} onSubmit={handleSubmit} />
-	</>
+    </>
   );
 };
 

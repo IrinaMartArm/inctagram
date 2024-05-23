@@ -1,8 +1,7 @@
 import { LangSelect } from "@/features";
 import { More } from "@/public";
-import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
+import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
 import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
-import { Paths } from "@/shared/assets/paths";
 import { Button } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/router";

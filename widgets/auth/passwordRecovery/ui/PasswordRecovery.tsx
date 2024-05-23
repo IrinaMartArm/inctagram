@@ -1,5 +1,5 @@
 import ReCAPTCHAWidget from "@/pages/auth/password-recovery/recaptcha";
-import { Paths } from "@/shared/assets/paths";
+import { Paths } from "@/shared/assets";
 import {
   Button,
   Card,

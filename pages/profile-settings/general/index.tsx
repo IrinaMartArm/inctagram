@@ -1,7 +1,4 @@
-import { HeadMeta, PageWrapper, getMainLayout } from "@/shared/components";
-import { General } from "@/widgets";
-import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { HeadMeta, getMainLayout } from "@/shared/components";
 import { General } from "@/widgets/profile/general";
 
 const GeneralInformation = () => {

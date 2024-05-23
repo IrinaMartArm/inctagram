@@ -1,6 +1,5 @@
-import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
+import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
 import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
-import { Paths } from "@/shared/assets/paths";
 import { Button, PageTitle, Typography } from "@/shared/components";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,10 +1,10 @@
 import { SubmitHandler } from "react-hook-form";
 
 import { useLoginValidation } from "@/entities";
+import { Paths } from "@/shared/assets";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppSelector } from "@/shared/assets/api/store";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Paths } from "@/shared/assets/paths";
 import {
   Button,
   Card,

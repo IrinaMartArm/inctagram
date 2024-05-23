@@ -1,5 +1,9 @@
 import { baseApi } from "@/shared/assets/api";
-import { UserProfileArgs } from "@/shared/assets/api/profile/types";
+import {
+  UserPhotoArgs,
+  UserProfileArgs,
+  UserProfileResponse,
+} from "@/shared/assets/api/profile/types";
 
 export const ProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
@@ -37,6 +41,6 @@ export const ProfileApi = baseApi.injectEndpoints({
 export const {
   useDeleteUserPhotoMutation,
   useFillOutProfileMutation,
+  useProfileInformationQuery,
   useUploadUserPhotoMutation,
-	useProfileInformationQuery,
 } = ProfileApi;

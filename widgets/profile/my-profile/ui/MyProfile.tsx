@@ -1,10 +1,6 @@
 import { Info } from "@/features";
-import { useTranslation } from "@/shared/assets/hooks";
+import { useTranslation } from "@/shared/assets";
 import { Button, Typography } from "@/shared/components";
-import { Info } from "@/features/info/Info";
-import { useProfileInformationQuery } from "@/shared/assets/api/profile/profile-api";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Button, PageWrapper, Typography } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
