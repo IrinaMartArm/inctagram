@@ -17,12 +17,12 @@ export const Header = () => {
   const { t } = useTranslation();
   const isMobile = useIsMobile(MOBILE_BREAKPOINT);
 
-  const publicPage = currentPath === Paths.HOME;
+  const publicPage = currentPath === Paths.MAIN;
 
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <Link className={s.logo} href={Paths.HOME}>
+        <Link className={s.logo} href={Paths.MAIN}>
           Inctagram
         </Link>
         {publicPage && (
