@@ -14,6 +14,7 @@ export * from "./input";
 export * from "./controlled";
 export * from "./alert";
 export * from "./avatar";
+export * from "./toast";
 export * from "./avatarEdit";
 export * from "./modals";
 export * from "./navLink";

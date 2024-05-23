@@ -4,28 +4,39 @@ import { Nullable } from "@/shared/assets/types/types";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
-interface FieldError {
-  field: string;
+interface FieldError<T extends Record<string, any>> {
+  field: keyof T;
   message: string;
 }
 
-interface ErrorData {
-  errorMessages?: FieldError[];
+interface ResponseError<T extends Record<string, any>> {
+  errorDescription?: FieldError<T>[];
   message?: string;
+  statusCode: number;
+  timestamp: string;
 }
 
-export interface CatchingData {
+interface CatchingData<T extends Record<string, any>> {
   error: Nullable<string>;
-  fieldErrors: Nullable<FieldError[]>;
+  fieldErrors: Nullable<FieldError<T>[]>;
 }
 
-export type ErrorsMessages = {
-  errorsMessages: FieldError[];
+const getValidError = <T extends Record<string, any>>(
+  errorData: ResponseError<T>,
+) => {
+  let errorMsg =
+    errorData.message || "Server error: error message was not received";
+
+  if (errorMsg === "Http Exception") {
+    errorMsg = errorData.errorDescription?.[0].message || "Http Exception";
+  }
+
+  return errorMsg;
 };
 
-export const handleErrorResponse = (
+export const handleErrorResponse = <T extends Record<string, any>>(
   error?: FetchBaseQueryError | SerializedError,
-): CatchingData | undefined => {
+): CatchingData<T> | undefined => {
   if (!error) {
     return;
   }
@@ -54,17 +65,17 @@ export const handleErrorResponse = (
       };
     }
     case "data" in error: {
-      const errorData = error.data as ErrorData;
+      const errorData = error.data as ResponseError<T>;
 
-      const errorMessage = `${error.status} - ${errorData.message || "Request error"}`;
+      const validErrorMessage = getValidError(errorData);
 
-      if (error.status !== 400) {
-        toast.error(errorMessage);
-      }
+      const errorMessage = `${error.status} - ${validErrorMessage}`;
+
+      toast.error(errorMessage);
 
       return {
         error: errorMessage,
-        fieldErrors: errorData.errorMessages || null,
+        fieldErrors: errorData.errorDescription || null,
       };
     }
     default: {
@@ -79,12 +90,4 @@ export const handleErrorResponse = (
       };
     }
   }
-};
-
-export const validationError = (err: any): ErrorsMessages | null => {
-  if ("errorMessages" in err) {
-    return err.errorsMessages;
-  }
-
-  return null;
 };

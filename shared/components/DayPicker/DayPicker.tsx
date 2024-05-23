@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   ClassNames,
   DateRange,
@@ -129,6 +129,7 @@ export const DayPicker = (props: DayPickerProps) => {
           <div className={s.inputSingleContainer}>
             <Input
               errorMessage={dateSingleChecker()}
+              label={props.label}
               onButtonClick={onClickSingle}
               onChange={(e) => setSelected(e.target.value)}
               type={"datePicker"}
@@ -183,15 +184,17 @@ export const DayPicker = (props: DayPickerProps) => {
   );
 };
 
-type DayPickerProps = RangeDayPickerProps | SingleDayPickerProps;
+export type DayPickerProps = RangeDayPickerProps | SingleDayPickerProps;
 
 type SingleDayPickerProps = {
+  label?: ReactNode;
   mode: "single";
   selected: string;
   setSelected: (value: string) => void;
 };
 
 type RangeDayPickerProps = {
+  label?: ReactNode;
   mode: "range";
   range: Array<string>;
   setRange: (newRange: Array<string>) => void;

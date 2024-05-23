@@ -1,8 +1,7 @@
 import { LangSelect } from "@/features";
 import { More } from "@/public";
-import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
+import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
 import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
-import { Paths } from "@/shared/assets/paths";
 import { Button } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,12 +17,12 @@ export const Header = () => {
   const { t } = useTranslation();
   const isMobile = useIsMobile(MOBILE_BREAKPOINT);
 
-  const publicPage = currentPath === Paths.HOME;
+  const publicPage = currentPath === Paths.MAIN;
 
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <Link className={s.logo} href={Paths.HOME}>
+        <Link className={s.logo} href={Paths.MAIN}>
           Inctagram
         </Link>
         {publicPage && (

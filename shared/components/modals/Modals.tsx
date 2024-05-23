@@ -27,7 +27,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
 
     return (
       <RadixModal.Root {...rest} onOpenChange={onOpenChange} open={open}>
-        <RadixModal.Trigger asChild>{trigger}</RadixModal.Trigger>
+        {trigger && <RadixModal.Trigger asChild>{trigger}</RadixModal.Trigger>}
         <AnimatePresence>
           <RadixModal.Portal>
             <motion.div {...modalAnimations.overlay}>
