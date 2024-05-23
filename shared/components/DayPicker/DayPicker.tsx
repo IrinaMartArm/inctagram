@@ -1,4 +1,4 @@
-import {useRef, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import {ClassNames, DayPicker as ReactDayPicker, SelectSingleEventHandler,} from "react-day-picker"
 
 import {Input} from "@/shared/components"
@@ -11,10 +11,20 @@ import {useOutsideDayClick} from "@/shared/components/DayPicker/OutsideDayClickH
 
 export const DayPicker = (props: DayPickerProps) => {
 
-  const {selected, setSelected, isSuperMode, errorText} = props
+  const {setSelected, errorText} = props
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true)
+  const [localSelected, setLocalSelected] = useState('')
+
+  useEffect(() => {
+    if (isValidDateFormat(localSelected)) {
+      setSelected(localSelected)
+    } else {
+      setSelected('')
+    }
+
+  }, [localSelected]);
 
   const weekends = [5, 6]
   const weekendStyle = {color: "#F23D61"}
@@ -30,6 +40,8 @@ export const DayPicker = (props: DayPickerProps) => {
     nav_button: clsx(styles.nav_button, s.nav_button),
     root: clsx(styles.root, s.root),
     dropdown: clsx(styles.dropdown, s.dropdown),
+    caption_label: clsx(styles.caption_label, s.caption_label),
+
   }
 
   // Function to handle date selection in 'single' mode
@@ -37,16 +49,16 @@ export const DayPicker = (props: DayPickerProps) => {
     date: Date | undefined,
   ) => {
     if (date) {
-      setSelected(format(date, DateFormat))
+      setLocalSelected(format(date, DateFormat))
       setIsPickerSingleHidden(true)
     }
   }
 
   // Function to parse selected date if it exists
   const parseSelectedDate = (
-    selected: string | undefined,
+    localSelected: string | undefined,
   ): Date | undefined => {
-    return selected ? parse(selected, DateFormat, new Date()) : undefined
+    return localSelected ? parse(localSelected, DateFormat, new Date()) : undefined
   }
 
   const onClickSingle = () => {
@@ -60,7 +72,7 @@ export const DayPicker = (props: DayPickerProps) => {
   }
 
   const dateSingleChecker = () => {
-    return selected && !isValidDateFormat(selected) ? "Date format error!" : ""
+    return localSelected && !isValidDateFormat(localSelected) ? "Date format error!" : ""
   }
 
   const calendarRef = useRef<HTMLDivElement>(null)
@@ -80,9 +92,9 @@ export const DayPicker = (props: DayPickerProps) => {
       <Input
         errorMessage={dateSingleChecker() || errorText}
         onButtonClick={onClickSingle}
-        onChange={(e) => setSelected(e.target.value)}
+        onChange={(e) => setLocalSelected(e.target.value)}
         type={"datePicker"}
-        value={selected || ""}
+        value={localSelected || ""}
       />
       {!isPickerSingleHidden && (
         <div className={s.pickerContainer} ref={calendarRef}>
@@ -94,13 +106,11 @@ export const DayPicker = (props: DayPickerProps) => {
             }}
             modifiersStyles={{weekend: weekendStyle}}
             onSelect={handleSingleSelect}
-            selected={parseSelectedDate(selected)}
+            selected={parseSelectedDate(localSelected)}
             showOutsideDays
             captionLayout='dropdown-buttons'
-            {...(isSuperMode && {
-              fromYear: currentYear - maxHumanAge,
-              toYear: currentYear,
-            })}
+            fromYear={currentYear - maxHumanAge}
+            toYear={currentYear}
           />
         </div>
       )}
@@ -110,9 +120,7 @@ export const DayPicker = (props: DayPickerProps) => {
 
 
 export type DayPickerProps = {
-  selected: string;
   setSelected: (value: string) => void;
   errorText?: string
-  isSuperMode?: boolean
 };
 

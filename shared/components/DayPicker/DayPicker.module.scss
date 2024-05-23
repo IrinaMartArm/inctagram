@@ -41,10 +41,15 @@
                 }
             }
         }
-    }
 
-    .dropdown {
-        background-color: var(--color-dark-500);
-    }
+        .dropdown {
+            background-color: var(--color-dark-500);
+        }
 
+        .dropdown:focus-visible:not([disabled]) + .caption_label {
+            background-color: var(--color-dark-500);
+            border: none;
+            border-radius: unset;
+        }
+    }
 }
