@@ -113,6 +113,8 @@ export const General = () => {
       const country = getCountryWithCityName(userInfoData.city) as string;
 
       setSelectedCountry(country);
+    } else {
+      setValue("city", cities[0].value);
     }
     if (userInfoData?.dateOfBirth) {
       setSelectedDate(userInfoData.dateOfBirth);
@@ -132,6 +134,7 @@ export const General = () => {
   const [selectedCountry, setSelectedCountry] = useState("Belarus");
   const [isShowModal, setIsShowModal] = useState(false);
   const [citiesRange, setCitiesRange] = useState(belarus);
+  const [isSelecting, setIsSelecting] = useState(false);
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
@@ -147,6 +150,7 @@ export const General = () => {
   const handleSelectCountry = (key: string, value: string) => {
     const cities = getCityOptions(value);
 
+    setIsSelecting(true);
     setSelectedCountry(value);
     setCitiesRange(cities);
     console.log(cities); ///acheived behavior setValue!!!!
@@ -156,11 +160,11 @@ export const General = () => {
   };
 
   const handleSelectCity = (key: string, value: string) => {
-    const pickedCity = value.trim() === "" ? citiesRange[0].value : value;
+    if (value.trim() === "") {
+      return;
+    }
 
-    console.log(pickedCity);
-
-    setValue("city", pickedCity, {
+    setValue("city", value, {
       shouldDirty: true,
       shouldTouch: true,
     });
@@ -180,6 +184,8 @@ export const General = () => {
 
   const cities = getCityOptions(selectedCountry);
   const isDisabled = !isValid && !isDirty;
+
+  console.log(citiesRange[0].value);
 
   return (
     <>
@@ -240,7 +246,6 @@ export const General = () => {
               )}
             />
             <div className={s.selectors}>
-              {/* {selectedCountry && ( */}
               <Select
                 className={s.general}
                 defaultValue={countries[0].value}
@@ -249,7 +254,6 @@ export const General = () => {
                 name={"countries"}
                 onChange={handleSelectCountry}
               />
-              {/* )} */}
               <ControlledSelect
                 className={s.general}
                 control={control}
