@@ -7,9 +7,9 @@ import {
   Search_outline,
   Statistics,
 } from "@/public";
+import { Paths } from "@/shared/assets";
 import { RootState, useAppSelector } from "@/shared/assets/api/store";
 import { useTranslation } from "@/shared/assets/hooks";
-import { Paths } from "@/shared/assets/paths";
 import { SideBar } from "@/shared/components";
 import { LogOutModal } from "@/widgets";
 

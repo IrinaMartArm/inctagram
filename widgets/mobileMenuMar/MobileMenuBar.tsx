@@ -5,7 +5,7 @@ import {
   PlusSquare_outline,
   Search_outline,
 } from "@/public";
-import { Paths } from "@/shared/assets/paths";
+import { Paths } from "@/shared/assets";
 import { NavLink } from "@/shared/components";
 
 import s from "./MobileMenuBar.module.scss";

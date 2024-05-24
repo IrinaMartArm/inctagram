@@ -2,6 +2,7 @@ import { baseApi } from "@/shared/assets/api";
 import {
   UserPhotoArgs,
   UserProfileArgs,
+  UserProfileResponse,
 } from "@/shared/assets/api/profile/types";
 
 export const ProfileApi = baseApi.injectEndpoints({
@@ -14,10 +15,16 @@ export const ProfileApi = baseApi.injectEndpoints({
         }),
       }),
       fillOutProfile: builder.mutation<void, UserProfileArgs>({
-        query: (arg) => ({
-          arg,
+        query: (body) => ({
+          body,
           method: "PUT",
+          providesTags: "Profile",
           url: "v1/user/fill-out-profile",
+        }),
+      }),
+      profileInformation: builder.query<UserProfileResponse, void>({
+        query: (arg) => ({
+          url: "v1/user/profile-information",
         }),
       }),
       uploadUserPhoto: builder.mutation<void, UserPhotoArgs>({
@@ -34,5 +41,6 @@ export const ProfileApi = baseApi.injectEndpoints({
 export const {
   useDeleteUserPhotoMutation,
   useFillOutProfileMutation,
+  useProfileInformationQuery,
   useUploadUserPhotoMutation,
 } = ProfileApi;

@@ -1,7 +1,12 @@
 import { authActions } from "@/entities";
-import { useLoginMutation } from "@/shared/assets/api/auth/auth-api";
+import {
+  useLazyMeQuery,
+  useLoginMutation,
+} from "@/shared/assets/api/auth/auth-api";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
+import { Paths } from "@/shared/assets/constants/paths";
+import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { useTranslationPages } from "@/shared/assets/hooks";
 import { HeadMeta } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
@@ -12,6 +17,7 @@ import { useRouter } from "next/router";
 const SignIn = () => {
   const { t } = useTranslationPages();
   const [login] = useLoginMutation();
+  const [getUser, {}] = useLazyMeQuery();
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -25,8 +31,10 @@ const SignIn = () => {
 
         localStorage.setItem("accessToken", accessToken);
 
-        await router.replace("/profile");
         dispatch(authActions.setEmail(args.email));
+        const res = await getUser().unwrap();
+
+        await router.push(`${Paths.PROFILE}/?id=${res?.userId!}`);
         dispatch(authActions.setIsAuth(true));
       }
 

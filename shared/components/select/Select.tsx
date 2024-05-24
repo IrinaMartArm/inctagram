@@ -104,7 +104,7 @@ export const Select = forwardRef<
               position={"popper"}
               sideOffset={-2}
             >
-              <SelectRadix.Viewport className={s.SelectViewport}>
+              <SelectRadix.Viewport className={s.selectViewport}>
                 <SelectRadix.Group>
                   {items.map((el) => (
                     <SelectRadix.Item
