@@ -2,8 +2,6 @@ export * from "./auth";
 export * from "./delete-photo-modal";
 export * from "./header";
 export * from "./mobileMenuMar";
-export * from "./general";
-export * from "./auth-with-social";
 export * from "./infoPage";
 export * from "./profile";
 export * from "./sideBar";

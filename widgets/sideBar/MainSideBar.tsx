@@ -23,7 +23,7 @@ export const MainSideBar = () => {
     t.menu;
 
   const basicPaths = [
-    { icon: <Home_outline />, path: Paths.MAIN, title: home },
+    { icon: <Home_outline />, path: Paths.HOME, title: home },
     { icon: <PlusSquare_outline />, path: Paths.CREATE, title: create },
     { icon: <Person_outline />, path: Paths.PROFILE, title: myProfile },
     {

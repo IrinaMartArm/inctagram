@@ -1,6 +1,6 @@
 import { Info } from "@/features";
+import { Paths } from "@/shared/assets";
 import { useTranslationPages } from "@/shared/assets/hooks";
-import { Paths } from "@/shared/assets/paths";
 import { Button, Typography } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +12,6 @@ const followersN = 345;
 const publicationsN = 465;
 
 export const MyProfile = () => {
-  const { followers, following, publications, settingsBtn } = t.profile;
   const router = useRouter();
   const { id } = router.query;
   // const { data: profile } = useProfileInformationQuery();

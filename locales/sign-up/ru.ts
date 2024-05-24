@@ -1,4 +1,4 @@
-export default {
+const ru = {
   1: "Условиями использования",
   2: "Политикой конфиденциальности",
   agree: "Я согласен с  <1></1> и <2></2>",
@@ -25,3 +25,7 @@ export default {
   title: "Зарегистрироваться",
   usernameError: "Максимальное количество символов 30",
 };
+
+export type SignUpLocale = typeof ru;
+
+export default ru;

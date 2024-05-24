@@ -1,4 +1,6 @@
-export default {
+import { SignUpLocale } from "@/locales/sign-up/ru";
+
+const en: SignUpLocale = {
   1: "Terms of Service",
   2: "Privacy Policy",
   agree: "I agree to the <1></1> and <2></2>",
@@ -22,3 +24,5 @@ export default {
   title: "Sign Up",
   usernameError: "Maximum number of characters 30",
 };
+
+export default en;

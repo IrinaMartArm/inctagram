@@ -2,13 +2,12 @@ import { FC, PropsWithChildren, useEffect } from "react";
 
 import { authActions } from "@/entities";
 import { useMeQuery } from "@/shared/assets/api/auth/auth-api";
+import { useAppDispatch } from "@/shared/assets/api/store";
 import {
   Paths,
   authRoutes,
   commonRoutes,
 } from "@/shared/assets/constants/paths";
-import { useAppDispatch } from "@/shared/assets/api/store";
-import { Paths, commonRoutes } from "@/shared/assets/paths";
 import { Loader } from "@/shared/components";
 import { useRouter } from "next/router";
 
@@ -17,7 +16,6 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   const { data: isAuth, isLoading } = useMeQuery(undefined);
 
   const userId = isAuth?.userId;
-  const { data: isAuth, isLoading } = useMeQuery();
   const dispatch = useAppDispatch();
 
   const remainingPath: string = router.pathname.replace(

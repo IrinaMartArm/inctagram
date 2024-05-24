@@ -1,6 +1,4 @@
 import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
-import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
-import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
 import { useIsMobile, useTranslationPages } from "@/shared/assets/hooks";
 import { Button, PageTitle, Typography } from "@/shared/components";
 import Image from "next/image";

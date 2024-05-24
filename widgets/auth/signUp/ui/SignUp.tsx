@@ -5,7 +5,7 @@ import {
   useImperativeHandle,
 } from "react";
 
-import { GitHubBig, Google } from "@/public";
+import { Paths } from "@/shared/assets";
 import { useFormRevalidate } from "@/shared/assets/hooks/useFormRevalidate";
 import { UseFormRef } from "@/shared/assets/types/form";
 import {
@@ -14,9 +14,11 @@ import {
   ControlledCheckBox,
   ControlledTextField,
   Loader,
+  PageTitle,
   Trans,
   Typography,
 } from "@/shared/components";
+import { AuthWithSocial } from "@/widgets";
 import { useSignUp } from "@/widgets/auth/signUp/hooks/useSignUpForm";
 import { SignUpFormFields } from "@/widgets/auth/signUp/validators/validators";
 import Link from "next/link";
@@ -59,22 +61,15 @@ export const SignUpCard = forwardRef(
 
     return (
       <Card as={"form"} onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant={"h1"}>{t.signUp.title}</Typography>
-        <div className={s.socials}>
-          <Link aria-label={"sign in with Google"} href={""}>
-            <Google />
-          </Link>
-          <Link aria-label={"sign in with GitHub"} href={""}>
-            <GitHubBig />
-          </Link>
-        </div>
+        <PageTitle title={t.title} />
+        <AuthWithSocial />
         <ControlledTextField
           control={control}
           disabled={isLoading}
           errorMessage={errors.username?.message}
-          label={"Username"}
+          label={t.name}
           name={"username"}
-          placeholder={"Username"}
+          placeholder={t.name}
           type={"text"}
         />
         <ControlledTextField
@@ -90,18 +85,18 @@ export const SignUpCard = forwardRef(
           control={control}
           disabled={isLoading}
           errorMessage={errors.password?.message}
-          label={"Password"}
+          label={t.password}
           name={"password"}
-          placeholder={"Password"}
+          placeholder={t.password}
           type={"password"}
         />
         <ControlledTextField
           control={control}
           disabled={isLoading}
           errorMessage={errors.confirm?.message}
-          label={"Password confirmation"}
+          label={t.passwordConfirmation}
           name={"confirm"}
-          placeholder={"Password confirmation"}
+          placeholder={t.passwordConfirmation}
           type={"password"}
         />
         <div className={s.policy}>
@@ -115,21 +110,17 @@ export const SignUpCard = forwardRef(
             <Trans
               tags={{
                 1: () => (
-                  <Link href={"./auth/terms"}>
-                    <Typography variant={"small_link"}>
-                      {t.signUp["1"]}
-                    </Typography>
+                  <Link href={Paths.SERVICE}>
+                    <Typography variant={"small_link"}>{t["1"]}</Typography>
                   </Link>
                 ),
                 2: () => (
-                  <Link href={"./auth/policy"}>
-                    <Typography variant={"small_link"}>
-                      {t.signUp["2"]}
-                    </Typography>
+                  <Link href={Paths.POLICY}>
+                    <Typography variant={"small_link"}>{t["2"]}</Typography>
                   </Link>
                 ),
               }}
-              text={t.signUp.agree}
+              text={t.agree}
             />
           </div>
         </div>
@@ -139,18 +130,15 @@ export const SignUpCard = forwardRef(
           fullWidth
           type={"submit"}
         >
-          {t.signUp.title}
+          {t.title}
         </Button>
 
-        <Typography variant={"regular_text-16"}>{t.signUp.question}</Typography>
-        <Button
-          as={Link}
-          className={s.signupBtn}
-          href={"./sign-in"}
-          variant={"link"}
-        >
-          {t.signUp.signIn}
-        </Button>
+        <Typography variant={"regular_text-16"}>{t.question}</Typography>
+        <Link className={s.signIn} href={Paths.LOGIN}>
+          <Typography className={s.signInLink} variant={"h3"}>
+            {t.signIn}
+          </Typography>
+        </Link>
       </Card>
     );
   },

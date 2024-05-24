@@ -5,5 +5,5 @@ export const useTranslationPages = () => {
   const { locale, route } = router;
   const t = require(`../../../locales${route}/${locale}.ts`).default;
 
-  return { t };
+  return { locale, t };
 };

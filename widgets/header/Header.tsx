@@ -19,8 +19,6 @@ export const Header = ({ isAuth }: Props) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile(MOBILE_BREAKPOINT);
 
-  const publicPage = currentPath === Paths.MAIN;
-
   return (
     <div className={s.root}>
       <div className={s.header}>

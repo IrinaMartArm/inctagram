@@ -15,7 +15,6 @@ export const useProfileForm = () => {
     initUsername = localStorage.getItem("username");
   }
 
-  const { child, fell, success } = t.profile.general;
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertVariant, setAlertVariant] = useState<AlertVariant>("success");

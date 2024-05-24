@@ -31,11 +31,6 @@
   }
 }
 
-.signInBtn {
-  margin-top: 0;
-  color: var(--color-accent-500) !important;
-}
-
 .emailSent_root {
   position: relative;
   @include flex("", center, center);
@@ -79,4 +74,17 @@
 
 .lastInput {
   padding-bottom: 24px;
+}
+
+
+.signIn {
+  margin-top: 12px;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 18px;
+  }
+
+  .signInLink {
+    color: var(--color-accent-500) !important;
+  }
 }

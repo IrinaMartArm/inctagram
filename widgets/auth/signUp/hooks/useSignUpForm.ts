@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useTranslationPages } from "@/shared/assets";
 import {
   SignUpFormFields,
   signUpSchema,
@@ -8,7 +8,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const useSignUp = () => {
-  const { locale, t } = useTranslation();
+  const { locale, t } = useTranslationPages();
 
   const defaultValues = {
     agree: false,

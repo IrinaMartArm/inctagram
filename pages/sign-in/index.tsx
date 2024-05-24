@@ -6,7 +6,6 @@ import {
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppDispatch } from "@/shared/assets/api/store";
 import { Paths } from "@/shared/assets/constants/paths";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { useTranslationPages } from "@/shared/assets/hooks";
 import { HeadMeta } from "@/shared/components";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";

@@ -6,4 +6,3 @@ export * from "./newPassword";
 export * from "./passwordRecovery";
 export * from "./auth-with-social";
 export * from "./email-confirmed";
-
