@@ -4,6 +4,7 @@ import { Controller } from "react-hook-form";
 
 import { useGetProfileInfoQuery } from "@/shared/assets/api/profile/profile-api";
 import { UserProfileArgs } from "@/shared/assets/api/profile/types";
+import { Nullable } from "@/shared/assets/types/types";
 import {
   Alert,
   Button,
@@ -21,6 +22,15 @@ import { DevTool } from "@hookform/devtools";
 import s from "./general.module.scss";
 
 import { useProfileForm, useUpdateAvatar } from "../hook";
+import { useSetUserInfo } from "../hook/useSetUserInfo";
+import {
+  belarus,
+  countries,
+  getCityOptions,
+  getCountryWithCityName,
+  kazakhstan,
+  russ,
+} from "../utils/geography";
 import { AvatarBox } from "./avatarBox";
 
 const options = [
@@ -33,51 +43,10 @@ const options = [
   { disabled: false, title: "Account Management", value: "Account Management" },
   { disabled: false, title: "My payments", value: "My payments" },
 ];
-const countries = [
-  { title: "Belarus", value: "Belarus" },
-  { title: "Russia", value: "Russia" },
-  { title: "Kazakhstan", value: "Kazakhstan" },
-  { title: "Georgia", value: "Georgia" },
-  { title: "Armenia", value: "Armenia" },
-];
-const russ = [
-  { title: "Moscow", value: "Moscow" },
-  { title: "Krasnodar", value: "Krasnodar" },
-  { title: "Sochi", value: "Sochi" },
-  { title: "Volgograd", value: "Volgograd" },
-];
-const belarus = [
-  { title: "Minsk", value: "Minsk" },
-  { title: "Vitebsk", value: "Vitebsk" },
-  { title: "Gomel", value: "Gomel" },
-  { title: "Brest", value: "Brest" },
-];
-const kazakhstan = [
-  { title: "Astana", value: "Astana" },
-  { title: "Aqtobe", value: "Aqtobe" },
-  { title: "Kostanai", value: "Kostanai" },
-  { title: "Karaganda", value: "Karaganda" },
-];
+
 ///get country with city name
 
-const getCountryWithCityName = (cityFromServer: string) => {
-  const countriesWithCities = {
-    Belarus: belarus,
-    Kazakhstan: kazakhstan,
-    Russia: russ,
-  };
-
-  for (const [country, cities] of Object.entries(countriesWithCities)) {
-    // Проверяем, есть ли город в массиве городов текущей страны
-    if (cities.some((city) => city.value === cityFromServer)) {
-      return country;
-    }
-  }
-
-  return null;
-};
-
-type UserInfoKeys =
+export type UserInfoKeys =
   | "aboutMe"
   | "city"
   | "dateOfBirth"
@@ -104,24 +73,14 @@ export const General = () => {
 
   const { data: userInfoData, error, isLoading } = useGetProfileInfoQuery();
 
-  useEffect(() => {
-    for (const key in userInfoData) {
-      setValue(key as UserInfoKeys, userInfoData[key as UserInfoKeys]);
-    }
-
-    if (userInfoData?.city) {
-      const country = getCountryWithCityName(userInfoData.city) as string;
-      const citiesOfCountry = getCityOptions(country);
-
-      setSelectedCountry(country);
-      setCitiesRange(citiesOfCountry);
-    } else {
-      setValue("city", cities[0].value);
-    }
-    if (userInfoData?.dateOfBirth) {
-      setSelectedDate(userInfoData.dateOfBirth);
-    }
-  }, [setValue, userInfoData]);
+  const {
+    citiesRange,
+    selectedCountry,
+    selectedDate,
+    setCitiesRange,
+    setSelectedCountry,
+    setSelectedDate,
+  } = useSetUserInfo(userInfoData, setValue);
 
   useEffect(() => {
     //for setting all values isDirty false after submitting form
@@ -133,10 +92,7 @@ export const General = () => {
     }
   }, [isSubmitSuccessful, reset]);
 
-  const [selectedDate, setSelectedDate] = useState<string>("");
-  const [selectedCountry, setSelectedCountry] = useState<null | string>(null);
   const [isShowModal, setIsShowModal] = useState(false);
-  const [citiesRange, setCitiesRange] = useState(belarus);
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
@@ -171,23 +127,7 @@ export const General = () => {
     });
   };
 
-  const getCityOptions = (country: string) => {
-    if (country === "Russia") {
-      return russ;
-    } else if (country === "Belarus") {
-      return belarus;
-    } else if (country === "Kazakhstan") {
-      return kazakhstan;
-    } else {
-      return belarus;
-    }
-  };
-
-  const cities = getCityOptions(selectedCountry as string);
   const isDisabled = !isValid && !isDirty;
-
-  console.log(selectedCountry);
-  console.log(citiesRange);
 
   return (
     <>
