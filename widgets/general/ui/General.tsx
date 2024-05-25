@@ -111,8 +111,10 @@ export const General = () => {
 
     if (userInfoData?.city) {
       const country = getCountryWithCityName(userInfoData.city) as string;
+      const citiesOfCountry = getCityOptions(country);
 
       setSelectedCountry(country);
+      setCitiesRange(citiesOfCountry);
     } else {
       setValue("city", cities[0].value);
     }
@@ -122,6 +124,7 @@ export const General = () => {
   }, [setValue, userInfoData]);
 
   useEffect(() => {
+    //for setting all values isDirty false after submitting form
     if (isSubmitSuccessful) {
       reset(undefined, {
         keepDefaultValues: false,
@@ -131,10 +134,9 @@ export const General = () => {
   }, [isSubmitSuccessful, reset]);
 
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [selectedCountry, setSelectedCountry] = useState("Belarus");
+  const [selectedCountry, setSelectedCountry] = useState<null | string>(null);
   const [isShowModal, setIsShowModal] = useState(false);
   const [citiesRange, setCitiesRange] = useState(belarus);
-  const [isSelecting, setIsSelecting] = useState(false);
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
@@ -148,19 +150,18 @@ export const General = () => {
   };
 
   const handleSelectCountry = (key: string, value: string) => {
+    //when we change country we set the first city of a range
     const cities = getCityOptions(value);
 
-    setIsSelecting(true);
     setSelectedCountry(value);
     setCitiesRange(cities);
-    console.log(cities); ///acheived behavior setValue!!!!
-    console.log(cities[0].value);
 
     setValue("city", cities[0].value);
   };
 
   const handleSelectCity = (key: string, value: string) => {
     if (value.trim() === "") {
+      ///when we change country in other select this function is triggering with value of empty string
       return;
     }
 
@@ -182,10 +183,11 @@ export const General = () => {
     }
   };
 
-  const cities = getCityOptions(selectedCountry);
+  const cities = getCityOptions(selectedCountry as string);
   const isDisabled = !isValid && !isDirty;
 
-  console.log(citiesRange[0].value);
+  console.log(selectedCountry);
+  console.log(citiesRange);
 
   return (
     <>
@@ -246,23 +248,27 @@ export const General = () => {
               )}
             />
             <div className={s.selectors}>
-              <Select
-                className={s.general}
-                defaultValue={countries[0].value}
-                items={countries}
-                label={"Select your country"}
-                name={"countries"}
-                onChange={handleSelectCountry}
-              />
-              <ControlledSelect
-                className={s.general}
-                control={control}
-                defaultValue={userInfoData?.city || citiesRange[0].value}
-                items={citiesRange}
-                label={"City"}
-                name={"city"}
-                onChange={handleSelectCity}
-              />
+              {selectedCountry && (
+                <>
+                  <Select
+                    className={s.general}
+                    defaultValue={selectedCountry}
+                    items={countries}
+                    label={"Select your country"}
+                    name={"countries"}
+                    onChange={handleSelectCountry}
+                  />
+                  <ControlledSelect
+                    className={s.general}
+                    control={control}
+                    defaultValue={userInfoData?.city || citiesRange[0].value}
+                    items={citiesRange}
+                    label={"City"}
+                    name={"city"}
+                    onChange={handleSelectCity}
+                  />
+                </>
+              )}
             </div>
             <ControlledTextArea
               control={control}
