@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Account,
   Bookmark_outline,
@@ -134,3 +135,5 @@ export const MainSideBar = () => {
     </SideBar>
   );
 };
+=======
+>>>>>>> develop

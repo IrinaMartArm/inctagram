@@ -1,0 +1,22 @@
+.wrapper {
+  max-width: 950px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.back {
+  @media screen and (max-width: 576px) {
+    position: fixed;
+    padding: 0;
+    width: 24px;
+  }
+}
+
+.title {
+  margin: 20px auto;
+  text-align: center;
+  @media screen and (max-width: 576px) {
+    max-width: 80%;
+    margin: 0 auto 10px;
+  }
+}

@@ -1,1 +1,1 @@
-export * from "./MainSideBar";
+export { NavLinks } from "./NavLinks";

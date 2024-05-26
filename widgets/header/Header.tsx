@@ -1,42 +1,55 @@
-import { Bell } from "@/public";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Button } from "@/shared/components/button";
-import { LangSelect } from "@/shared/components/select/langSelect/LangSelect";
+import { LangSelect } from "@/features";
+import { More } from "@/public";
+import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
+import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
+import { Button } from "@/shared/components";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import s from "./header.module.scss";
-export const Header = () => {
-  const { pathname: currentPath } = useRouter();
-  const { t } = useTranslation();
 
-  const publicPage = currentPath === "/";
-  const messagesCount = 0;
+import { Notifications } from "./ui";
+
+const NOTIFICATIONS_COUNT = 5;
+
+type Props = {
+  isAuth: boolean;
+};
+
+export const Header = ({ isAuth }: Props) => {
+  const { t } = useTranslation();
+  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
 
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <p className={s.logo}>Inctagram</p>
-        {publicPage ? (
+        <Link className={s.logo} href={Paths.MAIN}>
+          Inctagram
+        </Link>
+        {!isAuth && !isMobile && (
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
-              <Button as={Link} href={"./sign-in"} variant={"link"}>
-                Log in
+              <Button as={Link} href={Paths.LOGIN} variant={"link"}>
+                {t.signIn}
               </Button>
-              <Button as={Link} href={"./sign-up"}>
-                {t.signUp.title}
+              <Button as={Link} href={Paths.REGISTRATION}>
+                {t.signUp}
               </Button>
             </div>
           </div>
-        ) : (
-          <div className={s.bell}>
-            {messagesCount > 0 && (
-              <div className={s.bellMessage}>{messagesCount}</div>
+        )}
+        {isAuth && (
+          <div className={s.wrapper}>
+            {!isMobile && (
+              <Notifications notificationsCount={NOTIFICATIONS_COUNT} />
             )}
-            <Bell />
             <LangSelect />
           </div>
+        )}
+        {isMobile && (
+          <button>
+            <More />
+          </button>
         )}
       </div>
     </div>
