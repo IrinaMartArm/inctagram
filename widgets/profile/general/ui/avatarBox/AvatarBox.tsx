@@ -24,6 +24,7 @@ export const AvatarBox = ({ avatar, deletePhoto, setIsShowModal }: Props) => {
       <Button
         className={s.button}
         onClick={() => setIsShowModal(true)}
+        type={"button"}
         variant={"outlined"}
       >
         {t.addPhoto}

@@ -159,21 +159,6 @@ export const General = () => {
               type={"text"}
             />
 
-            {/* <Controller
-              control={control}
-              name={"dateOfBirth"}
-              render={({ field: { onChange } }) => (
-                <DayPicker
-                  mode={"single"}
-                  selected={selectedDate}
-                  setSelected={(value: string) => {
-                    onChange(value);
-                    setSelectedDate(value);
-                  }}
-                />
-              )}
-            /> */}
-
             <ControlledDayPicker
               control={control}
               // errorMessage={errors.dateOfBirth?.message}
