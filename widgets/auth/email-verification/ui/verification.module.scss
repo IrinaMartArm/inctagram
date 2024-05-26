@@ -1,27 +1,46 @@
-.title {
-  margin-top: 35px;
-}
-
-.expired {
-  max-width: 300px;
+.wrapper {
+  margin: 14px auto;
   text-align: center;
-  margin: 20px auto 30px;
-}
+  max-width: 474px;
+  @media screen and (max-width: 576px) {
+    margin-top: 0;
+    max-width: 100%;
+  }
 
-.boy {
-  margin-top: 30px;
-}
+  .title {
+    margin-top: 35px;
+    margin-bottom: 20px;
+  }
 
-// confirmed
+  .expired {
+    max-width: 294px;
+    text-align: center;
+    display: inline-block;
+    @media screen and (max-width: 576px) {
+      max-width: 100%;
+    }
+  }
 
-.confirmed {
-  margin: 20px auto 55px;
-}
+  .imageWithButton {
+    @media screen and (max-width: 576px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
 
-.btn {
-  width: 182px;
-}
+    .btn {
+      width: 294px;
+      margin: 30px auto;
+      @media screen and (max-width: 576px) {
+        width: 100%;
+        margin: 42px 0;
+      }
+    }
 
-.image {
-  margin-top: 70px;
+    .image {
+      margin: 70px auto;
+      @media screen and (max-width: 576px) {
+        margin: 30px auto;
+      }
+    }
+  }
 }

@@ -20,29 +20,29 @@ export const NewPasswordCard = () => {
 
   return (
     <Card as={"form"} onSubmit={handleSubmit(newPasswordCreator)}>
-      <PageTitle className={s.title} title={t.passwordRecovery.createTitle} />
+      <PageTitle className={s.title} title={t.title} />
 
       <ControlledTextField
         control={control}
         errorMessage={errors.newPassword?.message}
-        label={"New password"}
+        label={t.newPassword}
         name={"newPassword"}
-        placeholder={"New password"}
+        placeholder={t.newPassword}
         type={"password"}
       />
       <ControlledTextField
         control={control}
         errorMessage={errors.passwordConfirmation?.message}
-        label={"Password confirmation"}
+        label={t.passwordConfirmation}
         name={"passwordConfirmation"}
-        placeholder={"Password confirmation"}
+        placeholder={t.passwordConfirmation}
         type={"password"}
       />
       <Typography className={s.text} variant={"regular_text-14"}>
-        {t.passwordRecovery.rules}
+        {t.rules}
       </Typography>
       <Button fullWidth type={"submit"}>
-        {t.passwordRecovery.createTitle}
+        {t.title}
       </Button>
     </Card>
   );

@@ -2,25 +2,23 @@ import { useForm } from "react-hook-form";
 
 import { PASSWORD_REGEX } from "@/entities";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 export const useLoginValidation = () => {
-  const { t } = useTranslation();
-  const { email, invalidPassword, passwordMax, passwordMin, required } =
-    t.signIn.errors;
+  const { t } = useTranslationPages();
 
-  const emailValidation = z.string().min(1, required).trim().email(email);
+  const emailValidation = z.string().min(1, t.required).trim().email(t.email);
 
   const passwordValidation = z
     .string()
-    .min(1, required)
-    .min(6, passwordMin)
-    .max(20, passwordMax)
+    .min(1, t.required)
+    .min(6, t.passwordMin)
+    .max(20, t.passwordMax)
     .regex(
       PASSWORD_REGEX,
-      `${invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
+      `${t.invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
 ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
     );
 

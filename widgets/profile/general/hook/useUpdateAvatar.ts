@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   useDeleteUserPhotoMutation,
@@ -13,10 +13,19 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 type ErrorType = FetchBaseQueryError | SerializedError;
 
+const IS_SERVER = typeof window === "undefined";
+
 export const useUpdateAvatar = () => {
-  const [avatar, setAvatar] = useState<string | undefined>(
-    localStorage.getItem("myAvatar") ?? undefined,
-  );
+  useEffect(() => {
+    let avatar;
+
+    if (!IS_SERVER) {
+      avatar = localStorage.getItem("myAvatar") ?? undefined;
+    }
+    setAvatar(avatar);
+  }, []);
+
+  const [avatar, setAvatar] = useState<string | undefined>();
 
   const [setPhoto] = useUploadUserPhotoMutation();
   const [deletePhoto] = useDeleteUserPhotoMutation();

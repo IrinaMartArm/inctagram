@@ -4,7 +4,6 @@ import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
 import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
 import { Button } from "@/shared/components";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import s from "./header.module.scss";
 
@@ -12,12 +11,13 @@ import { Notifications } from "./ui";
 
 const NOTIFICATIONS_COUNT = 5;
 
-export const Header = () => {
-  const { pathname: currentPath } = useRouter();
+type Props = {
+  isAuth: boolean;
+};
+
+export const Header = ({ isAuth }: Props) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile(MOBILE_BREAKPOINT);
-
-  const publicPage = currentPath === Paths.MAIN;
 
   return (
     <div className={s.root}>
@@ -25,31 +25,31 @@ export const Header = () => {
         <Link className={s.logo} href={Paths.MAIN}>
           Inctagram
         </Link>
-        {publicPage && (
+        {!isAuth && !isMobile && (
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
               <Button as={Link} href={Paths.LOGIN} variant={"link"}>
-                {t.signUp.signIn}
+                {t.signIn}
               </Button>
               <Button as={Link} href={Paths.REGISTRATION}>
-                {t.signUp.title}
+                {t.signUp}
               </Button>
             </div>
           </div>
         )}
-        {!publicPage && (
+        {isAuth && (
           <div className={s.wrapper}>
             {!isMobile && (
               <Notifications notificationsCount={NOTIFICATIONS_COUNT} />
             )}
             <LangSelect />
-            {isMobile && (
-              <button>
-                <More />
-              </button>
-            )}
           </div>
+        )}
+        {isMobile && (
+          <button>
+            <More />
+          </button>
         )}
       </div>
     </div>

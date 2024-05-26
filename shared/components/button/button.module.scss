@@ -26,16 +26,16 @@
   &:focus-visible {
     outline: 2px solid var(--color-info-700);
   }
-  @media screen and (max-width: 576px) {
-   padding: 12px 24px;
-    width: 100%;
-  }
 }
 
 .primary {
   @include button;
 
   background-color: var(--color-accent-500);
+  @media screen and (max-width: 576px) {
+    padding: 12px 24px;
+    width: 100%;
+  }
 
   &:focus-visible {
     background-color: var(--color-accent-500);

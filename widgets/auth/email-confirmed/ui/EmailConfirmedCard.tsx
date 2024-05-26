@@ -1,5 +1,5 @@
 import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
-import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
+import { useIsMobile, useTranslationPages } from "@/shared/assets/hooks";
 import { Button, PageTitle, Typography } from "@/shared/components";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,8 +7,7 @@ import Link from "next/link";
 import s from "./emailConfirmed.module.scss";
 
 export const EmailConfirmedCard = () => {
-  const { t } = useTranslation();
-  const { confirmed, congratulations, signIn } = t.signUp;
+  const { t } = useTranslationPages();
   const isMobile = useIsMobile(MOBILE_BREAKPOINT);
 
   const imageHeight = isMobile ? 230 : 300;
@@ -16,13 +15,13 @@ export const EmailConfirmedCard = () => {
 
   return (
     <div className={s.wrapper}>
-      <PageTitle title={congratulations} />
+      <PageTitle textAlign={"center"} title={t.title} />
       <Typography className={s.confirmed} variant={"regular_text-16"}>
-        {confirmed}
+        {t.description}
       </Typography>
       <div className={s.imageWithButton}>
         <Button as={Link} className={s.btn} href={Paths.LOGIN}>
-          {signIn}
+          {t.titleButton}
         </Button>
         <Image
           alt={"Congratulations!"}

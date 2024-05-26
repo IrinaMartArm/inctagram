@@ -35,13 +35,13 @@ export const LogOutModal = ({ email }: Props) => {
             variant={"outlined"}
           >
             <Typography className={s.textButton} variant={"h3"}>
-              {t.logOut.buttonYes}
+              {t.common.yes}
             </Typography>
           </Button>
           <ModalClose>
             <Button className={s.button}>
               <Typography className={s.textButton} variant={"h3"}>
-                {t.logOut.buttonNo}
+                {t.common.no}
               </Typography>
             </Button>
           </ModalClose>

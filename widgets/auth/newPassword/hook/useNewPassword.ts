@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { ParsedUrlQuery } from "querystring";
 
 import { useCreateNewPasswordMutation } from "@/shared/assets/api/auth/auth-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/router";
@@ -13,16 +12,23 @@ import z from "zod";
 
 export const useNewPassword = () => {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { confirm, passwordMax, passwordMin } = t.signUp;
+  const { t } = useTranslationPages();
 
   const newPasswordSchema = z
     .object({
-      newPassword: z.string().min(6, passwordMin).max(20, passwordMax).trim(),
-      passwordConfirmation: z.string().min(6, confirm).max(20, confirm).trim(),
+      newPassword: z
+        .string()
+        .min(6, t.passwordMin)
+        .max(20, t.passwordMax)
+        .trim(),
+      passwordConfirmation: z
+        .string()
+        .min(6, t.confirm)
+        .max(20, t.confirm)
+        .trim(),
     })
     .refine((value) => value.newPassword === value.passwordConfirmation, {
-      message: confirm,
+      message: t.confirm,
       path: ["passwordConfirmation"],
     });
 
