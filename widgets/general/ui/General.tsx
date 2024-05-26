@@ -201,7 +201,7 @@ export const General = () => {
                   <ControlledSelect
                     className={s.general}
                     control={control}
-                    defaultValue={userInfoData?.city || citiesRange[0].value}
+                    defaultValue={citiesRange[0].value}
                     items={citiesRange}
                     label={"City"}
                     name={"city"}

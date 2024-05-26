@@ -46,7 +46,7 @@ export const useSetUserInfo = (
     if (userData?.dateOfBirth) {
       setSelectedDate(userData.dateOfBirth);
     }
-  }, [citiesRange, setValue, userData]);
+  }, [setValue, userData]);
 
   return {
     citiesRange,
