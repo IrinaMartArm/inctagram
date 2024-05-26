@@ -1,4 +1,5 @@
 import { authActions } from "@/entities";
+import { Paths } from "@/shared/assets";
 import { useLogoutMutation } from "@/shared/assets/api/auth/auth-api";
 import { useAppDispatch } from "@/shared/assets/api/store";
 import { handleErrorResponse } from "@/shared/assets/helpers";
@@ -16,7 +17,7 @@ export const useLogOut = () => {
       if ("error" in res) {
         return handleErrorResponse(res.error);
       } else {
-        router.push("/");
+        router.push(Paths.MAIN);
         dispatch(authActions.setEmail());
       }
     });

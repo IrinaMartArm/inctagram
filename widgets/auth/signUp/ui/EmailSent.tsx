@@ -9,12 +9,16 @@ type Props = {
   onOpenChange?: () => void;
 };
 export const EmailSent = ({ email, onOpenChange }: Props) => {
-  const t = useTranslation();
+  const { t } = useTranslation();
 
   return (
-    <div>
+    <div className={s.emailSent_wrapper}>
       <Typography className={s.emailSent_text} variant={"regular_text-16"}>
-        We have sent a link to confirm your email to {email}
+        {t.signUp.haveSent}{" "}
+      </Typography>
+      <br />
+      <Typography className={s.emailSent_text} variant={"Bold_text-16"}>
+        {email ?? ""}
       </Typography>
       <div className={s.emailSent_btn}>
         <ModalClose>

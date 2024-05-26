@@ -31,7 +31,6 @@ const SignIn = () => {
 
         localStorage.setItem("accessToken", accessToken);
 
-        dispatch(authActions.setEmail(args.email));
         const res = await getUser().unwrap();
 
         await router.push(`${Paths.PROFILE}/?id=${res?.userId!}`);

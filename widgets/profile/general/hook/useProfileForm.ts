@@ -56,7 +56,6 @@ export const useProfileForm = () => {
   const {
     control,
     formState: { errors, isValid },
-    getValues,
     handleSubmit,
   } = useForm<ProfileFormSchema>({
     defaultValues,

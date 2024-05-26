@@ -62,7 +62,7 @@ export const baseQueryWithReauth: BaseQueryFn<
             (await baseQuery(
               {
                 method: "POST",
-                url: "auth/logout",
+                url: "v1/auth/logout",
               },
               api,
               extraOptions,
