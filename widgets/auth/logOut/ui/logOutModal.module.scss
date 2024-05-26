@@ -1,0 +1,31 @@
+@import "../../../../styles/mixins";
+
+.root {
+  padding: 24px;
+}
+
+.button {
+  width: 86px;
+}
+
+.trigger {
+  @include flex(null, null, center, 12px);
+  padding: 0;
+  color: var(--color-light-100) !important;
+
+  &:hover {
+    color: var(--color-accent-100);
+  }
+}
+
+.textButton {
+  width: 30px;
+}
+
+.controller {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 7px;
+}
