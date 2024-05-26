@@ -2,7 +2,7 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 
 import { checkPhoto, convertFileToBase64 } from "@/shared/assets/helpers";
-import { useTranslation } from "@/shared/assets/hooks";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { Alert, Avatar, AvatarEdit, Button, Modal } from "@/shared/components";
 
 import s from "./edit-profilePhoto.module.scss";
@@ -30,9 +30,7 @@ export const EditProfilePhoto = ({
   const [image, setImage] = useState<ArrayBuffer | null | string>(
     photo ?? null,
   );
-  const { t } = useTranslation();
-  const { addPhoto, errors, savePhoto, selectPhoto } =
-    t.profileSettings.general;
+  const { t } = useTranslationPages();
 
   const [errorFile, setErrorFile] = useState<null | string>(null);
 
@@ -40,7 +38,7 @@ export const EditProfilePhoto = ({
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0];
 
-      const error = checkPhoto(file, errors.maxSize, errors.formatFile);
+      const error = checkPhoto(file, t.errors.maxSize, t.errors.formatFile);
 
       if (error) {
         setErrorFile(error);
@@ -82,7 +80,7 @@ export const EditProfilePhoto = ({
   };
 
   return (
-    <Modal defaultOpen={defaultOpen} title={addPhoto}>
+    <Modal defaultOpen={defaultOpen} title={t.addPhoto}>
       <div className={s.wrapper}>
         {(errorFile || error) && (
           <Alert
@@ -100,7 +98,7 @@ export const EditProfilePhoto = ({
                 onClick={saveImage}
                 variant={"primary"}
               >
-                {savePhoto}
+                {t.savePhoto}
               </Button>
             </div>
           </>
@@ -125,7 +123,7 @@ export const EditProfilePhoto = ({
                 htmlFor={"input-file"}
                 onClick={handleInputClick}
               >
-                {selectPhoto}
+                {t.selectPhoto}
               </Button>
             </div>
           </>

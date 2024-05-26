@@ -1,4 +1,4 @@
-import { useTranslation } from "@/shared/assets/hooks";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { Avatar, Button } from "@/shared/components";
 
 import s from "./avatarBox.module.scss";
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const AvatarBox = ({ avatar, deletePhoto, setIsShowModal }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslationPages();
 
   return (
     <div className={s.wrapper}>
@@ -26,7 +26,7 @@ export const AvatarBox = ({ avatar, deletePhoto, setIsShowModal }: Props) => {
         onClick={() => setIsShowModal(true)}
         variant={"outlined"}
       >
-        {t.profileSettings.general.addPhoto}
+        {t.addPhoto}
       </Button>
     </div>
   );

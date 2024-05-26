@@ -1,5 +1,6 @@
 import { Info } from "@/features";
-import { useTranslation } from "@/shared/assets";
+import { Paths } from "@/shared/assets";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { Button, Typography } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,11 +12,10 @@ const followersN = 345;
 const publicationsN = 465;
 
 export const MyProfile = () => {
-  const { t } = useTranslation();
-  const { followers, following, publications, settingsBtn } = t.profile;
   const router = useRouter();
   const { id } = router.query;
   // const { data: profile } = useProfileInformationQuery();
+  const { t } = useTranslationPages();
 
   return (
     <>
@@ -26,16 +26,16 @@ export const MyProfile = () => {
             <Typography variant={"h1"}>URLProfiele</Typography>
             <Button
               as={Link}
-              href={"/profile-settings/general"}
+              href={Paths.PROFILE_GENERAL}
               variant={"secondary"}
             >
-              {settingsBtn}
+              {t.settingsBtn}
             </Button>
           </div>
           <div className={s.second_row}>
-            <Info number={followingN} title={following} />
-            <Info number={followersN} title={followers} />
-            <Info number={publicationsN} title={publications} />
+            <Info number={followingN} title={t.following} />
+            <Info number={followersN} title={t.followers} />
+            <Info number={publicationsN} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={"regular_text-16"}>

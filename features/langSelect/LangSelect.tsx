@@ -22,7 +22,7 @@ export const LangSelect = () => {
     },
     {
       img: "/images/FlagRussia.svg",
-      title: "Russian",
+      title: "Русский",
       value: "ru",
     },
   ];

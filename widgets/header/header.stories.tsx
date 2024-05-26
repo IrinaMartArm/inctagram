@@ -3,9 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Header } from "./Header";
 
 const meta = {
-  argTypes: {
-    onChange: { action: "change checked" },
-  },
+  argTypes: {},
   component: Header,
   tags: ["autodocs"],
   title: "Widgets/Header",
@@ -15,9 +13,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: { isAuth: true },
 };
 
 export const Disabled: Story = {
-  args: {},
+  args: { isAuth: false },
 };

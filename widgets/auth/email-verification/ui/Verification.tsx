@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
+import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import { Button, PageWrapper, Typography } from "@/shared/components";
+import { useIsMobile, useTranslationPages } from "@/shared/assets/hooks";
+import { Button, PageTitle, Typography } from "@/shared/components";
 import { Modal } from "@/shared/components/modals";
 import { EmailSent } from "@/widgets";
 import Image from "next/image";
@@ -11,10 +12,14 @@ import Image from "next/image";
 import s from "./verification.module.scss";
 
 export const Verification = () => {
-  const { t } = useTranslation();
-  const { expired, resend, sendAgain } = t.signUp;
+  const { t } = useTranslationPages();
 
   const [resending] = useEmailResendingMutation();
+
+  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
+
+  const imageHeight = isMobile ? 230 : 300;
+  const imageWidth = isMobile ? 330 : 432;
   let email: string = "";
 
   if (typeof window !== "undefined") {
@@ -36,28 +41,32 @@ export const Verification = () => {
   };
 
   return (
-    <PageWrapper>
-      <Typography className={s.title} variant={"h1"}>
-        {expired}
-      </Typography>
+    <div className={s.wrapper}>
+      <PageTitle className={s.title} textAlign={"center"} title={t.title} />
       <Typography className={s.expired} variant={"regular_text-16"}>
-        {sendAgain}
+        {t.description}
       </Typography>
-      <Modal
-        onOpenChange={onOpenChangeHandler}
-        open={open}
-        title={"Email sent"}
-        trigger={<Button onClick={resendingHandler}>{resend}</Button>}
-      >
-        <EmailSent email={email || ""} />
-      </Modal>
-      <Image
-        alt={"Congratulations!"}
-        className={s.boy}
-        height={300}
-        src={"/images/Boy.png"}
-        width={432}
-      />
-    </PageWrapper>
+      <div className={s.imageWithButton}>
+        <Modal
+          onOpenChange={onOpenChangeHandler}
+          open={open}
+          title={"Email sent"}
+          trigger={
+            <Button className={s.btn} onClick={resendingHandler}>
+              {t.titleButton}
+            </Button>
+          }
+        >
+          <EmailSent email={email || ""} />
+        </Modal>
+        <Image
+          alt={"Congratulations!"}
+          className={s.image}
+          height={imageHeight}
+          src={"/images/Boy.png"}
+          width={imageWidth}
+        />
+      </div>
+    </div>
   );
 };

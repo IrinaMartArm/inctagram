@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 
 import { usePasswordRecoveryMutation } from "@/shared/assets/api/auth/auth-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { z } from "zod";
 
 export const usePasswordRecovery = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslationPages();
 
   const passwordRecoverySchema = z.object({
     email: z.string().trim().email(),
@@ -54,7 +54,7 @@ export const usePasswordRecovery = () => {
 
         if (status === 404) {
           setError("email", {
-            message: t.passwordRecovery.emailError,
+            message: t.emailError,
             type: "manual",
           });
         }
@@ -63,9 +63,11 @@ export const usePasswordRecovery = () => {
       reset(defaultValues);
     }
   };
-  const handleRecaptchaChange = (token: any) => {
+  const handleRecaptchaChange = (token: null | string) => {
     setToken(token);
-    setValue("token", token);
+    if (token) {
+      setValue("token", token);
+    }
   };
 
   return {
