@@ -7,12 +7,12 @@ import {
 import { DayPicker, DayPickerProps } from "@/shared/components/DayPicker";
 
 type PropsType<T extends FieldValues> = UseControllerProps<T> &
-  Omit<DayPickerProps, "onChange" | "selected">;
+  Omit<DayPickerProps, "onChange" /* | "selected"  */ | "setSelected">; /// setSelected
 
 export const ControlledDayPicker = <T extends FieldValues>({
   control,
   defaultValue,
-  label,
+  //label,
   shouldUnregister,
   ...rest
 }: PropsType<T>) => {
@@ -28,8 +28,9 @@ export const ControlledDayPicker = <T extends FieldValues>({
   return (
     <DayPicker
       {...rest}
-      label={label}
+      /* label={label}
       mode={"single"}
+      selected={value} */
       selected={value}
       setSelected={onChange}
     />

@@ -1,13 +1,12 @@
-import { ReactNode, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ClassNames,
-  DateRange,
   DayPicker as ReactDayPicker,
-  SelectRangeEventHandler,
   SelectSingleEventHandler,
 } from "react-day-picker";
 
 import { Input } from "@/shared/components";
+import { useOutsideDayClick } from "@/shared/components/DayPicker/OutsideDayClickHook";
 import { clsx } from "clsx";
 import { format, parse } from "date-fns";
 
@@ -15,76 +14,35 @@ import s from "./DayPicker.module.scss";
 import styles from "react-day-picker/dist/style.module.css";
 
 export const DayPicker = (props: DayPickerProps) => {
-  // let mode: 'range' | 'single'
-  let range: Array<string> | undefined;
-  let setRange: (newRange: Array<string>) => void;
-  let selected: string | undefined;
-  let setSelected: (value: string) => void;
+  const { errorText, setSelected } = props;
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true);
+  const [localSelected, setLocalSelected] = useState("");
 
-  const [isPickerRangeHidden, setIsPickerRangeHidden] = useState<boolean>(true);
-
-  if (props.mode === "range") {
-    ({ range, setRange } = props as RangeDayPickerProps);
-  } else if (props.mode === "single") {
-    ({ selected, setSelected } = props as SingleDayPickerProps);
-  }
+  useEffect(() => {
+    if (isValidDateFormat(localSelected)) {
+      setSelected(localSelected);
+    } else {
+      setSelected("");
+    }
+  }, [localSelected]);
 
   const weekends = [5, 6];
   const weekendStyle = { color: "#F23D61" };
 
   const DateFormat = "dd.MM.yyyy";
-  const dateFrom = range ? range[0] : "";
-  const dateTo = range ? range[1] : "";
-  const dateRange = dateFrom && dateTo ? dateFrom + " - " + dateTo : "";
 
   const classNames: ClassNames = {
     ...styles,
     ...s,
     caption: clsx(styles.caption, s.caption),
+    caption_label: clsx(styles.caption_label, s.caption_label),
+    // table: clsx(styles.table, s.table),
     day: clsx(styles.day, s.day),
+    dropdown: clsx(styles.dropdown, s.dropdown),
     nav_button: clsx(styles.nav_button, s.nav_button),
     root: clsx(styles.root, s.root),
-  };
-
-  // Internal state to track selected start and end dates in 'range' mode
-  const [selectedRange, setSelectedRange] = useState<DateRange>({
-    from: undefined,
-    to: undefined,
-  });
-  // Flag to track if start date is selected
-  const [startSelected, setStartSelected] = useState<boolean>(false);
-
-  // Function to handle date selection in 'range' mode
-  const handleRangeSelect: SelectRangeEventHandler = (
-    dates: DateRange | undefined,
-  ) => {
-    if (dates && dates.from && dates.to) {
-      // Check if both dates are present
-      setSelectedRange(dates); // Update internal state
-      const formattedDates = [
-        format(dates.from, DateFormat),
-        format(dates.to, DateFormat),
-      ];
-
-      setRange(formattedDates);
-      setIsPickerRangeHidden(true);
-    }
-  };
-
-  // Function to handle click on date in 'range' mode
-  const handleDayClick = (date: Date) => {
-    if (!startSelected) {
-      // If start date is not selected yet
-      setStartSelected(true); // Set flag that start date is selected
-      setSelectedRange({ from: date, to: date }); // Set start and end dates simultaneously
-    } else {
-      // If start date is already selected
-      setSelectedRange((prevState) => ({ from: prevState.from, to: date })); // Set only end date
-      setStartSelected(false); // Reset flag
-    }
   };
 
   // Function to handle date selection in 'single' mode
@@ -92,24 +50,22 @@ export const DayPicker = (props: DayPickerProps) => {
     date: Date | undefined,
   ) => {
     if (date) {
-      setSelected(format(date, DateFormat));
+      setLocalSelected(format(date, DateFormat));
       setIsPickerSingleHidden(true);
     }
   };
 
   // Function to parse selected date if it exists
   const parseSelectedDate = (
-    selected: string | undefined,
+    localSelected: string | undefined,
   ): Date | undefined => {
-    return selected ? parse(selected, DateFormat, new Date()) : undefined;
+    return localSelected
+      ? parse(localSelected, DateFormat, new Date())
+      : undefined;
   };
 
   const onClickSingle = () => {
     setIsPickerSingleHidden(false);
-  };
-
-  const onClickRange = () => {
-    setIsPickerRangeHidden(false);
   };
 
   const isValidDateFormat = (dateString: string) => {
@@ -119,83 +75,55 @@ export const DayPicker = (props: DayPickerProps) => {
   };
 
   const dateSingleChecker = () => {
-    return selected && !isValidDateFormat(selected) ? "Error!" : "";
+    return localSelected && !isValidDateFormat(localSelected)
+      ? "Date format error!"
+      : "";
   };
+
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const handleOutsideClick = () => {
+    setIsPickerSingleHidden(true);
+  };
+
+  useOutsideDayClick(calendarRef, handleOutsideClick);
+
+  const currentTime = new Date();
+  const currentYear = currentTime.getFullYear();
+  const maxHumanAge = 122;
 
   return (
     <div className={s.pickerContainer}>
-      {props.mode === "single" && (
-        <>
-          <div className={s.inputSingleContainer}>
-            <Input
-              errorMessage={dateSingleChecker()}
-              label={props.label}
-              onButtonClick={onClickSingle}
-              onChange={(e) => setSelected(e.target.value)}
-              type={"datePicker"}
-              value={selected || ""}
-            />
-          </div>
-          {!isPickerSingleHidden && (
-            <div className={s.pickerContainer}>
-              <ReactDayPicker
-                classNames={classNames}
-                mode={"single"}
-                modifiers={{
-                  weekend: (day) => weekends.includes(day.getDay()),
-                }}
-                modifiersStyles={{ weekend: weekendStyle }}
-                onSelect={handleSingleSelect}
-                selected={parseSelectedDate(selected)}
-                showOutsideDays
-              />
-            </div>
-          )}
-        </>
-      )}
-      {props.mode === "range" && (
-        <>
-          <div className={s.inputRangeContainer} onClick={onClickRange}>
-            <Input
-              onChange={(e) => setRange([e.target.value])}
-              type={"datePicker"}
-              value={dateRange || ""}
-            />
-          </div>
-          {!isPickerRangeHidden && (
-            <div className={s.pickerContainer}>
-              <ReactDayPicker
-                classNames={classNames}
-                mode={"range"}
-                modifiers={{
-                  weekend: (day) => weekends.includes(day.getDay()),
-                }}
-                modifiersStyles={{ weekend: weekendStyle }}
-                onDayClick={handleDayClick}
-                onSelect={handleRangeSelect}
-                selected={selectedRange}
-                showOutsideDays
-              />
-            </div>
-          )}
-        </>
+      <Input
+        errorMessage={dateSingleChecker() || errorText}
+        onButtonClick={onClickSingle}
+        onChange={(e) => setLocalSelected(e.target.value)}
+        type={"datePicker"}
+        value={localSelected || ""}
+      />
+      {!isPickerSingleHidden && (
+        <div className={s.pickerContainer} ref={calendarRef}>
+          <ReactDayPicker
+            captionLayout={"dropdown-buttons"}
+            classNames={classNames}
+            fromYear={currentYear - maxHumanAge}
+            mode={"single"}
+            modifiers={{
+              weekend: (day) => weekends.includes(day.getDay()),
+            }}
+            modifiersStyles={{ weekend: weekendStyle }}
+            onSelect={handleSingleSelect}
+            selected={parseSelectedDate(localSelected)}
+            showOutsideDays
+            toYear={currentYear}
+          />
+        </div>
       )}
     </div>
   );
 };
 
-export type DayPickerProps = RangeDayPickerProps | SingleDayPickerProps;
-
-type SingleDayPickerProps = {
-  label?: ReactNode;
-  mode: "single";
-  selected: string;
+export type DayPickerProps = {
+  errorText?: string;
   setSelected: (value: string) => void;
-};
-
-type RangeDayPickerProps = {
-  label?: ReactNode;
-  mode: "range";
-  range: Array<string>;
-  setRange: (newRange: Array<string>) => void;
 };

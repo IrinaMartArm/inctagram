@@ -65,8 +65,13 @@ export const General = () => {
 
   const { data: userInfoData, error, isLoading } = useGetProfileInfoQuery();
 
-  const { citiesRange, selectedCountry, setCitiesRange, setSelectedCountry } =
-    useSetUserInfo(userInfoData, setValue);
+  const {
+    citiesRange,
+    dateOfBirth,
+    selectedCountry,
+    setCitiesRange,
+    setSelectedCountry,
+  } = useSetUserInfo(userInfoData, setValue);
 
   useEffect(() => {
     //for setting all values isDirty false after submitting form
@@ -162,9 +167,10 @@ export const General = () => {
             <ControlledDayPicker
               control={control}
               // errorMessage={errors.dateOfBirth?.message}
-              label={"Date of birth"}
-              mode={"single"}
+              //label={"Date of birth"}
               name={"dateOfBirth"}
+              //mode={"single"}
+              selected={dateOfBirth}
             />
             <div className={s.selectors}>
               {selectedCountry && (

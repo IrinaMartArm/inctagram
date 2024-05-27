@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
+import { userInfo } from "os";
+
 import { UserProfileArgs } from "@/shared/assets/api/profile/types";
 import { Nullable } from "@/shared/assets/types/types";
 
@@ -46,6 +48,7 @@ export const useSetUserInfo = (
 
   return {
     citiesRange,
+    dateOfBirth: userData?.dateOfBirth || "10.10.1990",
     selectedCountry,
     setCitiesRange,
     setSelectedCountry,
