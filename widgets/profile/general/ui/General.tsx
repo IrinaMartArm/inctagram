@@ -113,7 +113,7 @@ export const General = () => {
     });
   };
 
-  const isDisabled = !isValid && !isDirty;
+  const isDisabled = isValid && isDirty;
 
   return (
     <>
@@ -199,7 +199,7 @@ export const General = () => {
             />
           </div>
         </div>
-        <Button className={s.button} disabled={isDisabled} type={"submit"}>
+        <Button className={s.button} disabled={!isDisabled} type={"submit"}>
           Save Changes
         </Button>
         {isShowModal && (
