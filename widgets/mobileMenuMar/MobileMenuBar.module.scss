@@ -1,0 +1,13 @@
+@import '../../styles/mixins';
+
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  @include flex('', center, center, 36px);
+  width: 100%;
+  padding: 18px 0;
+  height: 60px;
+  border-top: 1px solid var(--color-dark-300);
+  background-color: var(--color-dark-700);
+  z-index: 100;
+}

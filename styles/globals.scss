@@ -69,9 +69,6 @@ button:active {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-
   font-family: "Inter", sans-serif;
   line-height: var(--line-height-m);
   font-size: var(--font-size-s);
@@ -80,7 +77,12 @@ body {
   color: var(--color-light-100);
 
   background-color: var(--color-dark-700);
+  overflow: hidden;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
 }
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

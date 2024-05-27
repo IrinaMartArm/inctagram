@@ -6,6 +6,8 @@ export type User = {
 
 type MeErrorResponse = "Unauthorized";
 
+export type MeResponse = MeErrorResponse | User;
+
 export type SignUpArgs = {
   email: string;
   password: string;
@@ -25,8 +27,6 @@ export type ErrorsMessage = {
 export type ConformationArgs = {
   code: string;
 };
-
-export type MeResponse = MeErrorResponse | User;
 
 export type LoginArgs = {
   email: string;

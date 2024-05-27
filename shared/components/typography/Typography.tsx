@@ -10,8 +10,8 @@ type PropsType<T extends ElementType> = {
   variant: TypographyVariantTypes;
 } & ComponentProps<T>;
 
-export const Typography = <T extends ElementType = "div">({
-  as: Component = "div",
+export const Typography = <T extends ElementType = "span">({
+  as: Component = "span",
   children,
   className,
   variant,
