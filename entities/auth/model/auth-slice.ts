@@ -19,7 +19,7 @@ const slice = createSlice({
     error: undefined as string | undefined,
     isAuth: false,
   },
-  name: "authSlice",
+  name: "auth",
   reducers: {
     setEmail: (state, action: PayloadAction<string | undefined>) => {
       state.email = action.payload;
@@ -31,7 +31,11 @@ const slice = createSlice({
       state.isAuth = action.payload;
     },
   },
+  selectors: {
+    userEmailSelector: (state) => state.email,
+  },
 });
 
 export const authReducers = slice.reducer;
 export const authActions = slice.actions;
+export const { userEmailSelector } = slice.selectors;

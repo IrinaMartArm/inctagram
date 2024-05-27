@@ -31,6 +31,11 @@
   }
 }
 
+.signInBtn {
+  margin-top: 0;
+  color: var(--color-accent-500) !important;
+}
+
 .emailSent_root {
   position: relative;
   @include flex("", center, center);
@@ -45,19 +50,8 @@
 }
 
 .emailSent_wrapper {
-  @include flex(column);
-  transform: translate(0, -50%);
-  width: 378px;
-  height: 228px;
-  border: 1px solid var(--color-dark-100);
-  background-color: var(--color-dark-300);
-}
-
-.emailSent_header {
-  @include flex("", space-between, center);
   width: 100%;
-  padding: 12px 24px;
-  border-bottom: 1px solid var(--color-dark-100);
+  margin-top: 30px;
 }
 
 .emailSent_text {
