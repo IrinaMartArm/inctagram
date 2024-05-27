@@ -5,11 +5,6 @@ import { Paths } from "@/shared/assets";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppSelector } from "@/shared/assets/api/store";
 import {
-  githubAuthRedirect,
-  googleAuthRedirect,
-} from "@/shared/assets/helpers/authentication";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
-import {
   Button,
   Card,
   ControlledTextField,
