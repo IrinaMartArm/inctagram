@@ -1,27 +1,26 @@
 import {useEffect, useRef, useState} from "react"
 import {ClassNames, DayPicker as ReactDayPicker, SelectSingleEventHandler,} from "react-day-picker"
 
-import {Input} from "@/shared/components"
+import {Input, Typography} from "@/shared/components"
 import {clsx} from "clsx"
 import {format, parse} from "date-fns"
 
 import s from "./DayPicker.module.scss"
+import sC from '@/shared/components/input/input.module.scss'
 import styles from "react-day-picker/dist/style.module.css"
 import {useOutsideDayClick} from "@/shared/components/DayPicker/OutsideDayClickHook"
 
 export const DayPicker = (props: DayPickerProps) => {
 
-  const {setSelected, errorText} = props
+  const {setSelected, errorText, label} = props
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true)
-  const [localSelected, setLocalSelected] = useState('')
+  const [localSelected, setLocalSelected] = useState(props.selected)
 
   useEffect(() => {
     if (isValidDateFormat(localSelected)) {
       setSelected(localSelected)
-    } else {
-      setSelected('')
     }
 
   }, [localSelected]);
@@ -89,6 +88,9 @@ export const DayPicker = (props: DayPickerProps) => {
 
   return (
     <div className={s.pickerContainer}>
+      {label && <Typography className={sC.label} variant={"regular_text-14"}>
+        {label}
+      </Typography> }
       <Input
         errorMessage={dateSingleChecker() || errorText}
         onButtonClick={onClickSingle}
@@ -120,7 +122,9 @@ export const DayPicker = (props: DayPickerProps) => {
 
 
 export type DayPickerProps = {
+  selected: string
   setSelected: (value: string) => void;
   errorText?: string
+  label?: string
 };
 
