@@ -6,12 +6,6 @@ import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { Header } from "@/widgets/header/Header";
 
 const Public: NextPageWithLayout = () => {
-  // const { data, error, isLoading } = useMeQuery();
-  // const isAuthenticated = !error && !isLoading;
-  //
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
   const isAuth = useAppSelector((state: RootState) => state.auth.isAuth);
 
   return (

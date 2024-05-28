@@ -63,7 +63,7 @@ export const AuthApi = baseApi.injectEndpoints({
       me: builder.query<User, void>({
         extraOptions: { maxRetries: 1 },
         providesTags: ["Me"],
-        // query: () => "v1/auth/me",
+
         async queryFn(_name, _api, _extraOptions, baseQuery) {
           const result = await baseQuery({
             method: "GET",

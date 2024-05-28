@@ -1,3 +1,4 @@
+import { userEmailSelector } from "@/entities/auth/model/auth-slice";
 import {
   Bookmark_outline,
   Dialog,
@@ -8,7 +9,7 @@ import {
   Statistics,
 } from "@/public";
 import { Paths } from "@/shared/assets";
-import { RootState, useAppSelector } from "@/shared/assets/api/store";
+import { useAppSelector } from "@/shared/assets/api/store";
 import { useTranslation } from "@/shared/assets/hooks";
 import { SideBar } from "@/shared/components";
 import { LogOutModal } from "@/widgets";
@@ -42,7 +43,9 @@ export const MainSideBar = () => {
       title: favorites,
     },
   ];
-  const email = useAppSelector((state: RootState) => state.auth.email);
+  const email = useAppSelector(userEmailSelector);
+
+  console.log(email);
 
   return (
     <SideBar>
