@@ -15,13 +15,11 @@ export const DayPicker = (props: DayPickerProps) => {
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true)
-  const [localSelected, setLocalSelected] = useState('')
+  const [localSelected, setLocalSelected] = useState(props.selected)
 
   useEffect(() => {
     if (isValidDateFormat(localSelected)) {
       setSelected(localSelected)
-    } else {
-      setSelected('')
     }
 
   }, [localSelected]);
@@ -120,6 +118,7 @@ export const DayPicker = (props: DayPickerProps) => {
 
 
 export type DayPickerProps = {
+  selected: string
   setSelected: (value: string) => void;
   errorText?: string
 };
