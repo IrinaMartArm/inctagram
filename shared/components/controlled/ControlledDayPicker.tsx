@@ -4,8 +4,8 @@ import {
   useController,
 } from "react-hook-form";
 
-import { DayPicker } from "@/shared/components/dayPicker";
 import { DayPickerProps } from "@/shared/components/dayPicker/DayPicker";
+import { DayPicker } from "shared/components/dayPicker";
 
 type PropsType<T extends FieldValues> = UseControllerProps<T> &
   Omit<DayPickerProps, "onChange" | "selected">;
