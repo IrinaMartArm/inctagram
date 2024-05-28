@@ -121,6 +121,7 @@ export const General = () => {
           />
           <ControlledTextField
             control={control}
+            errorMessage={errors.lastName?.message}
             label={t.lastName}
             name={"lastName"}
             required
@@ -130,7 +131,6 @@ export const General = () => {
             control={control}
             // errorMessage={errors.dateOfBirth?.message}
             label={t.dateOfBirth}
-            mode={"single"}
             name={"dateOfBirth"}
           />
           <div className={s.selectors}>
