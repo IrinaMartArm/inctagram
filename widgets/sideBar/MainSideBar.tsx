@@ -45,8 +45,6 @@ export const MainSideBar = () => {
   ];
   const email = useAppSelector(userEmailSelector);
 
-  console.log(email);
-
   return (
     <SideBar>
       <div className={s.root}>
