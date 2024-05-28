@@ -8,6 +8,7 @@ const en: SignUpLocale = {
   checkbox: "You must agree to the terms and conditions",
   confirm: "Passwords must match",
   created: "The account has been created.",
+  email: "Email",
   emailMin: "String must contain at least 1 character(s)",
   formEmail: "The email must match the format\n" + "example@example.com",
   haveSent: "We have sent a link to confirm your email to",

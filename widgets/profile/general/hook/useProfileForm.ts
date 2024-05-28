@@ -91,5 +91,6 @@ export const useProfileForm = () => {
     isValid,
     onSubmit,
     showAlert,
+    t,
   };
 };

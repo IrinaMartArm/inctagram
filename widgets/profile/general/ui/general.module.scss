@@ -1,6 +1,7 @@
 @import "styles/mixins";
 
 .root {
+  @include flex(column, center, center);
   @media screen and (max-width: 576px) {
     margin: 0;
   }
@@ -13,7 +14,7 @@
 .container {
   @include flex(row, center, flex-start, 40px);
   width: 100%;
-  padding-bottom: 24px;
+  padding: 24px 0;
   border-bottom: 1px solid var(--color-dark-300);
 
   @media screen and (max-width: 992px) {
@@ -33,8 +34,8 @@
 }
 
 .button {
-  align-self: flex-end;
   margin: 24px 0;
+  align-self: flex-end;
 }
 
 .general {
