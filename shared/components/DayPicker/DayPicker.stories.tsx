@@ -25,18 +25,18 @@ const renderDayPicker =
     return (
       <div className={s.inputSingleContainer}>
         <DayPicker
-          errorText={errorText}
+          errorMessage={errorText}
           label={label}
+          onChange={setSelected}
           selected={selected}
-          setSelected={setSelected}
         />
       </div>
     );
   };
 
 const commonArgs = {
+  onChange: (selected: string) => {},
   selected: "",
-  setSelected: (selected: string) => {},
 };
 
 export const DayPickerSingle: Story = {
