@@ -19,6 +19,7 @@ const renderDayPicker = (errorText?: string) => (args: DayPickerProps) => {
   return (
     <div className={s.inputSingleContainer}>
       <DayPicker
+        selected={selected}
         setSelected={setSelected}
         errorText={errorText}
       />
