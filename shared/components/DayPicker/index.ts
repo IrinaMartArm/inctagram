@@ -1,1 +1,1 @@
-export * from "./DayPicker";
+export { DayPicker } from "./DayPicker";
