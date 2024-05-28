@@ -36,7 +36,8 @@ export const Alert: FC<Props> = ({
     <div className={alertCN}>
       <div className={s.text}>
         <Typography variant={"regular_text-16"}>
-          <b>{t.common.error}</b> {title}
+          {/*<b>{t.common.error}</b> */}
+          {title}
         </Typography>
       </div>
       {isShowClose && (

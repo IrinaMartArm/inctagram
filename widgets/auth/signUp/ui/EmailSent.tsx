@@ -1,4 +1,4 @@
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
+import { useTranslationPages } from "@/shared/assets";
 import { Button, Typography } from "@/shared/components";
 import { ModalClose } from "@/shared/components/modals/ModalClose";
 
@@ -9,12 +9,14 @@ type Props = {
   onOpenChange?: () => void;
 };
 export const EmailSent = ({ email, onOpenChange }: Props) => {
-  const t = useTranslation();
+  const { t } = useTranslationPages();
 
   return (
-    <div>
+    <div className={s.emailSent_wrapper}>
       <Typography className={s.emailSent_text} variant={"regular_text-16"}>
-        We have sent a link to confirm your email to {email}
+        {t.signUp.haveSent}
+        {""}
+        {email ?? ""}
       </Typography>
       <div className={s.emailSent_btn}>
         <ModalClose>

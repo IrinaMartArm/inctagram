@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
 
+import { authActions } from "@/entities";
+import { userEmailSelector } from "@/entities/auth/model/auth-slice";
 import { useSignUpMutation } from "@/shared/assets/api/auth/auth-api";
+import { useAppDispatch, useAppSelector } from "@/shared/assets/api/store";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { setToLocalStorage } from "@/shared/assets/helpers/setToLocalStorage";
 import { UseFormRef } from "@/shared/assets/types/form";
@@ -12,6 +15,7 @@ import { SignUpCard } from "@/widgets/auth/signUp/ui/SignUp";
 import { SignUpFormFields } from "@/widgets/auth/signUp/validators/validators";
 
 const SignUp = () => {
+  const dispatch = useAppDispatch();
   const ref = useRef<UseFormRef<SignUpFormFields>>(null);
   const [open, setOpen] = useState(false);
 
@@ -22,7 +26,7 @@ const SignUp = () => {
     confirm,
     ...data
   }: SignUpFormFields) => {
-    setToLocalStorage("email", data.email);
+    dispatch(authActions.setEmail(data.email));
     setToLocalStorage("username", data.username);
 
     signUp(data).then((res) => {
@@ -46,11 +50,9 @@ const SignUp = () => {
     ref.current?.reset();
   };
 
-  let email;
+  const email = useAppSelector(userEmailSelector);
 
-  if (typeof window !== "undefined") {
-    email = localStorage.getItem("email");
-  }
+  console.log(email);
 
   return (
     <>
@@ -63,7 +65,7 @@ const SignUp = () => {
       >
         <EmailSent email={email || ""} />
       </Modal>
-      <SignUpCard isLoading={isLoading} onSubmit={handleSubmit} />
+      <SignUpCard isLoading={isLoading} onSubmit={handleSubmit} ref={ref} />
     </>
   );
 };

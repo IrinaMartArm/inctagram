@@ -120,6 +120,8 @@ export const General = () => {
 
   const isDisabled = isValid && isDirty;
 
+  console.log(dateOfBirth);
+
   return (
     <>
       <DevTool control={control} />
@@ -164,14 +166,17 @@ export const General = () => {
               type={"text"}
             />
 
-            <ControlledDayPicker
-              control={control}
-              // errorMessage={errors.dateOfBirth?.message}
-              //label={"Date of birth"}
-              name={"dateOfBirth"}
-              //mode={"single"}
-              selected={dateOfBirth}
-            />
+            {dateOfBirth && (
+              <ControlledDayPicker
+                control={control}
+                //mode={"single"}
+                defaultValue={dateOfBirth}
+                // errorMessage={errors.dateOfBirth?.message}
+                label={"Date of birth"}
+                name={"dateOfBirth"}
+                selected={dateOfBirth ? dateOfBirth : ""}
+              />
+            )}
             <div className={s.selectors}>
               {selectedCountry && (
                 <>

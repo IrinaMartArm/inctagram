@@ -48,7 +48,7 @@ export const useSetUserInfo = (
 
   return {
     citiesRange,
-    dateOfBirth: userData?.dateOfBirth || "10.10.1990",
+    dateOfBirth: userData?.dateOfBirth /* || "10.10.1990" */,
     selectedCountry,
     setCitiesRange,
     setSelectedCountry,

@@ -12,7 +12,7 @@ type PropsType<T extends FieldValues> = UseControllerProps<T> &
 export const ControlledDayPicker = <T extends FieldValues>({
   control,
   defaultValue,
-  //label,
+  label,
   shouldUnregister,
   ...rest
 }: PropsType<T>) => {
@@ -25,12 +25,12 @@ export const ControlledDayPicker = <T extends FieldValues>({
     shouldUnregister,
   });
 
+  console.log(defaultValue);
+
   return (
     <DayPicker
       {...rest}
-      /* label={label}
-      mode={"single"}
-      selected={value} */
+      label={label}
       selected={value}
       setSelected={onChange}
     />
