@@ -17,7 +17,7 @@ export const ControlledDayPicker = <T extends FieldValues>({
   shouldUnregister,
   ...rest
 }: PropsType<T>) => {
-  const {
+  const {                                              
     field: { onChange, value },
   } = useController({
     control,
@@ -30,7 +30,6 @@ export const ControlledDayPicker = <T extends FieldValues>({
     <DayPicker
       {...rest}
       label={label}
-      mode={"single"}
       selected={value}
       setSelected={onChange}
     />
