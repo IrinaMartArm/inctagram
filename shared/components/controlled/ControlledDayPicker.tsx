@@ -4,7 +4,10 @@ import {
   useController,
 } from "react-hook-form";
 
-import { DayPicker, DayPickerProps } from "@/shared/components/DayPicker";
+import {
+  DayPicker,
+  DayPickerProps,
+} from "@/shared/components/dayPicker/DayPicker";
 
 type PropsType<T extends FieldValues> = UseControllerProps<T> &
   Omit<DayPickerProps, "onChange" | "selected">;
@@ -16,7 +19,7 @@ export const ControlledDayPicker = <T extends FieldValues>({
   shouldUnregister,
   ...rest
 }: PropsType<T>) => {
-  const {                                              
+  const {
     field: { onChange, value },
   } = useController({
     control,
@@ -26,11 +29,6 @@ export const ControlledDayPicker = <T extends FieldValues>({
   });
 
   return (
-    <DayPicker
-      {...rest}
-      label={label}
-      selected={value}
-      setSelected={onChange}
-    />
+    <DayPicker {...rest} label={label} onChange={onChange} selected={value} />
   );
 };

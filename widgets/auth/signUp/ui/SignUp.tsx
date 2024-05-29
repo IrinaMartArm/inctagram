@@ -76,9 +76,9 @@ export const SignUpCard = forwardRef(
           control={control}
           disabled={isLoading}
           errorMessage={errors.email?.message}
-          label={"Email"}
+          label={t.email}
           name={"email"}
-          placeholder={"Email"}
+          placeholder={t.email}
           type={"email"}
         />
         <ControlledTextField

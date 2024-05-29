@@ -1,5 +1,5 @@
 export const Paths = {
-  CONFIRM: "/auth/confirm-email",
+  CONFIRM: "/auth/email-confirmed",
   CREATE: "/create",
   FAVORITES: "/favorites",
   FORGOT_PASSWORD: "/auth/create-new-password",

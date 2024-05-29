@@ -3,12 +3,12 @@ import { useState } from "react";
 import {
   Alert,
   Button,
+  ControlledDayPicker,
   ControlledTextArea,
   ControlledTextField,
   Select,
   Tab,
 } from "@/shared/components";
-import { ControlledDayPicker } from "@/shared/components/controlled/ControlledDayPicker";
 import { EditProfilePhoto } from "@/widgets";
 import {
   useProfileForm,
@@ -63,6 +63,7 @@ export const General = () => {
     isValid,
     onSubmit,
     showAlert,
+    t,
   } = useProfileForm();
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
@@ -105,7 +106,7 @@ export const General = () => {
           <ControlledTextField
             control={control}
             errorMessage={errors.username?.message}
-            label={"Username"}
+            label={t.username}
             name={"username"}
             required
             type={"text"}
@@ -113,23 +114,23 @@ export const General = () => {
           <ControlledTextField
             control={control}
             errorMessage={errors.firstName?.message}
-            label={"First Name"}
+            label={t.firstName}
             name={"firstName"}
             required
             type={"text"}
           />
           <ControlledTextField
             control={control}
-            label={"Last Name"}
+            errorMessage={errors.lastName?.message}
+            label={t.lastName}
             name={"lastName"}
             required
             type={"text"}
           />
           <ControlledDayPicker
             control={control}
-            // errorMessage={errors.dateOfBirth?.message}
-            label={"Date of birth"}
-            mode={"single"}
+            errorMessage={errors.dateOfBirth?.message}
+            label={t.dateOfBirth}
             name={"dateOfBirth"}
           />
           <div className={s.selectors}>
@@ -137,7 +138,7 @@ export const General = () => {
               className={s.select}
               defaultValue={countries[0].value}
               items={countries}
-              label={"Select your country"}
+              label={t.selectYourCountry}
               name={"countries"}
               onChange={handleCountryChange}
             />
@@ -145,7 +146,7 @@ export const General = () => {
               className={s.select}
               defaultValue={cities[0].value}
               items={cities}
-              label={"Select your city"}
+              label={t.selectYourCity}
               name={"city"}
               onChange={() => {}}
             />
@@ -153,7 +154,7 @@ export const General = () => {
           <ControlledTextArea
             control={control}
             // errorMessage={errors.aboutMe?.message}
-            label={"About Me"}
+            label={t.aboutMe}
             name={"aboutMe"}
             placeholder={"Text-area"}
           />
