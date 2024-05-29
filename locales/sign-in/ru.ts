@@ -2,7 +2,7 @@ export default {
   email:
     "Электронная почта должна соответствовать формату\n" +
     "example@example.com",
-  emailLabel: "электронная почта",
+  emailLabel: "Электронная почта",
   forgotPassword: "Забыли пароль",
   invalidPassword: "Пароль должен содержать",
   loginError:

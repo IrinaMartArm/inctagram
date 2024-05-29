@@ -6,7 +6,6 @@ import {
 } from "react";
 
 import { Paths } from "@/shared/assets";
-import { useFormRevalidate } from "@/shared/assets/hooks/useFormRevalidate";
 import { UseFormRef } from "@/shared/assets/types/form";
 import {
   Button,
@@ -33,27 +32,10 @@ type SignUpCardProps = {
 export const SignUpCard = forwardRef(
   (props: SignUpCardProps, ref: Ref<UseFormRef<SignUpFormFields>>) => {
     const { isLoading, onSubmit } = props;
-    const {
-      control,
-      errors,
-      getValues,
-      handleSubmit,
-      isValid,
-      locale,
-      reset,
-      setError,
-      setValue,
-      t,
-    } = useSignUp();
+    const { control, errors, handleSubmit, isValid, reset, setError, t } =
+      useSignUp();
 
     useImperativeHandle(ref, () => ({ reset, setError }));
-
-    useFormRevalidate({
-      errors,
-      locale,
-      setValue,
-      values: getValues(),
-    });
 
     if (isLoading) {
       return <Loader />;
