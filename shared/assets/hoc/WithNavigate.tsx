@@ -23,14 +23,16 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
     Paths.PROFILE + `/${userId}`,
   );
 
-  const isProtectedPage: boolean = !commonRoutes.includes(remainingPath);
-  // !authRoutes.includes(remainingPath);
+  const isProtectedPage: boolean =
+    !commonRoutes.includes(remainingPath) &&
+    !authRoutes.includes(remainingPath);
+
   const isAuthPage: boolean = authRoutes.includes(router.pathname);
 
   useEffect(() => {
     if (!isLoading) {
       if (!isAuth && isProtectedPage) {
-        // router.push(Paths.MAIN);
+        router.push(Paths.MAIN);
       } else if (isAuth && isAuthPage) {
         router.push(`${Paths.PROFILE}/?id=${userId!}`);
       } else if (isAuth) {
