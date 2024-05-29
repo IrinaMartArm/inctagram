@@ -23,25 +23,29 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
     Paths.PROFILE + `/${userId}`,
   );
 
-  const isProtectedPage: boolean =
-    !commonRoutes.includes(remainingPath) &&
-    !authRoutes.includes(remainingPath);
+  const isProtectedPage: boolean = !commonRoutes.includes(remainingPath);
+  // !authRoutes.includes(remainingPath);
   const isAuthPage: boolean = authRoutes.includes(router.pathname);
 
   useEffect(() => {
-    if (!isLoading && !isAuth && isProtectedPage) {
-      router.push(Paths.MAIN);
+    if (!isLoading) {
+      if (!isAuth && isProtectedPage) {
+        router.push(Paths.MAIN);
+      } else if (isAuth && isAuthPage) {
+        router.push(`${Paths.PROFILE}/?id=${userId!}`);
+      } else if (isAuth) {
+        dispatch(authActions.setIsAuth(true));
+      }
     }
-    if (!isLoading && isAuth && isAuthPage) {
-      router.push(`${Paths.PROFILE}/?id=${userId!}`);
-    }
-
-    if (isAuth) {
-      dispatch(authActions.setIsAuth(true));
-    }
-
-    return;
-  }, [isAuth, isProtectedPage, router, isLoading]);
+  }, [
+    isAuth,
+    isProtectedPage,
+    isAuthPage,
+    router,
+    isLoading,
+    userId,
+    dispatch,
+  ]);
 
   if (isLoading) {
     return <Loader />;
