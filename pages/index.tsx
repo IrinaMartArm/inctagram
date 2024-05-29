@@ -1,12 +1,13 @@
+import { isAuthSelector } from "@/entities";
 import { NextPageWithLayout } from "@/pages/_app";
-import { RootState, useAppSelector } from "@/shared/assets/api/store";
+import { useAppSelector } from "@/shared/assets/api/store";
 import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
 import { Header } from "@/widgets/header/Header";
 
 const Public: NextPageWithLayout = () => {
-  const isAuth = useAppSelector((state: RootState) => state.auth.isAuth);
+  const isAuth = useAppSelector(isAuthSelector);
 
   return (
     <PageWrapper>

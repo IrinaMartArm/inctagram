@@ -2,10 +2,13 @@ import {
   ComponentPropsWithoutRef,
   Ref,
   forwardRef,
+  useEffect,
   useImperativeHandle,
 } from "react";
 
+import { authActions, errorSelector } from "@/entities";
 import { Paths } from "@/shared/assets";
+import { useAppDispatch, useAppSelector } from "@/shared/assets/api/store";
 import { useFormRevalidate } from "@/shared/assets/hooks/useFormRevalidate";
 import { UseFormRef } from "@/shared/assets/types/form";
 import {
@@ -54,6 +57,16 @@ export const SignUpCard = forwardRef(
       setValue,
       values: getValues(),
     });
+    const dispatch = useAppDispatch();
+
+    const error = useAppSelector(errorSelector);
+
+    const errorEmail = error === t.emailExistsError ? error : undefined;
+    const errorUsername = error === t.usernameExistsError ? error : undefined;
+
+    useEffect(() => {
+      dispatch(authActions.setError());
+    }, [errors.email?.message, errors.username?.message]);
 
     if (isLoading) {
       return <Loader />;
@@ -66,7 +79,7 @@ export const SignUpCard = forwardRef(
         <ControlledTextField
           control={control}
           disabled={isLoading}
-          errorMessage={errors.username?.message}
+          errorMessage={errors.username?.message || errorUsername}
           label={t.name}
           name={"username"}
           placeholder={t.name}
@@ -75,7 +88,7 @@ export const SignUpCard = forwardRef(
         <ControlledTextField
           control={control}
           disabled={isLoading}
-          errorMessage={errors.email?.message}
+          errorMessage={errors.email?.message || errorEmail}
           label={t.email}
           name={"email"}
           placeholder={t.email}

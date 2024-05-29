@@ -9,6 +9,7 @@ const en: SignUpLocale = {
   confirm: "Passwords must match",
   created: "The account has been created.",
   email: "Email",
+  emailExistsError: "User with this email is already registered",
   emailMin: "String must contain at least 1 character(s)",
   formEmail: "The email must match the format\n" + "example@example.com",
   haveSent: "We have sent a link to confirm your email to",
@@ -24,6 +25,7 @@ const en: SignUpLocale = {
   signIn: "Sign In",
   title: "Sign Up",
   usernameError: "Maximum number of characters 30",
+  usernameExistsError: "User with this username is already registered",
 };
 
 export default en;

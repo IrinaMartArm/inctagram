@@ -32,10 +32,13 @@ const slice = createSlice({
     },
   },
   selectors: {
+    errorSelector: (state) => state.error,
+    isAuthSelector: (state) => state.isAuth,
     userEmailSelector: (state) => state.email,
   },
 });
 
 export const authReducers = slice.reducer;
 export const authActions = slice.actions;
-export const { userEmailSelector } = slice.selectors;
+export const { errorSelector, isAuthSelector, userEmailSelector } =
+  slice.selectors;
