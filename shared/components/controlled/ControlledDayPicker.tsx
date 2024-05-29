@@ -29,6 +29,6 @@ export const ControlledDayPicker = <T extends FieldValues>({
   });
 
   return (
-    <DayPicker {...rest} label={label} selected={value} onChange={onChange} />
+    <DayPicker {...rest} label={label} onChange={onChange} selected={value} />
   );
 };

@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { useState } from "react";
 
+import { DayPickerProps } from "@/shared/components/DayPicker/DayPicker";
+
+import s from "./DayPicker.module.scss";
+
 import { DayPicker } from "./";
 
 const meta = {
@@ -14,40 +18,40 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DayPickerSingle: Story = {
-  args: {
-    mode: "single",
-    selected: "",
-    setSelected: (selected: string) => {},
-  },
-  render: (args) => {
+const renderDayPicker =
+  (errorText?: string, label?: string) => (args: DayPickerProps) => {
     const [selected, setSelected] = useState<string>("");
 
     return (
-      <>
+      <div className={s.inputSingleContainer}>
         <DayPicker
-          mode={"single"}
+          errorMessage={errorText}
+          label={label}
+          onChange={setSelected}
           selected={selected}
-          setSelected={setSelected}
         />
-      </>
+      </div>
     );
-  },
+  };
+
+const commonArgs = {
+  onChange: (selected: string) => {},
+  selected: "",
 };
 
-export const DayPickerRange: Story = {
-  args: {
-    mode: "range",
-    range: ["", ""],
-    setRange: (selected: Array<string>) => {},
-  },
-  render: (args) => {
-    const [range, setRange] = useState<Array<string>>(["", ""]);
+export const DayPickerSingle: Story = {
+  args: commonArgs,
+  render: renderDayPicker(),
+};
 
-    return (
-      <>
-        <DayPicker mode={"range"} range={range} setRange={setRange} />
-      </>
-    );
-  },
+export const DayPickerCustomError: Story = {
+  args: commonArgs,
+  render: renderDayPicker(
+    "A user under 13 cannot create a profile. Privacy Policy",
+  ),
+};
+
+export const DayPickerWithLabel: Story = {
+  args: commonArgs,
+  render: renderDayPicker("", "Date select"),
 };

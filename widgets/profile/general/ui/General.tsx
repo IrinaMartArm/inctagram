@@ -129,7 +129,7 @@ export const General = () => {
           />
           <ControlledDayPicker
             control={control}
-            // errorMessage={errors.dateOfBirth?.message}
+            errorMessage={errors.dateOfBirth?.message}
             label={t.dateOfBirth}
             name={"dateOfBirth"}
           />
