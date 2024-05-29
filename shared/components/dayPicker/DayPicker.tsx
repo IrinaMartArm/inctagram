@@ -6,7 +6,7 @@ import {
 } from "react-day-picker";
 
 import { Input, Typography } from "@/shared/components";
-import { useOutsideDayClick } from "@/shared/components/DayPicker/OutsideDayClickHook";
+import { useOutsideDayClick } from "@/shared/components/dayPicker/OutsideDayClickHook";
 import { clsx } from "clsx";
 import { format, parse } from "date-fns";
 

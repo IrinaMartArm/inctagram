@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { useState } from "react";
 
-import { DayPickerProps } from "@/shared/components/DayPicker/DayPicker";
+import { DayPickerProps } from "@/shared/components/dayPicker/DayPicker";
 
 import s from "./DayPicker.module.scss";
 
@@ -12,7 +12,7 @@ const meta = {
   argTypes: {},
   component: DayPicker,
   tags: ["autodocs"],
-  title: "Components/DayPicker",
+  title: "Components/dayPicker",
 } satisfies Meta<typeof DayPicker>;
 
 export default meta;

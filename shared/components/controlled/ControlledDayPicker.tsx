@@ -7,7 +7,7 @@ import {
 import {
   DayPicker,
   DayPickerProps,
-} from "@/shared/components/DayPicker/DayPicker";
+} from "@/shared/components/dayPicker/DayPicker";
 
 type PropsType<T extends FieldValues> = UseControllerProps<T> &
   Omit<DayPickerProps, "onChange" | "selected">;
