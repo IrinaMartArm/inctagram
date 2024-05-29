@@ -19,3 +19,4 @@ export * from "./avatarEdit";
 export * from "./modals";
 export * from "./navLink";
 export * from "./pageTitle";
+export * from "./dayPicker";
