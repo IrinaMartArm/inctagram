@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { useTranslationPages } from "@/shared/assets";
+import { useFormRevalidate, useTranslationPages } from "@/shared/assets";
 import {
   SignUpFormFields,
   signUpSchema,
@@ -32,16 +32,20 @@ export const useSignUp = () => {
     resolver: zodResolver(signUpSchema(t)),
   });
 
+  useFormRevalidate({
+    errors,
+    locale,
+    setValue,
+    values: getValues(),
+  });
+
   return {
     control,
     errors,
-    getValues,
     handleSubmit,
     isValid,
-    locale,
     reset,
     setError,
-    setValue,
     t,
   };
 };

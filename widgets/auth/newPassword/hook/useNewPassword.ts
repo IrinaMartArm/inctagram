@@ -4,7 +4,7 @@ import { ParsedUrlQuery } from "querystring";
 
 import { useCreateNewPasswordMutation } from "@/shared/assets/api/auth/auth-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
-import { useTranslationPages } from "@/shared/assets/hooks";
+import { useFormRevalidate, useTranslationPages } from "@/shared/assets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import z from "zod";
 
 export const useNewPassword = () => {
   const router = useRouter();
-  const { t } = useTranslationPages();
+  const { locale, t } = useTranslationPages();
 
   const newPasswordSchema = z
     .object({
@@ -42,8 +42,10 @@ export const useNewPassword = () => {
   const {
     control,
     formState: { errors },
+    getValues,
     handleSubmit,
     reset,
+    setValue,
   } = useForm<NewPasswordFormFields>({
     defaultValues,
     mode: "onTouched",
@@ -74,6 +76,13 @@ export const useNewPassword = () => {
     }
     reset(defaultValues);
   };
+
+  useFormRevalidate({
+    errors,
+    locale,
+    setValue,
+    values: getValues(),
+  });
 
   return { control, errors, handleSubmit, isLoading, newPasswordCreator, t };
 };
