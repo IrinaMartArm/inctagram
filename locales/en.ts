@@ -21,4 +21,10 @@ export const en: LocaleType = {
   },
   signIn: "Sign In",
   signUp: "Sign Up",
+  verification: {
+    description:
+      "Looks like the verification link has expired. Not to worry, we can send the link again",
+    title: "Email verification link expired",
+    titleButton: "Resend verification link",
+  },
 };

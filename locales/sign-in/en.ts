@@ -1,5 +1,6 @@
 export default {
   email: "The email must match the format\n" + "example@example.com",
+  emailLabel: "Email",
   forgotPassword: "Forgot Password",
   invalidPassword: "Password must contain",
   loginError: "The email or password are\n" + "incorrect. Try again please",

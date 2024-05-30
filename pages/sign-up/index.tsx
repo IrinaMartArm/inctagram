@@ -52,8 +52,6 @@ const SignUp = () => {
 
   const email = useAppSelector(userEmailSelector);
 
-  console.log(email);
-
   return (
     <>
       <HeadMeta title={"Sign Up"} />

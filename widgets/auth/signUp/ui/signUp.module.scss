@@ -4,6 +4,7 @@
   @include flex(row, flex-start, flex-start);
   width: 100%;
   margin-top: -10px;
+  //border: 1px solid red;
 }
 
 .trans {
@@ -16,11 +17,7 @@
 }
 
 .button {
-  @media screen and (max-width: 768px) {
-    margin: 24px 0 18px;
-    height: 48px;
-    border-radius: 2px;
-  }
+  margin: 18px 0 !important;
 }
 
 .question {

@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form";
 
 import { PASSWORD_REGEX } from "@/entities";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
-import { useTranslationPages } from "@/shared/assets/hooks";
+import { useFormRevalidate, useTranslationPages } from "@/shared/assets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 export const useLoginValidation = () => {
-  const { t } = useTranslationPages();
+  const { locale, t } = useTranslationPages();
 
   const emailValidation = z.string().min(1, t.required).trim().email(t.email);
 
@@ -35,11 +35,20 @@ export const useLoginValidation = () => {
   const {
     control,
     formState: { errors, isValid },
+    getValues,
     handleSubmit,
+    setValue,
   } = useForm<LoginArgs>({
     defaultValues,
     mode: "onBlur",
     resolver: zodResolver(loginSchema),
+  });
+
+  useFormRevalidate({
+    errors,
+    locale,
+    setValue,
+    values: getValues(),
   });
 
   return {

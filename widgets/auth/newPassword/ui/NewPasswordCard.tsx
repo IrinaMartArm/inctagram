@@ -23,6 +23,7 @@ export const NewPasswordCard = () => {
       <PageTitle className={s.title} title={t.title} />
 
       <ControlledTextField
+        autoComplete={"newPassword"}
         control={control}
         errorMessage={errors.newPassword?.message}
         label={t.newPassword}

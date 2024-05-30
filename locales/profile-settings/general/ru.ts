@@ -1,6 +1,8 @@
 export default {
   1: "Политика конфиденциальности",
+  aboutMe: "Обо мне",
   addPhoto: "Добавить фото профиля",
+  dateOfBirth: "Дата рождения",
   deleteText: "Вы действительно хотите удалить свою фотографию профиля?",
   deleteTitle: "Удалить фотографию",
   errors: {
@@ -10,6 +12,11 @@ export default {
     maxSize: "Размер фотографии должен быть меньше 10 МБ!",
     success: "Ваши настройки сохранены!",
   },
+  firstName: "Имя",
+  lastName: "Фамилия",
   savePhoto: "Сохранить",
   selectPhoto: "Выбрать с компьютера",
+  selectYourCity: "Выберите свой город",
+  selectYourCountry: "Выберите вашу страну",
+  username: "Имя пользователя",
 };

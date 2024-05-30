@@ -8,7 +8,7 @@ import {format, parse} from "date-fns"
 import s from "./DayPicker.module.scss"
 import sC from '@/shared/components/input/input.module.scss'
 import styles from "react-day-picker/dist/style.module.css"
-import {useOutsideDayClick} from "@/shared/components/DayPicker/OutsideDayClickHook"
+import {useOutsideDayClick} from "@/shared/components/dayPicker/OutsideDayClickHook"
 
 export const DayPicker = (props: DayPickerProps) => {
 

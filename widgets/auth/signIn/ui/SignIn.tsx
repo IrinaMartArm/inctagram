@@ -41,9 +41,9 @@ export const SignInCard = ({ onSubmit }: Props) => {
           autoComplete={"email"}
           control={control}
           errorMessage={errors.email?.message}
-          label={"Email"}
+          label={t.emailLabel}
           name={"email"}
-          placeholder={"Email"}
+          placeholder={t.emailLabel}
           type={"email"}
         />
         <ControlledTextField
