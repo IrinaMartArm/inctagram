@@ -1,7 +1,7 @@
 import { Info } from "@/features";
 import { Paths } from "@/shared/assets";
 import { useTranslationPages } from "@/shared/assets/hooks";
-import { Button, Typography } from "@/shared/components";
+import { Avatar, Button, Typography } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -20,7 +20,9 @@ export const MyProfile = () => {
   return (
     <>
       <div className={s.info_wrapper}>
-        <div className={s.avatar}>{/*<Avatar />*/}</div>
+        <div className={s.avatar}>
+          <Avatar alt={""} />
+        </div>
         <div className={s.info_block}>
           <div className={s.first_row}>
             <Typography variant={"h1"}>URLProfiele</Typography>
