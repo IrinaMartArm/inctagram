@@ -52,7 +52,7 @@ export const Verification = () => {
         <Modal
           onOpenChange={onOpenChangeHandler}
           open={open}
-          title={"Email sent"}
+          title={t.emailSent}
           trigger={
             <Button className={s.btn} onClick={resendingHandler}>
               {t.verification.titleButton}

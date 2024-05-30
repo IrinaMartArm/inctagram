@@ -21,3 +21,4 @@ export * from "./navLink";
 export * from "./pageTitle";
 export * from "./dayPicker";
 export * from "./dropDownMenu";
+export * from "./simpleAvatar";
