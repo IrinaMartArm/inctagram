@@ -40,7 +40,7 @@ export const DayPicker = (props: DayPickerProps) => {
     root: clsx(styles.root, s.root),
     dropdown: clsx(styles.dropdown, s.dropdown),
     caption_label: clsx(styles.caption_label, s.caption_label),
-
+    month: clsx(styles.month, s.month)
   }
 
   // Function to handle date selection in 'single' mode

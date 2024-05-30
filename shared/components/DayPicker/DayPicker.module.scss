@@ -48,8 +48,13 @@
 
         .dropdown:focus-visible:not([disabled]) + .caption_label {
             background-color: var(--color-dark-500);
-            border: none;
+            border-color: var(--color-dark-500);
             border-radius: unset;
         }
     }
+}
+
+.month {
+    background-color: var(--color-dark-500);
+    padding: 16px 24px;
 }
