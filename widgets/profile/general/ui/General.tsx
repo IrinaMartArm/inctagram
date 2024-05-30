@@ -32,9 +32,6 @@ const options = [
 const countries = [
   { title: "Belarus", value: "Belarus" },
   { title: "Russia", value: "Russia" },
-  { title: "Kazakhstan", value: "Kazakhstan" },
-  { title: "Georgia", value: "Georgia" },
-  { title: "Armenia", value: "Armenia" },
 ];
 const russ = [
   { title: "Moscow", value: "Moscow" },
@@ -47,6 +44,8 @@ const belarus = [
   { title: "Vitebsk", value: "Vitebsk" },
   { title: "Gomel", value: "Gomel" },
   { title: "Brest", value: "Brest" },
+  { title: "Novopolotsk", value: "Novopolotsk" },
+  { title: "Mogilev", value: "Mogilev" },
 ];
 
 export const General = () => {
@@ -77,8 +76,6 @@ export const General = () => {
   const getCityOptions = () => {
     if (selectedCountry === "Russia") {
       return russ;
-    } else if (selectedCountry === "Belarus") {
-      return belarus;
     } else {
       return belarus;
     }

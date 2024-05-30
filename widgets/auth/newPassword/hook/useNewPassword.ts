@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 
 import { ParsedUrlQuery } from "querystring";
 
+import { PASSWORD_REGEX } from "@/entities";
+import { Paths } from "@/shared/assets";
 import { useCreateNewPasswordMutation } from "@/shared/assets/api/auth/auth-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useFormRevalidate, useTranslationPages } from "@/shared/assets/hooks";
@@ -20,7 +22,12 @@ export const useNewPassword = () => {
         .string()
         .min(6, t.passwordMin)
         .max(20, t.passwordMax)
-        .trim(),
+        .trim()
+        .regex(
+          PASSWORD_REGEX,
+          `${t.invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
+           ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
+        ),
       passwordConfirmation: z
         .string()
         .min(6, t.confirm)
@@ -65,12 +72,12 @@ export const useNewPassword = () => {
 
     try {
       await createNewPassword(args).unwrap();
-      await router.replace("/sign-in");
+      await router.replace(Paths.LOGIN);
     } catch (err: any) {
       const { status } = err as FetchBaseQueryError;
 
       if (status === 400) {
-        await router.replace("/auth/email-verification");
+        await router.replace(Paths.VERIFICATION);
       }
       handleErrorResponse(err);
     }

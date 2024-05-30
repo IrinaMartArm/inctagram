@@ -12,7 +12,7 @@ export const usePasswordRecovery = () => {
   const { locale, t } = useTranslationPages();
 
   const passwordRecoverySchema = z.object({
-    email: z.string().trim().email(),
+    email: z.string().trim().email(t.formEmail),
     token: z.string(),
   });
 

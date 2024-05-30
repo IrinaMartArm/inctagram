@@ -6,6 +6,7 @@ export const en: LocaleType = {
     no: "No",
     yes: "Yes",
   },
+  emailSent: "Email sent",
   logOut: {
     title: "Log Out",
     warning: "Are you really want to log out of your account",
