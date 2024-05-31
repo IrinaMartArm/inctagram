@@ -63,6 +63,16 @@ export const General = () => {
     showAlert,
   } = useProfileForm();
 
+  /*   const userData = {
+    //////WithNavigate uncomment
+    aboutMe: "yo",
+    city: "Moscow",
+    dateOfBirth: "14.07.2015",
+    firstName: "string",
+    lastName: "string",
+    username: "string",
+  }; */
+
   const { data: userInfoData, error, isLoading } = useGetProfileInfoQuery();
 
   const {
@@ -71,7 +81,7 @@ export const General = () => {
     selectedCountry,
     setCitiesRange,
     setSelectedCountry,
-  } = useSetUserInfo(userInfoData, setValue);
+  } = useSetUserInfo(/* userData */ userInfoData, setValue);
 
   useEffect(() => {
     //for setting all values isDirty false after submitting form
@@ -119,8 +129,6 @@ export const General = () => {
   };
 
   const isDisabled = isValid && isDirty;
-
-  console.log(dateOfBirth);
 
   return (
     <>

@@ -19,27 +19,32 @@ export const useProfileForm = () => {
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertVariant, setAlertVariant] = useState<AlertVariant>("success");
 
-  const sixteenYearsAgo = new Date();
+  const thirteenYearsAgo = new Date();
 
-  sixteenYearsAgo.setFullYear(sixteenYearsAgo.getFullYear() - 16);
+  thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 13);
 
   const profileFormSchema = z.object({
     aboutMe: z.string().max(20).optional(),
     city: z.string().optional(),
     dateOfBirth: z
       .string()
-      /* .refine(
+      .refine(
         (dateString) => {
-          const dateOfBirth = new Date(dateString);
+          const dateOfBirth = new Date(
+            Date.parse(
+              dateString.replace(/(\d{2}).(\d{2}).(\d{4})/, "$2/$1/$3"),
+            ),
+          );
 
-          console.log(dateOfBirth <= sixteenYearsAgo);
+          const difference =
+            dateOfBirth.getFullYear() - thirteenYearsAgo.getFullYear();
 
-          return dateOfBirth <= sixteenYearsAgo;
+          return !(difference >= 0);
         },
         {
           message: t.errors.child,
         },
-      ) */
+      )
       .optional(),
     firstName: z.string().min(1).max(50),
     lastName: z.string().min(1).max(50),
