@@ -104,5 +104,6 @@ export const useProfileForm = () => {
     reset,
     setValue,
     showAlert,
+    t,
   };
 };

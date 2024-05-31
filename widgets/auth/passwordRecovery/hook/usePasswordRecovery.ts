@@ -3,16 +3,16 @@ import { useForm } from "react-hook-form";
 
 import { usePasswordRecoveryMutation } from "@/shared/assets/api/auth/auth-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
-import { useTranslationPages } from "@/shared/assets/hooks";
+import { useFormRevalidate, useTranslationPages } from "@/shared/assets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { z } from "zod";
 
 export const usePasswordRecovery = () => {
-  const { t } = useTranslationPages();
+  const { locale, t } = useTranslationPages();
 
   const passwordRecoverySchema = z.object({
-    email: z.string().trim().email(),
+    email: z.string().trim().email(t.formEmail),
     token: z.string(),
   });
 
@@ -25,11 +25,11 @@ export const usePasswordRecovery = () => {
 
   const [token, setToken] = useState<null | string>(null);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [passwordRecovery, { error, isLoading }] =
-    usePasswordRecoveryMutation();
+  const [passwordRecovery, {}] = usePasswordRecoveryMutation();
   const {
     control,
     formState: { errors, isValid },
+    getValues,
     handleSubmit,
     reset,
     setError,
@@ -70,18 +70,22 @@ export const usePasswordRecovery = () => {
     }
   };
 
+  useFormRevalidate({
+    errors,
+    locale,
+    setValue,
+    values: getValues(),
+  });
+
   return {
     control,
-    error,
     errors,
     handleRecaptchaChange,
     handleSubmit,
     isChecked,
-    isLoading,
     isSuccess,
     isValid,
     onRecovery,
     t,
-    token,
   };
 };

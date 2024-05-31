@@ -1,6 +1,8 @@
 export default {
   1: "Privacy Policy",
+  aboutMe: "About Me",
   addPhoto: "Add a Profile photo",
+  dateOfBirth: "Date of birth",
   deleteText: "Do you really want to delete your profile photo?",
   deleteTitle: "Delete Photo",
   errors: {
@@ -9,7 +11,12 @@ export default {
     formatFile: "The format of the uploaded photo must be PNG and JPEG",
     maxSize: "Photo size must be less than 10 MB!",
   },
+  firstName: "First Name",
+  lastName: "Last Name",
   savePhoto: "Save",
   selectPhoto: "Select from Computer",
+  selectYourCity: "Select your city",
+  selectYourCountry: "Select your country",
   success: "Your settings are saved!",
+  username: "Username",
 };

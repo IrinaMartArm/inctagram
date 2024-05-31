@@ -1,5 +1,5 @@
 import ReCAPTCHAWidget from "@/pages/auth/password-recovery/recaptcha";
-import { Paths } from "@/shared/assets";
+import { Paths, useFormRevalidate } from "@/shared/assets";
 import {
   Button,
   Card,
@@ -32,7 +32,7 @@ export const PasswordRecovery = () => {
         autoComplete={"email"}
         control={control}
         errorMessage={errors.email?.message}
-        label={"Email"}
+        label={t.email}
         name={"email"}
         placeholder={"example@example.com"}
         type={"email"}

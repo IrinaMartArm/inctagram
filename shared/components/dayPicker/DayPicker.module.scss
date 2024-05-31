@@ -1,8 +1,13 @@
 .inputSingleContainer {
-    max-width: 400px;
+    width: 100%;
+}
+
+.inputRangeContainer {
+    max-width: 250px;
 }
 
 .pickerContainer {
+    width: 100%;
     .root {
         margin: 0;
     }
@@ -40,16 +45,6 @@
                     background-color: var(--color-dark-100);
                 }
             }
-        }
-
-        .dropdown {
-            background-color: var(--color-dark-500);
-        }
-
-        .dropdown:focus-visible:not([disabled]) + .caption_label {
-            background-color: var(--color-dark-500);
-            border: none;
-            border-radius: unset;
         }
     }
 }

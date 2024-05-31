@@ -6,6 +6,7 @@ export const en: LocaleType = {
     no: "No",
     yes: "Yes",
   },
+  emailSent: "Email sent",
   logOut: {
     title: "Log Out",
     warning: "Are you really want to log out of your account",
@@ -21,4 +22,10 @@ export const en: LocaleType = {
   },
   signIn: "Sign In",
   signUp: "Sign Up",
+  verification: {
+    description:
+      "Looks like the verification link has expired. Not to worry, we can send the link again",
+    title: "Email verification link expired",
+    titleButton: "Resend verification link",
+  },
 };

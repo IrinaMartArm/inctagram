@@ -6,7 +6,7 @@ import {
 } from "react-day-picker";
 
 import { Input, Typography } from "@/shared/components";
-import { useOutsideDayClick } from "@/shared/components/DayPicker/OutsideDayClickHook";
+import { useOutsideDayClick } from "@/shared/components/dayPicker/OutsideDayClickHook";
 import { clsx } from "clsx";
 import { format, parse } from "date-fns";
 
@@ -15,7 +15,7 @@ import sC from "@/shared/components/input/input.module.scss";
 import styles from "react-day-picker/dist/style.module.css";
 
 export const DayPicker = (props: DayPickerProps) => {
-  const { errorText, label, setSelected } = props;
+  const { errorMessage, label, onChange } = props;
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true);
@@ -23,9 +23,9 @@ export const DayPicker = (props: DayPickerProps) => {
 
   useEffect(() => {
     if (isValidDateFormat(localSelected)) {
-      setSelected(localSelected);
+      onChange(localSelected);
     }
-  }, [localSelected]);
+  }, [localSelected, onChange]);
 
   const weekends = [5, 6];
   const weekendStyle = { color: "#F23D61" };
@@ -99,7 +99,7 @@ export const DayPicker = (props: DayPickerProps) => {
         </Typography>
       )}
       <Input
-        errorMessage={dateSingleChecker() || errorText}
+        errorMessage={dateSingleChecker() || errorMessage}
         onButtonClick={onClickSingle}
         onChange={(e) => setLocalSelected(e.target.value)}
         type={"datePicker"}
@@ -128,8 +128,8 @@ export const DayPicker = (props: DayPickerProps) => {
 };
 
 export type DayPickerProps = {
-  errorText?: string;
+  errorMessage?: string;
   label?: string;
+  onChange: (value: string) => void;
   selected: string;
-  setSelected: (value: string) => void;
 };

@@ -19,3 +19,6 @@ export * from "./avatarEdit";
 export * from "./modals";
 export * from "./navLink";
 export * from "./pageTitle";
+export * from "./dayPicker";
+export * from "./dropDownMenu";
+export * from "./simpleAvatar";

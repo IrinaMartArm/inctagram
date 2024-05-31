@@ -1,5 +1,6 @@
 export default {
   confirm: "Пароль и подтверждение пароля должны совпадать",
+  invalidPassword: "Пароль должен содержать",
   newPassword: "Новый пароль",
   passwordConfirmation: "Подтверждение пароля",
   passwordMax: "Максимальное количество символов 20",
