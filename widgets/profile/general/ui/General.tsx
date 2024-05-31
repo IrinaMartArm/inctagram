@@ -64,7 +64,7 @@ export const General = () => {
   } = useProfileForm();
 
   /*   const userData = {
-    //////WithNavigate uncomment
+    ////WithNavigate uncomment
     aboutMe: "yo",
     city: "Moscow",
     dateOfBirth: "14.07.2015",
