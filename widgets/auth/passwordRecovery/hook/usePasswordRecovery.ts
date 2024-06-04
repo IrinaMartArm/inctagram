@@ -31,7 +31,6 @@ export const usePasswordRecovery = () => {
     formState: { errors, isValid },
     getValues,
     handleSubmit,
-    reset,
     setError,
     setValue,
   } = useForm<PasswordRecoveryFormFields>({
@@ -60,7 +59,6 @@ export const usePasswordRecovery = () => {
         }
         handleErrorResponse(err);
       }
-      reset(defaultValues);
     }
   };
   const handleRecaptchaChange = (token: null | string) => {

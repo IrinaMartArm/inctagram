@@ -1,5 +1,5 @@
 import ReCAPTCHAWidget from "@/pages/auth/password-recovery/recaptcha";
-import { Paths, useFormRevalidate } from "@/shared/assets";
+import { Paths } from "@/shared/assets";
 import {
   Button,
   Card,
@@ -56,7 +56,9 @@ export const PasswordRecovery = () => {
       >
         {t.back}
       </Button>
-      {!isSuccess && <ReCAPTCHAWidget onChange={handleRecaptchaChange} />}
+      {!isSuccess && !errors.email && (
+        <ReCAPTCHAWidget onChange={handleRecaptchaChange} />
+      )}
     </Card>
   );
 };
