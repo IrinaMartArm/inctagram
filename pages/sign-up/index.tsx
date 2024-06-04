@@ -39,18 +39,17 @@ const SignUp = () => {
     } catch (e: unknown) {
       if (e as FetchBaseQueryError) {
         const { errorsMessages } = (e as FetchBaseQueryError).data as any;
+        const setError = ref.current?.setError;
 
         if (errorsMessages[0].field) {
           const err = errorsMessages[0].field;
 
           if (err === "username") {
-            dispatch(authActions.setError(t.usernameExistsError));
-            console.log(t.usernameExistsError);
+            setError && setError(err, { message: t.usernameExistsError });
           }
 
           if (err === "email") {
-            dispatch(authActions.setError(t.emailExistsError));
-            console.log(t.emailExistsError);
+            setError && setError(err, { message: t.emailExistsError });
           }
         }
       }
