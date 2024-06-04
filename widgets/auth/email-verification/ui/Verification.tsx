@@ -1,9 +1,11 @@
 import { useState } from "react";
 
+import { userEmailSelector } from "@/entities/auth/model/auth-slice";
 import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
+import { useAppSelector } from "@/shared/assets/api/store";
 import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
-import { useIsMobile, useTranslationPages } from "@/shared/assets/hooks";
+import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
 import { Button, PageTitle, Typography } from "@/shared/components";
 import { Modal } from "@/shared/components/modals";
 import { EmailSent } from "@/widgets";
@@ -12,7 +14,8 @@ import Image from "next/image";
 import s from "./verification.module.scss";
 
 export const Verification = () => {
-  const { t } = useTranslationPages();
+  const { t } = useTranslation();
+  const email = useAppSelector(userEmailSelector);
 
   const [resending] = useEmailResendingMutation();
 
@@ -20,11 +23,6 @@ export const Verification = () => {
 
   const imageHeight = isMobile ? 230 : 300;
   const imageWidth = isMobile ? 330 : 432;
-  let email: string = "";
-
-  if (typeof window !== "undefined") {
-    email = localStorage.getItem("email") || "";
-  }
 
   const [open, setOpen] = useState(false);
   const onOpenChangeHandler = () => {
@@ -42,18 +40,22 @@ export const Verification = () => {
 
   return (
     <div className={s.wrapper}>
-      <PageTitle className={s.title} textAlign={"center"} title={t.title} />
+      <PageTitle
+        className={s.title}
+        textAlign={"center"}
+        title={t.verification.title}
+      />
       <Typography className={s.expired} variant={"regular_text-16"}>
-        {t.description}
+        {t.verification.description}
       </Typography>
       <div className={s.imageWithButton}>
         <Modal
           onOpenChange={onOpenChangeHandler}
           open={open}
-          title={"Email sent"}
+          title={t.emailSent}
           trigger={
             <Button className={s.btn} onClick={resendingHandler}>
-              {t.titleButton}
+              {t.verification.titleButton}
             </Button>
           }
         >

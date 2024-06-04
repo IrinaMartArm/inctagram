@@ -1,5 +1,5 @@
 export const Paths = {
-  CONFIRM: "/auth/email-confirmed",
+  CONFIRM: "/auth/confirm-email",
   CREATE: "/create",
   FAVORITES: "/favorites",
   FORGOT_PASSWORD: "/auth/create-new-password",
@@ -21,6 +21,7 @@ export const Paths = {
   SEARCH: "/search",
   SERVICE: "/auth/terms",
   STATISTIC: "/statistics",
+  VERIFICATION: "/auth/verification",
 };
 
 export const commonRoutes = [Paths.PROFILE, Paths.MAIN];
@@ -35,4 +36,5 @@ export const authRoutes = [
   Paths.LOGOUT,
   Paths.SERVICE,
   Paths.RECOVERY_PASSWORD,
+  Paths.VERIFICATION,
 ];

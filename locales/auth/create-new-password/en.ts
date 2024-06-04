@@ -1,5 +1,6 @@
 export default {
   confirm: "Passwords must match",
+  invalidPassword: "Password must contain",
   newPassword: "New Password",
   passwordConfirmation: "Password confirmation",
   passwordMax: "Maximum number of characters 20",
