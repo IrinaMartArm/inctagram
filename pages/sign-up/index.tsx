@@ -16,11 +16,16 @@ import { SignUpCard } from "@/widgets/auth/signUp/ui/SignUp";
 import { SignUpFormFields } from "@/widgets/auth/signUp/validators/validators";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
+type FieldsError = {
+  [key: string]: { field: string; message: string }[];
+};
+
 const SignUp = () => {
   const dispatch = useAppDispatch();
   const ref = useRef<UseFormRef<SignUpFormFields>>(null);
   const [open, setOpen] = useState(false);
   const { t } = useTranslationPages();
+  const email = useAppSelector(userEmailSelector);
 
   const [signUp, { isLoading }] = useSignUpMutation();
 
@@ -31,14 +36,14 @@ const SignUp = () => {
   }: SignUpFormFields) => {
     dispatch(authActions.setEmail(data.email));
     setToLocalStorage("username", data.username);
-    dispatch(authActions.setError());
     try {
       await signUp(data).unwrap();
 
       setOpen(true);
     } catch (e: unknown) {
       if (e as FetchBaseQueryError) {
-        const { errorsMessages } = (e as FetchBaseQueryError).data as any;
+        const { errorsMessages } = (e as FetchBaseQueryError)
+          .data as FieldsError;
         const setError = ref.current?.setError;
 
         if (errorsMessages[0].field) {
@@ -69,8 +74,6 @@ const SignUp = () => {
     setOpen(open);
     ref.current?.reset();
   };
-
-  const email = useAppSelector(userEmailSelector);
 
   return (
     <>

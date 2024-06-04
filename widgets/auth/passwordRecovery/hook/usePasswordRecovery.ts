@@ -47,17 +47,19 @@ export const usePasswordRecovery = () => {
       try {
         await passwordRecovery(body).unwrap();
         setIsSuccess(true);
-      } catch (err: any) {
+      } catch (err: unknown) {
         setIsSuccess(false);
-        const { status } = err as FetchBaseQueryError;
+        if (err as FetchBaseQueryError) {
+          const { status } = err as FetchBaseQueryError;
 
-        if (status === 404) {
-          setError("email", {
-            message: t.emailError,
-            type: "manual",
-          });
+          if (status === 404) {
+            setError("email", {
+              message: t.emailError,
+              type: "manual",
+            });
+          }
+          handleErrorResponse(err as FetchBaseQueryError);
         }
-        handleErrorResponse(err);
       }
     }
   };
