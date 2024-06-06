@@ -1,10 +1,9 @@
 import { SubmitHandler } from "react-hook-form";
 
-import { useLoginValidation } from "@/entities";
+import { errorSelector, useLoginValidation } from "@/entities";
 import { Paths } from "@/shared/assets";
 import { LoginArgs } from "@/shared/assets/api/auth/types";
 import { useAppSelector } from "@/shared/assets/api/store";
-import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import {
   Button,
   Card,
@@ -25,7 +24,7 @@ type Props = {
 export const SignInCard = ({ onSubmit }: Props) => {
   const { control, errors, handleSubmit, isValid, t } = useLoginValidation();
 
-  const error = useAppSelector((state) => state.auth.error);
+  const error = useAppSelector(errorSelector);
 
   const forgotPasswordCN = clsx(
     s.forgotPassword,

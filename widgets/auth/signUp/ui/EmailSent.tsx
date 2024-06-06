@@ -14,7 +14,7 @@ export const EmailSent = ({ email, onOpenChange }: Props) => {
   return (
     <div className={s.emailSent_wrapper}>
       <Typography className={s.emailSent_text} variant={"regular_text-16"}>
-        {t.signUp.haveSent}
+        {t.haveSent}
         {""}
         {email ?? ""}
       </Typography>
