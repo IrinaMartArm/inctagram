@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { CloseRound, ImageProfile } from "@/public";
 import noAva from "@/public/images/noAva.webp";
-import { useTranslation } from "@/shared/assets/hooks";
+import { useTranslationPages } from "@/shared/assets/hooks";
 import { DeletePhotoModal } from "@/widgets";
 import clsx from "clsx";
 import Image from "next/image";
@@ -28,7 +28,7 @@ export const Avatar = ({
   size = "lg",
   src,
 }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslationPages();
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const avatarCN = clsx(s.avatar, s[size], className);
 
@@ -63,8 +63,8 @@ export const Avatar = ({
           defaultOpen={isShowDeleteModal}
           deletePhoto={deleteAvatar}
           setIsShowModal={setIsShowDeleteModal}
-          text={t.deleteAvatar.text}
-          title={t.deleteAvatar.title}
+          text={t.deleteText}
+          title={t.deleteTitle}
         />
       )}
     </div>

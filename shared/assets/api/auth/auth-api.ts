@@ -1,15 +1,15 @@
+import { baseApi } from "@/shared/assets";
 import {
   ConformationArgs,
   EmailResendingArgs,
   ErrorsMessages,
   LoginArgs,
   LoginResponse,
-  MeResponse,
   NewPasswordArgs,
   PasswordRecoveryArgs,
   SignUpArgs,
+  User,
 } from "@/shared/assets/api/auth/types";
-import { baseApi } from "@/shared/assets/api/base-api";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 
 export const AuthApi = baseApi.injectEndpoints({
@@ -60,9 +60,23 @@ export const AuthApi = baseApi.injectEndpoints({
         }),
         transformErrorResponse: (response) => handleErrorResponse(response),
       }),
-      me: builder.query<MeResponse, void>({
+      me: builder.query<User, void>({
+        extraOptions: { maxRetries: 1 },
         providesTags: ["Me"],
-        query: () => "v1/auth/me",
+
+        async queryFn(_name, _api, _extraOptions, baseQuery) {
+          const result = await baseQuery({
+            method: "GET",
+            url: `v1/auth/me`,
+          });
+
+          return {
+            data:
+              result.data === undefined
+                ? ("" as unknown as User)
+                : (result.data as User),
+          };
+        },
       }),
       passwordRecovery: builder.mutation<void, PasswordRecoveryArgs>({
         query: (body) => ({
@@ -102,6 +116,7 @@ export const AuthApi = baseApi.injectEndpoints({
 export const {
   useCreateNewPasswordMutation,
   useEmailResendingMutation,
+  useLazyMeQuery,
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,

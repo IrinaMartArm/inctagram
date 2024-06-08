@@ -1,0 +1,51 @@
+@import "styles/mixins";
+
+.root {
+  @include flex(column, center, flex-end);
+  @media screen and (max-width: 576px) {
+    margin: 0;
+  }
+}
+
+.tabs {
+  width: 100%;
+}
+
+.container {
+  @include flex(row, center, flex-start, 40px);
+  width: 100%;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--color-dark-300);
+
+  @media screen and (max-width: 992px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.form {
+  @include flex(column, space-between, center, 24px);
+  width: 100%;
+}
+
+.selectors {
+  @include flex(row, center, center, 24px);
+  width: 100%;
+}
+
+.button {
+  margin: 24px 0 !important;
+}
+
+.general {
+  width: 100%;
+}
+
+.buttonDeleteAvatar {
+  position: absolute;
+  top: 38px;
+  right: 14px;
+  @media screen and (max-width: 576px) {
+    right: 14px;
+  }
+}

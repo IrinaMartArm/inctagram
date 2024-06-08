@@ -7,14 +7,20 @@ import {
 import { Mutex } from "async-mutex";
 
 const mutex = new Mutex();
-const TOKEN =
-  typeof window !== "undefined" && window.localStorage.getItem("accessToken");
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://inctagram.org/api/",
   credentials: "include",
-  headers: {
-    Authorization: `Bearer ${TOKEN}`,
+  prepareHeaders: (headers) => {
+    if (typeof window !== "undefined") {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        headers.set("Authorization", `Bearer ${accessToken}`);
+      }
+    }
+
+    return headers;
   },
 });
 
@@ -23,23 +29,48 @@ export const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  await mutex.waitForUnlock();
-
   let result = await baseQuery(args, api, extraOptions);
+
+  await mutex.waitForUnlock();
 
   if (result.error && result.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
-      const refreshResult = await baseQuery(
-        { method: "POST", url: "v1/auth/refresh-token" },
-        api,
-        extraOptions,
-      );
 
-      if (refreshResult.meta?.response?.status === 204) {
-        result = await baseQuery(args, api, extraOptions);
+      try {
+        const refreshResult = await baseQuery(
+          {
+            method: "POST",
+            url: "v1/auth/refresh-token",
+          },
+          api,
+          extraOptions,
+        );
+
+        if (refreshResult.data) {
+          const data = refreshResult.data as { accessToken: string };
+
+          localStorage.setItem("accessToken", data.accessToken);
+        }
+
+        if (refreshResult.meta?.response?.status === 200) {
+          result = await baseQuery(args, api, extraOptions);
+        } else {
+          const accessToken = localStorage.getItem("accessToken");
+
+          accessToken &&
+            (await baseQuery(
+              {
+                method: "POST",
+                url: "v1/auth/logout",
+              },
+              api,
+              extraOptions,
+            ));
+        }
+      } finally {
+        release();
       }
-      release();
     } else {
       await mutex.waitForUnlock();
       result = await baseQuery(args, api, extraOptions);

@@ -11,9 +11,8 @@
 
   box-sizing: border-box;
   width: fit-content;
-  padding: 6px 23px;
+  padding: 6px 24px;
 
-  font-family: var(--font-family);
   font-size: var(--font-size-l);
   font-weight: var(--font-weight-semi-bold);
   line-height: var(--line-height-l);
@@ -32,6 +31,10 @@
   @include button;
 
   background-color: var(--color-accent-500);
+  @media screen and (max-width: 576px) {
+    padding: 12px 24px;
+    width: 100%;
+  }
 
   &:focus-visible {
     background-color: var(--color-accent-500);
@@ -104,7 +107,7 @@
 .link {
   @include button;
 
-  color: var(--color-accent-500) !important;
+  color: var(--color-accent-500);
   background-color: transparent;
   border: none;
 

@@ -15,15 +15,30 @@ const slice = createSlice({
     );
   },
   initialState: {
+    email: undefined as string | undefined,
     error: undefined as string | undefined,
+    isAuth: false,
   },
-  name: "authSlice",
+  name: "auth",
   reducers: {
+    setEmail: (state, action: PayloadAction<string | undefined>) => {
+      state.email = action.payload;
+    },
     setError: (state, action: PayloadAction<string | undefined>) => {
       state.error = action.payload;
     },
+    setIsAuth: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload;
+    },
+  },
+  selectors: {
+    errorSelector: (state) => state.error,
+    isAuthSelector: (state) => state.isAuth,
+    userEmailSelector: (state) => state.email,
   },
 });
 
 export const authReducers = slice.reducer;
 export const authActions = slice.actions;
+export const { errorSelector, isAuthSelector, userEmailSelector } =
+  slice.selectors;
