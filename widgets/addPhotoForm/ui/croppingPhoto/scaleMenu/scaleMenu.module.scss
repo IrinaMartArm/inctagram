@@ -1,0 +1,39 @@
+.container{
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 156px;
+  height: 152px;
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+}
+.scaleMenuButton{
+  display: flex !important;
+  align-items: center!important;
+  justify-content: space-between!important;
+}
+.scaleMenuButton * {
+  color: var(--color-light-900);
+  fill: var(--color-light-900);
+}
+.scaleMenuButtonActive * {
+  color: var(--color-light-100);
+  fill: var(--color-light-100);
+}
+.scaleMenuButtons{
+  display: flex!important;
+  align-items: center!important;
+  justify-content: space-between!important;
+}
+.scaleMenuButtons * {
+  color: var(--color-light-900);
+  stroke: var(--color-light-900);
+}
+.scaleMenuButtonsActive * {
+  color: var(--color-light-100);
+  stroke: var(--color-light-100);
+}
+
+
+
+
+

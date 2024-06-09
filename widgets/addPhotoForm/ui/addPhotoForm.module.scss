@@ -1,0 +1,40 @@
+@import "../../../styles/mixins";
+
+
+.root{
+  padding: 64px;
+  @include flex(column, null, center, 12px);
+}
+
+.row {
+  @include flex(null, null, center, 12px);
+  padding: 0!important;
+  color: var(--color-light-100) !important;
+  &:hover {
+    color: var(--color-accent-100);
+  }
+}
+
+
+.triggerButtonText{
+  color: var(--color-light-100);
+  &:hover {
+    color: var(--color-accent-100);
+  }
+ }
+
+.controller{
+  max-width: 220px;
+  padding-top: 24px;
+  @include flex(column, null, center, 12px);
+}
+.input {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+/////////
+.withFilters{
+  max-width: 972px;
+  height: 564px;
+}

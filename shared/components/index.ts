@@ -17,6 +17,7 @@ export * from "./avatar";
 export * from "./toast";
 export * from "./avatarEdit";
 export * from "./modals";
+export * from "./slider";
 export * from "./navLink";
 export * from "./pageTitle";
 export * from "./dayPicker";

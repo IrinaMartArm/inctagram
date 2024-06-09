@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { Typography } from "@/shared/components";
+import { AddPhotoForm } from "@/widgets";
 import { clsx } from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,8 +10,8 @@ import s from "./navLink.module.scss";
 
 export type PathOption = {
   icon: ReactNode;
-  path: string;
-  title: string;
+  path?: string;
+  title?: string;
 };
 
 type Props = {
@@ -25,7 +26,7 @@ export const NavLink = ({ isTextHidden = false, path }: Props) => {
     return currentPath === pathname;
   };
 
-  return (
+  return path.path ? (
     <Link
       className={clsx(s.row, isActive(path.path) && s.active)}
       href={path.path}
@@ -36,5 +37,7 @@ export const NavLink = ({ isTextHidden = false, path }: Props) => {
         <Typography variant={"Medium_text-14"}>{path.title}</Typography>
       )}
     </Link>
+  ) : (
+    <AddPhotoForm />
   );
 };

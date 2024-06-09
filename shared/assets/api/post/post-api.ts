@@ -1,9 +1,22 @@
 import { baseApi } from "@/shared/assets";
-import { DeletePostArgs, EditPostArgs } from "@/shared/assets/api/post/types";
+import {
+  AddPostReq,
+  AddPostResp,
+  DeletePostArgs,
+  EditPostArgs,
+} from "@/shared/assets/api/post/types";
 
 const postApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
+      addPost: builder.mutation<AddPostResp, AddPostReq>({
+        invalidatesTags: ["MyPosts"],
+        query: ({ description, images }) => ({
+          body: { description, images },
+          method: "POST",
+          url: `v1/post`,
+        }),
+      }),
       deletePost: builder.mutation<void, DeletePostArgs>({
         invalidatesTags: ["MyPosts"],
         // onQueryStarted: async (
@@ -71,4 +84,8 @@ const postApi = baseApi.injectEndpoints({
   },
 });
 
-export const { useDeletePostMutation, useEditPostMutation } = postApi;
+export const {
+  useAddPostMutation,
+  useDeletePostMutation,
+  useEditPostMutation,
+} = postApi;
