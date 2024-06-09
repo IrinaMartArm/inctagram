@@ -1,0 +1,37 @@
+@import "../../../../styles/mixins";
+
+.header{
+  height: 60px;
+  @include flex(null, space-between, center, 12px);
+  padding: 0 0 0 15px;
+}
+.root{
+  overflow: hidden;
+  min-height: 564px;
+}
+.imgBlock{
+  position: relative;
+  width: 490px;
+  height: 504px;
+}
+.img{
+  width: 100%;
+  max-height: 504px;
+  object-fit: cover;
+}
+
+.controlPanelImage{
+  position: absolute;
+  bottom:15px;
+  right: 10px;
+}
+.controlPanelVectors{
+  position: absolute;
+  bottom:15px;
+  left: 10px;
+}
+.controlPanelMagnifier{
+  position: absolute;
+  bottom:15px;
+  left: 60px;
+}

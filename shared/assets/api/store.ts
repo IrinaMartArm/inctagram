@@ -1,6 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import { authReducers } from "@/entities";
+import { addPhotoReducers, authReducers } from "@/entities";
 import { baseApi } from "@/shared/assets/api/base-api";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -10,6 +10,7 @@ export const store = configureStore({
     return getDefaultMiddleware().concat(baseApi.middleware);
   },
   reducer: {
+    addPhoto: addPhotoReducers,
     auth: authReducers,
     [baseApi.reducerPath]: baseApi.reducer,
   },

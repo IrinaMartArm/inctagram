@@ -26,9 +26,8 @@
 .overlay {
   position: fixed;
   inset: 0;
-  //background-color: rgb(12 12 12 / 58%);
-  background-color: var(--color-dark-700);
-  opacity: 0.6;
+  background-color: var(--color-dark-900);
+  opacity: 0.5;
 }
 
 .child {
