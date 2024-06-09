@@ -1,5 +1,8 @@
-import { useState } from "react";
+"use client";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Controller } from "react-hook-form";
 
+import { useGetProfileInfoQuery } from "@/shared/assets/api/profile/profile-api";
 import {
   Alert,
   Button,
@@ -9,15 +12,17 @@ import {
   Select,
   Tab,
 } from "@/shared/components";
+import { ControlledSelect } from "@/shared/components/controlled/ControlledSelect";
 import { EditProfilePhoto } from "@/widgets";
-import {
-  useProfileForm,
-  useUpdateAvatar,
-} from "@/widgets/profile/general/hook";
-import { AvatarBox } from "@/widgets/profile/general/ui/avatarBox";
+import { DevTool } from "@hookform/devtools";
 import { useRouter } from "next/router";
 
 import s from "./general.module.scss";
+
+import { useProfileForm, useUpdateAvatar } from "../hook";
+import { useSetUserInfo } from "../hook/useSetUserInfo";
+import { countries, getCityOptions } from "../utils/geography";
+import { AvatarBox } from "./avatarBox";
 
 const options = [
   {
@@ -29,24 +34,14 @@ const options = [
   { disabled: false, title: "Account Management", value: "Account Management" },
   { disabled: false, title: "My payments", value: "My payments" },
 ];
-const countries = [
-  { title: "Belarus", value: "Belarus" },
-  { title: "Russia", value: "Russia" },
-];
-const russ = [
-  { title: "Moscow", value: "Moscow" },
-  { title: "Krasnodar", value: "Krasnodar" },
-  { title: "Sochi", value: "Sochi" },
-  { title: "Volgograd", value: "Volgograd" },
-];
-const belarus = [
-  { title: "Minsk", value: "Minsk" },
-  { title: "Vitebsk", value: "Vitebsk" },
-  { title: "Gomel", value: "Gomel" },
-  { title: "Brest", value: "Brest" },
-  { title: "Novopolotsk", value: "Novopolotsk" },
-  { title: "Mogilev", value: "Mogilev" },
-];
+
+export type UserInfoKeys =
+  | "aboutMe"
+  | "city"
+  | "dateOfBirth"
+  | "firstName"
+  | "lastName"
+  | "username";
 
 export const General = () => {
   const router = useRouter();
@@ -59,115 +54,171 @@ export const General = () => {
     control,
     errors,
     handleSubmit,
+    isDirty,
+    isSubmitSuccessful,
     isValid,
     onSubmit,
+    reset,
+    setValue,
     showAlert,
     t,
   } = useProfileForm();
-  const [selectedCountry, setSelectedCountry] = useState("");
+
+  const { data: userInfoData, error, isLoading } = useGetProfileInfoQuery();
+
+  const {
+    citiesRange,
+    dateOfBirth,
+    selectedCountry,
+    setCitiesRange,
+    setSelectedCountry,
+  } = useSetUserInfo(userInfoData, setValue);
+
+  useEffect(() => {
+    //for setting all values isDirty false after submitting form
+    if (isSubmitSuccessful) {
+      reset(undefined, {
+        keepDefaultValues: false,
+        keepDirty: false,
+      });
+    }
+  }, [isSubmitSuccessful, reset]);
+
   const [isShowModal, setIsShowModal] = useState(false);
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar();
 
-  const handleCountryChange = (key: string, value: string) => {
+  const handleAboutMeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.currentTarget.value;
+
+    setValue("aboutMe", value, {
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
+
+  const handleSelectCountry = (key: string, value: string) => {
+    //when we change country we set the first city of a range
+    const cities = getCityOptions(value);
+
     setSelectedCountry(value);
+    setCitiesRange(cities);
+
+    setValue("city", cities[0].value);
   };
 
-  const getCityOptions = () => {
-    if (selectedCountry === "Russia") {
-      return russ;
-    } else {
-      return belarus;
+  const handleSelectCity = (key: string, value: string) => {
+    if (value.trim() === "") {
+      ///when we change country in other select this function is triggering with value of empty string
+      return;
     }
+
+    setValue("city", value, {
+      shouldDirty: true,
+      shouldTouch: true,
+    });
   };
 
-  const cities = getCityOptions();
+  const isDisabled = isValid && isDirty;
 
   return (
-    <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
-      {showAlert && (
-        <Alert
-          onClick={alertHandler}
-          title={alertMessage}
-          variant={alertVariant}
-        />
-      )}
-      <Tab defaultValue={"General information"} options={options} />
-      <div className={s.container}>
-        <AvatarBox
-          avatar={avatar}
-          deletePhoto={deletePhotoHandler}
-          setIsShowModal={setIsShowModal}
-        />
-        <div className={s.form}>
-          <ControlledTextField
-            control={control}
-            errorMessage={errors.username?.message}
-            label={t.username}
-            name={"username"}
-            required
-            type={"text"}
+    <>
+      <DevTool control={control} />
+      <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
+        {showAlert && (
+          <Alert
+            onClick={alertHandler}
+            title={alertMessage}
+            variant={alertVariant}
           />
-          <ControlledTextField
-            control={control}
-            errorMessage={errors.firstName?.message}
-            label={t.firstName}
-            name={"firstName"}
-            required
-            type={"text"}
+        )}
+        <Tab defaultValue={"General information"} options={options} />
+        <div className={s.container}>
+          <AvatarBox
+            avatar={avatar}
+            deletePhoto={deletePhotoHandler}
+            setIsShowModal={setIsShowModal}
           />
-          <ControlledTextField
-            control={control}
-            errorMessage={errors.lastName?.message}
-            label={t.lastName}
-            name={"lastName"}
-            required
-            type={"text"}
-          />
-          <ControlledDayPicker
-            control={control}
-            errorMessage={errors.dateOfBirth?.message}
-            label={t.dateOfBirth}
-            name={"dateOfBirth"}
-          />
-          <div className={s.selectors}>
-            <Select
-              className={s.select}
-              defaultValue={countries[0].value}
-              items={countries}
-              label={t.selectYourCountry}
-              name={"countries"}
-              onChange={handleCountryChange}
+          <div className={s.form}>
+            <ControlledTextField
+              control={control}
+              errorMessage={errors.username?.message}
+              label={"User name"}
+              name={"username"}
+              required
+              type={"text"}
             />
-            <Select
-              className={s.select}
-              defaultValue={cities[0].value}
-              items={cities}
-              label={t.selectYourCity}
-              name={"city"}
-              onChange={() => {}}
+            <ControlledTextField
+              control={control}
+              errorMessage={errors.firstName?.message}
+              label={"First Name"}
+              name={"firstName"}
+              required
+              type={"text"}
+            />
+            <ControlledTextField
+              control={control}
+              errorMessage={errors.lastName?.message}
+              label={"Last Name"}
+              name={"lastName"}
+              required
+              type={"text"}
+            />
+
+            <ControlledDayPicker
+              control={control}
+              defaultValue={dateOfBirth}
+              errorMessage={errors.dateOfBirth?.message}
+              label={"Date of birth"}
+              name={"dateOfBirth"}
+              selected={dateOfBirth ? dateOfBirth : ""}
+            />
+
+            <div className={s.selectors}>
+              {selectedCountry && (
+                <>
+                  <Select
+                    className={s.general}
+                    defaultValue={selectedCountry}
+                    items={countries}
+                    label={"Select your country"}
+                    name={"countries"}
+                    onChange={handleSelectCountry}
+                  />
+                  <ControlledSelect
+                    className={s.general}
+                    control={control}
+                    defaultValue={citiesRange[0].value}
+                    items={citiesRange}
+                    label={"City"}
+                    name={"city"}
+                    onChange={handleSelectCity}
+                  />
+                </>
+              )}
+            </div>
+            <ControlledTextArea
+              control={control}
+              error={errors.aboutMe?.message}
+              label={"About Me"}
+              name={"aboutMe"}
+              onChangeValue={handleAboutMeChange}
+              placeholder={"Text-area"}
             />
           </div>
-          <ControlledTextArea
-            control={control}
-            // errorMessage={errors.aboutMe?.message}
-            label={t.aboutMe}
-            name={"aboutMe"}
-            placeholder={"Text-area"}
-          />
         </div>
-      </div>
-      <Button className={s.button} disabled={!isValid} type={"submit"}>
-        Save Changes
-      </Button>
-      {isShowModal && (
-        <EditProfilePhoto
-          defaultOpen={isShowModal}
-          photo={avatar}
-          setIsShowModal={setIsShowModal}
-          updateAvatar={updateAvatar}
-        />
-      )}
-    </form>
+        <Button className={s.button} disabled={!isDisabled} type={"submit"}>
+          Save Changes
+        </Button>
+        {isShowModal && (
+          <EditProfilePhoto
+            defaultOpen={isShowModal}
+            photo={avatar}
+            setIsShowModal={setIsShowModal}
+            updateAvatar={updateAvatar}
+          />
+        )}
+      </form>
+    </>
   );
 };

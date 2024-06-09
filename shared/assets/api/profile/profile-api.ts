@@ -15,6 +15,7 @@ export const ProfileApi = baseApi.injectEndpoints({
         }),
       }),
       fillOutProfile: builder.mutation<void, UserProfileArgs>({
+        invalidatesTags: ["Me"],
         query: (body) => ({
           body,
           method: "PUT",
@@ -22,8 +23,10 @@ export const ProfileApi = baseApi.injectEndpoints({
           url: "v1/user/fill-out-profile",
         }),
       }),
-      profileInformation: builder.query<UserProfileResponse, void>({
-        query: (arg) => ({
+      getProfileInfo: builder.query<UserProfileArgs, void>({
+        providesTags: ["Me"],
+        query: () => ({
+          method: "GET",
           url: "v1/user/profile-information",
         }),
       }),
@@ -41,6 +44,6 @@ export const ProfileApi = baseApi.injectEndpoints({
 export const {
   useDeleteUserPhotoMutation,
   useFillOutProfileMutation,
-  useProfileInformationQuery,
+  useGetProfileInfoQuery,
   useUploadUserPhotoMutation,
 } = ProfileApi;

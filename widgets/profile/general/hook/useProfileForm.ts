@@ -19,9 +19,9 @@ export const useProfileForm = () => {
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertVariant, setAlertVariant] = useState<AlertVariant>("success");
 
-  const sixteenYearsAgo = new Date();
+  const thirteenYearsAgo = new Date();
 
-  sixteenYearsAgo.setFullYear(sixteenYearsAgo.getFullYear() - 16);
+  thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 13);
 
   const profileFormSchema = z.object({
     aboutMe: z.string().max(20).optional(),
@@ -30,9 +30,16 @@ export const useProfileForm = () => {
       .string()
       .refine(
         (dateString) => {
-          const dateOfBirth = new Date(dateString);
+          const dateOfBirth = new Date(
+            Date.parse(
+              dateString.replace(/(\d{2}).(\d{2}).(\d{4})/, "$2/$1/$3"),
+            ),
+          );
 
-          return dateOfBirth <= sixteenYearsAgo;
+          const difference =
+            dateOfBirth.getFullYear() - thirteenYearsAgo.getFullYear();
+
+          return !(difference >= 0);
         },
         {
           message: t.errors.child,
@@ -54,8 +61,10 @@ export const useProfileForm = () => {
 
   const {
     control,
-    formState: { errors, isValid },
+    formState: { errors, isDirty, isSubmitSuccessful, isValid },
     handleSubmit,
+    reset,
+    setValue,
   } = useForm<ProfileFormSchema>({
     defaultValues,
     mode: "onBlur",
@@ -88,8 +97,12 @@ export const useProfileForm = () => {
     control,
     errors,
     handleSubmit,
+    isDirty,
+    isSubmitSuccessful,
     isValid,
     onSubmit,
+    reset,
+    setValue,
     showAlert,
     t,
   };
