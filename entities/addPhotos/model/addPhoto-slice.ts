@@ -32,9 +32,13 @@ const slice = createSlice({
         filter: "none",
         img: action.payload,
       });
-      console.log(state.images?.length);
     },
-
+    discardAll: (state) => {
+      state.modalState = "add-photo";
+      state.images = [];
+      state.cropImages = [];
+      state.cropImagesWithFilter = [];
+    },
     removeImage: (state, action: PayloadAction<number>) => {
       state.images.splice(action.payload, 1);
       state.cropImages.splice(action.payload, 1);

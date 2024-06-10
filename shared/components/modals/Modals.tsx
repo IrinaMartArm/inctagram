@@ -16,14 +16,23 @@ import s from "./Modals.module.scss";
 
 export type Props = {
   className?: string;
+  handleCloseClickOutside?: () => void;
   title?: string;
   trigger?: ReactNode;
 } & ComponentPropsWithoutRef<typeof RadixModal.Root>;
 
 export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
   (props, ref) => {
-    const { children, className, onOpenChange, open, title, trigger, ...rest } =
-      props;
+    const {
+      children,
+      className,
+      handleCloseClickOutside,
+      onOpenChange,
+      open,
+      title,
+      trigger,
+      ...rest
+    } = props;
 
     return (
       <RadixModal.Root {...rest} onOpenChange={onOpenChange} open={open}>
@@ -34,7 +43,16 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>(
               <RadixModal.Overlay className={s.overlay} />
             </motion.div>
             <div className={`${s.root} ${className}`} {...rest}>
-              <RadixModal.Content asChild ref={ref}>
+              <RadixModal.Content
+                asChild
+                onInteractOutside={(event) => {
+                  if (handleCloseClickOutside) {
+                    event.preventDefault();
+                    handleCloseClickOutside();
+                  }
+                }}
+                ref={ref}
+              >
                 <motion.div {...modalAnimations.window}>
                   {title && (
                     <div className={s.title}>
