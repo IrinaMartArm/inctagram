@@ -1,0 +1,63 @@
+@import "styles/mixins";
+
+.root {
+  @include flex(row, center, center);
+  width: 1000px;
+}
+
+.postInfoWrapper {
+  @include flex(column, center, center);
+  width: 100%;
+  border: 1px solid green;
+}
+
+.header {
+  @include flex(row, space-between, center);
+  width: 100%;
+  padding: 11px 24px;
+}
+
+.contentWrapper {
+  @include flex(column, flex-start, center, 15px);
+  width: 100%;
+  padding: 24px 24px 8px;
+  border-bottom: 1px solid green;
+}
+
+.content {
+  @include flex(row, flex-start, center, 12px);
+  width: 100%;
+}
+
+.comment {
+  @include flex(column, center, flex-start, 5px);
+  width: 100%;
+}
+
+.contentInner {
+  @include flex(row, space-between, center);
+  width: 100%;
+}
+
+.grey {
+  color: var(--color-light-900);
+}
+
+.bottomBlock {
+  @include flex(column, center, center, 19px);
+  padding: 12px 24px;
+  width: 100%;
+}
+
+.icons {
+  @include flex(row, space-between, center);
+  width: 100%;
+}
+
+.icons div {
+  @include flex(row, flex-start, center, 24px);
+}
+
+.avatars {
+  @include flex(row, flex-start, center);
+}
