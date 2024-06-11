@@ -30,15 +30,15 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   const isAuthPage: boolean = authRoutes.includes(router.pathname);
 
   useEffect(() => {
-    // if (!isLoading) {
-    //   if (!isAuth && isProtectedPage) {
-    //     router.push(Paths.MAIN);
-    //   } else if (isAuth && isAuthPage) {
-    //     router.push(`${Paths.PROFILE}/?id=${userId!}`);
-    //   } else if (isAuth) {
-    //     dispatch(authActions.setIsAuth(true));
-    //   }
-    // }
+    if (!isLoading) {
+      if (!isAuth && isProtectedPage) {
+        router.push(Paths.MAIN);
+      } else if (isAuth && isAuthPage) {
+        router.push(`${Paths.PROFILE}/?id=${userId!}`);
+      } else if (isAuth) {
+        dispatch(authActions.setIsAuth(true));
+      }
+    }
   }, [
     isAuth,
     isProtectedPage,
