@@ -63,8 +63,6 @@ export const useAddPhotoForm = () => {
         pixelCrop: croppedAreaPixels,
       });
 
-      console.log("donee", { croppedImage });
-
       dispatch(
         addPhotoActions.addCropImage({
           cropImage: croppedImage as string,
@@ -85,7 +83,6 @@ export const useAddPhotoForm = () => {
         activeFilter,
       );
 
-      console.log("donee", { croppedImage });
       if (croppedImage) {
         const croppedImageURL = URL.createObjectURL(croppedImage);
 

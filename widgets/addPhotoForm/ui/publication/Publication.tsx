@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 
+import { addPhotoActions } from "@/entities";
 import { ArrowBack } from "@/public";
 import { useAddPostMutation } from "@/shared/assets/api/post/post-api";
+import { useAppDispatch } from "@/shared/assets/api/store";
 import {
   Avatar,
   Button,
@@ -19,6 +21,8 @@ import {
 import s from "./publication.module.scss";
 
 export const Publication = () => {
+  const dispatch = useAppDispatch();
+
   const {
     control,
     cropImages,
@@ -64,11 +68,14 @@ export const Publication = () => {
   };
   const description = watch("description", "");
   const numLetters = description.length;
+  const handleBackToFilters = () => {
+    dispatch(addPhotoActions.setModalStateTo("filters"));
+  };
 
   return (
     <div>
       <div className={s.header}>
-        <Button variant={"icon"}>
+        <Button onClick={handleBackToFilters} variant={"icon"}>
           <ArrowBack />
         </Button>
         <Typography variant={"h1"}>Publication</Typography>

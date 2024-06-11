@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 
+import { addPhotoActions } from "@/entities";
 import { ArrowBack, Magnifier, Picture, Vectors } from "@/public";
+import { useAppDispatch } from "@/shared/assets/api/store";
 import { CropArg } from "@/shared/assets/types/types";
 import { Button, Typography } from "@/shared/components";
 import { useAddPhotoForm } from "@/widgets/addPhotoForm/hooks";
@@ -30,7 +32,10 @@ export const CroppingPhoto = ({
     showMenu,
     zoomValue,
   } = useAddPhotoForm();
-
+  const dispatch = useAppDispatch();
+  const handleBack = () => {
+    dispatch(addPhotoActions.discardAll());
+  };
   const handleShowMenu = (menu: string) => {
     menu === showMenu ? setShowMenu("") : setShowMenu(menu);
   };
@@ -41,7 +46,7 @@ export const CroppingPhoto = ({
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <Button variant={"icon"}>
+        <Button onClick={handleBack} variant={"icon"}>
           <ArrowBack />
         </Button>
         <Typography variant={"h1"}>Cropping</Typography>

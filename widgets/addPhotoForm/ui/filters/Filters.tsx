@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 
+import { addPhotoActions } from "@/entities";
 import { ArrowBack } from "@/public";
+import { useAppDispatch } from "@/shared/assets/api/store";
 import { Button, Typography } from "@/shared/components";
 import { useAddPhotoForm } from "@/widgets/addPhotoForm/hooks";
 import {
@@ -56,12 +58,13 @@ export const Filters = () => {
     setModalStateCallback,
     showFilteredImage,
   } = useAddPhotoForm();
-
+  const dispatch = useAppDispatch();
   const [filter, setFilter] = useState("");
   const [ind, setInd] = useState(0);
 
-  console.log(ind);
-
+  const handleBackToCropPhoto = () => {
+    dispatch(addPhotoActions.setModalStateTo("cropping"));
+  };
   const handleNext = () => {
     setModalStateCallback("publication");
   };
@@ -123,18 +126,11 @@ export const Filters = () => {
       </div>
     );
   });
-  const cropIMGTEST = cropImagesWithFilter.map((e, i) => {
-    return (
-      <div className={s.filterBlock} key={i}>
-        <img alt={""} className={s.filterImg} src={e.img} />;
-      </div>
-    );
-  });
 
   return (
     <div>
       <div className={s.header}>
-        <Button variant={"icon"}>
+        <Button onClick={handleBackToCropPhoto} variant={"icon"}>
           <ArrowBack />
         </Button>
         <Typography variant={"h1"}>Filters</Typography>
@@ -157,7 +153,6 @@ export const Filters = () => {
         </Slider>
         <div className={s.filtersBlock}>{filters}</div>
       </div>
-      <div className={s.test}>{cropIMGTEST}</div>
     </div>
   );
 };
