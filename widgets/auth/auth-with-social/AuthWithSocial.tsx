@@ -1,17 +1,26 @@
 import { GitHubBig, Google } from "@/public";
+import {
+  githubAuthRedirect,
+  googleAuthRedirect,
+} from "@/shared/assets/helpers/authentication";
+import { Button } from "@/shared/components";
 import Link from "next/link";
 
 import s from "./authWithSocial.module.scss";
 
 export const AuthWithSocial = () => {
+  const onGoogleLogin = () => googleAuthRedirect();
+
+  const onGithubLogin = () => githubAuthRedirect();
+
   return (
     <div className={s.socials}>
-      <Link aria-label={"sign in with Google"} href={""}>
+      <Button onClick={onGoogleLogin} type={"button"} variant={"icon"}>
         <Google />
-      </Link>
-      <Link aria-label={"sign in with GitHub"} href={""}>
+      </Button>
+      <Button onClick={onGithubLogin} type={"button"} variant={"icon"}>
         <GitHubBig />
-      </Link>
+      </Button>
     </div>
   );
 };

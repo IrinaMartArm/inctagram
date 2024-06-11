@@ -31,6 +31,7 @@ export const AuthApi = baseApi.injectEndpoints({
           url: "v1/auth/registration-email-resending",
         }),
       }),
+
       login: builder.mutation<LoginResponse, LoginArgs>({
         query: (body) => ({
           body: {
