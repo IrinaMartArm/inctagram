@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import {
   Bookmark_outline,
   Edit,
   HeartOutline,
+  HeartRed,
   HeartSmall,
   More,
   PaperPlane,
@@ -12,13 +14,13 @@ import {
 import {
   AvatarSimple,
   Button,
+  ControlledTextField,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
   Typography,
 } from "@/shared/components";
-import { Slider } from "@/shared/components/slider/Slider";
 
 import s from "./post.module.scss";
 import d from "@/shared/components/dropDownMenu/dropDown.module.scss";
@@ -28,6 +30,8 @@ export const Post = () => {
   const onOpenChangeHandler = () => setOpen(!open);
   const isOwner = true;
   const avatars = [<AvatarSimple title={""} />, <AvatarSimple title={""} />];
+
+  const { control, handleSubmit, reset } = useForm({});
 
   const Menu = () => {
     return (
@@ -53,7 +57,6 @@ export const Post = () => {
 
   return (
     <div className={s.root}>
-      <Slider />
       <div className={s.postInfoWrapper}>
         <div className={s.header}>
           <div className={s.content}>
@@ -89,7 +92,7 @@ export const Post = () => {
               <div className={s.contentInner}>
                 <Typography variant={"h3"}>Lorem</Typography>
                 <Button
-                  icon={<HeartSmall />}
+                  icon={<HeartRed />}
                   onClick={() => {}}
                   variant={"icon"}
                 />
@@ -109,13 +112,23 @@ export const Post = () => {
             <Bookmark_outline />
           </div>
           <div className={s.avatars}>
-            {avatars.map((el) => el)}
-            <Typography variant={"regular_text-14"}>{}"Like"</Typography>
+            <div>{avatars.map((el) => el)}</div>
+            <Typography variant={"regular_text-14"}>{2876} "Like"</Typography>
           </div>
           <Typography className={s.grey} variant={"small-text"}>
             July 3, 2021
           </Typography>
-          <div className={s}></div>
+          <form className={s.input}>
+            <ControlledTextField
+              control={control}
+              name={"comment"}
+              placeholder={"Add a Comment..."}
+              type={"text"}
+            />
+            <Button className={s.publish} variant={"icon"}>
+              Publish
+            </Button>
+          </form>
         </div>
       </div>
     </div>
