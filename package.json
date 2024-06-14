@@ -13,7 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@esbuild/win32-x64": "^0.21.1",
+    "esbuild": "^0.21.5",
     "@fontsource/inter": "^5.0.17",
     "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-avatar": "^1.0.4",
