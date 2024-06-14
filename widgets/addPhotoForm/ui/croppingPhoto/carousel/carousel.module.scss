@@ -1,0 +1,22 @@
+.slider {
+  :global(.slick-list) {
+    height: 500px;
+    z-index: 0;
+  }
+  :global(.slick-track) {
+    height: 504px;
+  }
+}
+.prevArrow{
+  position: absolute;
+  z-index: 1;
+  top:250px;
+  cursor: pointer;
+}
+.nextArrow{
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+  top:250px;
+  left: 450px;
+}

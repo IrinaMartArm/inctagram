@@ -7,3 +7,10 @@ export type IconProps = {
   ref?: LegacyRef<SVGSVGElement>;
   size?: number;
 } & Omit<HTMLProps<HTMLSpanElement>, "color" | "size">;
+
+export type CropArg = {
+  height: number;
+  width: number;
+  x: number;
+  y: number;
+};

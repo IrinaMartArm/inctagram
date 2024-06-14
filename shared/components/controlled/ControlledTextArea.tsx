@@ -24,5 +24,15 @@ export const ControlledTextArea = <T extends FieldValues>({
     shouldUnregister,
   });
 
-  return <Textarea {...rest} {...field} label={label} />;
+  return (
+    <Textarea
+      {...rest}
+      {...field}
+      label={label}
+      onChangeValue={(e) => {
+        field.onChange(e); // Вызов метода onChange из useController
+        rest.onChangeValue && rest.onChangeValue(e); // Вызов пользовательского обработчика
+      }}
+    />
+  );
 };

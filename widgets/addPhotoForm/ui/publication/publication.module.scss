@@ -1,0 +1,66 @@
+.filterContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 504px;
+}
+@import "../../../../styles/mixins";
+
+.header{
+  height: 60px;
+  @include flex(null, space-between, center, 12px);
+  padding: 0 0 0 15px;
+}
+.sliderContainer{
+  width: 492px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.publicationDescriptionBlock{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+.imageContainer {
+  width: 492px;
+  height: 504px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.imageContainer img {
+  width: 492px;
+  max-height: 100%;
+  object-fit: contain; /* Сохраняет пропорции изображения и помещает его внутрь контейнера */
+  object-position: center; /* Центрирует изображение внутри контейнера */
+}
+.formBlock{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 25px;
+  border-bottom: 1px solid var(--color-dark-100);
+}
+
+.avatarContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+.avatar{
+  width: 36px;
+}
+.numLettersText{
+  color: var(--color-light-900);
+  display: block;
+  text-align: right;
+}
+.locationBlock{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 25px;
+}

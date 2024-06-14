@@ -8,13 +8,26 @@ import {
   useState,
 } from "react";
 
-import { Close, DatePicker, Eye, EyeOff, Search_outline } from "@/public";
+import {
+  Close,
+  DatePicker,
+  Eye,
+  EyeOff,
+  LocationPointer,
+  Search_outline,
+} from "@/public";
 import { Typography } from "@/shared/components";
 import { clsx } from "clsx";
 
 import s from "./input.module.scss";
 
-type InputTypes = "datePicker" | "email" | "password" | "search" | "text";
+type InputTypes =
+  | "datePicker"
+  | "email"
+  | "location"
+  | "password"
+  | "search"
+  | "text";
 
 export type InputProps = {
   errorMessage?: string;
@@ -136,6 +149,11 @@ export const Input = forwardRef<ElementRef<"input">, InputProps>(
             value={value || ""}
             {...rest}
           />
+          {type === "location" && (
+            <button className={s.iconStart} type={"button"}>
+              <LocationPointer />
+            </button>
+          )}
           {type === "password" && (
             <button
               aria-label={`${showPassword ? "hide" : "show"} password`}

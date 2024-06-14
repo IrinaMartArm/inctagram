@@ -17,7 +17,7 @@ const DropdownMenuContent = React.forwardRef<
     <DropdownMenuPrimitive.Content
       align={"end"}
       className={s.DropdownMenuContent}
-      onClick={(event) => event.stopPropagation()}
+      onClick={(event: any) => event.stopPropagation()}
       ref={ref}
       sideOffset={5}
       {...rest}

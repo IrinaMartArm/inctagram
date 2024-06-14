@@ -22,7 +22,7 @@ export const LogOutModal = ({ email }: Props) => {
     >
       <div className={s.root}>
         <Typography variant={"regular_text-16"}>
-          {t.logOut.warning}{" "}
+          {t.logOut.warning}
           <Typography as={"span"} variant={"Bold_text-16"}>
             {email ?? ""}
           </Typography>
