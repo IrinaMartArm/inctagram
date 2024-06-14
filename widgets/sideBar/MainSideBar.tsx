@@ -3,7 +3,6 @@ import {
   Dialog,
   Home_outline,
   Person_outline,
-  PlusSquare_outline,
   Search_outline,
   Statistics,
 } from "@/public";
@@ -18,8 +17,7 @@ import { NavLinks } from "./ui";
 
 export const MainSideBar = () => {
   const { t } = useTranslation();
-  const { create, favorites, home, messenger, myProfile, search, statistics } =
-    t.menu;
+  const { favorites, home, messenger, myProfile, search, statistics } = t.menu;
 
   const basicPaths = [
     { icon: <Home_outline />, path: Paths.HOME, title: home },
