@@ -24,7 +24,7 @@ export const signUpSchema = (t: SignUpLocale) => {
         .trim()
         .min(6, t.passwordMin)
         .max(30, t.usernameError)
-        .regex(USERNAME_REGEX, `${t.invalidUsername} a-zA-Z0-9_-`),
+        .regex(USERNAME_REGEX, `${t.invalidUsername} a-z, A-Z, 0-9_-`),
     })
     .refine((value) => value.agree, {
       message: t.checkbox,

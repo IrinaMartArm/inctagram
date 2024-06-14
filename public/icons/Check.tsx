@@ -1,6 +1,7 @@
 import { Ref, forwardRef, memo } from "react";
 
 import { IconProps, IconWrapper } from "@/shared/components/IconWrapper";
+
 export const Check = memo(
   forwardRef((Props: IconProps, ref: Ref<any>) => {
     const { color, colorB = "black", svgProps: props, ...restProps } = Props;

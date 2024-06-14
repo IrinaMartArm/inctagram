@@ -1,17 +1,15 @@
 import { PageWrapper } from "@/shared/components";
 import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
 import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
-import { Post } from "@/widgets/profile/post/ui/Post";
 
-const Home = () => {
+const Create = () => {
   return (
     <PageWrapper>
-      <HeadMeta title={"Posts"} />
-      <div>Home🌼</div>
-      <Post />
+      <HeadMeta title={"Search"} />
+      <div>Create</div>
     </PageWrapper>
   );
 };
 
-Home.getLayout = getMainLayout;
-export default Home;
+Create.getLayout = getMainLayout;
+export default Create;

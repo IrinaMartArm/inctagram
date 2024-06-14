@@ -1,0 +1,82 @@
+@import "styles/mixins";
+
+.root {
+  @include flex(row, center, center);
+  max-width: 1000px;
+  width: 100%;
+  background-color: var(--color-dark-300);
+}
+
+.postInfoWrapper {
+  @include flex(column, center, center);
+  width: 100%;
+}
+
+.header {
+  @include flex(row, space-between, center);
+  width: 100%;
+  padding: 11px 24px;
+}
+
+.contentWrapper {
+  @include flex(column, flex-start, center, 15px);
+  width: 100%;
+  padding: 24px 24px 8px;
+  border-bottom: 1px solid var(--color-dark-100);
+}
+
+.content {
+  @include flex(row, flex-start, center, 12px);
+  width: 100%;
+}
+
+.comment {
+  @include flex(column, center, flex-start, 5px);
+  width: 100%;
+}
+
+.contentInner {
+  @include flex(row, space-between, center);
+  width: 100%;
+}
+
+.grey {
+  color: var(--color-light-900);
+}
+
+.bottomBlock {
+  position: relative;
+  @include flex(column, center, flex-start, 19px);
+  padding: 12px 24px 55px;
+  width: 100%;
+
+}
+
+.icons {
+  @include flex(row, space-between, center);
+  width: 100%;
+}
+
+.icons div {
+  @include flex(row, flex-start, center, 24px);
+}
+
+.avatars {
+  @include flex(row, flex-start, center, 12px);
+  width: 100%;
+}
+
+.input {
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  left: 0;
+  border-top: 1px solid var(--color-dark-100);
+}
+
+.publish {
+  position: absolute;
+  bottom: 27px;
+  right: 25px;
+  color: var(--color-accent-700);
+}

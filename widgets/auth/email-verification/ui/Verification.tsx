@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-import { userEmailSelector } from "@/entities/auth/model/auth-slice";
 import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
-import { useAppSelector } from "@/shared/assets/api/store";
 import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
 import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
 import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
@@ -15,7 +13,7 @@ import s from "./verification.module.scss";
 
 export const Verification = () => {
   const { t } = useTranslation();
-  const email = useAppSelector(userEmailSelector);
+  const email = localStorage.getItem("email");
 
   const [resending] = useEmailResendingMutation();
 

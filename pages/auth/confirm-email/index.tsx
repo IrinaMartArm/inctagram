@@ -17,10 +17,12 @@ const Confirmed = () => {
   const confirmation = useCallback(async () => {
     const query: ParsedUrlQuery = router.query;
     const code = query.code as string;
+    const email = query.email as string;
 
     try {
-      if (code) {
+      if (code && email) {
         await registrationConfirmation({ code: code });
+        localStorage.setItem("email", email);
       }
     } catch (error: any) {
       handleErrorResponse(error);

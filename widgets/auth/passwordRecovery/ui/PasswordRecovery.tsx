@@ -48,14 +48,9 @@ export const PasswordRecovery = () => {
       <Button disabled={!isValid || !isChecked} fullWidth type={"submit"}>
         {isSuccess ? t.send2 : t.send}
       </Button>
-      <Button
-        as={Link}
-        className={s.button}
-        href={Paths.LOGIN}
-        variant={"link"}
-      >
-        {t.back}
-      </Button>
+      <Link className={s.button} href={Paths.LOGIN}>
+        <Typography variant={"h3"}>{t.back}</Typography>
+      </Link>
       {!isSuccess && !errors.email && (
         <ReCAPTCHAWidget onChange={handleRecaptchaChange} />
       )}

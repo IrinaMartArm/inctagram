@@ -29,6 +29,7 @@ const SignIn = () => {
         const accessToken = data.accessToken;
 
         localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("email", args.email);
 
         const res = await getUser().unwrap();
 
