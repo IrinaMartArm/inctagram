@@ -63,6 +63,7 @@ export const useNewPassword = () => {
 
   const query: ParsedUrlQuery = router.query;
   const code = query.recoveryCode as string;
+  const email = query.mail as string;
 
   const newPasswordCreator = async (data: NewPasswordFormFields) => {
     const args = {
@@ -77,6 +78,7 @@ export const useNewPassword = () => {
       const { status } = err as FetchBaseQueryError;
 
       if (status === 400) {
+        localStorage.setItem("email", email);
         await router.replace(Paths.VERIFICATION);
       }
       handleErrorResponse(err);
