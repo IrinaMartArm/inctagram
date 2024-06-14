@@ -1,4 +1,3 @@
-import { userEmailSelector } from "@/entities/auth/model/auth-slice";
 import {
   Bookmark_outline,
   Dialog,
@@ -9,7 +8,6 @@ import {
   Statistics,
 } from "@/public";
 import { Paths } from "@/shared/assets";
-import { useAppSelector } from "@/shared/assets/api/store";
 import { useTranslation } from "@/shared/assets/hooks";
 import { SideBar } from "@/shared/components";
 import { LogOutModal } from "@/widgets";
@@ -43,7 +41,8 @@ export const MainSideBar = () => {
       title: favorites,
     },
   ];
-  const email = useAppSelector(userEmailSelector);
+  // const email = useAppSelector(userEmailSelector);
+  const email = localStorage.getItem("email");
 
   return (
     <SideBar>
@@ -53,7 +52,7 @@ export const MainSideBar = () => {
           <NavLinks paths={otherPaths} />
         </div>
 
-        <LogOutModal email={email} />
+        <LogOutModal email={email || ""} />
       </div>
     </SideBar>
   );
