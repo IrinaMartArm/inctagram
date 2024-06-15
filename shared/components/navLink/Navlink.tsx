@@ -38,6 +38,6 @@ export const NavLink = ({ isTextHidden = false, path }: Props) => {
       )}
     </Link>
   ) : (
-    <AddPhotoForm />
+    <AddPhotoForm isTextHidden={isTextHidden} />
   );
 };

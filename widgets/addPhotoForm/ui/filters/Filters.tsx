@@ -57,6 +57,7 @@ export const Filters = () => {
     cropImagesWithFilter,
     setModalStateCallback,
     showFilteredImage,
+    t,
   } = useAddPhotoForm();
   const dispatch = useAppDispatch();
   const [filter, setFilter] = useState("");
@@ -133,7 +134,9 @@ export const Filters = () => {
         <Button onClick={handleBackToCropPhoto} variant={"icon"}>
           <ArrowBack />
         </Button>
-        <Typography variant={"h1"}>Filters</Typography>
+        <Typography className={s.filterTitle} variant={"h1"}>
+          {t.addPhotoForm.filters}
+        </Typography>
         <Button onClick={handleNext} variant={"link"}>
           <Typography variant={"h3"}>Next</Typography>
         </Button>

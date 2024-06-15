@@ -10,6 +10,9 @@
   @include flex(null, space-between, center, 12px);
   padding: 0 0 0 15px;
 }
+.publicationTitle{
+  margin-left: 120px;
+}
 .sliderContainer{
   width: 492px;
   display: flex;

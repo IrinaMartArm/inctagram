@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Cropper from "react-easy-crop";
 
-import { getCroppedImg } from "@/shared/assets/helpers";
 import { CropArg } from "@/shared/assets/types/types";
 
-import s from "./easyCrop.module.scss";
 type Props = {
   aspect: number;
   crop: { x: number; y: number };
