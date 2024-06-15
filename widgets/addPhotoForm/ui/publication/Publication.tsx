@@ -3,7 +3,6 @@ import Slider from "react-slick";
 
 import { addPhotoActions } from "@/entities";
 import { ArrowBack } from "@/public";
-import { useAddPostMutation } from "@/shared/assets/api/post/post-api";
 import { useAppDispatch } from "@/shared/assets/api/store";
 import {
   Avatar,
@@ -30,6 +29,7 @@ export const Publication = () => {
     errors,
     handleSubmit,
     onSubmit,
+    t,
     watch,
   } = useAddPhotoForm();
 
@@ -78,9 +78,11 @@ export const Publication = () => {
         <Button onClick={handleBackToFilters} variant={"icon"}>
           <ArrowBack />
         </Button>
-        <Typography variant={"h1"}>Publication</Typography>
+        <Typography className={s.publicationTitle} variant={"h1"}>
+          {t.addPhotoForm.publication}
+        </Typography>
         <Button onClick={handlePublish} variant={"link"}>
-          <Typography variant={"h3"}>Publish</Typography>
+          <Typography variant={"h3"}>{t.addPhotoForm.publish}</Typography>
         </Button>
       </div>
       <div className={s.filterContainer}>

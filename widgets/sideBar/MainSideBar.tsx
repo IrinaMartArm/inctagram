@@ -17,11 +17,12 @@ import { NavLinks } from "./ui";
 
 export const MainSideBar = () => {
   const { t } = useTranslation();
-  const { favorites, home, messenger, myProfile, search, statistics } = t.menu;
+  const { create, favorites, home, messenger, myProfile, search, statistics } =
+    t.menu;
 
   const basicPaths = [
     { icon: <Home_outline />, path: Paths.HOME, title: home },
-    { icon: <AddPhotoForm />, path: "" },
+    { icon: <AddPhotoForm />, path: "", title: create },
     { icon: <Person_outline />, path: Paths.PROFILE, title: myProfile },
     {
       icon: <Dialog />,

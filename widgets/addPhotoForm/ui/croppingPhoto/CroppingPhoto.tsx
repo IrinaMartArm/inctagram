@@ -30,6 +30,7 @@ export const CroppingPhoto = ({
     setShowMenu,
     setZoomValue,
     showMenu,
+    t,
     zoomValue,
   } = useAddPhotoForm();
   const dispatch = useAppDispatch();
@@ -49,7 +50,9 @@ export const CroppingPhoto = ({
         <Button onClick={handleBack} variant={"icon"}>
           <ArrowBack />
         </Button>
-        <Typography variant={"h1"}>Cropping</Typography>
+        <Typography className={s.croppingTitle} variant={"h1"}>
+          {t.addPhotoForm.cropping}
+        </Typography>
         <Button onClick={handleNext} variant={"link"}>
           <Typography variant={"h3"}>Next</Typography>
         </Button>

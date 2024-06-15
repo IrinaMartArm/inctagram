@@ -1,4 +1,18 @@
 export const ru = {
+  addPhotoForm: {
+    cropping: "Обрезка",
+    discard: "Выйти",
+    filters: "Фильтры",
+    openDraft: "Открытый проект",
+    publication: "Публикация",
+    publish: "Опубликовать",
+    saveDraft: "Сохранить шаблон",
+    selectInput: "Выберите с компьютера",
+    title: "Добавить фото",
+    triggerButton: "Создать",
+    warningQ: "Вы действительно хотите закрыть создание публикации?",
+    warningR: "Если вы закроете, все будет удалено",
+  },
   common: {
     error: "Ошибка!",
     no: "Нет",

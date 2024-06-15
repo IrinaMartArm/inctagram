@@ -1,9 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { ModalState, addPhotoActions, authActions } from "@/entities";
-import { useFormRevalidate, useTranslationPages } from "@/shared/assets";
-import { LoginArgs } from "@/shared/assets/api/auth/types";
+import { ModalState, addPhotoActions } from "@/entities";
 import { useAddPostMutation } from "@/shared/assets/api/post/post-api";
 import {
   RootState,
@@ -15,14 +13,13 @@ import { filteredImg } from "@/shared/assets/helpers/getImgWithFilter";
 import { useTranslation } from "@/shared/assets/hooks/useTranslation";
 import { CropArg } from "@/shared/assets/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { z } from "zod";
 
 export const useAddPhotoForm = () => {
   const dispatch = useAppDispatch();
   const { cropImages, cropImagesWithFilter, images, modalState } =
     useAppSelector((state: RootState) => state.addPhoto);
-  const { locale, t } = useTranslationPages();
+  const { t } = useTranslation();
   const [errorFile, setErrorFile] = useState<null | string>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [aspect, setAspect] = useState(1);

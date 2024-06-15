@@ -12,8 +12,8 @@ import { Publication } from "@/widgets/addPhotoForm/ui/publication/Publication";
 
 import s from "./addPhotoForm.module.scss";
 
-type Props = {};
-export const AddPhotoForm = ({}: Props) => {
+type Props = { isTextHidden: boolean };
+export const AddPhotoForm = ({ isTextHidden }: Props) => {
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { deleteImgCallback, errorFile, imgChangeCallback, modalState, t } =
@@ -47,7 +47,7 @@ export const AddPhotoForm = ({}: Props) => {
       handleCloseClickOutside={handleCloseClickOutside}
       onOpenChange={setOpen}
       open={open}
-      title={modalState === "add-photo" ? "Add Photo" : ""}
+      title={modalState === "add-photo" ? t.addPhotoForm.title : ""}
       trigger={
         <Button className={s.row} variant={"link"}>
           <PlusSquare_outline />
@@ -55,7 +55,7 @@ export const AddPhotoForm = ({}: Props) => {
             className={s.triggerButtonText}
             variant={"Medium_text-14"}
           >
-            Создать
+            {!isTextHidden && t.addPhotoForm.triggerButton}
           </Typography>
         </Button>
       }
@@ -80,10 +80,12 @@ export const AddPhotoForm = ({}: Props) => {
               htmlFor={"input-file"}
               onClick={handleInputClick}
             >
-              <Typography variant={"h3"}>Select from computer</Typography>
+              <Typography variant={"h3"}>
+                {t.addPhotoForm.selectInput}
+              </Typography>
             </Button>
             <Button fullWidth variant={"outlined"}>
-              <Typography variant={"h3"}>open draft</Typography>
+              <Typography variant={"h3"}>{t.addPhotoForm.openDraft}</Typography>
             </Button>
           </div>
           {errorFile && (
