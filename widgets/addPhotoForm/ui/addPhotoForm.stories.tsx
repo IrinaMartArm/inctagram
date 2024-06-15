@@ -16,7 +16,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AddPhotoFormStory: Story = {
-  args: {},
+  args: {
+    isTextHidden: false,
+  },
   decorators: [
     (Story) => (
       <Provider store={store}>
