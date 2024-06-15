@@ -3,57 +3,26 @@ import { useForm } from "react-hook-form";
 
 import {
   Bookmark_outline,
-  Edit,
   HeartOutline,
   HeartRed,
   HeartSmall,
-  More,
   PaperPlane,
-  Trash,
 } from "@/public";
 import {
   AvatarSimple,
   Button,
   ControlledTextField,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
   Typography,
 } from "@/shared/components";
+import { PostMenu } from "@/widgets/profile/post/ui/PostMenu";
 
 import s from "./post.module.scss";
-import d from "@/shared/components/dropDownMenu/dropDown.module.scss";
 
 export const Post = () => {
-  const [open, setOpen] = useState(false);
-  const onOpenChangeHandler = () => setOpen(!open);
   const isOwner = true;
   const avatars = [<AvatarSimple title={""} />, <AvatarSimple title={""} />];
 
   const { control, handleSubmit, reset } = useForm({});
-
-  const Menu = () => {
-    return (
-      <DropdownMenu onOpenChange={onOpenChangeHandler} open={open}>
-        <DropdownMenuTrigger>
-          <Button icon={<More />} variant={"icon"} />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align={"end"}>
-          <DropdownMenuItem asChild>
-            <Button className={d.item} icon={<Edit />} variant={"icon"}>
-              Edit Post
-            </Button>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Button className={d.item} icon={<Trash />} variant={"icon"}>
-              Delete Post
-            </Button>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    );
-  };
 
   return (
     <div className={s.root}>
@@ -63,7 +32,7 @@ export const Post = () => {
             <AvatarSimple title={"me"} />
             <Typography variant={"h3"}>userName</Typography>
           </div>
-          {isOwner && <Menu />}
+          {isOwner && <PostMenu />}
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>
