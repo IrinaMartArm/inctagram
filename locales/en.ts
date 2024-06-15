@@ -1,6 +1,20 @@
 import { LocaleType } from "locales/ru";
 
 export const en: LocaleType = {
+  addPhotoForm: {
+    cropping: "Cropping",
+    discard: "Discard",
+    filters: "Filters",
+    openDraft: "Open draft",
+    publication: "Publication",
+    publish: "Publish",
+    saveDraft: "Save draft",
+    selectInput: "Select from computer",
+    title: "Add Photo",
+    triggerButton: "Create",
+    warningQ: "Do you really want to close the creation of a publication?",
+    warningR: "If you close everything will be deleted",
+  },
   common: {
     error: "Error!",
     no: "No",
