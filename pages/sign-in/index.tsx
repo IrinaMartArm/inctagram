@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { authActions } from "@/entities";
 import {
   useLazyMeQuery,
@@ -31,6 +33,10 @@ const SignIn = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("email", args.email);
 
+        const message = JSON.stringify({ action: "success_sign-in" });
+
+        localStorage.setItem("sign-in", message);
+
         const res = await getUser().unwrap();
 
         await router.push(`${Paths.PROFILE}/?id=${res?.userId!}`);
@@ -45,6 +51,22 @@ const SignIn = () => {
       dispatch(authActions.setError(errorMessage));
     }
   };
+
+  useEffect(() => {
+    const changeMassageHandler = (e: StorageEvent) => {
+      if (e.newValue) {
+        const message = JSON.parse(e.newValue);
+
+        message.action === "success_sign-in" && void router.push(Paths.HOME);
+      }
+    };
+
+    window.addEventListener("storage", changeMassageHandler);
+
+    return () => {
+      window.removeEventListener("storage", changeMassageHandler);
+    };
+  }, [router]);
 
   return (
     <>

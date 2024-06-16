@@ -17,7 +17,8 @@ export const useLogOut = () => {
       if ("error" in res) {
         return handleErrorResponse(res.error);
       } else {
-        router.push(Paths.MAIN);
+        localStorage.removeItem("sign-in");
+        void router.push(Paths.MAIN);
         dispatch(authActions.setEmail());
         dispatch(authActions.setIsAuth(false));
       }

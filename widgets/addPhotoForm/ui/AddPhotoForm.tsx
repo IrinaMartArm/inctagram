@@ -13,6 +13,7 @@ import { Publication } from "@/widgets/addPhotoForm/ui/publication/Publication";
 import s from "./addPhotoForm.module.scss";
 
 type Props = { isTextHidden: boolean };
+
 export const AddPhotoForm = ({ isTextHidden }: Props) => {
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
