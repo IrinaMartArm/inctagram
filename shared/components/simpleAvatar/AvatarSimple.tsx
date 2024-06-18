@@ -1,12 +1,11 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
-import { ImageProfile } from "@/public";
 import * as RadixAvatar from "@radix-ui/react-avatar";
 
 import s from "./avatar.module.scss";
 
 type Props = {
-  size?: "large" | "small";
+  size?: "large" | "medium" | "small";
   src?: string;
   title: string;
 } & ComponentPropsWithoutRef<typeof RadixAvatar.Root>;
@@ -14,7 +13,7 @@ type Props = {
 export const AvatarSimple = forwardRef<
   ElementRef<typeof RadixAvatar.Root>,
   Props
->(({ className, size = "small", src, title, ...rest }, ref) => {
+>(({ className, size = "medium", src, title, ...rest }, ref) => {
   return (
     <RadixAvatar.Root
       className={`${s.root} ${s[size]} ${className}`}

@@ -46,7 +46,6 @@ export const NextArrowComponent = ({
   onClick,
   setInd,
 }: Props) => {
-  console.log("render");
   if (ind === (len ? len - 1 : 0) || (len ? len : 0) <= 1) {
     return null;
   }

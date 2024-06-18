@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import {
@@ -20,7 +19,7 @@ import s from "./post.module.scss";
 
 export const Post = () => {
   const isOwner = true;
-  const avatars = [<AvatarSimple title={""} />, <AvatarSimple title={""} />];
+  const avatars = ["", ""];
 
   const { control, handleSubmit, reset } = useForm({});
 
@@ -66,7 +65,7 @@ export const Post = () => {
                   variant={"icon"}
                 />
               </div>
-              <Typography className={s.color} variant={"small-text"}>
+              <Typography className={s.grey} variant={"small-text"}>
                 2 hours ago
               </Typography>
             </div>
@@ -81,8 +80,27 @@ export const Post = () => {
             <Bookmark_outline />
           </div>
           <div className={s.avatars}>
-            <div>{avatars.map((el) => el)}</div>
-            <Typography variant={"regular_text-14"}>{2876} "Like"</Typography>
+            <div className={s.avatar_container}>
+              {avatars.map((el, index) => (
+                <div
+                  className={s.avatar}
+                  key={index}
+                  style={{ zIndex: avatars.length - index }}
+                >
+                  <AvatarSimple
+                    className={s.border}
+                    size={"small"}
+                    src={el}
+                    title={""}
+                  />
+                </div>
+              ))}
+            </div>
+            <Typography variant={"regular_text-14"}>
+              {2876}
+              {"  "}
+              {"Like"}
+            </Typography>
           </div>
           <Typography className={s.grey} variant={"small-text"}>
             July 3, 2021
