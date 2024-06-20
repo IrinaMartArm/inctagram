@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import s from "./navLink.module.scss";
 
 export type PathOption = {
-  icon: ReactNode;
+  icon: any;
   path?: string;
   title?: string;
 };

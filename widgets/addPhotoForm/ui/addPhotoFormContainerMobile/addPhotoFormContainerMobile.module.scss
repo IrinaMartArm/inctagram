@@ -1,19 +1,11 @@
-@import "../../../styles/mixins";
+@import "../../../../styles/mixins";
 
 
 .root{
   padding: 64px;
   @include flex(column, null, center, 12px);
 }
-.modalSpace{
 
-  @media screen and (max-width: 576px) {
-
-
-    margin-top: 10px;
-    max-width: 100%;
-  }
-}
 .row {
   @include flex(null, null, center, 12px);
   padding: 0!important;
