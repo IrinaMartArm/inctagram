@@ -1,16 +1,16 @@
-import { WithNavigate } from "@/shared/assets/hoc/WithNavigate";
-import { PageWrapper } from "@/shared/components";
-import { HeadMeta } from "@/shared/components/headMeta/HeadMeta";
-import { getMainLayout } from "@/shared/components/layout/mainLayout/MainLayout";
+import { WithNavigate } from '@/shared/assets/hoc/WithNavigate'
+import { PageWrapper } from '@/shared/components'
+import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
+import { getMainLayout } from '@/shared/components/layout/mainLayout/MainLayout'
 
 const Statistics = () => {
   return (
     <PageWrapper>
-      <HeadMeta title={"Statistics"} />
+      <HeadMeta title={'Statistics'} />
       <div>Statistics</div>
     </PageWrapper>
-  );
-};
+  )
+}
 
-Statistics.getLayout = getMainLayout;
-export default Statistics;
+Statistics.getLayout = getMainLayout
+export default Statistics

@@ -1,18 +1,18 @@
-import { useEffect, useRef } from "react";
-import Cropper from "react-easy-crop";
+import { useEffect, useRef } from 'react'
+import Cropper from 'react-easy-crop'
 
-import { CropArg } from "@/shared/assets/types/types";
+import { CropArg } from '@/shared/assets/types/types'
 
 type Props = {
-  aspect: number;
-  crop: { x: number; y: number };
+  aspect: number
+  crop: { x: number; y: number }
   //croppedAreaPixels: ;
-  image?: string | undefined;
-  setCrop: (crop: { x: number; y: number }) => void;
-  setCroppedAreaPixels: (croppedAreaPixels: CropArg | null) => void;
-  setShowMenu: (val: string) => void;
-  zoom: number;
-};
+  image?: string | undefined
+  setCrop: (crop: { x: number; y: number }) => void
+  setCroppedAreaPixels: (croppedAreaPixels: CropArg | null) => void
+  setShowMenu: (val: string) => void
+  zoom: number
+}
 
 export const EasyCrop = ({
   aspect,
@@ -24,26 +24,23 @@ export const EasyCrop = ({
   zoom,
 }: Props) => {
   const onCropComplete = (croppedArea: CropArg, croppedAreaPixels: CropArg) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  };
-  const cropperRef = useRef<HTMLDivElement>(null);
+    setCroppedAreaPixels(croppedAreaPixels)
+  }
+  const cropperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        cropperRef.current &&
-        cropperRef.current.contains(event.target as Node)
-      ) {
-        setShowMenu("");
+      if (cropperRef.current && cropperRef.current.contains(event.target as Node)) {
+        setShowMenu('')
       }
-    };
+    }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [cropperRef, setShowMenu]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [cropperRef, setShowMenu])
 
   return (
     <div ref={cropperRef}>
@@ -52,7 +49,7 @@ export const EasyCrop = ({
           aspect={aspect}
           crop={crop}
           image={image}
-          objectFit={"cover"}
+          objectFit={'cover'}
           onCropChange={setCrop}
           onCropComplete={onCropComplete}
           showGrid
@@ -61,5 +58,5 @@ export const EasyCrop = ({
         />
       )}
     </div>
-  );
-};
+  )
+}

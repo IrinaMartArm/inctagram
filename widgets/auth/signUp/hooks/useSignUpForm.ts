@@ -1,22 +1,19 @@
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form'
 
-import { useFormRevalidate, useTranslationPages } from "@/shared/assets";
-import {
-  SignUpFormFields,
-  signUpSchema,
-} from "@/widgets/auth/signUp/validators/validators";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormRevalidate, useTranslationPages } from '@/shared/assets'
+import { SignUpFormFields, signUpSchema } from '@/widgets/auth/signUp/validators/validators'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export const useSignUp = () => {
-  const { locale, t } = useTranslationPages();
+  const { locale, t } = useTranslationPages()
 
   const defaultValues = {
     agree: false,
-    confirm: "",
-    email: "",
-    password: "",
-    username: "",
-  };
+    confirm: '',
+    email: '',
+    password: '',
+    username: '',
+  }
 
   const {
     control,
@@ -28,16 +25,16 @@ export const useSignUp = () => {
     setValue,
   } = useForm<SignUpFormFields>({
     defaultValues,
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: zodResolver(signUpSchema(t)),
-  });
+  })
 
   useFormRevalidate({
     errors,
     locale,
     setValue,
     values: getValues(),
-  });
+  })
 
   return {
     control,
@@ -47,5 +44,5 @@ export const useSignUp = () => {
     reset,
     setError,
     t,
-  };
-};
+  }
+}

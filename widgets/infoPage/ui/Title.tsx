@@ -1,14 +1,14 @@
-import { Typography } from "@/shared/components";
+import { Typography } from '@/shared/components'
 
 type Props = {
-  isSubTitle?: boolean;
-  text: string;
-};
+  isSubTitle?: boolean
+  text: string
+}
 
 export const InformationTitle = ({ isSubTitle = false, text }: Props) => {
-  const variant = isSubTitle ? "bold_text-14" : "h3";
-  const asElement = isSubTitle ? "h4" : "h3";
-  const align = isSubTitle ? "left" : "center";
+  const variant = isSubTitle ? 'bold_text-14' : 'h3'
+  const asElement = isSubTitle ? 'h4' : 'h3'
+  const align = isSubTitle ? 'left' : 'center'
 
   return (
     <Typography
@@ -18,5 +18,5 @@ export const InformationTitle = ({ isSubTitle = false, text }: Props) => {
     >
       {text}
     </Typography>
-  );
-};
+  )
+}

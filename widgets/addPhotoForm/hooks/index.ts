@@ -1,1 +1,1 @@
-export * from "./useAddPhotoForm";
+export * from './useAddPhotoForm'

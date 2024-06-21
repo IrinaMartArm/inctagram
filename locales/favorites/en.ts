@@ -1,3 +1,3 @@
 export default {
-  title: "favorites page",
-};
+  title: 'favorites page',
+}

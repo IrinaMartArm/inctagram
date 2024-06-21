@@ -1,7 +1,7 @@
-import { NextPage } from "next";
+import { NextPage } from 'next'
 
 const Account: NextPage = () => {
-  return <div></div>;
-};
+  return <div></div>
+}
 
-export default Account;
+export default Account

@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { Slider } from "@/shared/components";
+import { Slider } from '@/shared/components'
 
-import s from "./zoomMenu.module.scss";
+import s from './zoomMenu.module.scss'
 type Props = {
-  setZoomValue: (val: number[]) => void;
-  zoomValue: number[];
-};
+  setZoomValue: (val: number[]) => void
+  zoomValue: number[]
+}
 export const ZoomMenu = ({ setZoomValue, zoomValue }: Props) => {
   const handleOnValueChange = (value: number[]) => {
-    setZoomValue(value);
-  };
+    setZoomValue(value)
+  }
 
   return (
     <Slider
@@ -21,5 +21,5 @@ export const ZoomMenu = ({ setZoomValue, zoomValue }: Props) => {
       step={0.1}
       value={zoomValue}
     />
-  );
-};
+  )
+}

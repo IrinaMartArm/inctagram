@@ -1,1 +1,1 @@
-export * from "./WithNavigate";
+export * from './WithNavigate'

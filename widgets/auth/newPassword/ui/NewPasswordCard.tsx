@@ -5,46 +5,45 @@ import {
   Loader,
   PageTitle,
   Typography,
-} from "@/shared/components";
-import { useNewPassword } from "@/widgets/auth/newPassword/hook/useNewPassword";
+} from '@/shared/components'
+import { useNewPassword } from '@/widgets/auth/newPassword/hook/useNewPassword'
 
-import s from "./newPassword.module.scss";
+import s from './newPassword.module.scss'
 
 export const NewPasswordCard = () => {
-  const { control, errors, handleSubmit, isLoading, newPasswordCreator, t } =
-    useNewPassword();
+  const { control, errors, handleSubmit, isLoading, newPasswordCreator, t } = useNewPassword()
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader />
   }
 
   return (
-    <Card as={"form"} onSubmit={handleSubmit(newPasswordCreator)}>
+    <Card as={'form'} onSubmit={handleSubmit(newPasswordCreator)}>
       <PageTitle className={s.title} title={t.title} />
 
       <ControlledTextField
-        autoComplete={"newPassword"}
+        autoComplete={'newPassword'}
         control={control}
         errorMessage={errors.newPassword?.message}
         label={t.newPassword}
-        name={"newPassword"}
+        name={'newPassword'}
         placeholder={t.newPassword}
-        type={"password"}
+        type={'password'}
       />
       <ControlledTextField
         control={control}
         errorMessage={errors.passwordConfirmation?.message}
         label={t.passwordConfirmation}
-        name={"passwordConfirmation"}
+        name={'passwordConfirmation'}
         placeholder={t.passwordConfirmation}
-        type={"password"}
+        type={'password'}
       />
-      <Typography className={s.text} variant={"regular_text-14"}>
+      <Typography className={s.text} variant={'regular_text-14'}>
         {t.rules}
       </Typography>
-      <Button fullWidth type={"submit"}>
+      <Button fullWidth type={'submit'}>
         {t.title}
       </Button>
     </Card>
-  );
-};
+  )
+}
