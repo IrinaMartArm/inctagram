@@ -15,7 +15,7 @@ const publicationsN = 465
 export const MyProfile = () => {
   const router = useRouter()
   const { id } = router.query
-  const { data: profile, isLoading } = useProfileInformationQuery()
+  const { data: profile } = useProfileInformationQuery()
   const { t } = useTranslationPages()
 
   return (
