@@ -1,7 +1,7 @@
 import { Dialog, Home_outline, Person_outline, Search_outline } from "@/public";
 import { Paths } from "@/shared/assets";
 import { NavLink } from "@/shared/components";
-import { AddPhotoForm } from "@/widgets";
+import AddPhotoForm from "@/widgets/addPhotoForm/ui/AddPhotoForm";
 
 import s from "./MobileMenuBar.module.scss";
 

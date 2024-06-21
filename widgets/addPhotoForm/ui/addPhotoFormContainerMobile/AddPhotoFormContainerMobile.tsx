@@ -4,7 +4,7 @@ import { Button, Modal, Typography } from "@/shared/components";
 
 import s from "./addPhotoFormContainerMobile.module.scss";
 
-const AddPhotoFormContainerMobile = () => {
+export const AddPhotoFormContainerMobile = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
@@ -52,5 +52,3 @@ const AddPhotoFormContainerMobile = () => {
     </div>
   );
 };
-
-export default AddPhotoFormContainerMobile;

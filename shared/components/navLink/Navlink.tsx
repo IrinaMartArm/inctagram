@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 import { Typography } from "@/shared/components";
 import { AddPhotoForm } from "@/widgets";

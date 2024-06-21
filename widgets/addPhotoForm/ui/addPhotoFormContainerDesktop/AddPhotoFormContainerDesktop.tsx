@@ -14,7 +14,7 @@ type Props = {
   setConfirmOpen: (val: boolean) => void;
   setOpen: (val: boolean) => void;
 };
-const AddPhotoFormContainerDesktop = ({
+export const AddPhotoFormContainerDesktop = ({
   confirmOpen,
   setConfirmOpen,
   setOpen,
@@ -86,5 +86,3 @@ const AddPhotoFormContainerDesktop = ({
     </>
   );
 };
-
-export default AddPhotoFormContainerDesktop;
