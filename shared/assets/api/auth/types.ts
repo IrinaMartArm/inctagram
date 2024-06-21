@@ -1,46 +1,46 @@
 export type User = {
-  email: string;
-  login: string;
-  userId: string;
-};
+  email: string
+  login: string
+  userId: string
+}
 
-type MeErrorResponse = "Unauthorized";
+type MeErrorResponse = 'Unauthorized'
 
-export type MeResponse = MeErrorResponse | User;
+export type MeResponse = MeErrorResponse | User
 
 export type SignUpArgs = {
-  email: string;
-  password: string;
-  username: string;
-};
+  email: string
+  password: string
+  username: string
+}
 export type EmailResendingArgs = {
-  email: string;
-};
+  email: string
+}
 
 export type ErrorsMessages = {
-  errorsMessages: ErrorsMessage[];
-};
+  errorsMessages: ErrorsMessage[]
+}
 export type ErrorsMessage = {
-  field: string;
-  message: string;
-};
+  field: string
+  message: string
+}
 export type ConformationArgs = {
-  code: string;
-};
+  code: string
+}
 
 export type LoginArgs = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
 export type LoginResponse = {
-  accessToken: string;
-};
+  accessToken: string
+}
 export type NewPasswordArgs = {
-  newPassword: string;
-  recoveryCode: string;
-};
+  newPassword: string
+  recoveryCode: string
+}
 export type PasswordRecoveryArgs = {
-  email: string;
-  reCaptcha: string;
-};
+  email: string
+  reCaptcha: string
+}

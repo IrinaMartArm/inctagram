@@ -1,16 +1,12 @@
-import {
-  FieldValues,
-  UseControllerProps,
-  useController,
-} from "react-hook-form";
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { CheckBox, CheckboxProps } from "@/shared/components";
+import { CheckBox, CheckboxProps } from '@/shared/components'
 
 type PropsType<T extends FieldValues> = Omit<
   UseControllerProps<T>,
-  "defaultValue" | "disabled" | "rules"
+  'defaultValue' | 'disabled' | 'rules'
 > &
-  Omit<CheckboxProps, "checked" | "onCheckedChange"> & { recaptcha?: boolean };
+  Omit<CheckboxProps, 'checked' | 'onCheckedChange'> & { recaptcha?: boolean }
 export const ControlledCheckBox = <T extends FieldValues>({
   control,
   label,
@@ -26,7 +22,7 @@ export const ControlledCheckBox = <T extends FieldValues>({
     disabled: rest.disabled,
     name: rest.name,
     shouldUnregister,
-  });
+  })
 
   return (
     <CheckBox
@@ -39,5 +35,5 @@ export const ControlledCheckBox = <T extends FieldValues>({
       recaptcha={recaptcha}
       ref={ref}
     />
-  );
-};
+  )
+}

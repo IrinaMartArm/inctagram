@@ -1,24 +1,24 @@
-import { baseApi } from "@/shared/assets";
+import { baseApi } from '@/shared/assets'
 import {
   AddPostReq,
   AddPostResp,
   DeletePostArgs,
   EditPostArgs,
-} from "@/shared/assets/api/post/types";
+} from '@/shared/assets/api/post/types'
 
 const postApi = baseApi.injectEndpoints({
-  endpoints: (builder) => {
+  endpoints: builder => {
     return {
       addPost: builder.mutation<AddPostResp, AddPostReq>({
-        invalidatesTags: ["MyPosts"],
+        invalidatesTags: ['MyPosts'],
         query: ({ description, images }) => ({
           body: { description, images },
-          method: "POST",
+          method: 'POST',
           url: `v1/post`,
         }),
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
-        invalidatesTags: ["MyPosts"],
+        invalidatesTags: ['MyPosts'],
         // onQueryStarted: async (
         //   { id },
         //   { dispatch, getState, queryFulfilled },
@@ -44,12 +44,12 @@ const postApi = baseApi.injectEndpoints({
         //   }
         // },
         query: ({ id }) => ({
-          method: "DELETE",
+          method: 'DELETE',
           url: `v1/posts/${id}`,
         }),
       }),
       editPost: builder.mutation<void, EditPostArgs>({
-        invalidatesTags: ["MyPosts"],
+        invalidatesTags: ['MyPosts'],
         // onQueryStarted: async (
         //   { description, id },
         //   { dispatch, queryFulfilled },
@@ -74,18 +74,14 @@ const postApi = baseApi.injectEndpoints({
         //     patchResult.undo;
         //   }
         // },
-        query: (id) => ({
-          method: "PUT",
+        query: id => ({
+          method: 'PUT',
           url: `/v1/post/${id}`,
         }),
       }),
       // getMyPosts: builder.query<any, any>({}),
-    };
+    }
   },
-});
+})
 
-export const {
-  useAddPostMutation,
-  useDeletePostMutation,
-  useEditPostMutation,
-} = postApi;
+export const { useAddPostMutation, useDeletePostMutation, useEditPostMutation } = postApi

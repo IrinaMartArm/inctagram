@@ -1,1 +1,1 @@
-export * from "./ui/Verification";
+export * from './ui/Verification'

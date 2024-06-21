@@ -1,1 +1,1 @@
-export * from "./ui/NewPasswordCard";
+export * from './ui/NewPasswordCard'

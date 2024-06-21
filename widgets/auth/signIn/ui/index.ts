@@ -1,1 +1,1 @@
-export { SignInCard } from "./SignIn";
+export { SignInCard } from './SignIn'

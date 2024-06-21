@@ -1,1 +1,1 @@
-export * from "./ModalClose";
+export * from './ModalClose'
