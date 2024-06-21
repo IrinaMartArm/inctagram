@@ -1,6 +1,7 @@
 export default {
-  followers: "Подписчики",
-  following: "Подписки",
-  publications: "Публикации",
-  settingsBtn: "Настройки профиля",
-};
+  aboutMePlaceholder: 'Напишите о себе',
+  followers: 'Подписчики',
+  following: 'Подписки',
+  publications: 'Публикации',
+  settingsBtn: 'Настройки профиля',
+}
