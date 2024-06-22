@@ -14,7 +14,8 @@ type Props = {
   setConfirmOpen: (val: boolean) => void
   setOpen: (val: boolean) => void
 }
-const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setOpen }: Props) => {
+
+export const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setOpen }: Props) => {
   const { deleteImgCallback, errorFile, imgChangeCallback, modalState, t } = useAddPhotoForm()
   const handleInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     e.preventDefault()
@@ -77,5 +78,3 @@ const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setOpen }: 
     </>
   )
 }
-
-export default AddPhotoFormContainerDesktop

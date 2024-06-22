@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Provider } from 'react-redux'
 
 import { store } from '@/shared/assets/api/store'
-import { AddPhotoForm } from '@/widgets'
+import { AddPhotoForm } from '@/widgets/addPhotoForm/ui/AddPhotoForm'
 
 const meta = {
   argTypes: {},

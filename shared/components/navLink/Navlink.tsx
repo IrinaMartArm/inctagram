@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 import { Typography } from '@/shared/components'
-import { AddPhotoForm } from '@/widgets'
+import { AddPhotoForm } from '@/widgets/addPhotoForm/ui'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

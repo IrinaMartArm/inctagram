@@ -9,7 +9,8 @@ import {
 import { Paths } from '@/shared/assets'
 import { useTranslation } from '@/shared/assets/hooks'
 import { SideBar } from '@/shared/components'
-import { AddPhotoForm, LogOutModal } from '@/widgets'
+import { LogOutModal } from '@/widgets'
+import { AddPhotoForm } from '@/widgets/addPhotoForm/ui'
 
 import s from './mainSideBar.module.scss'
 
@@ -21,7 +22,7 @@ export const MainSideBar = () => {
 
   const basicPaths = [
     { icon: <Home_outline />, path: Paths.HOME, title: home },
-    { icon: <AddPhotoForm />, path: '', title: create },
+    { icon: <AddPhotoForm />, title: '' },
     { icon: <Person_outline />, path: Paths.PROFILE, title: myProfile },
     {
       icon: <Dialog />,
