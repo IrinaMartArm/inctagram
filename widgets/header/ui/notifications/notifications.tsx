@@ -1,4 +1,5 @@
 import { Bell } from '@/public'
+import { Button } from '@/shared/components'
 
 import s from './notifications.module.scss'
 
@@ -10,9 +11,9 @@ export const Notifications = ({ notificationsCount = 0 }: Props) => {
   const isShowMessagesCont = notificationsCount > 0
 
   return (
-    <button className={s.wrapper}>
+    <Button className={s.wrapper} variant={'icon'}>
       {isShowMessagesCont && <div className={s.notifications}>{notificationsCount}</div>}
       <Bell />
-    </button>
+    </Button>
   )
 }

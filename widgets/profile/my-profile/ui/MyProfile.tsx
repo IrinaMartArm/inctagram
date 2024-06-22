@@ -1,5 +1,6 @@
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
+import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { useTranslationPages } from '@/shared/assets/hooks'
 import { Avatar, Button, Typography } from '@/shared/components'
 import Link from 'next/link'
@@ -14,18 +15,18 @@ const publicationsN = 465
 export const MyProfile = () => {
   const router = useRouter()
   const { id } = router.query
-  // const { data: profile } = useProfileInformationQuery();
+  const { data: profile } = useProfileInformationQuery()
   const { t } = useTranslationPages()
 
   return (
     <>
       <div className={s.info_wrapper}>
         <div className={s.avatar}>
-          <Avatar alt={''} />
+          <Avatar alt={profile?.username || ''} src={profile?.avatar?.url || ''} />
         </div>
         <div className={s.info_block}>
           <div className={s.first_row}>
-            <Typography variant={'h1'}>URLProfiele</Typography>
+            <Typography variant={'h1'}>{profile?.username || ''}</Typography>
             <Button as={Link} href={Paths.PROFILE_GENERAL} variant={'secondary'}>
               {t.settingsBtn}
             </Button>
@@ -37,12 +38,7 @@ export const MyProfile = () => {
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco
-              <Typography as={Link} href={''} variant={'regular_link'}>
-                laboris nisi ut aliquip ex ea commodo consequat.
-              </Typography>
+              {profile?.aboutMe || t.aboutMePlaceholder}
             </Typography>
           </div>
         </div>

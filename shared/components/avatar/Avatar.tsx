@@ -42,7 +42,7 @@ export const Avatar = ({
         )}
         {!src && isEditProfile && <ImageProfile />}
       </div>
-      {src && (
+      {isEditProfile && src && (
         <button
           className={s.buttonDeleteAvatar}
           onClick={() => setIsShowDeleteModal(true)}

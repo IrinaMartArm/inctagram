@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Close } from '@/public'
 import { useTranslation } from '@/shared/assets/hooks'
-import { Typography } from '@/shared/components'
+import { Button, Typography } from '@/shared/components'
 import { clsx } from 'clsx'
 
 import s from './alert.module.scss'
@@ -30,9 +30,9 @@ export const Alert: FC<Props> = ({ className, isShowClose = true, onClick, title
         </Typography>
       </div>
       {isShowClose && (
-        <button aria-label={'close alert'} onClick={onClick}>
+        <Button aria-label={'close alert'} onClick={onClick} variant={'icon'}>
           <Close />
-        </button>
+        </Button>
       )}
     </div>
   )

@@ -1,23 +1,39 @@
 import { useEffect } from 'react'
 
+import { authActions } from '@/entities'
 import { Paths } from '@/shared/assets'
+import { useLazyMeQuery } from '@/shared/assets/api/auth/auth-api'
+import { useAppDispatch } from '@/shared/assets/api/store'
 import { setAccessToken } from '@/shared/assets/helpers/authentication'
 import { HeadMeta, Loader } from '@/shared/components'
 import { useRouter } from 'next/router'
 
 const GoogleAuth = () => {
   const router = useRouter()
+  const dispatch = useAppDispatch()
+  const [getUser, {}] = useLazyMeQuery()
 
   useEffect(() => {
-    const queryString = window.location.search
+    const handleGoogleAuth = async () => {
+      try {
+        const queryString = window.location.search
 
-    if (queryString) {
-      setAccessToken(queryString)
-      router.push(Paths.PROFILE)
-    } else {
-      console.error('Token not found in URL')
+        setAccessToken(queryString)
+
+        const res = await getUser().unwrap()
+
+        localStorage.setItem('email', res.email)
+
+        await router.push(`${Paths.PROFILE}/?id=${res?.userId!}`)
+        dispatch(authActions.setIsAuth(true))
+      } catch (error) {
+        console.error('Error during Google authentication:', error)
+        void router.push(Paths.LOGIN)
+      }
     }
-  }, [router])
+
+    void handleGoogleAuth()
+  }, [dispatch, getUser, router])
 
   return (
     <>

@@ -1,6 +1,7 @@
 export type UserProfileArgs = {
   aboutMe?: string
   city?: string
+  country?: string
   dateOfBirth?: string
   firstName: string
   lastName: string
@@ -8,7 +9,11 @@ export type UserProfileArgs = {
 }
 export type UserProfileResponse = {
   aboutMe: string
+  avatar: {
+    url: string
+  }
   city: string
+  country: string
   dateOfBirth: string
   firstName: string
   lastName: string

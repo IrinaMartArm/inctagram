@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import {
   Alert,
   Button,
@@ -11,6 +12,7 @@ import {
 } from '@/shared/components'
 import { EditProfilePhoto } from '@/widgets'
 import { useProfileForm, useUpdateAvatar } from '@/widgets/profile/general/hook'
+import { ProfileFormSchema } from '@/widgets/profile/general/hook/useProfileForm'
 import { AvatarBox } from '@/widgets/profile/general/ui/avatarBox'
 import { useRouter } from 'next/router'
 
@@ -49,6 +51,8 @@ export const General = () => {
   const router = useRouter()
   const { id } = router.query
 
+  const { data: profile } = useProfileInformationQuery()
+
   const {
     alertHandler,
     alertMessage,
@@ -58,16 +62,23 @@ export const General = () => {
     handleSubmit,
     isValid,
     onSubmit,
+    reset,
     showAlert,
     t,
   } = useProfileForm()
   const [selectedCountry, setSelectedCountry] = useState('')
+  const [selectedCity, setSelectedCity] = useState('')
   const [isShowModal, setIsShowModal] = useState(false)
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar()
 
-  const handleCountryChange = (key: string, value: string) => {
+  const handleCountryChange = (value: string) => {
     setSelectedCountry(value)
+    setSelectedCity('')
+  }
+
+  const handleCityChange = (value: string) => {
+    setSelectedCity(value)
   }
 
   const getCityOptions = () => {
@@ -80,8 +91,38 @@ export const General = () => {
 
   const cities = getCityOptions()
 
+  useEffect(() => {
+    if (profile) {
+      setSelectedCountry(profile.country)
+
+      reset({
+        aboutMe: profile.aboutMe,
+        city: profile.city,
+        country: profile.country,
+        dateOfBirth: profile.dateOfBirth,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        username: profile.username,
+      })
+    }
+  }, [profile, reset])
+
+  useEffect(() => {
+    if (selectedCountry) {
+      setSelectedCity(profile?.city || '')
+    }
+  }, [selectedCountry, profile?.city])
+
+  const handleFormSubmit = async (data: ProfileFormSchema) => {
+    await onSubmit({
+      ...data,
+      city: selectedCity,
+      country: selectedCountry,
+    })
+  }
+
   return (
-    <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.root} onSubmit={handleSubmit(handleFormSubmit)}>
       {showAlert && <Alert onClick={alertHandler} title={alertMessage} variant={alertVariant} />}
       <Tab defaultValue={'General information'} options={options} />
       <div className={s.container}>
@@ -129,6 +170,7 @@ export const General = () => {
               label={t.selectYourCountry}
               name={'countries'}
               onChange={handleCountryChange}
+              value={selectedCountry}
             />
             <Select
               className={s.select}
@@ -136,7 +178,8 @@ export const General = () => {
               items={cities}
               label={t.selectYourCity}
               name={'city'}
-              onChange={() => {}}
+              onChange={handleCityChange}
+              value={selectedCity}
             />
           </div>
           <ControlledTextArea

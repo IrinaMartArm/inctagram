@@ -12,21 +12,14 @@ import { Publication } from '@/widgets/addPhotoForm/ui/publication/Publication'
 
 import s from './addPhotoForm.module.scss'
 
-type Props = { isTextHidden: boolean }
-
+type Props = { isTextHidden?: boolean }
 export const AddPhotoForm = ({ isTextHidden }: Props) => {
+  const { imgChangeCallback, modalState, t } = useAddPhotoForm()
   const [open, setOpen] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
-  const { deleteImgCallback, errorFile, imgChangeCallback, modalState, t } = useAddPhotoForm()
-  const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
-    imgChangeCallback(e)
-  }
-  const handleInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-    e.preventDefault()
-    inputRef.current?.click()
-  }
+  const isMobile = useIsMobile(TABLET_BREAKPOINT)
+
   const handleCloseClickOutside = () => {
     if (modalState === 'add-photo') {
       setOpen(false)
@@ -34,71 +27,73 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
       setConfirmOpen(true)
     }
   }
+  const classNamesRoot = clsx(
+    s.modalSpace,
+    (modalState === 'filters' || modalState === 'publication') && s.withFilters
+  )
+  const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
+    imgChangeCallback(e)
+  }
+  const handleInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
+    e.preventDefault()
+    setOpen(true)
+    inputRef.current?.click()
+  }
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   return (
-    <Modal
-      className={modalState === 'filters' || modalState === 'publication' ? s.withFilters : ''}
-      handleCloseClickOutside={handleCloseClickOutside}
-      onOpenChange={setOpen}
-      open={open}
-      title={modalState === 'add-photo' ? t.addPhotoForm.title : ''}
-      trigger={
-        <Button className={s.row} variant={'link'}>
-          <PlusSquare_outline />
-          <Typography className={s.triggerButtonText} variant={'Medium_text-14'}>
-            {!isTextHidden && t.addPhotoForm.triggerButton}
-          </Typography>
-        </Button>
-      }
-    >
-      {modalState === 'add-photo' && (
-        <div className={s.root}>
-          <AddPhotoBackGround />
-          <div className={s.controller}>
-            <input
-              className={s.input}
-              id={'input-file'}
-              name={'file'}
-              onChange={handleImgChange}
-              ref={inputRef}
-              type={'file'}
-            />
-
-            <Button
-              as={'label'}
-              className={s.selectButton}
-              fullWidth
-              htmlFor={'input-file'}
-              onClick={handleInputClick}
-            >
-              <Typography variant={'h3'}>{t.addPhotoForm.selectInput}</Typography>
+    <>
+      {isMobile && (
+        <>
+          <Modal
+            className={classNamesRoot}
+            onOpenChange={setOpen}
+            open={open}
+            title={modalState === 'add-photo' ? t.addPhotoForm.title : ''}
+            trigger={
+              <>
+                <input
+                  className={s.input}
+                  id={'input-file'}
+                  multiple
+                  name={'file'}
+                  onChange={handleImgChange}
+                  ref={inputRef}
+                  type={'file'}
+                />
+                <Button className={s.row} onClick={handleInputClick} variant={'icon'}>
+                  <PlusSquare_outline />
+                </Button>
+              </>
+            }
+          >
+            <AddPhotoFormContainerMobile />
+          </Modal>
+        </>
+      )}
+      {!isMobile && (
+        <Modal
+          className={classNamesRoot}
+          handleCloseClickOutside={handleCloseClickOutside}
+          onOpenChange={setOpen}
+          open={open}
+          title={modalState === 'add-photo' ? t.addPhotoForm.title : ''}
+          trigger={
+            <Button className={s.row} variant={'link'}>
+              <PlusSquare_outline />
+              <Typography className={s.triggerButtonText} variant={'Medium_text-14'}>
+                {!isTextHidden && t.addPhotoForm.triggerButton}
+              </Typography>
             </Button>
-            <Button fullWidth variant={'outlined'}>
-              <Typography variant={'h3'}>{t.addPhotoForm.openDraft}</Typography>
-            </Button>
-          </div>
-          {errorFile && (
-            <Typography className={s.error} variant={'error'}>
-              {errorFile}
-            </Typography>
-          )}
-        </div>
+          }
+        >
+          <AddPhotoFormContainerDesktop
+            confirmOpen={confirmOpen}
+            setConfirmOpen={setConfirmOpen}
+            setOpen={setOpen}
+          />
+        </Modal>
       )}
-      {modalState === 'cropping' && (
-        <CroppingPhoto
-          deleteImgCallback={deleteImgCallback}
-          imgChangeCallback={imgChangeCallback}
-        />
-      )}
-      {modalState === 'filters' && <Filters />}
-      {modalState === 'publication' && <Publication />}
-      {confirmOpen && (
-        <ConfirmableModal
-          confirmOpen={confirmOpen}
-          setConfirmOpen={setConfirmOpen}
-          setOpen={setOpen}
-        />
-      )}
-    </Modal>
+    </>
   )
 }

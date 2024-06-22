@@ -45,9 +45,9 @@ export const Header = ({ isAuth }: Props) => {
           </div>
         )}
         {isMobile && (
-          <button>
+          <Button variant={'icon'}>
             <More />
-          </button>
+          </Button>
         )}
       </div>
     </div>

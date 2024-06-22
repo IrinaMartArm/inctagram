@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    domains: ['summer.storage.yandexcloud.net'],
     remotePatterns: [
       {
         protocol: "https",

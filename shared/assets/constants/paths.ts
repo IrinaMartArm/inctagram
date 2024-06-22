@@ -24,7 +24,7 @@ export const Paths = {
   VERIFICATION: '/auth/verification',
 }
 
-export const commonRoutes = [Paths.PROFILE]
+export const commonRoutes = [Paths.PROFILE, Paths.MAIN]
 
 export const authRoutes = [
   Paths.LOGIN,
@@ -37,5 +37,4 @@ export const authRoutes = [
   Paths.SERVICE,
   Paths.RECOVERY_PASSWORD,
   Paths.VERIFICATION,
-  Paths.MAIN,
 ]

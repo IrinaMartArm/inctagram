@@ -1,5 +1,6 @@
 export default {
   aboutMe: 'About Me',
+  aboutMePlaceholder: 'Tell us about yourself',
   dateOfBirth: 'Date of birth',
   firstName: 'First Name',
   followers: 'Followers',

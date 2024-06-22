@@ -1,4 +1,5 @@
 export default {
+  aboutMePlaceholder: 'Напишите о себе',
   followers: 'Подписчики',
   following: 'Подписки',
   publications: 'Публикации',
