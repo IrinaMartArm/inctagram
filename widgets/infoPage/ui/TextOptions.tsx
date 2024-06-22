@@ -1,8 +1,8 @@
-import { InformationText } from "./Text";
+import { InformationText } from './Text'
 
 type Props = {
-  options: string[];
-};
+  options: string[]
+}
 
 export const TextOptions = ({ options }: Props) => {
   return (
@@ -13,5 +13,5 @@ export const TextOptions = ({ options }: Props) => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}

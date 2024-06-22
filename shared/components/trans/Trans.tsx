@@ -1,39 +1,39 @@
-import { FC, Fragment, JSX } from "react";
+import { FC, Fragment, JSX } from 'react'
 
-const tagsRegex = /(<\d+>[^<>]*<\/\d+>)/;
-const openCloseTagRegex = /<(\d+)>([^<>]*)<\/(\d+)>/;
+const tagsRegex = /(<\d+>[^<>]*<\/\d+>)/
+const openCloseTagRegex = /<(\d+)>([^<>]*)<\/(\d+)>/
 
 type TransType = {
-  tags?: Record<string, (str: string) => JSX.Element>;
-  text: string;
-};
+  tags?: Record<string, (str: string) => JSX.Element>
+  text: string
+}
 
-export const Trans: FC<TransType> = (props) => {
-  return <>{interpolateTags(props)}</>;
-};
+export const Trans: FC<TransType> = props => {
+  return <>{interpolateTags(props)}</>
+}
 
 const interpolateTags = (data: TransType) => {
-  const { tags, text } = data;
+  const { tags, text } = data
 
   if (!tags) {
-    return text;
+    return text
   }
 
-  const tokens = text.split(tagsRegex);
+  const tokens = text.split(tagsRegex)
 
   return tokens.map((token, index) => {
-    const matchResult = openCloseTagRegex.exec(token);
+    const matchResult = openCloseTagRegex.exec(token)
 
     if (!matchResult) {
-      return token;
+      return token
     }
 
-    const [, openTag, content, closeTag] = matchResult;
+    const [, openTag, content, closeTag] = matchResult
 
     if (!openTag || !closeTag || openTag !== closeTag) {
-      return token;
+      return token
     }
 
-    return <Fragment key={index}>{tags[openTag]?.(content ?? "")}</Fragment>;
-  });
-};
+    return <Fragment key={index}>{tags[openTag]?.(content ?? '')}</Fragment>
+  })
+}

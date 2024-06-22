@@ -69,38 +69,40 @@ button:active {
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  line-height: var(--line-height-m);
-  font-size: var(--font-size-s);
-  font-weight: var(--font-weight-regular);
-
-  color: var(--color-light-100);
-
-  background-color: var(--color-dark-700);
   overflow: hidden;
+
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
+
+  font-family: Inter, sans-serif;
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-700);
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border: 0;
-  -webkit-text-fill-color: #ffffff;
-  -webkit-box-shadow: 0 0 0 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
-  background: -webkit-linear-gradient(
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 174, 255, 0.04) 50%,
-    rgba(255, 255, 255, 0) 51%,
-    rgba(0, 174, 255, 0.03) 100%
+  background: linear-gradient(
+    rgb(255 255 255 / 0%) 0%,
+    rgb(0 174 255 / 4%) 50%,
+    rgb(255 255 255 / 0%) 51%,
+    rgb(0 174 255 / 3%) 100%
   );
+  border: 0;
+  box-shadow: 0 0 0 1000px transparent inset;
+
+  transition: background-color 5000s ease-in-out 0s;
+
+  -webkit-text-fill-color: #fff;
 }

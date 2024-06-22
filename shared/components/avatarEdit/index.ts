@@ -1,1 +1,1 @@
-export { AvatarEdit } from "./AvatarEdit";
+export { AvatarEdit } from './AvatarEdit'

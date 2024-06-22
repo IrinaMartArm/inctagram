@@ -1,12 +1,7 @@
-import {
-  ComponentPropsWithoutRef,
-  Ref,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import { ComponentPropsWithoutRef, Ref, forwardRef, useImperativeHandle } from 'react'
 
-import { Paths } from "@/shared/assets";
-import { UseFormRef } from "@/shared/assets/types/form";
+import { Paths } from '@/shared/assets'
+import { UseFormRef } from '@/shared/assets/types/form'
 import {
   Button,
   Card,
@@ -16,33 +11,32 @@ import {
   PageTitle,
   Trans,
   Typography,
-} from "@/shared/components";
-import { AuthWithSocial } from "@/widgets";
-import { useSignUp } from "@/widgets/auth/signUp/hooks/useSignUpForm";
-import { SignUpFormFields } from "@/widgets/auth/signUp/validators/validators";
-import Link from "next/link";
+} from '@/shared/components'
+import { AuthWithSocial } from '@/widgets'
+import { useSignUp } from '@/widgets/auth/signUp/hooks/useSignUpForm'
+import { SignUpFormFields } from '@/widgets/auth/signUp/validators/validators'
+import Link from 'next/link'
 
-import s from "./signUp.module.scss";
+import s from './signUp.module.scss'
 
 type SignUpCardProps = {
-  isLoading: boolean;
-  onSubmit: (data: SignUpFormFields) => void;
-} & Omit<ComponentPropsWithoutRef<"form">, "onSubmit">;
+  isLoading: boolean
+  onSubmit: (data: SignUpFormFields) => void
+} & Omit<ComponentPropsWithoutRef<'form'>, 'onSubmit'>
 
 export const SignUpCard = forwardRef(
   (props: SignUpCardProps, ref: Ref<UseFormRef<SignUpFormFields>>) => {
-    const { isLoading, onSubmit } = props;
-    const { control, errors, handleSubmit, isValid, reset, setError, t } =
-      useSignUp();
+    const { isLoading, onSubmit } = props
+    const { control, errors, handleSubmit, isValid, reset, setError, t } = useSignUp()
 
-    useImperativeHandle(ref, () => ({ reset, setError }));
+    useImperativeHandle(ref, () => ({ reset, setError }))
 
     if (isLoading) {
-      return <Loader />;
+      return <Loader />
     }
 
     return (
-      <Card as={"form"} onSubmit={handleSubmit(onSubmit)}>
+      <Card as={'form'} onSubmit={handleSubmit(onSubmit)}>
         <PageTitle title={t.title} />
         <AuthWithSocial />
         <ControlledTextField
@@ -50,55 +44,55 @@ export const SignUpCard = forwardRef(
           disabled={isLoading}
           errorMessage={errors.username?.message}
           label={t.name}
-          name={"username"}
+          name={'username'}
           placeholder={t.name}
-          type={"text"}
+          type={'text'}
         />
         <ControlledTextField
           control={control}
           disabled={isLoading}
           errorMessage={errors.email?.message}
           label={t.email}
-          name={"email"}
+          name={'email'}
           placeholder={t.email}
-          type={"email"}
+          type={'email'}
         />
         <ControlledTextField
           control={control}
           disabled={isLoading}
           errorMessage={errors.password?.message}
           label={t.password}
-          name={"password"}
+          name={'password'}
           placeholder={t.password}
-          type={"password"}
+          type={'password'}
         />
         <ControlledTextField
           control={control}
           disabled={isLoading}
           errorMessage={errors.confirm?.message}
           label={t.passwordConfirmation}
-          name={"confirm"}
+          name={'confirm'}
           placeholder={t.passwordConfirmation}
-          type={"password"}
+          type={'password'}
         />
         <div className={s.policy}>
           <ControlledCheckBox
             control={control}
             disabled={isLoading}
             errorMessage={errors.agree?.message}
-            name={"agree"}
+            name={'agree'}
           />
           <div className={s.trans}>
             <Trans
               tags={{
                 1: () => (
                   <Link href={Paths.SERVICE}>
-                    <Typography variant={"small_link"}>{t["1"]}</Typography>
+                    <Typography variant={'small_link'}>{t['1']}</Typography>
                   </Link>
                 ),
                 2: () => (
                   <Link href={Paths.POLICY}>
-                    <Typography variant={"small_link"}>{t["2"]}</Typography>
+                    <Typography variant={'small_link'}>{t['2']}</Typography>
                   </Link>
                 ),
               }}
@@ -106,22 +100,17 @@ export const SignUpCard = forwardRef(
             />
           </div>
         </div>
-        <Button
-          className={s.button}
-          disabled={!isValid}
-          fullWidth
-          type={"submit"}
-        >
+        <Button className={s.button} disabled={!isValid} fullWidth type={'submit'}>
           {t.title}
         </Button>
 
-        <Typography variant={"regular_text-16"}>{t.question}</Typography>
+        <Typography variant={'regular_text-16'}>{t.question}</Typography>
         <Link className={s.signIn} href={Paths.LOGIN}>
-          <Typography className={s.signInLink} variant={"h3"}>
+          <Typography className={s.signInLink} variant={'h3'}>
             {t.signIn}
           </Typography>
         </Link>
       </Card>
-    );
-  },
-);
+    )
+  }
+)

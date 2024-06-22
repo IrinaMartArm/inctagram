@@ -1,1 +1,1 @@
-export { MobileMenuBar } from "./MobileMenuBar";
+export { MobileMenuBar } from './MobileMenuBar'

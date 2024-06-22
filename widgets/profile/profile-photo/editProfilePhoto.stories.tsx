@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react'
 
-import Girl from "@/public/images/Girl.png";
-import { EditProfilePhoto } from "@/widgets";
+import Girl from '@/public/images/Girl.png'
+import { EditProfilePhoto } from '@/widgets'
 
 const meta = {
   argTypes: {},
   component: EditProfilePhoto,
-  tags: ["autodocs"],
-  title: "Widgets/EditProfilePhoto",
-} satisfies Meta<typeof EditProfilePhoto>;
+  tags: ['autodocs'],
+  title: 'Widgets/EditProfilePhoto',
+} satisfies Meta<typeof EditProfilePhoto>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
@@ -19,16 +19,16 @@ export const Default: Story = {
     setIsShowModal: () => {},
     updateAvatar: () => {},
   },
-};
+}
 
 export const WithError: Story = {
   args: {
     defaultOpen: true,
-    error: "The format of the uploaded photo must be\n" + "PNG and JPEG",
+    error: 'The format of the uploaded photo must be\n' + 'PNG and JPEG',
     setIsShowModal: () => {},
     updateAvatar: () => {},
   },
-};
+}
 
 export const WithEditor: Story = {
   args: {
@@ -38,4 +38,4 @@ export const WithEditor: Story = {
     setIsShowModal: () => {},
     updateAvatar: () => {},
   },
-};
+}

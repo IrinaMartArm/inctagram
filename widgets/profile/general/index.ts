@@ -1,2 +1,2 @@
-export * from "./ui/General";
-export { useProfileForm } from "./hook/useProfileForm";
+export * from './ui/General'
+export { useProfileForm } from './hook/useProfileForm'

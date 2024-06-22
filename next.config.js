@@ -1,26 +1,26 @@
-const path = require("path");
+const path = require('path')
 
 module.exports = {
-  extends: ["plugin:@next/next/recommended"],
+  extends: ['plugin:@next/next/recommended'],
   sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
+    includePaths: [path.join(__dirname, 'styles')],
   },
-};
+}
 const nextConfig = {
   i18n: {
-    defaultLocale: "ru",
-    locales: ["en", "ru"],
+    defaultLocale: 'ru',
+    locales: ['en', 'ru'],
   },
   images: {
     remotePatterns: [
       {
-        hostname: "example.com",
-        pathname: "/account123/**",
-        port: "",
-        protocol: "https",
+        hostname: 'example.com',
+        pathname: '/account123/**',
+        port: '',
+        protocol: 'https',
       },
     ],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
