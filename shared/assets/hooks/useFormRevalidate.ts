@@ -22,5 +22,5 @@ export const useFormRevalidate = <T extends FieldValues>({
         })
       }
     })
-  }, [locale])
+  }, [errors, locale, setValue, values])
 }
