@@ -16,7 +16,7 @@ const slice = createSlice({
   initialState: {
     email: undefined as string | undefined,
     error: undefined as string | undefined,
-    isAuth: false,
+    isAuth: true,
   },
   name: 'auth',
   reducers: {
