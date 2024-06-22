@@ -1,14 +1,13 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 import { PlusSquare_outline } from '@/public'
-import { AddPhotoBackGround } from '@/public/icons/AddPhotoBackGround'
+import { TABLET_BREAKPOINT, useIsMobile } from '@/shared/assets'
 import { Button, Typography } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
-import { ConfirmableModal } from '@/widgets/addPhotoForm/ui/confirmableModal/ConfirmableModal'
-import { CroppingPhoto } from '@/widgets/addPhotoForm/ui/croppingPhoto/CroppingPhoto'
-import { Filters } from '@/widgets/addPhotoForm/ui/filters/Filters'
-import { Publication } from '@/widgets/addPhotoForm/ui/publication/Publication'
+import AddPhotoFormContainerDesktop from '@/widgets/addPhotoForm/ui/addPhotoFormContainerDesktop/AddPhotoFormContainerDesktop'
+import AddPhotoFormContainerMobile from '@/widgets/addPhotoForm/ui/addPhotoFormContainerMobile/AddPhotoFormContainerMobile'
+import { clsx } from 'clsx'
 
 import s from './addPhotoForm.module.scss'
 
