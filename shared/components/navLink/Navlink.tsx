@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import s from './navLink.module.scss'
 
 export type PathOption = {
-  icon: any
+  icon: ReactNode
   path?: string
   title?: string
 }

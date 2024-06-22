@@ -34,7 +34,6 @@ export const PrevArrowComponent = ({ callbackFunction, ind, len, onClick, setInd
   )
 }
 export const NextArrowComponent = ({ callbackFunction, ind, len, onClick, setInd }: Props) => {
-  console.log('render')
   if (ind === (len ? len - 1 : 0) || (len ? len : 0) <= 1) {
     return null
   }

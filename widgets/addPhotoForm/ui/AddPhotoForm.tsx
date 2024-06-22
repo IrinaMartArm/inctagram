@@ -1,14 +1,13 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 import { PlusSquare_outline } from '@/public'
-import { Paths, TABLET_BREAKPOINT, useIsMobile } from '@/shared/assets'
+import { TABLET_BREAKPOINT, useIsMobile } from '@/shared/assets'
 import { Button, Typography } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import AddPhotoFormContainerDesktop from '@/widgets/addPhotoForm/ui/addPhotoFormContainerDesktop/AddPhotoFormContainerDesktop'
 import AddPhotoFormContainerMobile from '@/widgets/addPhotoForm/ui/addPhotoFormContainerMobile/AddPhotoFormContainerMobile'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/router'
 
 import s from './addPhotoForm.module.scss'
 

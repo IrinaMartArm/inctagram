@@ -111,8 +111,6 @@ export const useAddPhotoForm = () => {
         description: data.description,
         images: imagesToSend,
       }).unwrap()
-
-      console.log(response)
     } catch (err: unknown) {
       console.log(err)
     }
