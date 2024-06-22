@@ -70,7 +70,10 @@ export const useProfileForm = () => {
       // Handling server errors
       if (error.data?.errorsMessages) {
         error.data.errorsMessages.forEach((err: { field: string; message: string }) => {
-          setError(err.field as keyof ProfileFormSchema, { message: err.message, type: 'server' })
+          setError(err.field as keyof ProfileFormSchema, {
+            message: err.message,
+            type: 'server',
+          })
         })
       } else {
         setAlertMessage(t.errors.fell)

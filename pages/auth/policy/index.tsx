@@ -1,15 +1,15 @@
-import { HeadMeta } from "@/shared/components";
-import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
-import { InfoPage } from "@/widgets";
+import { HeadMeta } from '@/shared/components'
+import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
+import { InfoPage } from '@/widgets'
 
 const PrivacyPolicy = () => {
   return (
     <>
-      <HeadMeta title={"Privacy Policy"} />
+      <HeadMeta title={'Privacy Policy'} />
       <InfoPage numbersOfBlocks={12} />
     </>
-  );
-};
+  )
+}
 
-PrivacyPolicy.getLayout = getLayout;
-export default PrivacyPolicy;
+PrivacyPolicy.getLayout = getLayout
+export default PrivacyPolicy

@@ -1,1 +1,1 @@
-export * from "./ui/EmailConfirmedCard";
+export * from './ui/EmailConfirmedCard'

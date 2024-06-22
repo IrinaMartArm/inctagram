@@ -1,2 +1,2 @@
-export { useProfileForm } from "./useProfileForm";
-export { useUpdateAvatar } from "./useUpdateAvatar";
+export { useProfileForm } from './useProfileForm'
+export { useUpdateAvatar } from './useUpdateAvatar'

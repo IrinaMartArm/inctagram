@@ -1,50 +1,38 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import { Typography } from "@/shared/components";
-import * as Tabs from "@radix-ui/react-tabs";
+import { Typography } from '@/shared/components'
+import * as Tabs from '@radix-ui/react-tabs'
 
-import s from "./tab.module.scss";
+import s from './tab.module.scss'
 
 export type TabOptions = {
-  disabled: boolean;
-  title: string;
-  value: string;
-};
+  disabled: boolean
+  title: string
+  value: string
+}
 
 type Props = {
-  defaultValue?: string;
-  disabled?: boolean;
-  label?: string;
-  onChange?: (value: string) => void;
-  options: TabOptions[];
-  value?: string;
-};
+  defaultValue?: string
+  disabled?: boolean
+  label?: string
+  onChange?: (value: string) => void
+  options: TabOptions[]
+  value?: string
+}
 
-export const Tab: FC<Props> = ({
-  defaultValue,
-  disabled,
-  label,
-  onChange,
-  options,
-  value,
-}) => (
-  <Tabs.Root
-    className={s.root}
-    defaultValue={defaultValue}
-    onValueChange={onChange}
-    value={value}
-  >
+export const Tab: FC<Props> = ({ defaultValue, disabled, label, onChange, options, value }) => (
+  <Tabs.Root className={s.root} defaultValue={defaultValue} onValueChange={onChange} value={value}>
     <Tabs.List aria-label={label} className={s.container}>
-      {options.map((option) => (
+      {options.map(option => (
         <Tabs.Trigger
           className={s.tabsTrigger}
           disabled={option.disabled || disabled}
           key={option.value}
           value={option.value}
         >
-          <Typography variant={"h3"}>{option.title}</Typography>
+          <Typography variant={'h3'}>{option.title}</Typography>
         </Tabs.Trigger>
       ))}
     </Tabs.List>
   </Tabs.Root>
-);
+)

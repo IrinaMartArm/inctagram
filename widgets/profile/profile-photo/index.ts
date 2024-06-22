@@ -1,1 +1,1 @@
-export { EditProfilePhoto } from "./EditProfilePhoto";
+export { EditProfilePhoto } from './EditProfilePhoto'

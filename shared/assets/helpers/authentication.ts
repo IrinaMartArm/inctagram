@@ -1,16 +1,16 @@
 export const googleAuthRedirect = () =>
-  window.location.assign("https://inctagram.org/api/v1/auth/google/login");
+  window.location.assign('https://inctagram.org/api/v1/auth/google/login')
 
 export const githubAuthRedirect = () =>
-  window.location.assign("https://inctagram.org/api/v1/auth/github/login");
+  window.location.assign('https://inctagram.org/api/v1/auth/github/login')
 
 export const setAccessToken = (queryString: string) => {
-  const urlParams = new URLSearchParams(queryString);
-  const accessToken = urlParams.get("access-token");
+  const urlParams = new URLSearchParams(queryString)
+  const accessToken = urlParams.get('access-token')
 
   if (accessToken) {
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem('accessToken', accessToken)
   } else {
-    console.error("Access Token not found in the URL");
+    console.error('Access Token not found in the URL')
   }
-};
+}

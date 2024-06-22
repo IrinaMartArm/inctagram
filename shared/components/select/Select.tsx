@@ -1,35 +1,32 @@
-import { ElementRef, Ref, forwardRef, useState } from "react";
+import { ElementRef, Ref, forwardRef, useState } from 'react'
 
-import { Typography } from "@/shared/components";
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-import * as SelectRadix from "@radix-ui/react-select";
-import { clsx } from "clsx";
-import Image from "next/image";
+import { Typography } from '@/shared/components'
+import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
+import * as SelectRadix from '@radix-ui/react-select'
+import { clsx } from 'clsx'
+import Image from 'next/image'
 
-import s from "./select.module.scss";
+import s from './select.module.scss'
 
 type ItemsType = {
-  img?: string;
-  title: string;
-  value: string;
-};
+  img?: string
+  title: string
+  value: string
+}
 
 type SelectType = {
-  className?: string;
-  defaultValue?: string;
-  disabled?: boolean;
-  isHiddenText?: boolean;
-  isPagination?: boolean;
-  items: ItemsType[];
-  label?: string;
-  name?: string;
-  onChange: (key: string, value: string) => void;
-  value?: string;
-};
-export const Select = forwardRef<
-  ElementRef<typeof SelectRadix.Root>,
-  SelectType
->(
+  className?: string
+  defaultValue?: string
+  disabled?: boolean
+  isHiddenText?: boolean
+  isPagination?: boolean
+  items: ItemsType[]
+  label?: string
+  name?: string
+  onChange: (key: string, value: string) => void
+  value?: string
+}
+export const Select = forwardRef<ElementRef<typeof SelectRadix.Root>, SelectType>(
   (
     {
       className,
@@ -43,7 +40,7 @@ export const Select = forwardRef<
       value,
       ...rest
     }: SelectType,
-    ref: Ref<HTMLSelectElement>,
+    ref: Ref<HTMLSelectElement>
   ) => {
     const classNames = {
       Container: clsx(s.Container, className),
@@ -51,22 +48,21 @@ export const Select = forwardRef<
         s.SelectTrigger,
         isPagination && s.pagination,
         isHiddenText && s.isHiddenText,
-        className,
+        className
       ),
       selectItem: clsx(
         s.SelectItem,
         isPagination && s.pagination,
         isHiddenText && s.isHiddenText,
-        className,
+        className
       ),
-    };
+    }
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     const toggle = () => {
-      setOpen(!open);
-    };
-    const ValueChangeHandler = (newValue: string) =>
-      onChange("itemsPerPage", newValue ?? "10");
+      setOpen(!open)
+    }
+    const ValueChangeHandler = (newValue: string) => onChange('itemsPerPage', newValue ?? '10')
 
     return (
       <div className={classNames.Container}>
@@ -79,14 +75,11 @@ export const Select = forwardRef<
           {...rest}
         >
           {label && (
-            <Typography className={s.label} variant={"regular_text-14"}>
+            <Typography className={s.label} variant={'regular_text-14'}>
               {label}
             </Typography>
           )}
-          <SelectRadix.Trigger
-            aria-label={label}
-            className={classNames.SelectTrigger}
-          >
+          <SelectRadix.Trigger aria-label={label} className={classNames.SelectTrigger}>
             <SelectRadix.Value ref={ref} />
             {open ? (
               <SelectRadix.Icon className={s.SelectIcon}>
@@ -99,14 +92,10 @@ export const Select = forwardRef<
             )}
           </SelectRadix.Trigger>
           <SelectRadix.Portal>
-            <SelectRadix.Content
-              className={s.SelectContent}
-              position={"popper"}
-              sideOffset={-2}
-            >
+            <SelectRadix.Content className={s.SelectContent} position={'popper'} sideOffset={-2}>
               <SelectRadix.Viewport className={s.selectViewport}>
                 <SelectRadix.Group>
-                  {items.map((el) => (
+                  {items.map(el => (
                     <SelectRadix.Item
                       className={classNames.selectItem}
                       key={el.value}
@@ -114,18 +103,9 @@ export const Select = forwardRef<
                     >
                       <SelectRadix.ItemText asChild>
                         <div className={s.item}>
-                          {el.img && (
-                            <Image
-                              alt={el.img}
-                              height={20}
-                              src={el.img}
-                              width={20}
-                            />
-                          )}
+                          {el.img && <Image alt={el.img} height={20} src={el.img} width={20} />}
                           {!isHiddenText && (
-                            <Typography variant={"regular_text-16"}>
-                              {el.title}
-                            </Typography>
+                            <Typography variant={'regular_text-16'}>{el.title}</Typography>
                           )}
                         </div>
                       </SelectRadix.ItemText>
@@ -137,6 +117,6 @@ export const Select = forwardRef<
           </SelectRadix.Portal>
         </SelectRadix.Root>
       </div>
-    );
-  },
-);
+    )
+  }
+)

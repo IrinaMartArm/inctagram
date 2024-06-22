@@ -1,23 +1,23 @@
-import { LangSelect } from "@/features";
-import { More } from "@/public";
-import { MOBILE_BREAKPOINT, Paths } from "@/shared/assets/constants";
-import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
-import { Button } from "@/shared/components";
-import Link from "next/link";
+import { LangSelect } from '@/features'
+import { More } from '@/public'
+import { MOBILE_BREAKPOINT, Paths } from '@/shared/assets/constants'
+import { useIsMobile, useTranslation } from '@/shared/assets/hooks'
+import { Button } from '@/shared/components'
+import Link from 'next/link'
 
-import s from "./header.module.scss";
+import s from './header.module.scss'
 
-import { Notifications } from "./ui";
+import { Notifications } from './ui'
 
-const NOTIFICATIONS_COUNT = 5;
+const NOTIFICATIONS_COUNT = 5
 
 type Props = {
-  isAuth: boolean;
-};
+  isAuth: boolean
+}
 
 export const Header = ({ isAuth }: Props) => {
-  const { t } = useTranslation();
-  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
+  const { t } = useTranslation()
+  const isMobile = useIsMobile(MOBILE_BREAKPOINT)
 
   return (
     <div className={s.root}>
@@ -29,7 +29,7 @@ export const Header = ({ isAuth }: Props) => {
           <div className={s.buttons}>
             <LangSelect />
             <div className={s.buttonsBox}>
-              <Button as={Link} href={Paths.LOGIN} variant={"link"}>
+              <Button as={Link} href={Paths.LOGIN} variant={'link'}>
                 {t.signIn}
               </Button>
               <Button as={Link} href={Paths.REGISTRATION}>
@@ -40,18 +40,16 @@ export const Header = ({ isAuth }: Props) => {
         )}
         {isAuth && (
           <div className={s.wrapper}>
-            {!isMobile && (
-              <Notifications notificationsCount={NOTIFICATIONS_COUNT} />
-            )}
+            {!isMobile && <Notifications notificationsCount={NOTIFICATIONS_COUNT} />}
             <LangSelect />
           </div>
         )}
         {isMobile && (
-          <button>
+          <Button variant={'icon'}>
             <More />
-          </button>
+          </Button>
         )}
       </div>
     </div>
-  );
-};
+  )
+}

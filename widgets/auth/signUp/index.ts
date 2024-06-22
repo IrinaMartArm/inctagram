@@ -1,2 +1,2 @@
-export { SignUpCard } from "./ui/SignUp";
-export * from "./ui/EmailSent";
+export { SignUpCard } from './ui/SignUp'
+export * from './ui/EmailSent'
