@@ -14,31 +14,14 @@ type Props = {
   setConfirmOpen: (val: boolean) => void
   setOpen: (val: boolean) => void
 }
-const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setOpen }: Props) => {
+
+export const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setOpen }: Props) => {
   const { deleteImgCallback, errorFile, imgChangeCallback, modalState, t } = useAddPhotoForm()
   const handleInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     e.preventDefault()
     inputRef.current?.click()
   }
   const inputRef = useRef<HTMLInputElement | null>(null)
-  confirmOpen: boolean;
-  setConfirmOpen: (val: boolean) => void;
-  setOpen: (val: boolean) => void;
-};
-export const AddPhotoFormContainerDesktop = ({
-  confirmOpen,
-  setConfirmOpen,
-  setOpen,
-}: Props) => {
-  const { deleteImgCallback, errorFile, imgChangeCallback, modalState, t } =
-    useAddPhotoForm();
-  const handleInputClick = (
-    e: React.MouseEvent<HTMLLabelElement, MouseEvent>,
-  ) => {
-    e.preventDefault();
-    inputRef.current?.click();
-  };
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const handleImgChange = (e: ChangeEvent<HTMLInputElement>) => {
     imgChangeCallback(e)
   }
