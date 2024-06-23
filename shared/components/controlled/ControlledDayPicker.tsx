@@ -22,8 +22,6 @@ export const ControlledDayPicker = <T extends FieldValues>({
     shouldUnregister,
   })
 
-  console.log('errorMessage', errorMessage)
-
   return (
     <DayPicker
       {...rest}

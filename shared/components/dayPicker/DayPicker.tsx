@@ -13,8 +13,6 @@ import styles from 'react-day-picker/dist/style.module.css'
 export const DayPicker = (props: DayPickerProps) => {
   const { errorMessage, label, onChange } = props
 
-  console.log('errorMessage', errorMessage)
-
   const [isPickerSingleHidden, setIsPickerSingleHidden] = useState<boolean>(true)
   const [localSelected, setLocalSelected] = useState(props.selected)
 
