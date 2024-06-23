@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { addPhotoActions } from '@/entities'
 import { useAppDispatch } from '@/shared/assets/api/store'
 import { Button, Modal, ModalClose, Typography } from '@/shared/components'

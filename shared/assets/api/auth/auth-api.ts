@@ -5,7 +5,6 @@ import {
   ErrorsMessages,
   LoginArgs,
   LoginResponse,
-  MeResponse,
   NewPasswordArgs,
   PasswordRecoveryArgs,
   SignUpArgs,

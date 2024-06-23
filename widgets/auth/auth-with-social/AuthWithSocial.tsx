@@ -1,7 +1,6 @@
 import { GitHubBig, Google } from '@/public'
 import { githubAuthRedirect, googleAuthRedirect } from '@/shared/assets/helpers/authentication'
 import { Button } from '@/shared/components'
-import Link from 'next/link'
 
 import s from './authWithSocial.module.scss'
 

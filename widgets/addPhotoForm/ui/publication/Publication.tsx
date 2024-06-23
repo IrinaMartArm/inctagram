@@ -4,12 +4,16 @@ import Slider from 'react-slick'
 import { addPhotoActions } from '@/entities'
 import { ArrowBack } from '@/public'
 import { useAppDispatch } from '@/shared/assets/api/store'
-import { Avatar, Button, ControlledTextArea, Input, Typography } from '@/shared/components'
-import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import {
+  Avatar,
+  Button,
+  ControlledTextArea,
+  Input,
   NextArrowComponent,
   PrevArrowComponent,
-} from '@/widgets/addPhotoForm/ui/croppingPhoto/carousel/arrow'
+  Typography,
+} from '@/shared/components'
+import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 
 import s from './publication.module.scss'
 

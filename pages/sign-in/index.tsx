@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 const SignIn = () => {
   const { t } = useTranslationPages()
   const [login] = useLoginMutation()
-  const [getUser, {}] = useLazyMeQuery()
+  const [getUser] = useLazyMeQuery()
 
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -51,10 +51,12 @@ const SignIn = () => {
 
   useEffect(() => {
     const changeMassageHandler = (e: StorageEvent) => {
-      if (e.newValue) {
+      if (e.key === 'sign-in' && e.newValue) {
         const message = JSON.parse(e.newValue)
 
-        message.action === 'success_sign-in' && void router.push(Paths.HOME)
+        if (message.action === 'success_sign-in') {
+          router.push(Paths.HOME).catch(console.error)
+        }
       }
     }
 
