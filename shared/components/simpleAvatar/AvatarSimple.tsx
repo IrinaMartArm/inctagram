@@ -1,6 +1,5 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
-import { ImageProfile } from '@/public'
 import * as RadixAvatar from '@radix-ui/react-avatar'
 
 import s from './avatar.module.scss'

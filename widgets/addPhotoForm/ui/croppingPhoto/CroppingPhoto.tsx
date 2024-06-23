@@ -1,17 +1,17 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 
 import { addPhotoActions } from '@/entities'
 import { ArrowBack, Magnifier, Picture, Vectors } from '@/public'
 import { useAppDispatch } from '@/shared/assets/api/store'
-import { CropArg } from '@/shared/assets/types/types'
 import { Button, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
-import { AddPhotosMenu } from '@/widgets/addPhotoForm/ui/croppingPhoto/addPhotosMenu/AddPhotosMenu'
-import { Carousel } from '@/widgets/addPhotoForm/ui/croppingPhoto/carousel/Carousel'
-import { ScaleMenu } from '@/widgets/addPhotoForm/ui/croppingPhoto/scaleMenu/ScaleMenu'
-import { ZoomMenu } from '@/widgets/addPhotoForm/ui/croppingPhoto/zoomMenu/ZoomMenu'
+import { AddPhotosMenu } from '@/widgets/addPhotoForm/ui/croppingPhoto/addPhotosMenu'
+import { Carousel } from '@/widgets/addPhotoForm/ui/croppingPhoto/carousel'
+import { ScaleMenu } from '@/widgets/addPhotoForm/ui/croppingPhoto/scaleMenu'
+import { ZoomMenu } from '@/widgets/addPhotoForm/ui/croppingPhoto/zoomMenu'
 
 import s from './croppingPhoto.module.scss'
+
 type Props = {
   deleteImgCallback: (ind: number) => void
   imgChangeCallback: (e: ChangeEvent<HTMLInputElement>) => void

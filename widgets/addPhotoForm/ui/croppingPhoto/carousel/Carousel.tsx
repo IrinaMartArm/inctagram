@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import Slider from 'react-slick'
 
 import { CropArg } from '@/shared/assets/types/types'
+import { NextArrowComponent } from '@/shared/components/arrows/NextArrowComponent'
+import { PrevArrowComponent } from '@/shared/components/arrows/PrevArrowComponent'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
-import {
-  NextArrowComponent,
-  PrevArrowComponent,
-} from '@/widgets/addPhotoForm/ui/croppingPhoto/carousel/arrow'
 import { EasyCrop } from '@/widgets/addPhotoForm/ui/croppingPhoto/easyCrop/easyCrop'
 
 import 'slick-carousel/slick/slick.css'

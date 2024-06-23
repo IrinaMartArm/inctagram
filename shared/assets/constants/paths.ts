@@ -3,7 +3,7 @@ export const Paths = {
   CREATE: '/create',
   FAVORITES: '/favorites',
   FORGOT_PASSWORD: '/auth/create-new-password',
-  GITHUB: '/github',
+  GOOGLE: '/google-auth',
   HOME: '/home',
   LOGIN: '/sign-in',
   LOGOUT: '/logout',
@@ -29,7 +29,7 @@ export const commonRoutes = [Paths.PROFILE, Paths.MAIN]
 export const authRoutes = [
   Paths.LOGIN,
   Paths.REGISTRATION,
-  Paths.GITHUB,
+  Paths.GOOGLE,
   Paths.FORGOT_PASSWORD,
   Paths.CONFIRM,
   Paths.POLICY,

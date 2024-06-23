@@ -4,12 +4,8 @@ import Slider from 'react-slick'
 import { addPhotoActions } from '@/entities'
 import { ArrowBack } from '@/public'
 import { useAppDispatch } from '@/shared/assets/api/store'
-import { Button, Typography } from '@/shared/components'
+import { Button, NextArrowComponent, PrevArrowComponent, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
-import {
-  NextArrowComponent,
-  PrevArrowComponent,
-} from '@/widgets/addPhotoForm/ui/croppingPhoto/carousel/arrow'
 
 import s from './filters.module.scss'
 export const filtersVariant = [
