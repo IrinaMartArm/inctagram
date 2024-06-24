@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.image {
+  position: relative;
+  display: block;
+  width: 234px;
+  height: 240px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.time {
+  color: var(--color-light-900);
+}
