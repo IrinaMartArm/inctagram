@@ -72,6 +72,11 @@ export const useProfileForm = (profile: UserProfileResponse) => {
 
   const handleCountryChange = (key: string, value: string) => {
     setSelectedCountry(value)
+
+    const newCities = value === 'russia' ? russia : belarus
+
+    setCities(newCities)
+    setSelectedCity(newCities[0].value)
   }
 
   const handleCityChange = (key: string, value: string) => {
@@ -94,9 +99,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     reset,
     selectedCity,
     selectedCountry,
-    setCities,
     setIsShowModal,
-    setSelectedCity,
     showAlert,
     t,
   }
