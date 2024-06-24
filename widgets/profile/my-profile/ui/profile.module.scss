@@ -1,7 +1,8 @@
-@import "styles/mixins";
+@import 'styles/mixins';
 
 .info_wrapper {
   @include flex(row, center, center);
+
   width: 100%;
   height: 204px;
   margin-top: 10px;
@@ -14,24 +15,33 @@
 
 .info_block {
   @include flex(column, space-between, center);
-  padding: 0 27px;
+
+  flex: auto;
   height: 204px;
+  padding: 0 27px;
 }
 
 .first_row {
   @include flex(row, space-between, center);
+
   width: 100%;
 }
+
 .second_row {
   @include flex(row, flax-start, center, 80px);
+
   width: 100%;
 }
+
 .third_row {
   @include flex(row, space-between, center);
+
+  align-self: flex-start;
 }
 
 .posts {
-  width: 100%;
   @include flex(row, space-between, center, 12px);
+
   flex-wrap: wrap;
+  width: 100%;
 }
