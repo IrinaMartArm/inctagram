@@ -22,7 +22,7 @@ export const MainSideBar = () => {
 
   const basicPaths = [
     { icon: <Home_outline />, path: Paths.HOME, title: home },
-    { icon: <AddPhotoForm />, title: '' },
+    { icon: <AddPhotoForm />, title: create },
     { icon: <Person_outline />, path: Paths.PROFILE, title: myProfile },
     {
       icon: <Dialog />,

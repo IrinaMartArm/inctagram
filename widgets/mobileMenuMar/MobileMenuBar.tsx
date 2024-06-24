@@ -16,8 +16,8 @@ const paths = [
 export const MobileMenuBar = () => {
   return (
     <div className={s.wrapper}>
-      {paths.map(path => (
-        <NavLink isTextHidden key={path.title} path={path} />
+      {paths.map((path, i) => (
+        <NavLink isTextHidden key={i} path={path} />
       ))}
     </div>
   )

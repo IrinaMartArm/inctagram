@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import {
   Alert,
@@ -10,10 +8,9 @@ import {
   Select,
   Tab,
 } from '@/shared/components'
-import { EditProfilePhoto, belarus, countries, options, russia } from '@/widgets'
+import { EditProfilePhoto, belarus, countries, options } from '@/widgets'
 import { useProfileForm, useUpdateAvatar } from '@/widgets/profile/general/hook'
 import { AvatarBox } from '@/widgets/profile/general/ui/avatarBox'
-import { useRouter } from 'next/router'
 
 import s from './general.module.scss'
 
@@ -22,9 +19,6 @@ type Props = {
 }
 
 export const General = ({ profile }: Props) => {
-  const router = useRouter()
-  const { id } = router.query
-
   const {
     alertHandler,
     alertMessage,
@@ -40,24 +34,12 @@ export const General = ({ profile }: Props) => {
     onSubmit,
     selectedCity,
     selectedCountry,
-    setCities,
     setIsShowModal,
-    setSelectedCity,
     showAlert,
     t,
   } = useProfileForm(profile)
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar()
-
-  useEffect(() => {
-    if (selectedCountry === 'russia') {
-      setCities(russia)
-      setSelectedCity(russia[0].value)
-    } else if (selectedCountry === 'belarus') {
-      setCities(belarus)
-      setSelectedCity(belarus[0].value)
-    }
-  }, [selectedCountry])
 
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
@@ -103,7 +85,7 @@ export const General = ({ profile }: Props) => {
           <div className={s.selectors}>
             <Select
               className={s.select}
-              defaultValue={selectedCountry}
+              defaultValue={countries[0].value}
               items={countries}
               label={t.selectYourCountry}
               name={'countries'}
@@ -112,7 +94,7 @@ export const General = ({ profile }: Props) => {
             />
             <Select
               className={s.select}
-              defaultValue={selectedCity}
+              defaultValue={belarus[0].value}
               items={cities}
               label={t.selectYourCity}
               name={'city'}

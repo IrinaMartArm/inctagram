@@ -23,13 +23,6 @@ export const AuthApi = baseApi.injectEndpoints({
           url: 'v1/auth/new-password',
         }),
       }),
-      emailResending: builder.mutation<ErrorsMessages, EmailResendingArgs>({
-        query: body => ({
-          body,
-          method: 'POST',
-          url: 'v1/auth/registration-email-resending',
-        }),
-      }),
       login: builder.mutation<LoginResponse, LoginArgs>({
         query: body => ({
           body: {
@@ -84,12 +77,26 @@ export const AuthApi = baseApi.injectEndpoints({
           url: 'v1/auth/password-recovery',
         }),
       }),
+      passwordResending: builder.mutation<ErrorsMessages, EmailResendingArgs>({
+        query: body => ({
+          body,
+          method: 'POST',
+          url: '/v1/auth/password-recovery-resending',
+        }),
+      }),
       registrationConfirmation: builder.mutation<ErrorsMessages, ConformationArgs>({
         query: body => ({
           body,
           method: 'POST',
           providesTags: ['Me'],
           url: 'v1/auth/registration-confirmation',
+        }),
+      }),
+      registrationResending: builder.mutation<ErrorsMessages, EmailResendingArgs>({
+        query: body => ({
+          body,
+          method: 'POST',
+          url: 'v1/auth/registration-email-resending',
         }),
       }),
       signUp: builder.mutation<void, SignUpArgs>({
@@ -107,12 +114,13 @@ export const AuthApi = baseApi.injectEndpoints({
 
 export const {
   useCreateNewPasswordMutation,
-  useEmailResendingMutation,
   useLazyMeQuery,
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,
   usePasswordRecoveryMutation,
+  usePasswordResendingMutation,
   useRegistrationConfirmationMutation,
+  useRegistrationResendingMutation,
   useSignUpMutation,
 } = AuthApi
