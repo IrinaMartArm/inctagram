@@ -5,16 +5,16 @@ import { useFillOutProfileMutation } from '@/shared/assets/api/profile/profile-a
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import { useTranslationPages } from '@/shared/assets/hooks'
 import { AlertVariant } from '@/shared/components/alert/Alert'
-import { ProfileFormSchema, belarus, countries, profileFormSchema, russia } from '@/widgets'
+import { ProfileFormSchema, belarus, profileFormSchema, russia } from '@/widgets'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export const useProfileForm = (profile: UserProfileResponse) => {
   const { t } = useTranslationPages()
 
   const [isShowModal, setIsShowModal] = useState(false)
-  const [selectedCountry, setSelectedCountry] = useState(countries[0].value)
-  const [selectedCity, setSelectedCity] = useState(belarus[0].value)
-  const [cities, setCities] = useState(russia)
+  const [selectedCountry, setSelectedCountry] = useState(undefined)
+  const [selectedCity, setSelectedCity] = useState(undefined)
+  const [cities, setCities] = useState(belarus)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertMessage, setAlertMessage] = useState<string>('')
@@ -49,8 +49,10 @@ export const useProfileForm = (profile: UserProfileResponse) => {
   }
 
   const onSubmit = async (data: ProfileFormSchema) => {
+    const body = { ...data, city: selectedCity, country: selectedCountry }
+
     try {
-      await fillOutProfile(data).unwrap()
+      await fillOutProfile(body).unwrap()
       setAlertMessage(t.success)
       setAlertVariant('success')
       alertHandler()
@@ -70,7 +72,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     }
   }
 
-  const handleCountryChange = (key: string, value: string) => {
+  const handleCountryChange = (key: string, value: any) => {
     setSelectedCountry(value)
 
     const newCities = value === 'russia' ? russia : belarus
@@ -79,7 +81,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     setSelectedCity(newCities[0].value)
   }
 
-  const handleCityChange = (key: string, value: string) => {
+  const handleCityChange = (key: string, value: any) => {
     setSelectedCity(value)
   }
 

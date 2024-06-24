@@ -8,7 +8,7 @@ import {
   Select,
   Tab,
 } from '@/shared/components'
-import { EditProfilePhoto, countries, options } from '@/widgets'
+import { EditProfilePhoto, belarus, countries, options } from '@/widgets'
 import { useProfileForm, useUpdateAvatar } from '@/widgets/profile/general/hook'
 import { AvatarBox } from '@/widgets/profile/general/ui/avatarBox'
 
@@ -85,7 +85,7 @@ export const General = ({ profile }: Props) => {
           <div className={s.selectors}>
             <Select
               className={s.select}
-              defaultValue={selectedCountry}
+              defaultValue={countries[0].value}
               items={countries}
               label={t.selectYourCountry}
               name={'countries'}
@@ -94,7 +94,7 @@ export const General = ({ profile }: Props) => {
             />
             <Select
               className={s.select}
-              defaultValue={selectedCity}
+              defaultValue={belarus[0].value}
               items={cities}
               label={t.selectYourCity}
               name={'city'}
