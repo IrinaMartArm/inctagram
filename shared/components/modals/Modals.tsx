@@ -39,6 +39,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
           <div className={`${s.root} ${className}`} {...rest}>
             <RadixModal.Content
               asChild
+              className={s.width}
               onInteractOutside={event => {
                 if (handleCloseClickOutside) {
                   event.preventDefault()
@@ -46,6 +47,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
                 }
               }}
               ref={ref}
+              {...rest}
             >
               <motion.div {...modalAnimations.window}>
                 {title && (

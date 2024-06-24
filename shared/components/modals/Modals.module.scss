@@ -11,6 +11,7 @@
   background-color: var(--color-dark-300);
   border: 1px solid var(--color-dark-100);
   border-right: 2px;
+  z-index: 99;
 
   .title {
     @include flex("", space-between, center);
@@ -28,6 +29,7 @@
   inset: 0;
   background-color: var(--color-dark-900);
   opacity: 0.5;
+  z-index: 9;
 }
 
 .child {
@@ -77,4 +79,8 @@
   height: 228px;
   border: 1px solid var(--color-dark-100);
   background-color: var(--color-dark-300);
+}
+
+.width {
+  width: 100%;
 }

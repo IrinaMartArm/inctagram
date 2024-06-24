@@ -7,6 +7,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  Modal,
+  ModalWindow,
 } from '@/shared/components'
 
 import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
@@ -18,7 +20,7 @@ export const PostMenu = () => {
   return (
     <DropdownMenu onOpenChange={onOpenChangeHandler} open={open}>
       <DropdownMenuTrigger>
-        <Button icon={<More />} variant={'icon'} />
+        <More />
       </DropdownMenuTrigger>
       <DropdownMenuContent align={'end'}>
         <DropdownMenuItem asChild>
@@ -27,14 +29,16 @@ export const PostMenu = () => {
           </Button>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Button
-            className={d.item}
-            icon={<Trash />}
-            // onClick={}
-            variant={'icon'}
+          <Modal
+            title={'Log Out'}
+            trigger={
+              <Button className={d.item} icon={<Trash />} variant={'icon'}>
+                Delete Post
+              </Button>
+            }
           >
-            Delete Post
-          </Button>
+            <ModalWindow callback={() => {}} text={'Are you sure you want to delete this post?'} />
+          </Modal>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

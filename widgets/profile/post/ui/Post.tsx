@@ -6,9 +6,11 @@ import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
 
+import avatar from '../../../../public/images/avatar.png'
+
 export const Post = () => {
   const isOwner = true
-  const avatars = ['', '']
+  const avatars = [avatar, avatar, avatar]
 
   const { control, handleSubmit, reset } = useForm({})
 
