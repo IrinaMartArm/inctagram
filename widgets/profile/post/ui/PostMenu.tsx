@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Edit, More, Trash } from '@/public'
+import { useTranslationPages } from '@/shared/assets'
 import {
   Button,
   DropdownMenu,
@@ -14,6 +15,7 @@ import {
 import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
 
 export const PostMenu = () => {
+  const { t } = useTranslationPages()
   const [open, setOpen] = useState(false)
   const onOpenChangeHandler = () => setOpen(!open)
 
@@ -25,6 +27,7 @@ export const PostMenu = () => {
       <DropdownMenuContent align={'end'}>
         <DropdownMenuItem asChild>
           <Button className={d.item} icon={<Edit />} variant={'icon'}>
+            {/*{t{'post.editPost'}}*/}
             Edit Post
           </Button>
         </DropdownMenuItem>

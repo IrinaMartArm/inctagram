@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
+import { useTranslationPages } from '@/shared/assets'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 

@@ -3,7 +3,7 @@ export const Paths = {
   CREATE: '/create',
   FAVORITES: '/favorites',
   FORGOT_PASSWORD: '/auth/create-new-password',
-  GOOGLE: '/google-auth',
+  GOOGLE: '/provider-auth',
   HOME: '/home',
   LOGIN: '/sign-in',
   LOGOUT: '/logout',

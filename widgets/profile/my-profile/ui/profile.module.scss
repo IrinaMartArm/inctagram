@@ -1,5 +1,9 @@
 @import "styles/mixins";
 
+.root {
+  @include flex(column, space-between, center, 50px);
+}
+
 .info_wrapper {
   @include flex(row, space-between, center);
   width: 100%;
@@ -36,4 +40,10 @@
   width: 100%;
   @include flex(row, space-between, center, 12px);
   flex-wrap: wrap;
+}
+
+.test {
+  width: 234px;
+  height: 228px;
+  border: 1px solid red;
 }

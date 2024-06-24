@@ -2,7 +2,8 @@ import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { useTranslationPages } from '@/shared/assets/hooks'
-import { Avatar, Button, Typography } from '@/shared/components'
+import { Avatar, Button, Modal, Typography } from '@/shared/components'
+import { Post } from '@/widgets/profile/post/ui/Post'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -19,7 +20,7 @@ export const MyProfile = () => {
   const { t } = useTranslationPages()
 
   return (
-    <>
+    <div className={s.root}>
       <div className={s.info_wrapper}>
         <div className={s.avatar}>
           <Avatar alt={profile?.username || ''} src={profile?.avatar?.url || ''} />
@@ -43,7 +44,13 @@ export const MyProfile = () => {
           </div>
         </div>
       </div>
-      <div className={s.posts}></div>
-    </>
+      <div className={s.posts}>
+        <Modal trigger={<div className={s.test} />}>
+          <Post />
+        </Modal>
+        <Post />
+        <Modal trigger={<div className={s.test} />}></Modal>
+      </div>
+    </div>
   )
 }
