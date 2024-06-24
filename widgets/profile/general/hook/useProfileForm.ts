@@ -12,8 +12,8 @@ export const useProfileForm = (profile: UserProfileResponse) => {
   const { t } = useTranslationPages()
 
   const [isShowModal, setIsShowModal] = useState(false)
-  const [selectedCountry, setSelectedCountry] = useState(undefined)
-  const [selectedCity, setSelectedCity] = useState(undefined)
+  const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined)
+  const [selectedCity, setSelectedCity] = useState<string | undefined>(undefined)
   const [cities, setCities] = useState(belarus)
 
   const [showAlert, setShowAlert] = useState(false)
@@ -72,7 +72,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     }
   }
 
-  const handleCountryChange = (key: string, value: any) => {
+  const handleCountryChange = (key: string, value: string) => {
     setSelectedCountry(value)
 
     const newCities = value === 'russia' ? russia : belarus
@@ -81,7 +81,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     setSelectedCity(newCities[0].value)
   }
 
-  const handleCityChange = (key: string, value: any) => {
+  const handleCityChange = (key: string, value: string) => {
     setSelectedCity(value)
   }
 
