@@ -2,7 +2,7 @@
 
 .root {
   position: fixed;
-  @include flex(column, space-between, center, 180px);
+  @include flex(column, space-between, center, 100px);
   margin-left: 48px;
   width: fit-content;
   height: 100vh;

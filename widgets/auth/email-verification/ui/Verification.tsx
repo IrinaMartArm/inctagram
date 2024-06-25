@@ -1,6 +1,9 @@
 import { useState } from 'react'
 
-import { useEmailResendingMutation } from '@/shared/assets/api/auth/auth-api'
+import {
+  usePasswordResendingMutation,
+  useRegistrationResendingMutation,
+} from '@/shared/assets/api/auth/auth-api'
 import { MOBILE_BREAKPOINT } from '@/shared/assets/constants'
 import { handleErrorResponse } from '@/shared/assets/helpers/handleErrorResponse'
 import { useIsMobile, useTranslation } from '@/shared/assets/hooks'
@@ -15,7 +18,8 @@ export const Verification = () => {
   const { t } = useTranslation()
   const email = localStorage.getItem('email')
 
-  const [resending] = useEmailResendingMutation()
+  const [passwordResending] = usePasswordResendingMutation()
+  const [resending] = useRegistrationResendingMutation()
 
   const isMobile = useIsMobile(MOBILE_BREAKPOINT)
 

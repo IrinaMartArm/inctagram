@@ -8,7 +8,7 @@ import s from './post.module.scss'
 
 export const Post = () => {
   const isOwner = true
-  const avatars = ['', '']
+  const avatars = ['', '', '']
 
   const { control, handleSubmit, reset } = useForm({})
 
@@ -92,12 +92,4 @@ export const Post = () => {
       </div>
     </div>
   )
-}
-
-const getInitials = (inputString: string) => {
-  const words = inputString.trim().split(/\s+/)
-  const firstInitial = words[0] ? words[0].charAt(0).toUpperCase() : ''
-  const secondInitial = words[1] ? words[1].charAt(0).toUpperCase() : ''
-
-  return firstInitial + secondInitial
 }
