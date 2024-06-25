@@ -9,6 +9,7 @@ import { Typography } from '../typography'
 export type TextAreaProps = {
   className?: string
   error?: string
+  errorMessage?: string
   id?: string
   isDisabled?: boolean
   label?: string
@@ -18,9 +19,9 @@ export type TextAreaProps = {
 } & ComponentPropsWithoutRef<'textarea'>
 
 export const Textarea = forwardRef<ElementRef<'textarea'>, TextAreaProps>((props, ref) => {
-  const { className, error, isDisabled, label, onChangeValue, placeholder, value } = props
+  const { className, errorMessage, isDisabled, label, onChangeValue, placeholder, value } = props
 
-  const textAreaClassName = clsx(s.textarea, className && className, error && s.error)
+  const textAreaClassName = clsx(s.textarea, className && className, errorMessage && s.error)
 
   return (
     <div className={s.root}>
@@ -36,7 +37,12 @@ export const Textarea = forwardRef<ElementRef<'textarea'>, TextAreaProps>((props
         ref={ref}
         value={value}
       />
-      <div className={s.error__message}>{error && error}</div>
+      {errorMessage && (
+        <Typography className={s.error__message} variant={'small-text'}>
+          {errorMessage}
+        </Typography>
+      )}
+      {/*<div className={s.error__message}>{error && error}</div>*/}
     </div>
   )
 })
