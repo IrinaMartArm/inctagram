@@ -12,14 +12,25 @@ import 'slick-carousel/slick/slick.css'
 import s from './carousel.module.scss'
 type Props = {
   aspect: number
+
+  croppedAreaPixels: CropArg | null
   images: string[] | undefined
+  ind: number
+  setCroppedAreaPixels: (croppedAreaPixels: CropArg | null) => void
+  setInd: (ind: number) => void
   setShowMenu: (val: string) => void
   zoomValue: number[]
 }
-export const Carousel = ({ aspect, images, setShowMenu, zoomValue }: Props) => {
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArg | null>(null)
-
-  const [ind, setInd] = useState(0)
+export const Carousel = ({
+  aspect,
+  croppedAreaPixels,
+  images,
+  ind,
+  setCroppedAreaPixels,
+  setInd,
+  setShowMenu,
+  zoomValue,
+}: Props) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const { showCroppedImage } = useAddPhotoForm()
 

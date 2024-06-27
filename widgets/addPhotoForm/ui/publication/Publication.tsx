@@ -54,6 +54,11 @@ export const Publication = () => {
   }
   const description = watch('description', '')
   const numLetters = description.length
+
+  const formData = new FormData()
+
+  formData.append('description', '123')
+  console.log(formData)
   const handleBackToFilters = () => {
     dispatch(addPhotoActions.setModalStateTo('filters'))
   }
