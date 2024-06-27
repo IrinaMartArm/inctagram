@@ -52,6 +52,7 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
             trigger={
               <>
                 <input
+                  accept={'image/png, image/jpeg, image/jpg'}
                   className={s.input}
                   id={'input-file'}
                   multiple
