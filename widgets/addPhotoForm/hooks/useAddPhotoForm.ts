@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 
 import { ModalState, addPhotoActions } from '@/entities'
 import { useAddPostMutation, useGetImgIdMutation } from '@/shared/assets/api/post/post-api'
-import { AddPostReq } from '@/shared/assets/api/post/types'
 import { RootState, useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
 import { convertFileToBase64, getCroppedImg } from '@/shared/assets/helpers'
 import { filteredImg } from '@/shared/assets/helpers/getImgWithFilter'
@@ -112,15 +111,8 @@ export const useAddPhotoForm = () => {
 
       if (croppedImage) {
         const croppedImageURL = URL.createObjectURL(croppedImage)
-        const file = new File([croppedImage], '', {
-          type: 'image/jpg',
-        })
 
-        // formData.append('file', file)
         checkImageSize(formData)
-        // getImgId(formData).then(data => {
-        //   console.log(data)
-        // })
 
         dispatch(
           addPhotoActions.setCropImagesWithFilter({
@@ -191,8 +183,9 @@ export const useAddPhotoForm = () => {
     const results = await Promise.all(uploadPromises)
 
     console.log('Все загрузки завершены:', results)
-    const imageIds = results.filter(id => id !== null).map(el => el.imageId) // Убираем null значения
-
+    const imageIds = results
+      .filter((el): el is { imageId: string } => el !== null)
+      .map(el => el.imageId)
     const payload = {
       description: data.description,
       images: imageIds,
