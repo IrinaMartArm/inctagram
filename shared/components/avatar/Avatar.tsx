@@ -1,59 +1,52 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { CloseRound, ImageProfile } from "@/public";
-import noAva from "@/public/images/noAva.webp";
-import { useTranslationPages } from "@/shared/assets/hooks";
-import { DeletePhotoModal } from "@/widgets";
-import clsx from "clsx";
-import Image from "next/image";
+import { CloseRound, ImageProfile } from '@/public'
+import noAva from '@/public/images/noAva.webp'
+import { useTranslationPages } from '@/shared/assets/hooks'
+import { DeletePhotoModal } from '@/widgets'
+import clsx from 'clsx'
+import Image from 'next/image'
 
-import s from "./avatar.module.scss";
+import s from './avatar.module.scss'
 
-type AvatarSize = "lg" | "md" | "sm";
+type AvatarSize = 'lg' | 'md' | 'sm'
 
 type Props = {
-  alt: string;
-  className?: string;
-  deleteAvatar?: () => void;
-  isEditProfile?: boolean;
-  size?: AvatarSize;
-  src?: string;
-};
+  alt: string
+  className?: string
+  deleteAvatar?: () => void
+  isEditProfile?: boolean
+  size?: AvatarSize
+  src?: string
+}
 
 export const Avatar = ({
   alt,
   className,
   deleteAvatar,
   isEditProfile = false,
-  size = "lg",
+  size = 'lg',
   src,
 }: Props) => {
-  const { t } = useTranslationPages();
-  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
-  const avatarCN = clsx(s.avatar, s[size], className);
+  const { t } = useTranslationPages()
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
+  const avatarCN = clsx(s.avatar, s[size], className)
 
-  const isEditWithSrc = isEditProfile && src;
+  const isEditWithSrc = isEditProfile && src
 
   return (
     <div className={s.wrapper}>
       <div className={avatarCN}>
         {(!isEditProfile || isEditWithSrc) && (
-          <Image
-            alt={alt}
-            className={s.img}
-            fill
-            priority
-            quality={100}
-            src={src || noAva}
-          />
+          <Image alt={alt} className={s.img} fill priority quality={100} src={src || noAva} />
         )}
         {!src && isEditProfile && <ImageProfile />}
       </div>
-      {src && (
+      {isEditProfile && src && (
         <button
           className={s.buttonDeleteAvatar}
           onClick={() => setIsShowDeleteModal(true)}
-          type={"button"}
+          type={'button'}
         >
           <CloseRound />
         </button>
@@ -68,5 +61,5 @@ export const Avatar = ({
         />
       )}
     </div>
-  );
-};
+  )
+}

@@ -1,0 +1,15 @@
+.modal{
+  width: 378px;
+  height: 252px;
+}
+.root {
+  padding: 24px;
+}
+
+.controller {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 7px;
+}

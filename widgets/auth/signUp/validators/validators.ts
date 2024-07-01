@@ -1,7 +1,7 @@
-import { PASSWORD_REGEX } from "@/entities";
-import { USERNAME_REGEX } from "@/entities/auth/model/auth-validation";
-import { SignUpLocale } from "@/locales/sign-up/ru";
-import { z } from "zod";
+import { PASSWORD_REGEX } from '@/entities'
+import { USERNAME_REGEX } from '@/entities/auth/model/auth-validation'
+import { SignUpLocale } from '@/locales/sign-up/ru'
+import { z } from 'zod'
 
 export const signUpSchema = (t: SignUpLocale) => {
   return z
@@ -17,23 +17,23 @@ export const signUpSchema = (t: SignUpLocale) => {
         .regex(
           PASSWORD_REGEX,
           `${t.invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
-           ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
+           ` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~"
         ),
       username: z
         .string()
         .trim()
         .min(6, t.passwordMin)
         .max(30, t.usernameError)
-        .regex(USERNAME_REGEX, `${t.invalidUsername} a-zA-Z0-9_-`),
+        .regex(USERNAME_REGEX, `${t.invalidUsername} a-z, A-Z, 0-9_-`),
     })
-    .refine((value) => value.agree, {
+    .refine(value => value.agree, {
       message: t.checkbox,
-      path: ["agree"],
+      path: ['agree'],
     })
-    .refine((data) => data.password === data.confirm, {
+    .refine(data => data.password === data.confirm, {
       message: t.confirm,
-      path: ["confirm"],
-    });
-};
+      path: ['confirm'],
+    })
+}
 
-export type SignUpFormFields = z.infer<ReturnType<typeof signUpSchema>>;
+export type SignUpFormFields = z.infer<ReturnType<typeof signUpSchema>>

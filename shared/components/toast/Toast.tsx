@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify'
 
 export const Toast = () => {
   return (
@@ -11,10 +11,10 @@ export const Toast = () => {
         limit={1}
         newestOnTop
         pauseOnFocusLoss
-        position={"bottom-left"}
+        position={'bottom-left'}
         rtl={false}
-        theme={"colored"}
+        theme={'colored'}
       />
     </div>
-  );
-};
+  )
+}

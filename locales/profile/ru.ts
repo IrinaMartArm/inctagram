@@ -1,6 +1,12 @@
 export default {
-  followers: "Подписчики",
-  following: "Подписки",
-  publications: "Публикации",
-  settingsBtn: "Настройки профиля",
-};
+  aboutMePlaceholder: 'Напишите о себе',
+  followers: 'Подписчики',
+  following: 'Подписки',
+  post: {
+    deletePost: 'Удалить сообщение',
+    editPost: 'Редактировать пост',
+    text: 'Вы уверены, что хотите удалить эту запись?',
+  },
+  publications: 'Публикации',
+  settingsBtn: 'Настройки профиля',
+}

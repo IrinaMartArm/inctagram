@@ -1,28 +1,28 @@
-import React, { forwardRef, useState } from "react";
-import AvatarEditor from "react-avatar-editor";
+import React, { forwardRef, useState } from 'react'
+import AvatarEditor from 'react-avatar-editor'
 
-import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
-import { useIsMobile } from "@/shared/assets/hooks";
+import { MOBILE_BREAKPOINT } from '@/shared/assets/constants'
+import { useIsMobile } from '@/shared/assets/hooks'
 
-import s from "./avatarEdit.module.scss";
+import s from './avatarEdit.module.scss'
 
 type Props = {
-  image: string;
-};
+  image: string
+}
 
 export const AvatarEdit = forwardRef<AvatarEditor, Props>(({ image }, ref) => {
-  const [scale, setScale] = useState(1.2);
-  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
+  const [scale, setScale] = useState(1.2)
+  const isMobile = useIsMobile(MOBILE_BREAKPOINT)
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     if (e.deltaY < 0) {
-      setScale((prevScale) => prevScale + 0.15);
+      setScale(prevScale => prevScale + 0.15)
     } else {
-      setScale((prevScale) => prevScale - 0.15);
+      setScale(prevScale => prevScale - 0.15)
     }
-  };
+  }
 
-  const size = isMobile ? 270 : 312;
+  const size = isMobile ? 270 : 312
 
   return (
     <div className={s.wrapper} onWheel={handleWheel}>
@@ -38,5 +38,5 @@ export const AvatarEdit = forwardRef<AvatarEditor, Props>(({ image }, ref) => {
         width={size}
       />
     </div>
-  );
-});
+  )
+})

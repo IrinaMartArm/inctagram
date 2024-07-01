@@ -1,27 +1,27 @@
-import { InformationText } from "./Text";
-import { TextOptions } from "./TextOptions";
-import { InformationTitle } from "./Title";
+import { InformationText } from './Text'
+import { TextOptions } from './TextOptions'
+import { InformationTitle } from './Title'
 
 type Section = {
-  content?: string[];
-  title: string;
-};
+  content?: string[]
+  title: string
+}
 
 export type Content = {
-  additionalText?: string;
-  options?: string[];
-  sections?: Section[];
-  subTitle?: string;
-  text?: string;
-  title?: string;
-};
+  additionalText?: string
+  options?: string[]
+  sections?: Section[]
+  subTitle?: string
+  text?: string
+  title?: string
+}
 
 type Props = {
-  content: Content;
-};
+  content: Content
+}
 
 export const InformationTextBlock = ({ content }: Props) => {
-  const { additionalText, options, sections, subTitle, text, title } = content;
+  const { additionalText, options, sections, subTitle, text, title } = content
 
   return (
     <>
@@ -40,5 +40,5 @@ export const InformationTextBlock = ({ content }: Props) => {
       {options && <TextOptions options={options} />}
       {additionalText && <InformationText text={additionalText} />}
     </>
-  );
-};
+  )
+}

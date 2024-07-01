@@ -1,11 +1,11 @@
-import { FC, HTMLProps, ReactNode, SVGProps } from "react";
+import { FC, HTMLProps, ReactNode, SVGProps } from 'react'
 
 export type IconProps = {
-  color?: string;
-  colorB?: string;
-  size?: number;
-  svgProps?: SVGProps<SVGSVGElement>;
-} & Omit<HTMLProps<HTMLSpanElement>, "color" | "size">;
+  color?: string
+  colorB?: string
+  size?: number
+  svgProps?: SVGProps<SVGSVGElement>
+} & Omit<HTMLProps<HTMLSpanElement>, 'color' | 'size'>
 
 export const IconWrapper: FC<{ icon: ReactNode } & IconProps> = ({
   color: colorProp,
@@ -13,17 +13,17 @@ export const IconWrapper: FC<{ icon: ReactNode } & IconProps> = ({
   size: sizeProp,
   ...restProps
 }) => {
-  const color = colorProp ? colorProp : "currentColor";
-  const size = sizeProp ? `${sizeProp}px` : "24px";
+  const color = colorProp ? colorProp : 'currentColor'
+  const size = sizeProp ? `${sizeProp}px` : '24px'
 
   return (
     <span
-      aria-hidden={"true"}
-      role={"img"}
+      aria-hidden={'true'}
+      role={'img'}
       style={{
         color: color,
-        display: "inline-flex",
-        fontSize: "inherit",
+        display: 'inline-flex',
+        fontSize: 'inherit',
         height: size,
         width: size,
       }}
@@ -31,5 +31,5 @@ export const IconWrapper: FC<{ icon: ReactNode } & IconProps> = ({
     >
       {icon}
     </span>
-  );
-};
+  )
+}

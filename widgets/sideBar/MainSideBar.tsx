@@ -1,31 +1,28 @@
-import { userEmailSelector } from "@/entities/auth/model/auth-slice";
 import {
   Bookmark_outline,
   Dialog,
   Home_outline,
   Person_outline,
-  PlusSquare_outline,
   Search_outline,
   Statistics,
-} from "@/public";
-import { Paths } from "@/shared/assets";
-import { useAppSelector } from "@/shared/assets/api/store";
-import { useTranslation } from "@/shared/assets/hooks";
-import { SideBar } from "@/shared/components";
-import { LogOutModal } from "@/widgets";
+} from '@/public'
+import { Paths } from '@/shared/assets'
+import { useTranslation } from '@/shared/assets/hooks'
+import { SideBar } from '@/shared/components'
+import { LogOutModal } from '@/widgets'
+import { AddPhotoForm } from '@/widgets/addPhotoForm/ui'
 
-import s from "./mainSideBar.module.scss";
+import s from './mainSideBar.module.scss'
 
-import { NavLinks } from "./ui";
+import { NavLinks } from './ui'
 
 export const MainSideBar = () => {
-  const { t } = useTranslation();
-  const { create, favorites, home, messenger, myProfile, search, statistics } =
-    t.menu;
+  const { t } = useTranslation()
+  const { create, favorites, home, messenger, myProfile, search, statistics } = t.menu
 
   const basicPaths = [
     { icon: <Home_outline />, path: Paths.HOME, title: home },
-    { icon: <PlusSquare_outline />, path: Paths.CREATE, title: create },
+    { icon: <AddPhotoForm />, title: create },
     { icon: <Person_outline />, path: Paths.PROFILE, title: myProfile },
     {
       icon: <Dialog />,
@@ -33,7 +30,7 @@ export const MainSideBar = () => {
       title: messenger,
     },
     { icon: <Search_outline />, path: Paths.SEARCH, title: search },
-  ];
+  ]
 
   const otherPaths = [
     { icon: <Statistics />, path: Paths.STATISTIC, title: statistics },
@@ -42,8 +39,9 @@ export const MainSideBar = () => {
       path: Paths.FAVORITES,
       title: favorites,
     },
-  ];
-  const email = useAppSelector(userEmailSelector);
+  ]
+  // const email = useAppSelector(userEmailSelector);
+  const email = localStorage.getItem('email')
 
   return (
     <SideBar>
@@ -53,8 +51,8 @@ export const MainSideBar = () => {
           <NavLinks paths={otherPaths} />
         </div>
 
-        <LogOutModal email={email} />
+        <LogOutModal email={email || ''} />
       </div>
     </SideBar>
-  );
-};
+  )
+}

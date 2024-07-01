@@ -1,11 +1,24 @@
-import { baseApi } from "@/shared/assets";
-import { DeletePostArgs, EditPostArgs } from "@/shared/assets/api/post/types";
+import { baseApi } from '@/shared/assets'
+import {
+  AddPostReq,
+  AddPostResp,
+  DeletePostArgs,
+  EditPostArgs,
+} from '@/shared/assets/api/post/types'
 
 const postApi = baseApi.injectEndpoints({
-  endpoints: (builder) => {
+  endpoints: builder => {
     return {
+      addPost: builder.mutation<AddPostResp, AddPostReq>({
+        invalidatesTags: ['MyPosts'],
+        query: body => ({
+          body: body,
+          method: 'POST',
+          url: `v1/post`,
+        }),
+      }),
       deletePost: builder.mutation<void, DeletePostArgs>({
-        invalidatesTags: ["MyPosts"],
+        invalidatesTags: ['MyPosts'],
         // onQueryStarted: async (
         //   { id },
         //   { dispatch, getState, queryFulfilled },
@@ -31,12 +44,12 @@ const postApi = baseApi.injectEndpoints({
         //   }
         // },
         query: ({ id }) => ({
-          method: "DELETE",
+          method: 'DELETE',
           url: `v1/posts/${id}`,
         }),
       }),
       editPost: builder.mutation<void, EditPostArgs>({
-        invalidatesTags: ["MyPosts"],
+        invalidatesTags: ['MyPosts'],
         // onQueryStarted: async (
         //   { description, id },
         //   { dispatch, queryFulfilled },
@@ -61,14 +74,34 @@ const postApi = baseApi.injectEndpoints({
         //     patchResult.undo;
         //   }
         // },
-        query: (id) => ({
-          method: "PUT",
+        query: id => ({
+          method: 'PUT',
           url: `/v1/post/${id}`,
         }),
       }),
+      getImgId: builder.mutation<{ imageId: string }, FormData>({
+        query: body => ({
+          body: body,
+          method: 'POST',
+          url: 'v1/post/photo',
+        }),
+      }),
+      getPosts: builder.query<any, void>({
+        providesTags: ['MyPosts'],
+        query: () => ({
+          method: 'GET',
+          url: 'v1/public-posts',
+        }),
+      }),
       // getMyPosts: builder.query<any, any>({}),
-    };
+    }
   },
-});
+})
 
-export const { useDeletePostMutation, useEditPostMutation } = postApi;
+export const {
+  useAddPostMutation,
+  useDeletePostMutation,
+  useEditPostMutation,
+  useGetImgIdMutation,
+  useGetPostsQuery,
+} = postApi
