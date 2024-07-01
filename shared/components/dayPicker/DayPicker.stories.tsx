@@ -24,9 +24,9 @@ const renderDayPicker = (errorText?: string, label?: string) => (args: DayPicker
   return (
     <div className={s.inputSingleContainer}>
       <DayPicker
-        errorMessage={errorText}
+        errorText={errorText}
         label={label}
-        onChange={setSelected}
+        setSelected={setSelected}
         selected={selected}
       />
     </div>
@@ -34,7 +34,7 @@ const renderDayPicker = (errorText?: string, label?: string) => (args: DayPicker
 }
 
 const commonArgs = {
-  onChange: (selected: string) => {},
+  setSelected: (selected: string) => {},
   selected: '',
 }
 
