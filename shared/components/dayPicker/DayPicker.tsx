@@ -15,7 +15,7 @@ import sC from "@/shared/components/input/input.module.scss";
 import styles from "react-day-picker/dist/style.module.css";
 
 export const DayPicker = (props: DayPickerProps) => {
-  const { errorMessage, label, onChange } = props;
+  const { errorText, label, selected, setSelected } = props;
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true);
@@ -23,9 +23,9 @@ export const DayPicker = (props: DayPickerProps) => {
 
   useEffect(() => {
     if (isValidDateFormat(localSelected)) {
-      onChange(localSelected);
+      setSelected(localSelected);
     }
-  }, [localSelected, onChange]);
+  }, [localSelected, setSelected]);
 
   const weekends = [5, 6];
   const weekendStyle = { color: "#F23D61" };
@@ -37,7 +37,6 @@ export const DayPicker = (props: DayPickerProps) => {
     ...s,
     caption: clsx(styles.caption, s.caption),
     caption_label: clsx(styles.caption_label, s.caption_label),
-    // table: clsx(styles.table, s.table),
     day: clsx(styles.day, s.day),
     dropdown: clsx(styles.dropdown, s.dropdown),
     nav_button: clsx(styles.nav_button, s.nav_button),
@@ -99,7 +98,7 @@ export const DayPicker = (props: DayPickerProps) => {
         </Typography>
       )}
       <Input
-        errorMessage={dateSingleChecker() || errorMessage}
+        errorMessage={dateSingleChecker() || errorText}
         onButtonClick={onClickSingle}
         onChange={(e) => setLocalSelected(e.target.value)}
         type={"datePicker"}
@@ -120,7 +119,7 @@ export const DayPicker = (props: DayPickerProps) => {
             selected={parseSelectedDate(localSelected)}
             showOutsideDays
             toYear={currentYear}
-          />>
+          />
         </div>
       )}
     </div>
