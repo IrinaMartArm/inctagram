@@ -91,7 +91,7 @@ export const DayPicker = (props: DayPickerProps) => {
   const maxHumanAge = 122;
 
   return (
-    <div className={s.pickerContainer}>
+    <div className={clsx(s.pickerContainer, s.scrollbar)}>
       {label && (
         <Typography className={sC.label} variant={"regular_text-14"}>
           {label}
@@ -105,7 +105,7 @@ export const DayPicker = (props: DayPickerProps) => {
         value={localSelected || ""}
       />
       {!isPickerSingleHidden && (
-        <div className={s.pickerContainer} ref={calendarRef}>
+        <div className={clsx(s.pickerContainer)} ref={calendarRef}>
           <ReactDayPicker
             captionLayout={'dropdown-buttons'}
             classNames={classNames}

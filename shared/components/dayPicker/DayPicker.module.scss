@@ -52,6 +52,20 @@
             border-color: var(--color-dark-500);
             border-radius: unset;
         }
+
+        .dropdown::-webkit-scrollbar {
+            width: 5px;
+            border-radius: 10px;
+        }
+
+        .dropdown::-webkit-scrollbar-track {
+            background: var(--color-dark-300);
+        }
+
+        .dropdown::-webkit-scrollbar-thumb {
+            background-color: var(--color-dark-100);
+            border-radius: 10px;
+        }
     }
 }
 
