@@ -1,7 +1,8 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import { addPhotoActions } from '@/entities'
 import { ArrowBack, Magnifier, Picture, Vectors } from '@/public'
+import { CropArg } from '@/shared/assets'
 import { useAppDispatch } from '@/shared/assets/api/store'
 import { Button, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
@@ -18,6 +19,9 @@ type Props = {
 }
 
 export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) => {
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArg | null>(null)
+
+  const [ind, setInd] = useState(0)
   const {
     aspect,
     cropImages,
@@ -26,6 +30,7 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) =
     setModalStateCallback,
     setShowMenu,
     setZoomValue,
+    showCroppedImage,
     showMenu,
     t,
     zoomValue,
@@ -37,7 +42,9 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) =
   const handleShowMenu = (menu: string) => {
     menu === showMenu ? setShowMenu('') : setShowMenu(menu)
   }
+
   const handleNext = () => {
+    showCroppedImage(ind, croppedAreaPixels)
     setModalStateCallback('filters')
   }
 
@@ -55,7 +62,16 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) =
         </Button>
       </div>
       <div className={s.imgBlock}>
-        <Carousel aspect={aspect} images={images} setShowMenu={setShowMenu} zoomValue={zoomValue} />
+        <Carousel
+          aspect={aspect}
+          croppedAreaPixels={croppedAreaPixels}
+          images={images}
+          ind={ind}
+          setCroppedAreaPixels={setCroppedAreaPixels}
+          setInd={setInd}
+          setShowMenu={setShowMenu}
+          zoomValue={zoomValue}
+        />
       </div>
       <div className={s.controlPanelVectors}>
         <Button onClick={() => handleShowMenu('scale-menu')} variant={'icon'}>

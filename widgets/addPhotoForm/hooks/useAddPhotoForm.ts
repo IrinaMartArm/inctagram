@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ModalState, addPhotoActions } from '@/entities'
-import { useAddPostMutation } from '@/shared/assets/api/post/post-api'
+import { useAddPostMutation, useGetImgIdMutation } from '@/shared/assets/api/post/post-api'
 import { RootState, useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
 import { convertFileToBase64, getCroppedImg } from '@/shared/assets/helpers'
 import { filteredImg } from '@/shared/assets/helpers/getImgWithFilter'
@@ -23,6 +23,7 @@ export const useAddPhotoForm = () => {
   const [zoomValue, setZoomValue] = useState([1, 3])
   const menu = 'scale-menu' || 'zoom-menu' || 'add-photos-menu'
   const [showMenu, setShowMenu] = useState<string | typeof menu>('')
+  const [getImgId] = useGetImgIdMutation()
   const [addPost] = useAddPostMutation()
   const imgChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
@@ -64,6 +65,46 @@ export const useAddPhotoForm = () => {
       console.error(e)
     }
   }
+  const formData = new FormData()
+
+  function checkImageSize(file: any) {
+    // Проверка размера файла
+    const maxFileSize = 20 * 1024 * 1024 // 20 MB
+
+    if (file.size > maxFileSize) {
+      console.log('Размер изображения превышает 20 MB.')
+
+      return
+    }
+
+    // Проверка формата файла
+    function getImageType(file: any) {
+      const signature = new Uint8Array(file.slice(0, 4))
+      const signatureString = Array.from(signature)
+        .map(byte => byte.toString(16).padStart(2, '0'))
+        .join('')
+
+      switch (signatureString) {
+        case '89504e47':
+          return 'png'
+        case 'ffd8ff':
+          return 'jpg'
+        // Добавьте другие форматы, если необходимо
+        default:
+          return 'unknown'
+      }
+    }
+
+    const imageType = getImageType(file)
+
+    if (imageType === 'png') {
+      console.log('Изображение соответствует требованиям: размер меньше 20 MB, формат PNG.')
+    } else if (imageType === 'jpg') {
+      console.log('Изображение соответствует требованиям: размер меньше 20 MB, формат JPG.')
+    } else {
+      console.log('Формат изображения не соответствует требованиям (должен быть PNG или JPG).')
+    }
+  }
   const showFilteredImage = async (index: number | undefined, activeFilter: string) => {
     try {
       const croppedImage = await filteredImg(cropImages[index as number], activeFilter)
@@ -71,11 +112,14 @@ export const useAddPhotoForm = () => {
       if (croppedImage) {
         const croppedImageURL = URL.createObjectURL(croppedImage)
 
+        checkImageSize(formData)
+
         dispatch(
           addPhotoActions.setCropImagesWithFilter({
             cropImageWithFilter: croppedImageURL,
             cropImageWithFilterIndex: index as number,
             filter: activeFilter,
+            imgFile: '',
           })
         )
       }
@@ -104,15 +148,56 @@ export const useAddPhotoForm = () => {
     mode: 'onBlur',
     resolver: zodResolver(addPostSchema),
   })
-  const imagesToSend = cropImagesWithFilter.map(obj => obj.img)
+
   const onSubmit = async (data: { description: string }) => {
+    const uploadPromises = cropImages.map(async (el, idx) => {
+      const filteredImage = await filteredImg(el, cropImagesWithFilter[idx].filter)
+
+      if (!filteredImage) {
+        return null
+      }
+
+      const file = new File([filteredImage], 'Name.jpeg', {
+        type: 'image/jpeg',
+      })
+
+      const formData = new FormData()
+
+      formData.append('file', file)
+
+      try {
+        const response = await getImgId(formData).unwrap()
+
+        console.log(response)
+
+        // Обработка ответа
+        return response
+      } catch (error) {
+        console.error('Ошибка при загрузке изображения:', error)
+
+        // Обработка ошибки
+        return null
+      }
+    })
+
+    const results = await Promise.all(uploadPromises)
+
+    console.log('Все загрузки завершены:', results)
+    const imageIds = results
+      .filter((el): el is { imageId: string } => el !== null)
+      .map(el => el.imageId)
+    const payload = {
+      description: data.description,
+      images: imageIds,
+    }
+
+    console.log(payload)
     try {
-      const response = await addPost({
-        description: data.description,
-        images: imagesToSend,
-      }).unwrap()
-    } catch (err: unknown) {
-      console.log(err)
+      const response = await addPost(payload).unwrap()
+
+      console.log('Пост успешно отправлен:', response)
+    } catch (error) {
+      console.error('Ошибка при отправке поста:', error)
     }
   }
 

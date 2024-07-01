@@ -11,8 +11,8 @@ const postApi = baseApi.injectEndpoints({
     return {
       addPost: builder.mutation<AddPostResp, AddPostReq>({
         invalidatesTags: ['MyPosts'],
-        query: ({ description, images }) => ({
-          body: { description, images },
+        query: body => ({
+          body: body,
           method: 'POST',
           url: `v1/post`,
         }),
@@ -79,9 +79,29 @@ const postApi = baseApi.injectEndpoints({
           url: `/v1/post/${id}`,
         }),
       }),
+      getImgId: builder.mutation<{ imageId: string }, FormData>({
+        query: body => ({
+          body: body,
+          method: 'POST',
+          url: 'v1/post/photo',
+        }),
+      }),
+      getPosts: builder.query<any, void>({
+        providesTags: ['MyPosts'],
+        query: () => ({
+          method: 'GET',
+          url: 'v1/public-posts',
+        }),
+      }),
       // getMyPosts: builder.query<any, any>({}),
     }
   },
 })
 
-export const { useAddPostMutation, useDeletePostMutation, useEditPostMutation } = postApi
+export const {
+  useAddPostMutation,
+  useDeletePostMutation,
+  useEditPostMutation,
+  useGetImgIdMutation,
+  useGetPostsQuery,
+} = postApi

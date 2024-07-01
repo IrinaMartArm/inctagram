@@ -104,7 +104,7 @@ export const General = ({ profile }: Props) => {
           </div>
           <ControlledTextArea
             control={control}
-            // errorMessage={errors.aboutMe?.message}
+            errorMessage={errors.aboutMe?.message}
             label={t.aboutMe}
             name={'aboutMe'}
             placeholder={'Text-area'}

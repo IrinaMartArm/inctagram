@@ -58,6 +58,7 @@ export const Filters = () => {
     dispatch(addPhotoActions.setModalStateTo('cropping'))
   }
   const handleNext = () => {
+    showFilteredImage(ind, filter === '' ? cropImagesWithFilter[ind].filter : filter)
     setModalStateCallback('publication')
   }
   const settings = {
