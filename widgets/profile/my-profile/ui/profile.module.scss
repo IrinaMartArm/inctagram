@@ -47,7 +47,7 @@
 
 .posts {
   @include flex(row, space-between, center, 12px);
-
+  width: 100%;
   flex-wrap: wrap;
 }
 

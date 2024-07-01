@@ -49,7 +49,6 @@ export const MyProfile = () => {
         <Modal trigger={<div className={s.test} />}>
           <Post postId={postId} />
         </Modal>
-        <Post postId={postId} />
       </div>
     </div>
   )
