@@ -18,6 +18,7 @@ export const MyProfile = () => {
   const { id } = router.query
   const { data: profile } = useProfileInformationQuery()
   const { t } = useTranslationPages()
+  const postId = 2
 
   return (
     <div className={s.root}>
@@ -46,10 +47,9 @@ export const MyProfile = () => {
       </div>
       <div className={s.posts}>
         <Modal trigger={<div className={s.test} />}>
-          <Post />
+          <Post postId={postId} />
         </Modal>
-        <Post />
-        <Modal trigger={<div className={s.test} />}></Modal>
+        <Post postId={postId} />
       </div>
     </div>
   )

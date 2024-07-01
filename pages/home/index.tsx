@@ -8,7 +8,6 @@ const Home = () => {
     <PageWrapper>
       <HeadMeta title={'Posts'} />
       <div>Home🌼</div>
-      <Post />
     </PageWrapper>
   )
 }

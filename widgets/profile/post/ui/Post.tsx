@@ -6,7 +6,11 @@ import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
 
-export const Post = () => {
+type Props = {
+  postId: number
+}
+
+export const Post = ({ postId }: Props) => {
   const isOwner = true
   const avatars = ['', '', '']
 
@@ -20,7 +24,7 @@ export const Post = () => {
             <AvatarSimple title={'me'} />
             <Typography variant={'h3'}>userName</Typography>
           </div>
-          {isOwner && <PostMenu />}
+          {isOwner && <PostMenu postId={postId} />}
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>
