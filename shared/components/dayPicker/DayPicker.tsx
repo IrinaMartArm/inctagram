@@ -20,11 +20,13 @@ export const DayPicker = (props: DayPickerProps) => {
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true);
   const [localSelected, setLocalSelected] = useState(selected);
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
   useEffect(() => {
     if (isValidDateFormat(localSelected)) {
       onChange(localSelected);
-    } else onChange(undefined)
+      handleMonthChange(parseSelectedDate(localSelected) as Date);
+    } else onChange(undefined);
   }, [localSelected, onChange]);
 
   const weekends = [5, 6];
@@ -67,7 +69,7 @@ export const DayPicker = (props: DayPickerProps) => {
   };
 
   const isValidDateFormat = (dateString: string) => {
-    if ((dateString) === '') return undefined
+    if (dateString === "") return undefined;
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/;
 
     return dateRegex.test(dateString);
@@ -91,8 +93,12 @@ export const DayPicker = (props: DayPickerProps) => {
   const currentYear = currentTime.getFullYear();
   const maxHumanAge = 122;
 
+  const handleMonthChange = (month: Date) => {
+    setCurrentMonth(month);
+  };
+
   return (
-    <div className={clsx(s.pickerContainer, s.scrollbar)}>
+    <div className={clsx(s.pickerContainer, s.scrollbar)} ref={calendarRef}>
       {label && (
         <Typography className={sC.label} variant={"regular_text-14"}>
           {label}
@@ -106,17 +112,19 @@ export const DayPicker = (props: DayPickerProps) => {
         value={localSelected || ""}
       />
       {!isPickerSingleHidden && (
-        <div className={clsx(s.pickerContainer)} ref={calendarRef}>
+        <div className={clsx(s.pickerContainer)}>
           <ReactDayPicker
-            captionLayout={'dropdown-buttons'}
+            captionLayout={"dropdown-buttons"}
             classNames={classNames}
             fromYear={currentYear - maxHumanAge}
-            mode={'single'}
+            mode={"single"}
             modifiers={{
-              weekend: day => weekends.includes(day.getDay()),
+              weekend: (day) => weekends.includes(day.getDay()),
             }}
             modifiersStyles={{ weekend: weekendStyle }}
             onSelect={handleSingleSelect}
+            onMonthChange={handleMonthChange}
+            month={currentMonth}
             selected={parseSelectedDate(localSelected)}
             showOutsideDays
             toYear={currentYear}
@@ -128,8 +136,8 @@ export const DayPicker = (props: DayPickerProps) => {
 };
 
 export type DayPickerProps = {
-  selected: string
+  selected: string;
   onChange: (value: string | undefined) => void;
-  errorMessage?: string
-  label?: string
+  errorMessage?: string;
+  label?: string;
 };
