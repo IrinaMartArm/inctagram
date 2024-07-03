@@ -45,10 +45,8 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}>
-        <Modal trigger={<div className={s.test} />}>
-          <Post />
-        </Modal>
-        <Post />
+        <Modal trigger={<div className={s.test} />}>{/*<Post />*/}</Modal>
+        {/*<Post />*/}
         <Modal trigger={<div className={s.test} />}></Modal>
       </div>
     </div>

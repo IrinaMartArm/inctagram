@@ -1,12 +1,17 @@
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
+import { PostItemTypeRes } from '@/shared/assets/api/post/types'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
+import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
-
-export const Post = () => {
+type Props = {
+  key?: number
+  post: PostItemTypeRes
+}
+export const Post = ({ post }: Props) => {
   const isOwner = true
   const avatars = ['', '', '']
 
@@ -18,9 +23,12 @@ export const Post = () => {
         <div className={s.header}>
           <div className={s.content}>
             <AvatarSimple title={'me'} />
-            <Typography variant={'h3'}>userName</Typography>
+            <Typography variant={'h3'}>{post?.username}</Typography>
           </div>
           {isOwner && <PostMenu />}
+        </div>
+        <div>
+          <PhotoCarousel photos={post?.imagesUrl} />
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>
