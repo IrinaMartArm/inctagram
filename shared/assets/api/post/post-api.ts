@@ -1,15 +1,18 @@
 import { baseApi } from '@/shared/assets'
 import {
   AddPostReq,
-  AddPostResp,
   DeletePostArgs,
   EditPostArgs,
+  PostItemType,
+  PostItemTypeRes,
+  PostType,
+  getPostArgs,
 } from '@/shared/assets/api/post/types'
 
 const postApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      addPost: builder.mutation<AddPostResp, AddPostReq>({
+      addPost: builder.mutation<PostItemType, AddPostReq>({
         invalidatesTags: ['MyPosts'],
         query: body => ({
           body: body,
@@ -86,7 +89,14 @@ const postApi = baseApi.injectEndpoints({
           url: 'v1/post/photo',
         }),
       }),
-      getPosts: builder.query<any, void>({
+      getPost: builder.query<PostItemTypeRes, getPostArgs>({
+        providesTags: ['MyPosts'],
+        query: body => ({
+          method: 'GET',
+          url: `v1/public-posts/${body.id}`,
+        }),
+      }),
+      getPosts: builder.query<PostType, void>({
         providesTags: ['MyPosts'],
         query: () => ({
           method: 'GET',
@@ -103,5 +113,6 @@ export const {
   useDeletePostMutation,
   useEditPostMutation,
   useGetImgIdMutation,
+  useGetPostQuery,
   useGetPostsQuery,
 } = postApi
