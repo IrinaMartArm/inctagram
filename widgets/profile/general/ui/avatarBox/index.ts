@@ -1,1 +1,1 @@
-export { AvatarBox } from "./AvatarBox";
+export { AvatarBox } from './AvatarBox'

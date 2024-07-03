@@ -1,49 +1,49 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { useEmailResendingMutation } from "@/shared/assets/api/auth/auth-api";
-import { MOBILE_BREAKPOINT } from "@/shared/assets/constants";
-import { handleErrorResponse } from "@/shared/assets/helpers/handleErrorResponse";
-import { useIsMobile, useTranslation } from "@/shared/assets/hooks";
-import { Button, PageTitle, Typography } from "@/shared/components";
-import { Modal } from "@/shared/components/modals";
-import { EmailSent } from "@/widgets";
-import Image from "next/image";
+import {
+  usePasswordResendingMutation,
+  useRegistrationResendingMutation,
+} from '@/shared/assets/api/auth/auth-api'
+import { MOBILE_BREAKPOINT } from '@/shared/assets/constants'
+import { handleErrorResponse } from '@/shared/assets/helpers/handleErrorResponse'
+import { useIsMobile, useTranslation } from '@/shared/assets/hooks'
+import { Button, PageTitle, Typography } from '@/shared/components'
+import { Modal } from '@/shared/components/modals'
+import { EmailSent } from '@/widgets'
+import Image from 'next/image'
 
-import s from "./verification.module.scss";
+import s from './verification.module.scss'
 
 export const Verification = () => {
-  const { t } = useTranslation();
-  const email = localStorage.getItem("email");
+  const { t } = useTranslation()
+  const email = localStorage.getItem('email')
 
-  const [resending] = useEmailResendingMutation();
+  const [passwordResending] = usePasswordResendingMutation()
+  const [resending] = useRegistrationResendingMutation()
 
-  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
+  const isMobile = useIsMobile(MOBILE_BREAKPOINT)
 
-  const imageHeight = isMobile ? 230 : 300;
-  const imageWidth = isMobile ? 330 : 432;
+  const imageHeight = isMobile ? 230 : 300
+  const imageWidth = isMobile ? 330 : 432
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const onOpenChangeHandler = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const resendingHandler = () => {
     try {
-      resending({ email: email || "" }).unwrap();
-      setOpen(true);
+      resending({ email: email || '' }).unwrap()
+      setOpen(true)
     } catch (err: any) {
-      handleErrorResponse(err);
+      handleErrorResponse(err)
     }
-  };
+  }
 
   return (
     <div className={s.wrapper}>
-      <PageTitle
-        className={s.title}
-        textAlign={"center"}
-        title={t.verification.title}
-      />
-      <Typography className={s.expired} variant={"regular_text-16"}>
+      <PageTitle className={s.title} textAlign={'center'} title={t.verification.title} />
+      <Typography className={s.expired} variant={'regular_text-16'}>
         {t.verification.description}
       </Typography>
       <div className={s.imageWithButton}>
@@ -57,16 +57,16 @@ export const Verification = () => {
             </Button>
           }
         >
-          <EmailSent email={email || ""} />
+          <EmailSent email={email || ''} />
         </Modal>
         <Image
-          alt={"Congratulations!"}
+          alt={'Congratulations!'}
           className={s.image}
           height={imageHeight}
-          src={"/images/Boy.png"}
+          src={'/images/Boy.png'}
           width={imageWidth}
         />
       </div>
     </div>
-  );
-};
+  )
+}

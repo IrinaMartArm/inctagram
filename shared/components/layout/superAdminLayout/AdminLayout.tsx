@@ -1,14 +1,14 @@
-import { PropsWithChildren, ReactElement } from "react";
+import { PropsWithChildren, ReactElement } from 'react'
 
-import { NextPage } from "next";
+import { NextPage } from 'next'
 
-import { Layout } from "../Layout";
+import { Layout } from '../Layout'
 
-export const AdminLayout: NextPage<PropsWithChildren> = (props) => {
-  const { children } = props;
+export const AdminLayout: NextPage<PropsWithChildren> = props => {
+  const { children } = props
 
-  return <Layout>{children}</Layout>;
-};
+  return <Layout>{children}</Layout>
+}
 export const getAdminLayout = (page: ReactElement) => {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+  return <AdminLayout>{page}</AdminLayout>
+}

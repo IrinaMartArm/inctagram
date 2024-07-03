@@ -1,1 +1,1 @@
-export { AuthWithSocial } from "./AuthWithSocial";
+export { AuthWithSocial } from './AuthWithSocial'

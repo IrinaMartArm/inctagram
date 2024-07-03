@@ -1,15 +1,15 @@
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form'
 
-import { PASSWORD_REGEX } from "@/entities";
-import { LoginArgs } from "@/shared/assets/api/auth/types";
-import { useFormRevalidate, useTranslationPages } from "@/shared/assets/hooks";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { PASSWORD_REGEX } from '@/entities'
+import { LoginArgs } from '@/shared/assets/api/auth/types'
+import { useFormRevalidate, useTranslationPages } from '@/shared/assets/hooks'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 export const useLoginValidation = () => {
-  const { locale, t } = useTranslationPages();
+  const { locale, t } = useTranslationPages()
 
-  const emailValidation = z.string().min(1, t.required).trim().email(t.email);
+  const emailValidation = z.string().min(1, t.required).trim().email(t.email)
 
   const passwordValidation = z
     .string()
@@ -19,18 +19,18 @@ export const useLoginValidation = () => {
     .regex(
       PASSWORD_REGEX,
       `${t.invalidPassword} 0-9, a-z, A-Z, ! " # $ % &
-` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~",
-    );
+` + "' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~"
+    )
 
   const loginSchema = z.object({
     email: emailValidation,
     password: passwordValidation,
-  });
+  })
 
   const defaultValues = {
-    email: "",
-    password: "",
-  };
+    email: '',
+    password: '',
+  }
 
   const {
     control,
@@ -40,16 +40,16 @@ export const useLoginValidation = () => {
     setValue,
   } = useForm<LoginArgs>({
     defaultValues,
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: zodResolver(loginSchema),
-  });
+  })
 
   useFormRevalidate({
     errors,
     locale,
     setValue,
     values: getValues(),
-  });
+  })
 
   return {
     control,
@@ -57,5 +57,5 @@ export const useLoginValidation = () => {
     handleSubmit,
     isValid,
     t,
-  };
-};
+  }
+}

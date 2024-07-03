@@ -1,24 +1,27 @@
-import { baseApi } from "@/shared/assets";
+import { baseApi } from '@/shared/assets'
 import {
   AddPostReq,
-  AddPostResp,
   DeletePostArgs,
   EditPostArgs,
-} from "@/shared/assets/api/post/types";
+  PostItemType,
+  PostItemTypeRes,
+  PostType,
+  getPostArgs,
+} from '@/shared/assets/api/post/types'
 
 const postApi = baseApi.injectEndpoints({
-  endpoints: (builder) => {
+  endpoints: builder => {
     return {
-      addPost: builder.mutation<AddPostResp, AddPostReq>({
-        invalidatesTags: ["MyPosts"],
-        query: ({ description, images }) => ({
-          body: { description, images },
-          method: "POST",
+      addPost: builder.mutation<PostItemType, AddPostReq>({
+        invalidatesTags: ['MyPosts'],
+        query: body => ({
+          body: body,
+          method: 'POST',
           url: `v1/post`,
         }),
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
-        invalidatesTags: ["MyPosts"],
+        invalidatesTags: ['MyPosts'],
         // onQueryStarted: async (
         //   { id },
         //   { dispatch, getState, queryFulfilled },
@@ -44,12 +47,12 @@ const postApi = baseApi.injectEndpoints({
         //   }
         // },
         query: ({ id }) => ({
-          method: "DELETE",
+          method: 'DELETE',
           url: `v1/posts/${id}`,
         }),
       }),
       editPost: builder.mutation<void, EditPostArgs>({
-        invalidatesTags: ["MyPosts"],
+        invalidatesTags: ['MyPosts'],
         // onQueryStarted: async (
         //   { description, id },
         //   { dispatch, queryFulfilled },
@@ -74,18 +77,42 @@ const postApi = baseApi.injectEndpoints({
         //     patchResult.undo;
         //   }
         // },
-        query: (id) => ({
-          method: "PUT",
+        query: id => ({
+          method: 'PUT',
           url: `/v1/post/${id}`,
         }),
       }),
+      getImgId: builder.mutation<{ imageId: string }, FormData>({
+        query: body => ({
+          body: body,
+          method: 'POST',
+          url: 'v1/post/photo',
+        }),
+      }),
+      getPost: builder.query<PostItemTypeRes, getPostArgs>({
+        providesTags: ['MyPosts'],
+        query: body => ({
+          method: 'GET',
+          url: `v1/public-posts/${body.id}`,
+        }),
+      }),
+      getPosts: builder.query<PostType, void>({
+        providesTags: ['MyPosts'],
+        query: () => ({
+          method: 'GET',
+          url: 'v1/public-posts',
+        }),
+      }),
       // getMyPosts: builder.query<any, any>({}),
-    };
+    }
   },
-});
+})
 
 export const {
   useAddPostMutation,
   useDeletePostMutation,
   useEditPostMutation,
-} = postApi;
+  useGetImgIdMutation,
+  useGetPostQuery,
+  useGetPostsQuery,
+} = postApi

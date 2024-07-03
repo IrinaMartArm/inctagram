@@ -1,1 +1,1 @@
-export * from "./addPhoto-slice";
+export * from './addPhoto-slice'

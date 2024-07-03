@@ -1,27 +1,29 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react'
 
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux'
 
-import { store } from "@/shared/assets/api/store";
-import { AddPhotoForm } from "@/widgets";
+import { store } from '@/shared/assets/api/store'
+import { AddPhotoForm } from '@/widgets/addPhotoForm/ui/AddPhotoForm'
 
 const meta = {
   argTypes: {},
   component: AddPhotoForm,
-  tags: ["autodocs"],
-  title: "Widgets/AddPhotoForm",
-} satisfies Meta<typeof AddPhotoForm>;
+  tags: ['autodocs'],
+  title: 'Widgets/AddPhotoForm',
+} satisfies Meta<typeof AddPhotoForm>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const AddPhotoFormStory: Story = {
-  args: {},
+  args: {
+    isTextHidden: false,
+  },
   decorators: [
-    (Story) => (
+    Story => (
       <Provider store={store}>
         <Story />
       </Provider>
     ),
   ],
-};
+}

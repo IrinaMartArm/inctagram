@@ -1,9 +1,9 @@
-import { getLayout } from "@/shared/components/layout/baseLayout/BaseLayout";
-import { Verification } from "@/widgets";
+import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
+import { Verification } from '@/widgets'
 
 const VerificationPage = () => {
-  return <Verification />;
-};
+  return <Verification />
+}
 
-VerificationPage.getLayout = getLayout;
-export default VerificationPage;
+VerificationPage.getLayout = getLayout
+export default VerificationPage

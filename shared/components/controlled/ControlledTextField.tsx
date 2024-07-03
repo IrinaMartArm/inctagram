@@ -1,16 +1,12 @@
-import {
-  FieldValues,
-  UseControllerProps,
-  useController,
-} from "react-hook-form";
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { Input, InputProps } from "@/shared/components";
+import { Input, InputProps } from '@/shared/components'
 
 type PropsType<T extends FieldValues> = Omit<
   UseControllerProps<T>,
-  "defaultValue" | "disabled" | "rules"
+  'defaultValue' | 'disabled' | 'rules'
 > &
-  Omit<InputProps, "onChange" | "value">;
+  Omit<InputProps, 'onChange' | 'value'>
 export const ControlledTextField = <T extends FieldValues>({
   control,
   label,
@@ -23,7 +19,7 @@ export const ControlledTextField = <T extends FieldValues>({
     disabled: rest.disabled,
     name: rest.name,
     shouldUnregister,
-  });
+  })
 
-  return <Input {...rest} {...field} label={label} required={required} />;
-};
+  return <Input {...rest} {...field} label={label} required={required} />
+}

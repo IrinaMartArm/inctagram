@@ -1,2 +1,2 @@
-export { NavLink } from "./Navlink";
-export type { PathOption } from "./Navlink";
+export { NavLink } from './Navlink'
+export type { PathOption } from './Navlink'
