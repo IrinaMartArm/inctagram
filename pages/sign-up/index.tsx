@@ -11,7 +11,7 @@ import { UseFormRef } from '@/shared/assets/types/form'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
 import { Modal } from '@/shared/components/modals'
-import { EmailSent } from '@/widgets'
+import { EmailSent, ProfileFormSchema } from '@/widgets'
 import { SignUpCard } from '@/widgets/auth/signUp/ui/SignUp'
 import { SignUpFormFields } from '@/widgets/auth/signUp/validators/validators'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -36,32 +36,49 @@ const SignUp = () => {
       await signUp(data).unwrap()
 
       setOpen(true)
-    } catch (e: unknown) {
-      if (e as FetchBaseQueryError) {
-        const { errorsMessages } = (e as FetchBaseQueryError).data as FieldsError
-        const setError = ref.current?.setError
+    } catch (e: any) {
+      // const setError = ref.current?.setError
+      //
+      // if (e.data?.errorsMessages) {
+      //   e.data.errorsMessages.forEach((err: { field: string; message: string }) => {
+      //     if (setError) {
+      //       setError(err.field as keyof SignUpFormFields, {
+      //         message: err.message,
+      //         type: 'server',
+      //       })
+      //     }
+      //   })
 
-        if (errorsMessages[0].field) {
-          const err = errorsMessages[0].field
-
-          if (err === 'username') {
-            setError && setError(err, { message: t.usernameExistsError })
-          }
-
-          if (err === 'email') {
-            setError && setError(err, { message: t.emailExistsError })
-          }
-        }
-      }
-      if (e && ref.current) {
-        const setFieldError = ref.current.setError
+      // if (e as FetchBaseQueryError) {
+      //
+      //   const { errorsMessages } = (e as FetchBaseQueryError).data as FieldsError
+      //   const setError = ref.current?.setError
+      //
+      //   if (errorsMessages[0].field) {
+      //     const err = errorsMessages[0].field
+      //
+      //     if (err === 'username') {
+      //       setError && setError(err, { message: t.usernameExistsError })
+      //     }
+      //
+      //     if (err === 'email') {
+      //       setError && setError(err, { message: t.emailExistsError })
+      //     }
+      //   }
+      // }
+      if (e) {
+        // const setFieldError = ref.current.setError
 
         const errors = handleErrorResponse<SignUpFormFields>(e)
 
         errors?.fieldErrors?.forEach(error => {
-          setFieldError(error.field, { message: error.message })
+          // ref.current?.setError(error.field, { message: error.message })
+          ref.current?.setError('username', {
+            message: 'User with this username is already registered',
+          })
         })
       }
+      // }
     }
   }
 

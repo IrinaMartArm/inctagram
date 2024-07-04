@@ -40,7 +40,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     setValue,
   } = useForm<ProfileFormSchema>({
     defaultValues: defaultValues,
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(profileFormSchema(t)),
   })
 
