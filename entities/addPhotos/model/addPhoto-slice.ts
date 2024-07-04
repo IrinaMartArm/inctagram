@@ -1,4 +1,6 @@
+import { PostItemType } from '@/shared/assets/api/post/types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { boolean } from 'zod'
 type CropImageWithFilter = {
   filter: string
   img: string
@@ -10,7 +12,10 @@ const slice = createSlice({
     cropImages: ([] as string[]) || null,
     cropImagesWithFilter: ([] as CropImageWithFilter[]) || null,
     images: ([] as string[]) || null,
+    isOpen: false as boolean,
+    isPostCreated: false as boolean,
     modalState: 'add-photo' as ModalState,
+    post: {} as PostItemType,
   },
   name: 'addPhotoSlice',
   reducers: {
@@ -61,8 +66,17 @@ const slice = createSlice({
         imgFile: imgFile,
       }
     },
+    setIsOpen: (state, action: PayloadAction<boolean>) => {
+      state.isOpen = action.payload
+    },
+    setIsPostCreated: (state, action: PayloadAction<boolean>) => {
+      state.isPostCreated = action.payload
+    },
     setModalStateTo: (state, action: PayloadAction<ModalState>) => {
       state.modalState = action.payload
+    },
+    setPost: (state, action: PayloadAction<PostItemType>) => {
+      state.post = action.payload
     },
   },
 })
