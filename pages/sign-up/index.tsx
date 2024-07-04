@@ -5,13 +5,12 @@ import { userEmailSelector } from '@/entities/auth/model/auth-slice'
 import { useTranslationPages } from '@/shared/assets'
 import { useSignUpMutation } from '@/shared/assets/api/auth/auth-api'
 import { useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
-import { handleErrorResponse } from '@/shared/assets/helpers/handleErrorResponse'
 import { setToLocalStorage } from '@/shared/assets/helpers/setToLocalStorage'
 import { UseFormRef } from '@/shared/assets/types/form'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
 import { Modal } from '@/shared/components/modals'
-import { EmailSent, ProfileFormSchema } from '@/widgets'
+import { EmailSent } from '@/widgets'
 import { SignUpCard } from '@/widgets/auth/signUp/ui/SignUp'
 import { SignUpFormFields } from '@/widgets/auth/signUp/validators/validators'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -48,37 +47,24 @@ const SignUp = () => {
       //       })
       //     }
       //   })
-
-      // if (e as FetchBaseQueryError) {
-      //
-      //   const { errorsMessages } = (e as FetchBaseQueryError).data as FieldsError
-      //   const setError = ref.current?.setError
-      //
-      //   if (errorsMessages[0].field) {
-      //     const err = errorsMessages[0].field
-      //
-      //     if (err === 'username') {
-      //       setError && setError(err, { message: t.usernameExistsError })
-      //     }
-      //
-      //     if (err === 'email') {
-      //       setError && setError(err, { message: t.emailExistsError })
-      //     }
-      //   }
       // }
-      if (e) {
-        // const setFieldError = ref.current.setError
 
-        const errors = handleErrorResponse<SignUpFormFields>(e)
+      if (e as FetchBaseQueryError) {
+        const { errorsMessages } = (e as FetchBaseQueryError).data as FieldsError
+        const setError = ref.current?.setError
 
-        errors?.fieldErrors?.forEach(error => {
-          // ref.current?.setError(error.field, { message: error.message })
-          ref.current?.setError('username', {
-            message: 'User with this username is already registered',
-          })
-        })
+        if (errorsMessages[0].field) {
+          const err = errorsMessages[0].field
+
+          if (err === 'username') {
+            setError && setError(err, { message: t.usernameExistsError })
+          }
+
+          if (err === 'email') {
+            setError && setError(err, { message: t.emailExistsError })
+          }
+        }
       }
-      // }
     }
   }
 
