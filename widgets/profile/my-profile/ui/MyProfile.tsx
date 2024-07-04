@@ -8,6 +8,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './profile.module.scss'
+import { useAddPhotoForm } from "@/widgets/addPhotoForm/hooks";
+import { useGetPostQuery } from "@/shared/assets/api/post/post-api";
 
 const followingN = 746
 const followersN = 345
@@ -18,7 +20,10 @@ export const MyProfile = () => {
   const { id } = router.query
   const { data: profile } = useProfileInformationQuery()
   const { t } = useTranslationPages()
-  const postId = 2
+  const { isPostCreated, post } = useAddPhotoForm()
+  const { data } = useGetPostQuery({ id: post.id })
+
+  const activePost = isPostCreated && data ? <Post post={data} /> : ''
 
   return (
     <div className={s.root}>
@@ -46,8 +51,8 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}>
-        <Modal trigger={<div className={s.test} />}>
-          <Post postId={postId} />
+        <Modal className={s.modal} trigger={<div className={s.test} />}>
+          {activePost}
         </Modal>
       </div>
     </div>

@@ -16,7 +16,7 @@ import {
 import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
 
 type Props = {
-  postId: number
+  postId: string
 }
 
 export const PostMenu = ({ postId }: Props) => {
