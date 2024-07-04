@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form'
 
 import { useFillOutProfileMutation } from '@/shared/assets/api/profile/profile-api'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
-import { useTranslationPages } from '@/shared/assets/hooks'
+import { useFormRevalidate, useTranslationPages } from '@/shared/assets/hooks'
 import { AlertVariant } from '@/shared/components/alert/Alert'
 import { ProfileFormSchema, belarus, profileFormSchema, russia } from '@/widgets'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export const useProfileForm = (profile: UserProfileResponse) => {
-  const { t } = useTranslationPages()
+  const { locale, t } = useTranslationPages()
 
   const [isShowModal, setIsShowModal] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined)
@@ -33,12 +33,14 @@ export const useProfileForm = (profile: UserProfileResponse) => {
   const {
     control,
     formState: { errors, isValid },
+    getValues,
     handleSubmit,
     reset,
     setError,
+    setValue,
   } = useForm<ProfileFormSchema>({
     defaultValues: defaultValues,
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(profileFormSchema(t)),
   })
 
@@ -84,6 +86,13 @@ export const useProfileForm = (profile: UserProfileResponse) => {
   const handleCityChange = (key: string, value: string) => {
     setSelectedCity(value)
   }
+
+  useFormRevalidate({
+    errors,
+    locale,
+    setValue,
+    values: getValues(),
+  })
 
   return {
     alertHandler,
