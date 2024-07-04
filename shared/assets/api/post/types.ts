@@ -6,7 +6,7 @@ export type getPostArgs = {
   id: string
 }
 export type DeletePostArgs = {
-  id: number
+  id: string
 }
 export type AddPostReq = {
   description: string

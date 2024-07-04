@@ -47,7 +47,7 @@
 
 .posts {
   @include flex(row, space-between, center, 12px);
-
+  width: 100%;
   flex-wrap: wrap;
 }
 
@@ -55,4 +55,9 @@
   width: 234px;
   height: 228px;
   border: 1px solid red;
+}
+
+.modal {
+  max-width: 1000px !important;
+  width: 100%;
 }
