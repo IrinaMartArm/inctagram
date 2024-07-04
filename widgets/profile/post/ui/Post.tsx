@@ -1,12 +1,17 @@
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
+import { PostItemTypeRes } from '@/shared/assets/api/post/types'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
+import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
-
-export const Post = () => {
+type Props = {
+  key?: number
+  post: PostItemTypeRes
+}
+export const Post = ({ post }: Props) => {
   const isOwner = true
   const avatars = ['', '', '']
 
@@ -14,13 +19,16 @@ export const Post = () => {
 
   return (
     <div className={s.root}>
+      <div className={s.imgWrapper}>
+        <PhotoCarousel photos={post?.imagesUrl} />
+      </div>
       <div className={s.postInfoWrapper}>
         <div className={s.header}>
           <div className={s.content}>
             <AvatarSimple title={'me'} />
-            <Typography variant={'h3'}>userName</Typography>
+            <Typography variant={'h3'}>{post?.username}</Typography>
           </div>
-          {isOwner && <PostMenu />}
+          {isOwner && <PostMenu postId={post.id} />}
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>
@@ -32,7 +40,8 @@ export const Post = () => {
             <div className={s.comment}>
               <div className={s.contentInner}>
                 <Typography variant={'h3'}>Lorem</Typography>
-                <Button icon={<HeartSmall />} onClick={() => {}} variant={'icon'} />
+                <Button icon={<HeartSmall />} onClick={() => {
+                }} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago
@@ -44,7 +53,8 @@ export const Post = () => {
             <div className={s.comment}>
               <div className={s.contentInner}>
                 <Typography variant={'h3'}>Lorem</Typography>
-                <Button icon={<HeartRed />} onClick={() => {}} variant={'icon'} />
+                <Button icon={<HeartRed />} onClick={() => {
+                }} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago

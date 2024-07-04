@@ -6,10 +6,12 @@
   width: 100%;
   background-color: var(--color-dark-300);
 }
-
+.imgWrapper {
+  width: 50%;
+}
 .postInfoWrapper {
   @include flex(column, center, center);
-  width: 100%;
+  width: 50%;
 }
 
 .header {

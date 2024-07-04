@@ -21,7 +21,7 @@ export const profileFormSchema = (t: any) =>
           return dateOfBirth <= sixteenYearsAgo
         },
         {
-          message: 'ups!',
+          message: t.errors.child,
         }
       )
       .optional(),
