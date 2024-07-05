@@ -17,7 +17,8 @@ import s from './verification.module.scss'
 
 export const Verification = () => {
   const { t } = useTranslation()
-  const { query } = useRouter()
+  const route = useRouter()
+  const { password } = route.query
   const email = localStorage.getItem('email')
 
   const [passwordResending] = usePasswordResendingMutation()
@@ -35,7 +36,7 @@ export const Verification = () => {
 
   const resendingHandler = () => {
     try {
-      query
+      password
         ? passwordResending({ email: email || '' }).unwrap()
         : resending({ email: email || '' }).unwrap()
       setOpen(true)
