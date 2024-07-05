@@ -5,7 +5,6 @@ import { userEmailSelector } from '@/entities/auth/model/auth-slice'
 import { useTranslationPages } from '@/shared/assets'
 import { useSignUpMutation } from '@/shared/assets/api/auth/auth-api'
 import { useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
-import { handleErrorResponse } from '@/shared/assets/helpers/handleErrorResponse'
 import { setToLocalStorage } from '@/shared/assets/helpers/setToLocalStorage'
 import { UseFormRef } from '@/shared/assets/types/form'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
@@ -36,7 +35,20 @@ const SignUp = () => {
       await signUp(data).unwrap()
 
       setOpen(true)
-    } catch (e: unknown) {
+    } catch (e: any) {
+      // const setError = ref.current?.setError
+      //
+      // if (e.data?.errorsMessages) {
+      //   e.data.errorsMessages.forEach((err: { field: string; message: string }) => {
+      //     if (setError) {
+      //       setError(err.field as keyof SignUpFormFields, {
+      //         message: err.message,
+      //         type: 'server',
+      //       })
+      //     }
+      //   })
+      // }
+
       if (e as FetchBaseQueryError) {
         const { errorsMessages } = (e as FetchBaseQueryError).data as FieldsError
         const setError = ref.current?.setError
@@ -52,15 +64,6 @@ const SignUp = () => {
             setError && setError(err, { message: t.emailExistsError })
           }
         }
-      }
-      if (e && ref.current) {
-        const setFieldError = ref.current.setError
-
-        const errors = handleErrorResponse<SignUpFormFields>(e)
-
-        errors?.fieldErrors?.forEach(error => {
-          setFieldError(error.field, { message: error.message })
-        })
       }
     }
   }

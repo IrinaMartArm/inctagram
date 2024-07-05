@@ -19,16 +19,16 @@ export const Post = ({ post }: Props) => {
 
   return (
     <div className={s.root}>
+      <div className={s.imgWrapper}>
+        <PhotoCarousel photos={post?.imagesUrl} />
+      </div>
       <div className={s.postInfoWrapper}>
         <div className={s.header}>
           <div className={s.content}>
             <AvatarSimple title={'me'} />
             <Typography variant={'h3'}>{post?.username}</Typography>
           </div>
-          {isOwner && <PostMenu />}
-        </div>
-        <div>
-          <PhotoCarousel photos={post?.imagesUrl} />
+          {isOwner && <PostMenu postId={post.id} />}
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>
@@ -40,7 +40,8 @@ export const Post = ({ post }: Props) => {
             <div className={s.comment}>
               <div className={s.contentInner}>
                 <Typography variant={'h3'}>Lorem</Typography>
-                <Button icon={<HeartSmall />} onClick={() => {}} variant={'icon'} />
+                <Button icon={<HeartSmall />} onClick={() => {
+                }} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago
@@ -52,7 +53,8 @@ export const Post = ({ post }: Props) => {
             <div className={s.comment}>
               <div className={s.contentInner}>
                 <Typography variant={'h3'}>Lorem</Typography>
-                <Button icon={<HeartRed />} onClick={() => {}} variant={'icon'} />
+                <Button icon={<HeartRed />} onClick={() => {
+                }} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago
