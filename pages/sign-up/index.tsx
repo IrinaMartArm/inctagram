@@ -77,7 +77,7 @@ const SignUp = () => {
     <>
       <HeadMeta title={'Sign Up'} />
 
-      <Modal onOpenChange={onOpenChangeHandler} open={open} title={'Email sent'}>
+      <Modal onOpenChange={onOpenChangeHandler} open={open} title={t.emailSent}>
         <EmailSent email={email || ''} />
       </Modal>
       <SignUpCard isLoading={isLoading} onSubmit={handleSubmit} ref={ref} />

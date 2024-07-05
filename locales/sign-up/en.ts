@@ -11,6 +11,7 @@ const en: SignUpLocale = {
   email: 'Email',
   emailExistsError: 'User with this email is already registered',
   emailMin: 'String must contain at least 1 character(s)',
+  emailSent: 'Email sent',
   formEmail: 'The email must match the format\n' + 'example@example.com',
   haveSent: 'We have sent a link to confirm your email to',
   invalidPassword: 'Password must contain',

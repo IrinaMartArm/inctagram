@@ -1,15 +1,15 @@
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
+import { useGetPostQuery } from '@/shared/assets/api/post/post-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { useTranslationPages } from '@/shared/assets/hooks'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
+import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import { Post } from '@/widgets/profile/post/ui/Post'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './profile.module.scss'
-import { useAddPhotoForm } from "@/widgets/addPhotoForm/hooks";
-import { useGetPostQuery } from "@/shared/assets/api/post/post-api";
 
 const followingN = 746
 const followersN = 345
