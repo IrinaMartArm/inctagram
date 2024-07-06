@@ -1,15 +1,16 @@
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
+import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
+import { useGetPostQuery, useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { useTranslationPages } from '@/shared/assets/hooks'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
+import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import { Post } from '@/widgets/profile/post/ui/Post'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './profile.module.scss'
-import { useAddPhotoForm } from "@/widgets/addPhotoForm/hooks";
-import { useGetPostQuery } from "@/shared/assets/api/post/post-api";
 
 const followingN = 746
 const followersN = 345
@@ -21,9 +22,10 @@ export const MyProfile = () => {
   const { data: profile } = useProfileInformationQuery()
   const { t } = useTranslationPages()
   const { isPostCreated, post } = useAddPhotoForm()
-  const { data } = useGetPostQuery({ id: post.id })
 
-  const activePost = isPostCreated && data ? <Post post={data} /> : ''
+  const { data: posts } = useGetPostsByUserIdQuery({ userId: typeof id === 'string' ? id : '' })
+
+  console.log(posts)
 
   return (
     <div className={s.root}>
@@ -51,9 +53,21 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}>
-        <Modal className={s.modal} trigger={<div className={s.test} />}>
-          {activePost}
-        </Modal>
+        {posts &&
+          posts?.map(post => {
+            return (
+              <Modal
+                className={s.modal}
+                key={post.id}
+                trigger={<img alt={''} className={s.postImage} src={post.imagesUrl[0]} />}
+              ></Modal>
+            )
+          })}
+        {/*<Modal className={s.modal} trigger={*/}
+        {/*  */}
+        {/*}>*/}
+        {/*  <div></div>*/}
+        {/*</Modal>*/}
       </div>
     </div>
   )

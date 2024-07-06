@@ -103,7 +103,13 @@ const postApi = baseApi.injectEndpoints({
           url: 'v1/public-posts',
         }),
       }),
-      // getMyPosts: builder.query<any, any>({}),
+      getPostsByUserId: builder.query<PostItemTypeRes[], { userId: string }>({
+        providesTags: ['MyPosts'],
+        query: body => ({
+          method: 'GET',
+          url: `v1/post/${body.userId}`,
+        }),
+      }),
     }
   },
 })
@@ -114,5 +120,6 @@ export const {
   useEditPostMutation,
   useGetImgIdMutation,
   useGetPostQuery,
+  useGetPostsByUserIdQuery,
   useGetPostsQuery,
 } = postApi
