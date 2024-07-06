@@ -5,13 +5,9 @@ import { MyProfile } from '@/widgets'
 import { useRouter } from 'next/router'
 
 const Profile = () => {
-  const router = useRouter()
-  const { id } = router.query
-
   return (
     <PageWrapper>
       <HeadMeta title={'Profile'} />
-      {id ? <p>User ID: {id}</p> : <p>Loading...</p>}
       <MyProfile />
     </PageWrapper>
   )
