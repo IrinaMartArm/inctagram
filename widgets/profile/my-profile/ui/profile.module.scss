@@ -53,9 +53,9 @@
 }
 
 .posts {
-  @include flex(row, space-between, center, 12px);
-  width: 100%;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
 }
 
 .test {
@@ -63,7 +63,10 @@
   height: 228px;
   border: 1px solid red;
 }
-
+.postImage{
+  width: 342px;
+  height: 228px;
+}
 .modal {
   max-width: 1000px !important;
   width: 100%;

@@ -2,26 +2,20 @@ import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ModalState, addPhotoActions } from '@/entities'
-import { Paths } from '@/shared/assets'
-import {
-  useAddPostMutation,
-  useGetImgIdMutation,
-  useGetPostQuery,
-} from '@/shared/assets/api/post/post-api'
-import { PostItemType } from '@/shared/assets/api/post/types'
+import { useAddPostMutation, useGetImgIdMutation } from '@/shared/assets/api/post/post-api'
 import { RootState, useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
 import { convertFileToBase64, getCroppedImg } from '@/shared/assets/helpers'
 import { filteredImg } from '@/shared/assets/helpers/getImgWithFilter'
 import { useTranslation } from '@/shared/assets/hooks/useTranslation'
 import { CropArg } from '@/shared/assets/types/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/router'
 import { z } from 'zod'
 
 export const useAddPhotoForm = () => {
   const dispatch = useAppDispatch()
-  const { cropImages, cropImagesWithFilter, images, isOpen, isPostCreated, modalState, post } =
-    useAppSelector((state: RootState) => state.addPhoto)
+  const { cropImages, cropImagesWithFilter, images, isOpen, modalState } = useAppSelector(
+    (state: RootState) => state.addPhoto
+  )
   const { t } = useTranslation()
   const [errorFile, setErrorFile] = useState<null | string>(null)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
@@ -29,7 +23,6 @@ export const useAddPhotoForm = () => {
   const [zoomValue, setZoomValue] = useState([1, 3])
   const menu = 'scale-menu' || 'zoom-menu' || 'add-photos-menu'
   const [showMenu, setShowMenu] = useState<string | typeof menu>('')
-  const router = useRouter()
   const [getImgId] = useGetImgIdMutation()
   const [addPost] = useAddPostMutation()
   const imgChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +89,6 @@ export const useAddPhotoForm = () => {
           return 'png'
         case 'ffd8ff':
           return 'jpg'
-        // Добавьте другие форматы, если необходимо
         default:
           return 'unknown'
       }
@@ -119,14 +111,11 @@ export const useAddPhotoForm = () => {
       if (croppedImage) {
         const croppedImageURL = URL.createObjectURL(croppedImage)
 
-        checkImageSize(formData)
-
         dispatch(
           addPhotoActions.setCropImagesWithFilter({
             cropImageWithFilter: croppedImageURL,
             cropImageWithFilterIndex: index as number,
             filter: activeFilter,
-            imgFile: '',
           })
         )
       }
@@ -206,8 +195,6 @@ export const useAddPhotoForm = () => {
 
       if (response !== null) {
         dispatch(addPhotoActions.setIsOpen(false))
-        dispatch(addPhotoActions.setIsPostCreated(true))
-        dispatch(addPhotoActions.setPost(response))
 
         console.log('Пост успешно отправлен:', response)
       } else {
@@ -231,10 +218,8 @@ export const useAddPhotoForm = () => {
     images,
     imgChangeCallback,
     isOpen,
-    isPostCreated,
     modalState,
     onSubmit,
-    post,
     setAspect,
     setCrop,
     setModalStateCallback,

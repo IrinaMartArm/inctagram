@@ -28,13 +28,13 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
     if (!isLoading) {
       if (!isAuth && isProtectedPage) {
         void router.push(Paths.MAIN)
-      } else if (isAuth && isAuthPage) {
+      } else if (isAuth && !isAuthPage) {
         void router.push(`${Paths.PROFILE}/?id=${userId!}`)
       } else if (isAuth) {
         dispatch(authActions.setIsAuth(true))
       }
     }
-  }, [isAuth, isProtectedPage, isAuthPage, router, isLoading, userId, dispatch])
+  }, [isAuth, isProtectedPage, isAuthPage, isLoading, userId, dispatch])
 
   if (isLoading) {
     return <Loader />
