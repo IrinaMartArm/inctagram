@@ -11,11 +11,14 @@ import { Button, PageTitle, Typography } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { EmailSent } from '@/widgets'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import s from './verification.module.scss'
 
 export const Verification = () => {
   const { t } = useTranslation()
+  const route = useRouter()
+  const { password } = route.query
   const email = localStorage.getItem('email')
 
   const [passwordResending] = usePasswordResendingMutation()
@@ -33,7 +36,9 @@ export const Verification = () => {
 
   const resendingHandler = () => {
     try {
-      resending({ email: email || '' }).unwrap()
+      password
+        ? passwordResending({ email: email || '' }).unwrap()
+        : resending({ email: email || '' }).unwrap()
       setOpen(true)
     } catch (err: any) {
       handleErrorResponse(err)
