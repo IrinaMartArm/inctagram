@@ -19,19 +19,6 @@
   @media screen and (max-width: 576px) {
     padding: 0;
   }
-
-  &::-webkit-scrollbar {
-    //background-color: transparent;
-    background-color: var(--color-dark-300);
-    width: 5px;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    //background: transparent;
-    background-color: var(--color-dark-100);
-    border-radius: 10px;
-  }
 }
 
 .container {
