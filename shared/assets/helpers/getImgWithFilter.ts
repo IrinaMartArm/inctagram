@@ -57,7 +57,11 @@ export async function filteredImg(
 
   return new Promise(resolve => {
     canvas.toBlob(blob => {
-      resolve(blob)
-    }, 'image/jpeg')
+      if (!blob) {
+        return null
+      }
+
+      return resolve(blob)
+    })
   })
 }
