@@ -46,6 +46,9 @@ export const useAddPhotoForm = () => {
   }
   const deleteImgCallback = (index: number) => {
     dispatch(addPhotoActions.removeImage(index))
+    if (images.length <= 1) {
+      dispatch(addPhotoActions.setModalStateTo('add-photo'))
+    }
   }
 
   const showCroppedImage = async (index: number | undefined, croppedAreaPixels: CropArg | null) => {
