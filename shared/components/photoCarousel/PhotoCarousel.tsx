@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Slider from 'react-slick'
 
 import { NextArrowComponent, PrevArrowComponent } from '@/shared/components'
+import { clsx } from 'clsx'
 
 import s from './photoCarousel.module.scss'
 
@@ -29,7 +30,7 @@ export const PhotoCarousel = ({ className, photos }: PhotoCarouselType) => {
   })
 
   return (
-    <div className={s.sliderContainer}>
+    <div className={clsx(s.sliderContainer, className)}>
       <Slider
         className={`${s.slider} slick-list`}
         {...settings}

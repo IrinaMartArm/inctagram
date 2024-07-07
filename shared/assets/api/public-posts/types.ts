@@ -13,4 +13,5 @@ export type PublicPostByIdResponse = {
   id: string
   imagesUrl: string[]
   updatedAt: string
+  username: string
 }
