@@ -1,6 +1,4 @@
-import { PostItemType } from '@/shared/assets/api/post/types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { boolean } from 'zod'
 type CropImageWithFilter = {
   filter: string
   img: string
