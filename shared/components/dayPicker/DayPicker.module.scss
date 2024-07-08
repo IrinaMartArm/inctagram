@@ -1,0 +1,75 @@
+.inputSingleContainer {
+    max-width: 400px;
+}
+
+.pickerContainer {
+    width: 100%;
+    .root {
+        margin: 0;
+    }
+
+    .day_today {
+        color: var(--color-accent-500);
+    }
+
+    .table {
+        .tbody {
+            .day {
+                &:hover {
+                    background-color: var(--color-accent-900);
+                }
+            }
+
+            .day_selected {
+                background-color: var(--color-accent-900);
+            }
+        }
+    }
+
+    .table,
+    .caption {
+        color: white;
+        background-color: var(--color-dark-500);
+    }
+
+    .caption {
+        .nav {
+            .nav_button {
+                background-color: var(--color-dark-100);
+
+                &:hover {
+                    background-color: var(--color-dark-100);
+                }
+            }
+        }
+
+        .dropdown {
+            background-color: var(--color-dark-500);
+        }
+
+        .dropdown:focus-visible:not([disabled]) + .caption_label {
+            background-color: var(--color-dark-500);
+            border-color: var(--color-dark-500);
+            border-radius: unset;
+        }
+
+        .dropdown::-webkit-scrollbar {
+            width: 5px;
+            border-radius: 10px;
+        }
+
+        .dropdown::-webkit-scrollbar-track {
+            background: var(--color-dark-300);
+        }
+
+        .dropdown::-webkit-scrollbar-thumb {
+            background-color: var(--color-dark-100);
+            border-radius: 10px;
+        }
+    }
+}
+
+.month {
+    background-color: var(--color-dark-500);
+    padding: 16px 24px;
+}

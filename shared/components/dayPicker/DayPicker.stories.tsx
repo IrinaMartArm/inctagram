@@ -19,7 +19,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const renderDayPicker = (errorText?: string, label?: string) => (args: DayPickerProps) => {
-  const [selected, setSelected] = useState<string>('')
+  const [selected, setSelected] = useState<string | undefined>('')
 
   return (
     <div className={s.inputSingleContainer}>
@@ -34,7 +34,7 @@ const renderDayPicker = (errorText?: string, label?: string) => (args: DayPicker
 }
 
 const commonArgs = {
-  onChange: (selected: string) => {},
+  onChange: (selected: string | undefined) => {},
   selected: '',
 }
 
