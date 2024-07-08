@@ -112,7 +112,7 @@ export const General = ({ profile }: Props) => {
         </div>
       </div>
       <Button className={s.button} disabled={!isValid} type={'submit'}>
-        Save Changes
+        {t.saveChanges}
       </Button>
       {isShowModal && (
         <EditProfilePhoto
