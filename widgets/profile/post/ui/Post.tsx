@@ -8,10 +8,12 @@ import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
 type Props = {
+  avatar: string
   key?: number
   post: PostItemTypeRes
 }
-export const Post = ({ post }: Props) => {
+
+export const Post = ({ avatar, post }: Props) => {
   const isOwner = true
   const avatars = ['', '', '']
 
@@ -25,7 +27,7 @@ export const Post = ({ post }: Props) => {
       <div className={s.postInfoWrapper}>
         <div className={s.header}>
           <div className={s.content}>
-            <AvatarSimple title={'me'} />
+            <AvatarSimple src={avatar} title={'me'} />
             <Typography variant={'h3'}>{post?.username}</Typography>
           </div>
           {isOwner && <PostMenu postId={post.id} />}
@@ -33,15 +35,14 @@ export const Post = ({ post }: Props) => {
         <div className={s.contentWrapper}>
           <div className={s.content}>
             <AvatarSimple title={'me'} />
-            <Typography variant={'h3'}>Lorem</Typography>
+            <Typography variant={'h3'}>{post.description}</Typography>
           </div>
           <div className={s.content}>
             <AvatarSimple title={'me'} />
             <div className={s.comment}>
               <div className={s.contentInner}>
                 <Typography variant={'h3'}>Lorem</Typography>
-                <Button icon={<HeartSmall />} onClick={() => {
-                }} variant={'icon'} />
+                <Button icon={<HeartSmall />} onClick={() => {}} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago
@@ -53,8 +54,7 @@ export const Post = ({ post }: Props) => {
             <div className={s.comment}>
               <div className={s.contentInner}>
                 <Typography variant={'h3'}>Lorem</Typography>
-                <Button icon={<HeartRed />} onClick={() => {
-                }} variant={'icon'} />
+                <Button icon={<HeartRed />} onClick={() => {}} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago
