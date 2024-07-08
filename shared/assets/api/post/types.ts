@@ -2,26 +2,29 @@ export type EditPostArgs = {
   description: string
   id: number
 }
+
 export type getPostArgs = {
   id: string
 }
+
 export type DeletePostArgs = {
   id: string
 }
+
 export type AddPostReq = {
   description: string
   images: string[]
 }
 
-export type PostType = {
-  items: PostItemType[]
+export type PostsType = {
+  items: PostType[]
   page: number
   pageSize: number
   pagesCount: number
   totalCount: number
 }
 
-export type PostItemType = {
+export type PostType = {
   authorId: string
   createdAt: string
   description: string
@@ -30,6 +33,13 @@ export type PostItemType = {
   updatedAt: string
   username: string
 }
-export type PostItemTypeRes = Omit<PostItemType, 'images'> & {
+
+export type PostItemTypeRes = Omit<PostType, 'images'> & {
   imagesUrl: string[]
+}
+
+export type GetPostsArgs = {
+  page?: string
+  pageSize?: string
+  userId: string
 }

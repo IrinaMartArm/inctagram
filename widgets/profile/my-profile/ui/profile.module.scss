@@ -53,9 +53,8 @@
 }
 
 .posts {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
+  @include flex(row, center, center, 20px);
+  flex-wrap: wrap;
 }
 
 .test {

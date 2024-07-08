@@ -28,7 +28,8 @@ export const PostMenu = ({ postId }: Props) => {
   }
 
   const handleDeletePost = async () => {
-    deletePost({ id: postId })
+    deletePost({ id: postId }).unwrap()
+    console.log('postId2', postId)
   }
 
   return (
