@@ -1,25 +1,21 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  ClassNames,
-  DayPicker as ReactDayPicker,
-  SelectSingleEventHandler,
-} from "react-day-picker";
+import {useEffect, useRef, useState} from "react"
+import {ClassNames, DayPicker as ReactDayPicker, SelectSingleEventHandler,} from "react-day-picker"
 
-import { Input, Typography } from "@/shared/components";
-import { useOutsideDayClick } from "@/shared/components/dayPicker/OutsideDayClickHook";
-import { clsx } from "clsx";
-import { format, parse } from "date-fns";
+import {Input, Typography} from "@/shared/components"
+import {useOutsideDayClick} from "@/shared/components/dayPicker/OutsideDayClickHook"
+import {clsx} from "clsx"
+import {format, parse} from "date-fns"
 
-import s from "./DayPicker.module.scss";
-import sC from "@/shared/components/input/input.module.scss";
-import styles from "react-day-picker/dist/style.module.css";
+import s from "./DayPicker.module.scss"
+import sC from "@/shared/components/input/input.module.scss"
+import styles from "react-day-picker/dist/style.module.css"
 
 export const DayPicker = (props: DayPickerProps) => {
   const { errorMessage, label, selected, onChange } = props;
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] =
     useState<boolean>(true);
-  const [localSelected, setLocalSelected] = useState(selected);
+  const [localSelected, setLocalSelected] = useState<string | undefined>(selected);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
   useEffect(() => {
@@ -68,8 +64,8 @@ export const DayPicker = (props: DayPickerProps) => {
     setIsPickerSingleHidden(false);
   };
 
-  const isValidDateFormat = (dateString: string) => {
-    if (dateString === "") return undefined;
+  const isValidDateFormat = (dateString: string | undefined) => {
+    if (dateString === "" || !dateString) return undefined;
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/;
 
     return dateRegex.test(dateString);
@@ -136,7 +132,7 @@ export const DayPicker = (props: DayPickerProps) => {
 };
 
 export type DayPickerProps = {
-  selected: string;
+  selected: string | undefined;
   onChange: (value: string | undefined) => void;
   errorMessage?: string;
   label?: string;
