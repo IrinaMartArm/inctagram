@@ -2,6 +2,7 @@ export const ru = {
   addPhotoForm: {
     cropping: 'Обрезка',
     discard: 'Выйти',
+    fileSize: 'Размер файла превышает 20 МБ',
     filters: 'Фильтры',
     openDraft: 'Открытый проект',
     publication: 'Публикация',
