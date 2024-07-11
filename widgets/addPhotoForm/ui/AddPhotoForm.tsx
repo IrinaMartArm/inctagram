@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { PlusSquare_outline } from '@/public'
 import { TABLET_BREAKPOINT, useIsMobile } from '@/shared/assets'

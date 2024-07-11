@@ -161,7 +161,6 @@ export const useAddPhotoForm = () => {
 
       if (response !== null) {
         dispatch(addPhotoActions.setIsOpen(false))
-        toast.success('Пост успешно отправлен')
       }
     } catch (e) {
       if (e instanceof Error) {

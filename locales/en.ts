@@ -4,7 +4,7 @@ export const en: LocaleType = {
   addPhotoForm: {
     cropping: 'Cropping',
     discard: 'Discard',
-    fileSize: 'File size exceeds 20 MB',
+    fileSize: 'The photo must be less than 20 Mb and have JPEG or PNG format',
     filters: 'Filters',
     openDraft: 'Open draft',
     publication: 'Publication',
