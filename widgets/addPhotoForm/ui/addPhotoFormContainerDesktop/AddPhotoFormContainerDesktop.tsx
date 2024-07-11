@@ -33,6 +33,7 @@ export const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setO
           <AddPhotoBackGround />
           <div className={s.controller}>
             <input
+              accept={'image/jpeg, image/png'}
               className={s.input}
               id={'input-file'}
               name={'file'}

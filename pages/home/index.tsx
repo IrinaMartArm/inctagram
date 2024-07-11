@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getMainLayout } from '@/shared/components/layout/mainLayout/MainLayout'

@@ -42,6 +42,7 @@ export const AddPhotosMenu = ({ deleteImgCallback, images, imgChangeCallback }: 
     <div className={s.container}>
       {photo}
       <input
+        accept={'image/jpeg, image/png'}
         className={s.input}
         id={'input-file'}
         name={'file'}
@@ -49,7 +50,7 @@ export const AddPhotosMenu = ({ deleteImgCallback, images, imgChangeCallback }: 
         ref={inputRef}
         type={'file'}
       />
-      {photoLength < 3 && (
+      {photoLength < 10 && (
         <Button
           as={'label'}
           className={s.selectButton}
