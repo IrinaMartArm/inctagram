@@ -1,22 +1,30 @@
 .slider {
   :global(.slick-list) {
-    height: 500px;
     z-index: 0;
+    height: 500px;
   }
+
   :global(.slick-track) {
     height: 504px;
   }
 }
-.prevArrow{
+
+.prevArrow {
+  cursor: pointer;
+
   position: absolute;
   z-index: 1;
-  top:250px;
-  cursor: pointer;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
 }
-.nextArrow{
+
+.nextArrow {
+  cursor: pointer;
+
   position: absolute;
   z-index: 1;
-  cursor: pointer;
-  top:250px;
-  left: 450px;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
 }
