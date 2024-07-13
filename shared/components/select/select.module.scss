@@ -54,7 +54,7 @@
   background-color: var(--color-dark-500);
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
-  z-index: 99999999;
+  z-index: 999;
 }
 
 .SelectItem {
@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
 
-  width: 158px;
+  width: 139px;
   height: 36px;
   padding: 6px 12px;
 

@@ -1,0 +1,64 @@
+.container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  height: 398px;
+}
+
+.images {
+  position: relative;
+  display: block;
+  width: 234px;
+  height: 240px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 234px;
+
+  overflow-wrap: break-word;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.time {
+  color: var(--color-light-900);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.expanded {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding-top: 12px;
+
+  background: var(--color-dark-700);
+}
+
+.showMore {
+  cursor: pointer;
+  color: var(--color-accent-500);
+  border-bottom: 1px solid var(--color-accent-500);
+
+  &:hover {
+    border-bottom: none;
+  }
+}

@@ -2,6 +2,7 @@ export const ru = {
   addPhotoForm: {
     cropping: 'Обрезка',
     discard: 'Выйти',
+    fileSize: 'Фотография должна быть размером менее 20 Мб и иметь формат JPEG или PNG',
     filters: 'Фильтры',
     openDraft: 'Открытый проект',
     publication: 'Публикация',

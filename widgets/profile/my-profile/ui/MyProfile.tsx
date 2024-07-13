@@ -1,5 +1,8 @@
+import { useCallback, useEffect, useState } from 'react'
+
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
+import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { useTranslationPages } from '@/shared/assets/hooks'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
@@ -14,10 +17,48 @@ const followersN = 345
 const publicationsN = 465
 
 export const MyProfile = () => {
+  const { t } = useTranslationPages()
   const router = useRouter()
   const { id } = router.query
+  const [page, setPage] = useState(1)
+  const pageSize = 8
   const { data: profile } = useProfileInformationQuery()
-  const { t } = useTranslationPages()
+  const {
+    data: posts,
+    isFetching,
+    isLoading,
+  } = useGetPostsByUserIdQuery({
+    page: page.toString(),
+    pageSize: pageSize.toString(),
+    userId: typeof id === 'string' ? id : '',
+  })
+
+  const loadMorePosts = useCallback(() => {
+    if (!isFetching && !isLoading) {
+      setPage(prevPage => prevPage + 1)
+    }
+  }, [isFetching, isLoading])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight
+      ) {
+        loadMorePosts()
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [loadMorePosts])
+
+  useEffect(() => {
+    if (!isFetching && !isLoading && posts && posts.length < page * pageSize) {
+      loadMorePosts()
+    }
+  }, [isFetching, isLoading, posts, page, pageSize, loadMorePosts])
 
   return (
     <div className={s.root}>
@@ -45,11 +86,17 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}>
-        <Modal trigger={<div className={s.test} />}>
-          <Post />
-        </Modal>
-        <Post />
-        <Modal trigger={<div className={s.test} />}></Modal>
+        {posts &&
+          posts?.map(post => (
+            <Modal
+              className={s.modal}
+              key={post.id}
+              trigger={<img alt={''} className={s.postImage} src={post.imagesUrl[0]} />}
+            >
+              <Post avatar={profile?.avatar?.url || ''} post={post} />
+            </Modal>
+          ))}
+        {isLoading && <div>Loading...</div>}
       </div>
     </div>
   )

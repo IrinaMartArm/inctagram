@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { PlusSquare_outline } from '@/public'
 import { TABLET_BREAKPOINT, useIsMobile } from '@/shared/assets'
@@ -13,15 +13,14 @@ import s from './addPhotoForm.module.scss'
 
 type Props = { isTextHidden?: boolean }
 export const AddPhotoForm = ({ isTextHidden }: Props) => {
-  const { imgChangeCallback, modalState, t } = useAddPhotoForm()
-  const [open, setOpen] = useState(false)
+  const { imgChangeCallback, isOpen, modalState, t, toggleModal } = useAddPhotoForm()
   const [confirmOpen, setConfirmOpen] = useState(false)
 
   const isMobile = useIsMobile(TABLET_BREAKPOINT)
 
   const handleCloseClickOutside = () => {
     if (modalState === 'add-photo') {
-      setOpen(false)
+      toggleModal(false)
     } else {
       setConfirmOpen(true)
     }
@@ -35,7 +34,7 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
   }
   const handleInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     e.preventDefault()
-    setOpen(true)
+    toggleModal(true)
     inputRef.current?.click()
   }
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -46,8 +45,8 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
         <>
           <Modal
             className={classNamesRoot}
-            onOpenChange={setOpen}
-            open={open}
+            onOpenChange={toggleModal}
+            open={isOpen}
             title={modalState === 'add-photo' ? t.addPhotoForm.title : ''}
             trigger={
               <>
@@ -75,8 +74,8 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
         <Modal
           className={classNamesRoot}
           handleCloseClickOutside={handleCloseClickOutside}
-          onOpenChange={setOpen}
-          open={open}
+          onOpenChange={toggleModal}
+          open={isOpen}
           title={modalState === 'add-photo' ? t.addPhotoForm.title : ''}
           trigger={
             <Button className={s.row} variant={'link'}>
@@ -90,7 +89,7 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
           <AddPhotoFormContainerDesktop
             confirmOpen={confirmOpen}
             setConfirmOpen={setConfirmOpen}
-            setOpen={setOpen}
+            setOpen={toggleModal}
           />
         </Modal>
       )}

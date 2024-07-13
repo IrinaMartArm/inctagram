@@ -1,15 +1,19 @@
 import { baseApi } from '@/shared/assets'
 import {
   AddPostReq,
-  AddPostResp,
   DeletePostArgs,
   EditPostArgs,
+  GetPostsArgs,
+  PostItemTypeRes,
+  PostType,
+  PostsType,
+  getPostArgs,
 } from '@/shared/assets/api/post/types'
 
 const postApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      addPost: builder.mutation<AddPostResp, AddPostReq>({
+      addPost: builder.mutation<PostType, AddPostReq>({
         invalidatesTags: ['MyPosts'],
         query: body => ({
           body: body,
@@ -19,33 +23,28 @@ const postApi = baseApi.injectEndpoints({
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
         invalidatesTags: ['MyPosts'],
-        // onQueryStarted: async (
-        //   { id },
-        //   { dispatch, getState, queryFulfilled },
-        // ) => {
-        //   const patchResult = dispatch(
-        //     postApi.util.updateQueryData("getMyPosts", {}, (draft) => {
-        //       if (draft) {
-        //         // const deletedPostIdx = draft.items.findIndex(
-        //         //   (el) => el.id === id,
-        //         // );
-        //
-        //         if (deletedPostIdx !== -1) {
-        //           draft.items.splice(deletedPostIdx, 1);
-        //         }
-        //       }
-        //     }),
-        //   );
-        //
-        //   try {
-        //     await queryFulfilled;
-        //   } catch {
-        //     patchResult?.undo();
-        //   }
-        // },
+        onQueryStarted: async ({ id }, { dispatch, getState, queryFulfilled }) => {
+          const patchResult = dispatch(
+            postApi.util.updateQueryData('getPosts', undefined, draft => {
+              if (draft) {
+                const deletedPostIdx = draft.items.findIndex(el => el.id === id)
+
+                if (deletedPostIdx !== -1) {
+                  draft.items.splice(deletedPostIdx, 1)
+                }
+              }
+            })
+          )
+
+          try {
+            await queryFulfilled
+          } catch {
+            patchResult?.undo()
+          }
+        },
         query: ({ id }) => ({
           method: 'DELETE',
-          url: `v1/posts/${id}`,
+          url: `v1/post/${id}`,
         }),
       }),
       editPost: builder.mutation<void, EditPostArgs>({
@@ -86,14 +85,46 @@ const postApi = baseApi.injectEndpoints({
           url: 'v1/post/photo',
         }),
       }),
-      getPosts: builder.query<any, void>({
+      getPost: builder.query<PostItemTypeRes, getPostArgs>({
+        providesTags: ['MyPosts'],
+        query: body => ({
+          method: 'GET',
+          url: `v1/public-posts/${body.id}`,
+        }),
+      }),
+      getPosts: builder.query<PostsType, void>({
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg !== previousArg
+        },
+        merge: (currentCache, newItems) => {
+          currentCache.items.push(...newItems.items)
+        },
         providesTags: ['MyPosts'],
         query: () => ({
           method: 'GET',
           url: 'v1/public-posts',
         }),
+        serializeQueryArgs: ({ endpointName }) => {
+          return endpointName
+        },
       }),
-      // getMyPosts: builder.query<any, any>({}),
+      getPostsByUserId: builder.query<PostItemTypeRes[], GetPostsArgs>({
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg !== previousArg
+        },
+        merge: (currentCache, newItems) => {
+          currentCache.push(...newItems)
+        },
+        providesTags: ['MyPosts'],
+        query: ({ page, pageSize, userId }) => ({
+          method: 'GET',
+          params: { page, pageSize },
+          url: `v1/post/${userId}`,
+        }),
+        serializeQueryArgs: ({ endpointName }) => {
+          return endpointName
+        },
+      }),
     }
   },
 })
@@ -103,5 +134,7 @@ export const {
   useDeletePostMutation,
   useEditPostMutation,
   useGetImgIdMutation,
+  useGetPostQuery,
+  useGetPostsByUserIdQuery,
   useGetPostsQuery,
 } = postApi

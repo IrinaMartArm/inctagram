@@ -2,6 +2,7 @@ import React, { ChangeEvent, useRef } from 'react'
 
 import { ClosingCross } from '@/public'
 import { Plus } from '@/public/icons/Plus'
+import { RootState, useAppSelector } from '@/shared/assets/api/store'
 import { Button } from '@/shared/components'
 
 import s from './addPhotosMenu.module.scss'
@@ -21,6 +22,7 @@ export const AddPhotosMenu = ({ deleteImgCallback, images, imgChangeCallback }: 
     e.preventDefault()
     inputRef.current?.click()
   }
+  const photoLength = images?.length ? images.length : 1
   const photo = images?.map((el, index) => {
     return (
       <div className={s.photoContainer} key={index}>
@@ -40,6 +42,7 @@ export const AddPhotosMenu = ({ deleteImgCallback, images, imgChangeCallback }: 
     <div className={s.container}>
       {photo}
       <input
+        accept={'image/jpeg, image/png'}
         className={s.input}
         id={'input-file'}
         name={'file'}
@@ -47,15 +50,17 @@ export const AddPhotosMenu = ({ deleteImgCallback, images, imgChangeCallback }: 
         ref={inputRef}
         type={'file'}
       />
-      <Button
-        as={'label'}
-        className={s.selectButton}
-        htmlFor={'input-file'}
-        onClick={handleInputClick}
-        variant={'icon'}
-      >
-        <Plus />
-      </Button>
+      {photoLength < 10 && (
+        <Button
+          as={'label'}
+          className={s.selectButton}
+          htmlFor={'input-file'}
+          onClick={handleInputClick}
+          variant={'icon'}
+        >
+          <Plus />
+        </Button>
+      )}
     </div>
   )
 }

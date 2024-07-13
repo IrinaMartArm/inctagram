@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { ModalState, addPhotoActions } from '@/entities'
 import { useAddPostMutation, useGetImgIdMutation } from '@/shared/assets/api/post/post-api'
@@ -13,7 +14,7 @@ import { z } from 'zod'
 
 export const useAddPhotoForm = () => {
   const dispatch = useAppDispatch()
-  const { cropImages, cropImagesWithFilter, images, modalState } = useAppSelector(
+  const { cropImages, cropImagesWithFilter, images, isOpen, modalState } = useAppSelector(
     (state: RootState) => state.addPhoto
   )
   const { t } = useTranslation()
@@ -30,7 +31,7 @@ export const useAddPhotoForm = () => {
       const file = e.target.files[0]
 
       if (file.size > 20 * 1024 * 1024) {
-        setErrorFile(`File size exceeds ${20} MB`)
+        toast.error(t.addPhotoForm.fileSize)
 
         return
       }
@@ -46,6 +47,9 @@ export const useAddPhotoForm = () => {
   }
   const deleteImgCallback = (index: number) => {
     dispatch(addPhotoActions.removeImage(index))
+    if (images.length <= 1) {
+      dispatch(addPhotoActions.setModalStateTo('add-photo'))
+    }
   }
 
   const showCroppedImage = async (index: number | undefined, croppedAreaPixels: CropArg | null) => {
@@ -62,49 +66,12 @@ export const useAddPhotoForm = () => {
         })
       )
     } catch (e) {
-      console.error(e)
-    }
-  }
-  const formData = new FormData()
-
-  function checkImageSize(file: any) {
-    // Проверка размера файла
-    const maxFileSize = 20 * 1024 * 1024 // 20 MB
-
-    if (file.size > maxFileSize) {
-      console.log('Размер изображения превышает 20 MB.')
-
-      return
-    }
-
-    // Проверка формата файла
-    function getImageType(file: any) {
-      const signature = new Uint8Array(file.slice(0, 4))
-      const signatureString = Array.from(signature)
-        .map(byte => byte.toString(16).padStart(2, '0'))
-        .join('')
-
-      switch (signatureString) {
-        case '89504e47':
-          return 'png'
-        case 'ffd8ff':
-          return 'jpg'
-        // Добавьте другие форматы, если необходимо
-        default:
-          return 'unknown'
+      if (e instanceof Error) {
+        toast.error(e.message)
       }
     }
-
-    const imageType = getImageType(file)
-
-    if (imageType === 'png') {
-      console.log('Изображение соответствует требованиям: размер меньше 20 MB, формат PNG.')
-    } else if (imageType === 'jpg') {
-      console.log('Изображение соответствует требованиям: размер меньше 20 MB, формат JPG.')
-    } else {
-      console.log('Формат изображения не соответствует требованиям (должен быть PNG или JPG).')
-    }
   }
+
   const showFilteredImage = async (index: number | undefined, activeFilter: string) => {
     try {
       const croppedImage = await filteredImg(cropImages[index as number], activeFilter)
@@ -112,25 +79,24 @@ export const useAddPhotoForm = () => {
       if (croppedImage) {
         const croppedImageURL = URL.createObjectURL(croppedImage)
 
-        checkImageSize(formData)
-
         dispatch(
           addPhotoActions.setCropImagesWithFilter({
             cropImageWithFilter: croppedImageURL,
             cropImageWithFilterIndex: index as number,
             filter: activeFilter,
-            imgFile: '',
           })
         )
       }
     } catch (e) {
-      console.error(e)
+      if (e instanceof Error) {
+        toast.error(e.message)
+      }
     }
   }
   const setModalStateCallback = (modal: ModalState) => {
     dispatch(addPhotoActions.setModalStateTo(modal))
   }
-  const descriptionValidation = z.string().min(5, 'Мин').trim().max(500, 'Мах')
+  const descriptionValidation = z.string().trim().max(500, 'Мах')
 
   const addPostSchema = z.object({
     description: descriptionValidation,
@@ -148,7 +114,9 @@ export const useAddPhotoForm = () => {
     mode: 'onBlur',
     resolver: zodResolver(addPostSchema),
   })
-
+  const toggleModal = (value: boolean) => {
+    dispatch(addPhotoActions.setIsOpen(value))
+  }
   const onSubmit = async (data: { description: string }) => {
     const uploadPromises = cropImages.map(async (el, idx) => {
       const filteredImage = await filteredImg(el, cropImagesWithFilter[idx].filter)
@@ -168,21 +136,18 @@ export const useAddPhotoForm = () => {
       try {
         const response = await getImgId(formData).unwrap()
 
-        console.log(response)
-
-        // Обработка ответа
         return response
-      } catch (error) {
-        console.error('Ошибка при загрузке изображения:', error)
+      } catch (e) {
+        if (e instanceof Error) {
+          toast.error(e.message)
+        }
 
-        // Обработка ошибки
         return null
       }
     })
 
     const results = await Promise.all(uploadPromises)
 
-    console.log('Все загрузки завершены:', results)
     const imageIds = results
       .filter((el): el is { imageId: string } => el !== null)
       .map(el => el.imageId)
@@ -191,13 +156,16 @@ export const useAddPhotoForm = () => {
       images: imageIds,
     }
 
-    console.log(payload)
     try {
       const response = await addPost(payload).unwrap()
 
-      console.log('Пост успешно отправлен:', response)
-    } catch (error) {
-      console.error('Ошибка при отправке поста:', error)
+      if (response !== null) {
+        dispatch(addPhotoActions.setIsOpen(false))
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        toast.error(e.message)
+      }
     }
   }
 
@@ -213,6 +181,7 @@ export const useAddPhotoForm = () => {
     handleSubmit,
     images,
     imgChangeCallback,
+    isOpen,
     modalState,
     onSubmit,
     setAspect,
@@ -224,6 +193,7 @@ export const useAddPhotoForm = () => {
     showFilteredImage,
     showMenu,
     t,
+    toggleModal,
     watch,
     zoomValue,
   }

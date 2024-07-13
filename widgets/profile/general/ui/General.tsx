@@ -85,7 +85,7 @@ export const General = ({ profile }: Props) => {
           <div className={s.selectors}>
             <Select
               className={s.select}
-              defaultValue={countries[0].value}
+              defaultValue={'Not chosen'}
               items={countries}
               label={t.selectYourCountry}
               name={'countries'}
@@ -94,7 +94,7 @@ export const General = ({ profile }: Props) => {
             />
             <Select
               className={s.select}
-              defaultValue={belarus[0].value}
+              defaultValue={'Not chosen'}
               items={cities}
               label={t.selectYourCity}
               name={'city'}
@@ -112,7 +112,7 @@ export const General = ({ profile }: Props) => {
         </div>
       </div>
       <Button className={s.button} disabled={!isValid} type={'submit'}>
-        Save Changes
+        {t.saveChanges}
       </Button>
       {isShowModal && (
         <EditProfilePhoto

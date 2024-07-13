@@ -1,7 +1,9 @@
 @import 'styles/mixins';
 
 .root {
-  @include flex(column, space-between, center, 50px);
+  @include flex(column, flex-start, center, 50px);
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .info_wrapper {
@@ -10,6 +12,12 @@
   width: 100%;
   height: 204px;
   margin-top: 10px;
+
+  @media screen and (max-width: 715px) {
+    @include flex(column, flex-start, center);
+    gap: 50px;
+    height: fit-content;
+  }
 }
 
 .avatar {
@@ -24,7 +32,6 @@
   width: 100%;
 
   height: 204px;
-  padding: 0 27px;
 }
 
 .first_row {
@@ -46,8 +53,7 @@
 }
 
 .posts {
-  @include flex(row, space-between, center, 12px);
-
+  @include flex(row, center, center, 20px);
   flex-wrap: wrap;
 }
 
@@ -55,4 +61,12 @@
   width: 234px;
   height: 228px;
   border: 1px solid red;
+}
+.postImage{
+  width: 342px;
+  height: 228px;
+}
+.modal {
+  max-width: 1000px !important;
+  width: 100%;
 }

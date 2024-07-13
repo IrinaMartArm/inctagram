@@ -53,7 +53,10 @@ export const useNewPassword = () => {
       const { status } = err as FetchBaseQueryError
 
       if (status === 400) {
-        await router.replace(Paths.VERIFICATION)
+        await router.replace({
+          pathname: Paths.VERIFICATION,
+          query: { param: 'password' },
+        })
       }
       handleErrorResponse(err)
     }

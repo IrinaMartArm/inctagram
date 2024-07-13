@@ -1,4 +1,13 @@
-@forward "colors";
-@forward "typography";
-@forward "mixins";
-@forward "globals";
+@forward 'colors';
+@forward 'typography';
+@forward 'mixins';
+@forward 'globals';
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  max-width: 956px;
+  margin: 0 auto;
+}

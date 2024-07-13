@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 type CropImageWithFilter = {
   filter: string
   img: string
-  imgFile: any
 }
 export type ModalState = 'add-photo' | 'cropping' | 'filters' | 'publication'
 const slice = createSlice({
@@ -10,6 +9,7 @@ const slice = createSlice({
     cropImages: ([] as string[]) || null,
     cropImagesWithFilter: ([] as CropImageWithFilter[]) || null,
     images: ([] as string[]) || null,
+    isOpen: false as boolean,
     modalState: 'add-photo' as ModalState,
   },
   name: 'addPhotoSlice',
@@ -21,7 +21,6 @@ const slice = createSlice({
       state.cropImagesWithFilter[cropImageIndex] = {
         filter: 'none',
         img: cropImage,
-        imgFile: '',
       }
     },
     addImage: (state, action: PayloadAction<string>) => {
@@ -30,7 +29,6 @@ const slice = createSlice({
       state.cropImagesWithFilter.push({
         filter: 'none',
         img: action.payload,
-        imgFile: '',
       })
     },
     discardAll: state => {
@@ -50,16 +48,17 @@ const slice = createSlice({
         cropImageWithFilter: any
         cropImageWithFilterIndex: number
         filter: string
-        imgFile: any
       }>
     ) => {
-      const { cropImageWithFilter, cropImageWithFilterIndex, filter, imgFile } = action.payload
+      const { cropImageWithFilter, cropImageWithFilterIndex, filter } = action.payload
 
       state.cropImagesWithFilter[cropImageWithFilterIndex] = {
         filter: filter,
         img: cropImageWithFilter,
-        imgFile: imgFile,
       }
+    },
+    setIsOpen: (state, action: PayloadAction<boolean>) => {
+      state.isOpen = action.payload
     },
     setModalStateTo: (state, action: PayloadAction<ModalState>) => {
       state.modalState = action.payload
