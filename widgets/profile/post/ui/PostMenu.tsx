@@ -29,7 +29,6 @@ export const PostMenu = ({ postId }: Props) => {
 
   const handleDeletePost = async () => {
     deletePost({ id: postId }).unwrap()
-    console.log('postId2', postId)
   }
 
   return (
@@ -45,7 +44,7 @@ export const PostMenu = ({ postId }: Props) => {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Modal
-            title={'Delete Post'}
+            title={t.post.deletePost}
             trigger={
               <Button className={d.item} icon={<Trash />} variant={'icon'}>
                 {t.post.deletePost}
