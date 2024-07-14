@@ -4,6 +4,7 @@ import {
   DeletePostArgs,
   EditPostArgs,
   GetPostsArgs,
+  MyPostsType,
   PostItemTypeRes,
   PostType,
   PostsType,
@@ -108,7 +109,7 @@ const postApi = baseApi.injectEndpoints({
         //   return endpointName
         // },
       }),
-      getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
+      getPostsByUserId: builder.query<MyPostsType, GetPostsArgs>({
         // forceRefetch({ currentArg, previousArg }) {
         //   return currentArg !== previousArg
         // },
