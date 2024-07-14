@@ -3,14 +3,13 @@ import { useForm } from 'react-hook-form'
 
 import { useFillOutProfileMutation } from '@/shared/assets/api/profile/profile-api'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
-import { useFormRevalidate, useTranslationPages } from '@/shared/assets/hooks'
+import { useFormRevalidate, useTranslation, useTranslationPages } from '@/shared/assets/hooks'
 import { AlertVariant } from '@/shared/components/alert/Alert'
 import { ProfileFormSchema, belarus, profileFormSchema, russia } from '@/widgets'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export const useProfileForm = (profile: UserProfileResponse) => {
-  const { locale, t } = useTranslationPages()
-
+  const { locale, t } = useTranslation()
   const [isShowModal, setIsShowModal] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined)
   const [selectedCity, setSelectedCity] = useState<string | undefined>(undefined)
@@ -55,7 +54,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
 
     try {
       await fillOutProfile(body).unwrap()
-      setAlertMessage(t.success)
+      setAlertMessage(t.profileSettings.errors.success)
       setAlertVariant('success')
       alertHandler()
     } catch (error: any) {
@@ -67,7 +66,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
           })
         })
       } else {
-        setAlertMessage(t.errors.fell)
+        setAlertMessage(t.profileSettings.errors.fell)
         setAlertVariant('error')
         alertHandler()
       }
@@ -80,7 +79,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     const newCities = value === 'russia' ? russia : belarus
 
     setCities(newCities)
-    setSelectedCity(newCities[0].value)
+    setSelectedCity(undefined)
   }
 
   const handleCityChange = (key: string, value: string) => {
