@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
-import { PostItemTypeRes } from '@/shared/assets/api/post/types'
+import { PostType } from '@/shared/assets/api/post/types'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
@@ -10,7 +10,7 @@ import s from './post.module.scss'
 type Props = {
   avatar: string
   key?: number
-  post: PostItemTypeRes
+  post: PostType
 }
 
 export const Post = ({ avatar, post }: Props) => {
