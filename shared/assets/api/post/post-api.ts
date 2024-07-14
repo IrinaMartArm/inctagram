@@ -112,15 +112,20 @@ const postApi = baseApi.injectEndpoints({
         forceRefetch({ currentArg, previousArg }) {
           return currentArg !== previousArg
         },
-        merge: (currentCache, newItems) => {
+        merge: (currentCache, newItems, otherArgs) => {
+          if (!newItems) {
+            return
+          }
           currentCache.push(...newItems)
         },
         providesTags: ['MyPosts'],
-        query: ({ page, pageSize, userId }) => ({
-          method: 'GET',
-          params: { page, pageSize },
-          url: `v1/post/${userId}`,
-        }),
+        query: ({ page, pageSize, userId }) => {
+          return {
+            method: 'GET',
+            params: { page, pageSize },
+            url: `v1/post/${userId}`,
+          }
+        },
         serializeQueryArgs: ({ endpointName }) => {
           return endpointName
         },

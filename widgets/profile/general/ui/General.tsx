@@ -55,7 +55,7 @@ export const General = ({ profile }: Props) => {
           <ControlledTextField
             control={control}
             errorMessage={errors.username?.message}
-            label={t.username}
+            label={t.profileSettings.username}
             name={'username'}
             required
             type={'text'}
@@ -63,7 +63,7 @@ export const General = ({ profile }: Props) => {
           <ControlledTextField
             control={control}
             errorMessage={errors.firstName?.message}
-            label={t.firstName}
+            label={t.profileSettings.firstName}
             name={'firstName'}
             required
             type={'text'}
@@ -71,7 +71,7 @@ export const General = ({ profile }: Props) => {
           <ControlledTextField
             control={control}
             errorMessage={errors.lastName?.message}
-            label={t.lastName}
+            label={t.profileSettings.lastName}
             name={'lastName'}
             required
             type={'text'}
@@ -79,7 +79,7 @@ export const General = ({ profile }: Props) => {
           <ControlledDayPicker
             control={control}
             errorMessage={errors.dateOfBirth?.message}
-            label={t.dateOfBirth}
+            label={t.profileSettings.dateOfBirth}
             name={'dateOfBirth'}
           />
           <div className={s.selectors}>
@@ -87,7 +87,7 @@ export const General = ({ profile }: Props) => {
               className={s.select}
               defaultValue={'Not chosen'}
               items={countries}
-              label={t.selectYourCountry}
+              label={t.profileSettings.selectYourCountry}
               name={'countries'}
               onChange={handleCountryChange}
               value={selectedCountry}
@@ -96,7 +96,7 @@ export const General = ({ profile }: Props) => {
               className={s.select}
               defaultValue={'Not chosen'}
               items={cities}
-              label={t.selectYourCity}
+              label={t.profileSettings.selectYourCity}
               name={'city'}
               onChange={handleCityChange}
               value={selectedCity}
@@ -105,14 +105,14 @@ export const General = ({ profile }: Props) => {
           <ControlledTextArea
             control={control}
             errorMessage={errors.aboutMe?.message}
-            label={t.aboutMe}
+            label={t.profileSettings.aboutMe}
             name={'aboutMe'}
             placeholder={'Text-area'}
           />
         </div>
       </div>
       <Button className={s.button} disabled={!isValid} type={'submit'}>
-        {t.saveChanges}
+        {t.profileSettings.saveChanges}
       </Button>
       {isShowModal && (
         <EditProfilePhoto

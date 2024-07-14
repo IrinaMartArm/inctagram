@@ -21,17 +21,21 @@ export const MyProfile = () => {
   const router = useRouter()
   const { id } = router.query
   const [page, setPage] = useState(1)
+  const [skip, setSkip] = useState(true)
   const pageSize = 8
   const { data: profile } = useProfileInformationQuery()
   const {
     data: posts,
     isFetching,
     isLoading,
-  } = useGetPostsByUserIdQuery({
-    page: page.toString(),
-    pageSize: pageSize.toString(),
-    userId: typeof id === 'string' ? id : '',
-  })
+  } = useGetPostsByUserIdQuery(
+    {
+      page: page.toString(),
+      pageSize: pageSize.toString(),
+      userId: typeof id === 'string' ? id : '',
+    },
+    { skip: skip }
+  )
 
   const loadMorePosts = useCallback(() => {
     if (!isFetching && !isLoading) {
@@ -49,9 +53,9 @@ export const MyProfile = () => {
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { capture: true })
 
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll, { capture: true })
   }, [loadMorePosts])
 
   useEffect(() => {
