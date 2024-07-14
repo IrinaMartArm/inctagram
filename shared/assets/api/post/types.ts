@@ -1,6 +1,6 @@
 export type EditPostArgs = {
   description: string
-  id: number
+  id: string
 }
 
 export type getPostArgs = {
@@ -47,7 +47,7 @@ export type MyPostType = {
   createdAt: string
   description: string
   id: string
-  imagesUrl: string[]
+  images: string[]
   updatedAt: string
   username: string
 }

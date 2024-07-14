@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
 import { MyPostType } from '@/shared/assets/api/post/types'
-import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
+import { AvatarSimple, Button, ControlledTextField, Modal, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
@@ -14,55 +14,20 @@ type Props = {
   post: MyPostType
 }
 
-export const Post = ({ avatar, post }: Props) => {
+export const Post = ({ avatar, post: initialPost }: Props) => {
+  const [post, setPost] = useState(initialPost)
   const isOwner = true
   const avatars = ['', '', '']
-  const [open, setOpen] = useState(false)
-  const onOpenChangeHandler = () => setOpen(!open)
   const { control, handleSubmit, reset } = useForm({})
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
-
-  const handlePostEdit = () => {
-    setOpen(false)
-    setIsEditModalOpen(true)
-  }
-
-  const handleOpenConfirmModal = () => {
-    setIsConfirmModalOpen(true)
-  }
-
-  const handleCancelConfirmModal = () => {
-    setIsConfirmModalOpen(false)
-  }
-
-  const Menu = () => {
-    return (
-      <DropdownMenu onOpenChange={onOpenChangeHandler} open={open}>
-        <DropdownMenuTrigger>
-          <Button icon={<More />} variant={'icon'} />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align={'end'}>
-          <DropdownMenuItem asChild>
-            <Button className={d.item} icon={<Edit />} onClick={handlePostEdit} variant={'icon'}>
-              Edit Post
-            </Button>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Button className={d.item} icon={<Trash />} variant={'icon'}>
-              Delete Post
-            </Button>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    )
+  const handleDescriptionUpdate = (newDescription: string) => {
+    setPost(prevPost => ({ ...prevPost, description: newDescription }))
   }
 
   return (
     <div className={s.root}>
       <div className={s.imgWrapper}>
-        <PhotoCarousel photos={post?.imagesUrl} />
+        <PhotoCarousel photos={post?.images} />
       </div>
       <div className={s.postInfoWrapper}>
         <div className={s.header}>
@@ -70,7 +35,14 @@ export const Post = ({ avatar, post }: Props) => {
             <AvatarSimple src={avatar} title={'me'} />
             <Typography variant={'h3'}>{post?.username}</Typography>
           </div>
-          {isOwner && <PostMenu postId={post.id} />}
+          {isOwner && (
+            <PostMenu
+              onDescriptionUpdate={handleDescriptionUpdate}
+              postDescription={post.description}
+              postId={post.id}
+              postImg={post?.images[0]}
+            />
+          )}
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>
@@ -140,21 +112,6 @@ export const Post = ({ avatar, post }: Props) => {
           </form>
         </div>
       </div>
-      {isEditModalOpen && (
-        <Modal
-          className={s.modalPostEdit}
-          defaultOpen
-          handleCloseClickButton={handleOpenConfirmModal}
-          handleCloseClickOutside={handleOpenConfirmModal}
-          title={'Edit Post'}
-        >
-          <PostEdit
-            handleCancelConfirmModal={handleCancelConfirmModal}
-            isConfirmModalOpen={isConfirmModalOpen}
-            onCancel={() => setIsEditModalOpen(false)}
-          />
-        </Modal>
-      )}
     </div>
   )
 }

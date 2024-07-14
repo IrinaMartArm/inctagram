@@ -48,37 +48,37 @@ const postApi = baseApi.injectEndpoints({
           url: `v1/post/${id}`,
         }),
       }),
+
       editPost: builder.mutation<void, EditPostArgs>({
         invalidatesTags: ['MyPosts'],
-        // onQueryStarted: async (
-        //   { description, id },
-        //   { dispatch, queryFulfilled },
-        // ) => {
-        //   const patchResult = dispatch(
-        //     postApi.util.updateQueryData("getMyPosts", {}, (draft) => {
-        //       if (draft) {
-        //         const editedPostIdx = draft.items.findIndex(
-        //           (el) => el.id === id,
-        //         );
-        //
-        //         if (editedPostIdx !== -1) {
-        //           draft.items[editedPostIdx].description = description;
-        //         }
-        //       }
-        //     }),
-        //   );
-        //
-        //   try {
-        //     await queryFulfilled;
-        //   } catch (e) {
-        //     patchResult.undo;
-        //   }
-        // },
-        query: id => ({
+        onQueryStarted: async ({ description, id }, { dispatch, queryFulfilled }) => {
+          const patchResult = dispatch(
+            postApi.util.updateQueryData('getPosts', undefined, draft => {
+              if (draft) {
+                const editedPostIdx = draft.items.findIndex(el => el.id === id)
+
+                if (editedPostIdx !== -1) {
+                  draft.items[editedPostIdx].description = description
+                }
+              }
+            })
+          )
+
+          try {
+            await queryFulfilled
+          } catch (e) {
+            patchResult?.undo()
+          }
+        },
+        query: ({ description, id }) => ({
+          body: {
+            description,
+          },
           method: 'PUT',
-          url: `/v1/post/${id}`,
+          url: `v1/post/${id}`,
         }),
       }),
+
       getImgId: builder.mutation<{ imageId: string }, FormData>({
         query: body => ({
           body: body,
