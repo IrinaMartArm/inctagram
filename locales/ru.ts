@@ -61,6 +61,7 @@ export const ru = {
     selectPhoto: 'Выбрать с компьютера',
     selectYourCity: 'Выберите свой город',
     selectYourCountry: 'Выберите вашу страну',
+    success: 'Your settings are saved!',
     username: 'Имя пользователя',
   },
   signIn: 'Войти',
