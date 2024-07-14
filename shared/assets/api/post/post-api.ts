@@ -4,6 +4,7 @@ import {
   DeletePostArgs,
   EditPostArgs,
   GetPostsArgs,
+  MyPostsType,
   PostItemTypeRes,
   PostType,
   PostsType,
@@ -93,37 +94,42 @@ const postApi = baseApi.injectEndpoints({
         }),
       }),
       getPosts: builder.query<PostsType, void>({
-        forceRefetch({ currentArg, previousArg }) {
-          return currentArg !== previousArg
-        },
-        merge: (currentCache, newItems) => {
-          currentCache.items.push(...newItems.items)
-        },
+        // forceRefetch({ currentArg, previousArg }) {
+        //   return currentArg !== previousArg
+        // },
+        // merge: (currentCache, newItems) => {
+        //   currentCache.items.push(...newItems.items)
+        // },
         providesTags: ['MyPosts'],
         query: () => ({
           method: 'GET',
           url: 'v1/public-posts',
         }),
-        serializeQueryArgs: ({ endpointName }) => {
-          return endpointName
-        },
+        // serializeQueryArgs: ({ endpointName }) => {
+        //   return endpointName
+        // },
       }),
-      getPostsByUserId: builder.query<PostItemTypeRes[], GetPostsArgs>({
-        forceRefetch({ currentArg, previousArg }) {
-          return currentArg !== previousArg
-        },
-        merge: (currentCache, newItems) => {
-          currentCache.push(...newItems)
-        },
+      getPostsByUserId: builder.query<MyPostsType, GetPostsArgs>({
+        // forceRefetch({ currentArg, previousArg }) {
+        //   return currentArg !== previousArg
+        // },
+        // merge: (currentCache, newItems, otherArgs) => {
+        //   if (!newItems) {
+        //     return
+        //   }
+        //   currentCache.items.push(...newItems.items)
+        // },
         providesTags: ['MyPosts'],
-        query: ({ page, pageSize, userId }) => ({
-          method: 'GET',
-          params: { page, pageSize },
-          url: `v1/post/${userId}`,
-        }),
-        serializeQueryArgs: ({ endpointName }) => {
-          return endpointName
+        query: ({ page, pageSize, userId }) => {
+          return {
+            method: 'GET',
+            params: { page, pageSize },
+            url: `v1/post/${userId}`,
+          }
         },
+        // serializeQueryArgs: ({ endpointName }) => {
+        //   return endpointName
+        // },
       }),
     }
   },

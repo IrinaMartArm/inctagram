@@ -24,12 +24,30 @@ export type PostsType = {
   totalCount: number
 }
 
+export type MyPostsType = {
+  items: MyPostType[]
+  page: number
+  pageSize: number
+  pagesCount: number
+  totalCount: number
+}
+
 export type PostType = {
   authorId: string
   createdAt: string
   description: string
   id: string
   images: string[]
+  updatedAt: string
+  username: string
+}
+
+export type MyPostType = {
+  authorId: string
+  createdAt: string
+  description: string
+  id: string
+  imagesUrl: string[]
   updatedAt: string
   username: string
 }
