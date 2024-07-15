@@ -21,7 +21,7 @@ export const MyProfile = () => {
   const router = useRouter()
   const { id } = router.query
   const [page, setPage] = useState(1)
-  // const [skip, setSkip] = useState(true)
+  const [skip, setSkip] = useState(true)
   const pageSize = 8
   const { data: profile } = useProfileInformationQuery()
   const {
@@ -33,36 +33,31 @@ export const MyProfile = () => {
       page: page.toString(),
       pageSize: pageSize.toString(),
       userId: typeof id === 'string' ? id : '',
-    }
-    // { skip: skip }
+    },
+    { skip: skip }
   )
 
-  // const loadMorePosts = useCallback(() => {
-  //   if (!isFetching && !isLoading) {
-  //     setPage(prevPage => prevPage + 1)
-  //   }
-  // }, [isFetching, isLoading])
-  //
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (
-  //       window.innerHeight + document.documentElement.scrollTop >=
-  //       document.documentElement.offsetHeight
-  //     ) {
-  //       loadMorePosts()
-  //     }
-  //   }
-  //
-  //   window.addEventListener('scroll', handleScroll, { capture: true })
-  //
-  //   return () => window.removeEventListener('scroll', handleScroll, { capture: true })
-  // }, [loadMorePosts])
-  //
-  // useEffect(() => {
-  //   if (!isFetching && !isLoading && posts && posts.length < page * pageSize) {
-  //     loadMorePosts()
-  //   }
-  // }, [isFetching, isLoading, posts, page, pageSize, loadMorePosts])
+  const loadMorePosts = useCallback(() => {
+    if (!isFetching && !isLoading && posts!.pagesCount > page) {
+      setPage(prevPage => prevPage + 1)
+    }
+  }, [isFetching, isLoading])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight
+      ) {
+        setSkip(false)
+        loadMorePosts()
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { capture: true })
+
+    return () => window.removeEventListener('scroll', handleScroll, { capture: true })
+  }, [loadMorePosts])
 
   return (
     <div className={s.root}>

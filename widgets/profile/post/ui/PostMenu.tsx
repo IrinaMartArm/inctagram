@@ -12,6 +12,7 @@ import {
   Modal,
   ModalWindow,
 } from '@/shared/components'
+import { EditPostModal } from '@/widgets/profile/post/ui/EditPostModal'
 
 import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
 
@@ -38,9 +39,16 @@ export const PostMenu = ({ postId }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align={'end'}>
         <DropdownMenuItem asChild>
-          <Button className={d.item} icon={<Edit />} variant={'icon'}>
-            {t.post.editPost}
-          </Button>
+          <Modal
+            title={'Edit Post'}
+            trigger={
+              <Button className={d.item} icon={<Edit />} variant={'icon'}>
+                {t.post.editPost}
+              </Button>
+            }
+          >
+            {/*<EditPostModal />*/}
+          </Modal>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Modal
