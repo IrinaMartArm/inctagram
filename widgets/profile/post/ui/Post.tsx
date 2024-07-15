@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
 import { MyPostType } from '@/shared/assets/api/post/types'
-import { AvatarSimple, Button, ControlledTextField, Modal, Typography } from '@/shared/components'
+import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
@@ -14,15 +13,11 @@ type Props = {
   post: MyPostType
 }
 
-export const Post = ({ avatar, post: initialPost }: Props) => {
-  const [post, setPost] = useState(initialPost)
+export const Post = ({ avatar, post }: Props) => {
   const isOwner = true
   const avatars = ['', '', '']
-  const { control, handleSubmit, reset } = useForm({})
 
-  const handleDescriptionUpdate = (newDescription: string) => {
-    setPost(prevPost => ({ ...prevPost, description: newDescription }))
-  }
+  const { control, handleSubmit, reset } = useForm({})
 
   return (
     <div className={s.root}>
@@ -37,7 +32,6 @@ export const Post = ({ avatar, post: initialPost }: Props) => {
           </div>
           {isOwner && (
             <PostMenu
-              onDescriptionUpdate={handleDescriptionUpdate}
               postDescription={post.description}
               postId={post.id}
               postImg={post?.images[0]}

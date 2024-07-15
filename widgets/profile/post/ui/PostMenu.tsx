@@ -18,13 +18,12 @@ import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
 import s from '@/widgets/profile/post/ui/post.module.scss'
 
 type Props = {
-  onDescriptionUpdate: (newDescription: string) => void
   postDescription: string
   postId: string
   postImg: string
 }
 
-export const PostMenu = ({ onDescriptionUpdate, postDescription, postId, postImg }: Props) => {
+export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
   const { t } = useTranslationPages()
   const [deletePost] = useDeletePostMutation()
   const [open, setOpen] = useState(false)
@@ -40,21 +39,7 @@ export const PostMenu = ({ onDescriptionUpdate, postDescription, postId, postImg
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
 
   const handlePostEdit = () => {
-    setOpen(false)
     setIsEditModalOpen(true)
-  }
-
-  const handleOpenConfirmModal = () => {
-    setIsConfirmModalOpen(true)
-  }
-
-  const handleCancelConfirmModal = () => {
-    setIsConfirmModalOpen(false)
-  }
-
-  const handleDescriptionUpdate = (newDescription: string) => {
-    onDescriptionUpdate(newDescription)
-    setIsEditModalOpen(false)
   }
 
   return (
@@ -83,25 +68,23 @@ export const PostMenu = ({ onDescriptionUpdate, postDescription, postId, postImg
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {isEditModalOpen && (
-        <Modal
-          className={s.modalPostEdit}
-          handleCloseClickButton={handleOpenConfirmModal}
-          handleCloseClickOutside={handleOpenConfirmModal}
-          open={isEditModalOpen}
-          title={'Edit Post'}
-        >
-          <PostEdit
-            handleCancelConfirmModal={handleCancelConfirmModal}
-            isConfirmModalOpen={isConfirmModalOpen}
-            onCancel={() => setIsEditModalOpen(false)}
-            onDescriptionUpdate={handleDescriptionUpdate}
-            postDescription={postDescription}
-            postId={postId}
-            postImg={postImg}
-          />
-        </Modal>
-      )}
+
+      <Modal
+        className={s.modalPostEdit}
+        handleCloseClickButton={() => setIsConfirmModalOpen(true)}
+        handleCloseClickOutside={() => setIsConfirmModalOpen(true)}
+        open={isEditModalOpen}
+        title={'Edit Post'}
+      >
+        <PostEdit
+          handleCancelConfirmModal={() => setIsConfirmModalOpen(false)}
+          handleCancelEditModal={() => setIsEditModalOpen(false)}
+          isConfirmModalOpen={isConfirmModalOpen}
+          postDescription={postDescription}
+          postId={postId}
+          postImg={postImg}
+        />
+      </Modal>
     </>
   )
 }

@@ -24,14 +24,6 @@ export type PostsType = {
   totalCount: number
 }
 
-export type MyPostsType = {
-  items: MyPostType[]
-  page: number
-  pageSize: number
-  pagesCount: number
-  totalCount: number
-}
-
 export type PostType = {
   authorId: string
   createdAt: string

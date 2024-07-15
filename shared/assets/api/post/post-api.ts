@@ -4,12 +4,14 @@ import {
   DeletePostArgs,
   EditPostArgs,
   GetPostsArgs,
-  MyPostsType,
   PostItemTypeRes,
   PostType,
   PostsType,
   getPostArgs,
 } from '@/shared/assets/api/post/types'
+import { getState } from '@vitest/expect'
+import { current } from 'immer'
+import { unknown } from 'zod'
 
 const postApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -51,23 +53,32 @@ const postApi = baseApi.injectEndpoints({
 
       editPost: builder.mutation<void, EditPostArgs>({
         invalidatesTags: ['MyPosts'],
-        onQueryStarted: async ({ description, id }, { dispatch, queryFulfilled }) => {
-          const patchResult = dispatch(
-            postApi.util.updateQueryData('getPosts', undefined, draft => {
-              if (draft) {
-                const editedPostIdx = draft.items.findIndex(el => el.id === id)
+        onQueryStarted: async ({ description, id }, { dispatch, getState, queryFulfilled }) => {
+          const invalidatedBy = postApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
 
-                if (editedPostIdx !== -1) {
-                  draft.items[editedPostIdx].description = description
+          invalidatedBy.forEach(({ originalArgs }) => {
+            dispatch(
+              postApi.util.updateQueryData(
+                'getPostsByUserId',
+                { page: '1', pageSize: '8', userId: id },
+                draft => {
+                  const itemToUpdateIndex = draft.items.findIndex(post => post.id === id)
+
+                  if (itemToUpdateIndex !== -1) {
+                    return
+                  }
+
+                  draft.items[itemToUpdateIndex].description = description
                 }
-              }
-            })
-          )
-
+              )
+            )
+          })
+          //
           try {
             await queryFulfilled
           } catch (e) {
-            patchResult?.undo()
+            // patchResultPost.undo()
+            // patchResultPosts.undo()
           }
         },
         query: ({ description, id }) => ({
@@ -109,7 +120,7 @@ const postApi = baseApi.injectEndpoints({
         //   return endpointName
         // },
       }),
-      getPostsByUserId: builder.query<MyPostsType, GetPostsArgs>({
+      getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
         // forceRefetch({ currentArg, previousArg }) {
         //   return currentArg !== previousArg
         // },

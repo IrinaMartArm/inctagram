@@ -1,19 +1,26 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
+import { Trash } from '@/public'
+import { useTranslation } from '@/shared/assets'
 import { useEditPostMutation } from '@/shared/assets/api/post/post-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
-import { Avatar, Button, ControlledTextArea, Modal, Typography } from '@/shared/components'
-import { ConfirmableModal } from '@/widgets/profile/post-edit/confirmableModal/ConfirmableModal'
+import {
+  Avatar,
+  Button,
+  ControlledTextArea,
+  Modal,
+  ModalWindow,
+  Typography,
+} from '@/shared/components'
 import Image from 'next/image'
 
 import s from './postEdit.module.scss'
 
 type Props = {
   handleCancelConfirmModal: () => void
+  handleCancelEditModal: () => void
   isConfirmModalOpen: boolean
-  onCancel: () => void
-  onDescriptionUpdate: (newDescription: string) => void
   postDescription: string
   postId: string
   postImg: string
@@ -21,23 +28,22 @@ type Props = {
 
 export const PostEdit = ({
   handleCancelConfirmModal,
+  handleCancelEditModal,
   isConfirmModalOpen,
-  onCancel,
-  onDescriptionUpdate,
   postDescription,
   postId,
   postImg,
 }: Props) => {
+  const { t } = useTranslation()
   const { data: profile } = useProfileInformationQuery()
   const [editPost] = useEditPostMutation()
   const { control, handleSubmit, watch } = useForm({
     defaultValues: { description: postDescription },
   })
 
-  const onSubmit = async (data: { description: string }) => {
-    await editPost({ description: data.description, id: postId }).unwrap()
-    onDescriptionUpdate(data.description)
-    onCancel()
+  const onSubmit = async (items: { description: string }) => {
+    await editPost({ description: items.description, id: postId }).unwrap()
+    handleCancelEditModal()
   }
 
   const description = watch('description', '')
@@ -59,10 +65,10 @@ export const PostEdit = ({
             />
             <Typography variant={'regular_text-16'}>{profile?.username}</Typography>
           </div>
+          <div></div>
           <form className={s.form} id={'descriptionForm'} onSubmit={handleSubmit(onSubmit)}>
             <div className={s.textarea}>
               <ControlledTextArea
-                autoComplete={'description'}
                 className={s.textareaInput}
                 control={control}
                 label={'Add publication descriptions'}
@@ -79,22 +85,17 @@ export const PostEdit = ({
         </div>
       </div>
 
-      {isConfirmModalOpen && (
-        <Modal
-          handleCloseClickOutside={() => {}}
-          onOpenChange={handleCancelConfirmModal}
-          open={isConfirmModalOpen}
-          title={'Close Post'}
-        >
-          <ConfirmableModal
-            onCancel={handleCancelConfirmModal}
-            onConfirm={() => {
-              handleCancelConfirmModal()
-              onCancel()
-            }}
-          />
-        </Modal>
-      )}
+      <Modal onOpenChange={handleCancelConfirmModal} open={isConfirmModalOpen} title={'Close Post'}>
+        <ModalWindow
+          callback={() => {
+            handleCancelConfirmModal()
+            handleCancelEditModal()
+          }}
+          text={
+            'Do you really want to finish editing? If you close the changes you have made will not be saved.'
+          }
+        />
+      </Modal>
     </>
   )
 }
