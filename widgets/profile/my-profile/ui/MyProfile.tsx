@@ -95,7 +95,7 @@ export const MyProfile = () => {
             <Modal
               className={s.modal}
               key={post.id}
-              trigger={<img alt={''} className={s.postImage} src={post.imagesUrl[0]} />}
+              trigger={<img alt={''} className={s.postImage} src={post.images[0]} />}
             >
               <Post avatar={profile?.avatar?.url || ''} post={post} />
             </Modal>
