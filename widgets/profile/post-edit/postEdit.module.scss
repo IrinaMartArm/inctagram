@@ -52,15 +52,14 @@
 }
 
 .textareaInput {
-  height: 120px !important;
+  min-height: 120px;
 }
 
 .avatarContainer {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 12px;
   align-items: center;
-  justify-content: flex-start;
 }
 
 .avatar {

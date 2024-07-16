@@ -74,7 +74,7 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
         handleCloseClickButton={() => setIsConfirmModalOpen(true)}
         handleCloseClickOutside={() => setIsConfirmModalOpen(true)}
         open={isEditModalOpen}
-        title={'Edit Post'}
+        title={t.edit.titleEdit}
       >
         <PostEdit
           handleCancelConfirmModal={() => setIsConfirmModalOpen(false)}

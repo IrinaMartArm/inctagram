@@ -1,8 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Trash } from '@/public'
-import { useTranslation } from '@/shared/assets'
+import { useTranslation, useTranslationPages } from '@/shared/assets'
 import { useEditPostMutation } from '@/shared/assets/api/post/post-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import {
@@ -34,7 +33,7 @@ export const PostEdit = ({
   postId,
   postImg,
 }: Props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslationPages()
   const { data: profile } = useProfileInformationQuery()
   const [editPost] = useEditPostMutation()
   const { control, handleSubmit, watch } = useForm({
@@ -48,6 +47,7 @@ export const PostEdit = ({
 
   const description = watch('description', '')
   const numLetters = description.length
+  const isDescriptionTooLong = numLetters > 500
 
   return (
     <>
@@ -71,7 +71,8 @@ export const PostEdit = ({
               <ControlledTextArea
                 className={s.textareaInput}
                 control={control}
-                label={'Add publication descriptions'}
+                errorMessage={isDescriptionTooLong ? t.edit.error : ''}
+                label={t.edit.label}
                 name={'description'}
               />
               <Typography className={s.numLettersText} variant={'small-text'}>
@@ -79,21 +80,25 @@ export const PostEdit = ({
               </Typography>
             </div>
             <div className={s.button}>
-              <Button type={'submit'}>{'Save Changes'}</Button>
+              <Button disabled={isDescriptionTooLong} type={'submit'}>
+                {t.edit.button}
+              </Button>
             </div>
           </form>
         </div>
       </div>
 
-      <Modal onOpenChange={handleCancelConfirmModal} open={isConfirmModalOpen} title={'Close Post'}>
+      <Modal
+        onOpenChange={handleCancelConfirmModal}
+        open={isConfirmModalOpen}
+        title={t.edit.titleConfirm}
+      >
         <ModalWindow
           callback={() => {
             handleCancelConfirmModal()
             handleCancelEditModal()
           }}
-          text={
-            'Do you really want to finish editing? If you close the changes you have made will not be saved.'
-          }
+          text={t.edit.text}
         />
       </Modal>
     </>
