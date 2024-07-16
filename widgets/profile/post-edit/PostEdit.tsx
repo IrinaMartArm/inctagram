@@ -42,8 +42,8 @@ export const PostEdit = ({
   })
 
   const onSubmit = async (items: { description: string }) => {
-    await editPost({ description: items.description, id: postId }).unwrap()
     handleCancelEditModal()
+    await editPost({ description: items.description, id: postId }).unwrap()
   }
 
   const description = watch('description', '')
