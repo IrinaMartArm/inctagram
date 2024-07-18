@@ -9,6 +9,9 @@ import {
   PostsType,
   getPostArgs,
 } from '@/shared/assets/api/post/types'
+import { getState } from '@vitest/expect'
+import { current } from 'immer'
+import { patchConsoleError } from 'next/dist/client/components/react-dev-overlay/internal/helpers/hydration-error-info'
 
 const postApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -47,37 +50,44 @@ const postApi = baseApi.injectEndpoints({
           url: `v1/post/${id}`,
         }),
       }),
+
       editPost: builder.mutation<void, EditPostArgs>({
         invalidatesTags: ['MyPosts'],
-        // onQueryStarted: async (
-        //   { description, id },
-        //   { dispatch, queryFulfilled },
-        // ) => {
-        //   const patchResult = dispatch(
-        //     postApi.util.updateQueryData("getMyPosts", {}, (draft) => {
-        //       if (draft) {
-        //         const editedPostIdx = draft.items.findIndex(
-        //           (el) => el.id === id,
-        //         );
-        //
-        //         if (editedPostIdx !== -1) {
-        //           draft.items[editedPostIdx].description = description;
-        //         }
-        //       }
-        //     }),
-        //   );
-        //
-        //   try {
-        //     await queryFulfilled;
-        //   } catch (e) {
-        //     patchResult.undo;
-        //   }
-        // },
-        query: id => ({
+        onQueryStarted: async ({ description, id }, { dispatch, getState, queryFulfilled }) => {
+          const invalidatedBy = postApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
+          const patchResults: any[] = []
+
+          invalidatedBy.forEach(({ originalArgs }) => {
+            patchResults.push(
+              dispatch(
+                postApi.util.updateQueryData('getPostsByUserId', originalArgs, draft => {
+                  const itemToUpdateIndex = draft.items.findIndex(post => post.id === id)
+
+                  if (itemToUpdateIndex !== -1) {
+                    draft.items[itemToUpdateIndex].description = description
+                  }
+                })
+              )
+            )
+          })
+
+          try {
+            await queryFulfilled
+          } catch (e) {
+            patchResults.forEach(patchResult => {
+              patchResult.undo()
+            })
+          }
+        },
+        query: ({ description, id }) => ({
+          body: {
+            description,
+          },
           method: 'PUT',
-          url: `/v1/post/${id}`,
+          url: `v1/post/${id}`,
         }),
       }),
+
       getImgId: builder.mutation<{ imageId: string }, FormData>({
         query: body => ({
           body: body,

@@ -21,7 +21,12 @@ export const AvatarBox = ({ avatar, deletePhoto, setIsShowModal }: Props) => {
         isEditProfile
         src={avatar}
       />
-      <Button className={s.button} onClick={() => setIsShowModal(true)} variant={'outlined'}>
+      <Button
+        className={s.button}
+        onClick={() => setIsShowModal(true)}
+        type={'button'}
+        variant={'outlined'}
+      >
         {t.profileSettings.addPhoto}
       </Button>
     </div>

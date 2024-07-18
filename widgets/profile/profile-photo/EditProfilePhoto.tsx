@@ -76,7 +76,11 @@ export const EditProfilePhoto = ({
   }
 
   return (
-    <Modal defaultOpen={defaultOpen} title={t.addPhoto}>
+    <Modal
+      defaultOpen={defaultOpen}
+      handleCloseClickOutside={() => setIsShowModal(false)}
+      title={t.addPhoto}
+    >
       <div className={s.wrapper}>
         {(errorFile || error) && (
           <Alert isShowClose={false} title={errorFile || error || ''} variant={'error'} />

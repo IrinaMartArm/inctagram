@@ -1,6 +1,6 @@
 export type EditPostArgs = {
   description: string
-  id: number
+  id: string
 }
 
 export type getPostArgs = {
@@ -25,6 +25,16 @@ export type PostsType = {
 }
 
 export type PostType = {
+  authorId: string
+  createdAt: string
+  description: string
+  id: string
+  images: string[]
+  updatedAt: string
+  username: string
+}
+
+export type MyPostType = {
   authorId: string
   createdAt: string
   description: string

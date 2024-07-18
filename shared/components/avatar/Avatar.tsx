@@ -38,7 +38,15 @@ export const Avatar = ({
     <div className={s.wrapper}>
       <div className={avatarCN}>
         {(!isEditProfile || isEditWithSrc) && (
-          <Image alt={alt} className={s.img} fill priority quality={100} src={src || noAva} />
+          <Image
+            alt={alt}
+            className={s.img}
+            fill
+            priority
+            quality={100}
+            sizes={'100%'}
+            src={src || noAva}
+          />
         )}
         {!src && isEditProfile && <ImageProfile />}
       </div>
