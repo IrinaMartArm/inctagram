@@ -11,7 +11,8 @@
   padding: 0 0 0 15px;
 }
 .filterTitle{
-  margin-left: 50px;
+  position: absolute;
+  left: 46%;
 }
 .sliderContainer{
   width: 492px;
@@ -37,9 +38,13 @@
 .filtersBlock{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
   padding: 24px;
 }
 .filterBlock{
+  justify-self: center;
+  align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;

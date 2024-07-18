@@ -58,7 +58,7 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) =
           {t.addPhotoForm.cropping}
         </Typography>
         <Button onClick={handleNext} variant={'link'}>
-          <Typography variant={'h3'}>Next</Typography>
+          <Typography variant={'h3'}> {t.addPhotoForm.next}</Typography>
         </Button>
       </div>
       <div className={s.imgBlock}>
