@@ -1,7 +1,9 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 
+import { addPhotoActions } from '@/entities'
 import { PlusSquare_outline } from '@/public'
 import { TABLET_BREAKPOINT, useIsMobile } from '@/shared/assets'
+import { useAppDispatch } from '@/shared/assets/api/store'
 import { Button, Typography } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
@@ -13,6 +15,7 @@ import s from './addPhotoForm.module.scss'
 
 type Props = { isTextHidden?: boolean }
 export const AddPhotoForm = ({ isTextHidden }: Props) => {
+  const dispatch = useAppDispatch()
   const { imgChangeCallback, isOpen, modalState, t, toggleModal } = useAddPhotoForm()
   const [confirmOpen, setConfirmOpen] = useState(false)
 
@@ -20,8 +23,10 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
 
   const handleCloseClickOutside = () => {
     if (modalState === 'add-photo') {
+      dispatch(addPhotoActions.setError(false))
       toggleModal(false)
     } else {
+      dispatch(addPhotoActions.setError(false))
       setConfirmOpen(true)
     }
   }
@@ -90,6 +95,7 @@ export const AddPhotoForm = ({ isTextHidden }: Props) => {
             confirmOpen={confirmOpen}
             setConfirmOpen={setConfirmOpen}
             setOpen={toggleModal}
+            toggleModal={toggleModal}
           />
         </Modal>
       )}
