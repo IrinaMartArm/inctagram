@@ -42,6 +42,18 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
     setIsEditModalOpen(true)
   }
 
+  const handleCancelEditModal = () => {
+    setIsEditModalOpen(false)
+  }
+
+  const handleCancelConfirmModal = () => {
+    setIsConfirmModalOpen(false)
+  }
+
+  const handleOpenConfirmModal = () => {
+    setIsConfirmModalOpen(true)
+  }
+
   return (
     <>
       <DropdownMenu onOpenChange={onOpenChangeHandler} open={open}>
@@ -71,18 +83,30 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
 
       <Modal
         className={s.modalPostEdit}
-        handleCloseClickButton={() => setIsConfirmModalOpen(true)}
-        handleCloseClickOutside={() => setIsConfirmModalOpen(true)}
+        handleCloseClickButton={handleOpenConfirmModal}
+        handleCloseClickOutside={handleOpenConfirmModal}
         open={isEditModalOpen}
         title={t.edit.titleEdit}
       >
         <PostEdit
-          handleCancelConfirmModal={() => setIsConfirmModalOpen(false)}
-          handleCancelEditModal={() => setIsEditModalOpen(false)}
-          isConfirmModalOpen={isConfirmModalOpen}
+          handleCancelEditModal={handleCancelEditModal}
           postDescription={postDescription}
           postId={postId}
           postImg={postImg}
+        />
+      </Modal>
+
+      <Modal
+        onOpenChange={handleCancelConfirmModal}
+        open={isConfirmModalOpen}
+        title={t.edit.titleConfirm}
+      >
+        <ModalWindow
+          callback={() => {
+            handleCancelConfirmModal()
+            handleCancelEditModal()
+          }}
+          text={t.edit.text}
         />
       </Modal>
     </>

@@ -1,38 +1,21 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useTranslation, useTranslationPages } from '@/shared/assets'
+import { useTranslationPages } from '@/shared/assets'
 import { useEditPostMutation } from '@/shared/assets/api/post/post-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
-import {
-  Avatar,
-  Button,
-  ControlledTextArea,
-  Modal,
-  ModalWindow,
-  Typography,
-} from '@/shared/components'
+import { Avatar, Button, ControlledTextArea, Typography } from '@/shared/components'
 import Image from 'next/image'
 
 import s from './postEdit.module.scss'
 
 type Props = {
-  handleCancelConfirmModal: () => void
   handleCancelEditModal: () => void
-  isConfirmModalOpen: boolean
   postDescription: string
   postId: string
   postImg: string
 }
 
-export const PostEdit = ({
-  handleCancelConfirmModal,
-  handleCancelEditModal,
-  isConfirmModalOpen,
-  postDescription,
-  postId,
-  postImg,
-}: Props) => {
+export const PostEdit = ({ handleCancelEditModal, postDescription, postId, postImg }: Props) => {
   const { t } = useTranslationPages()
   const { data: profile } = useProfileInformationQuery()
   const [editPost] = useEditPostMutation()
@@ -87,20 +70,6 @@ export const PostEdit = ({
           </form>
         </div>
       </div>
-
-      <Modal
-        onOpenChange={handleCancelConfirmModal}
-        open={isConfirmModalOpen}
-        title={t.edit.titleConfirm}
-      >
-        <ModalWindow
-          callback={() => {
-            handleCancelConfirmModal()
-            handleCancelEditModal()
-          }}
-          text={t.edit.text}
-        />
-      </Modal>
     </>
   )
 }

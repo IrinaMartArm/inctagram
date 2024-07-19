@@ -54,6 +54,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
             <RadixModal.Content
               asChild
               className={s.width}
+              onFocus={event => event.stopPropagation()}
               onInteractOutside={event => {
                 if (handleCloseClickOutside) {
                   event.preventDefault()
