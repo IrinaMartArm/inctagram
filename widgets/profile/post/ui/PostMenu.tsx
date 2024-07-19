@@ -89,7 +89,6 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
         title={t.edit.titleEdit}
       >
         <PostEdit
-          handleCancelConfirmModal={handleCancelConfirmModal}
           handleCancelEditModal={handleCancelEditModal}
           postDescription={postDescription}
           postId={postId}
