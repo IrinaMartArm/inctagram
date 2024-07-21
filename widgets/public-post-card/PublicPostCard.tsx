@@ -30,7 +30,7 @@ export const PublicPostCard = (props: Props) => {
     if (isExpanded) {
       return (
         <>
-          {props.description.substring(0, 248)}...{' '}
+          {props.description.substring(0, 260)}...{' '}
           <span className={s.showMore} onClick={toggleExpanded}>
             Hide
           </span>
@@ -38,13 +38,13 @@ export const PublicPostCard = (props: Props) => {
       )
     }
 
-    if (props.description.length <= 76) {
+    if (props.description.length <= 56) {
       return props.description
     }
 
     return (
       <>
-        {props.description.substring(0, 76)}...{' '}
+        {props.description.substring(0, 56)}...{' '}
         <span className={s.showMore} onClick={toggleExpanded}>
           Show more
         </span>
