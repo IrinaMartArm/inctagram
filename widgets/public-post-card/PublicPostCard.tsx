@@ -54,7 +54,9 @@ export const PublicPostCard = (props: Props) => {
 
   return (
     <div className={s.container}>
-      <PhotoCarousel className={s.images} photos={props.imagesUrl} />
+      <div className={s.sliderContainer}>
+        <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
+      </div>
       <div className={clsx(s.content, isExpanded && s.expanded)}>
         <div className={s.user}>
           <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username} />
