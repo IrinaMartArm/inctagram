@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import {
   useDeleteUserPhotoMutation,
+  useProfileInformationQuery,
   useUploadUserPhotoMutation,
 } from '@/shared/assets/api/profile/profile-api'
 import { convertFileToBase64, handleErrorResponse } from '@/shared/assets/helpers'
@@ -10,22 +11,21 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 type ErrorType = FetchBaseQueryError | SerializedError
 
-const IS_SERVER = typeof window === 'undefined'
+// const IS_SERVER = typeof window === 'undefined'
 
 export const useUpdateAvatar = () => {
-  useEffect(() => {
-    let avatar
-
-    if (!IS_SERVER) {
-      avatar = localStorage.getItem('myAvatar') ?? undefined
-    }
-    setAvatar(avatar)
-  }, [])
-
-  const [avatar, setAvatar] = useState<string | undefined>()
-
+  // useEffect(() => {
+  //   let avatar
+  //
+  //   if (!IS_SERVER) {
+  //     avatar = localStorage.getItem('myAvatar') ?? undefined
+  //   }
+  //   setAvatar(avatar)
+  // }, [])
   const [setPhoto] = useUploadUserPhotoMutation()
   const [deletePhoto] = useDeleteUserPhotoMutation()
+  const { data: profile } = useProfileInformationQuery()
+  const [avatar, setAvatar] = useState<string | undefined>(profile?.avatar?.url)
 
   const updateAvatar = async (newAvatar: File | undefined) => {
     try {
@@ -36,7 +36,7 @@ export const useUpdateAvatar = () => {
         await setPhoto({ file: formData }).unwrap()
         convertFileToBase64(newAvatar, (file64: string) => {
           setAvatar(file64)
-          localStorage.setItem('myAvatar', file64)
+          // localStorage.setItem('myAvatar', file64)цомменте
         })
       } else {
         await deletePhotoHandler()
@@ -52,7 +52,7 @@ export const useUpdateAvatar = () => {
     try {
       await deletePhoto().unwrap()
       setAvatar(undefined)
-      localStorage.removeItem('myAvatar')
+      // localStorage.removeItem('myAvatar')
     } catch (err: unknown) {
       const error = err as ErrorType
 
