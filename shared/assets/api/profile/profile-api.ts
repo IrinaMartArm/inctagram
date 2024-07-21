@@ -28,6 +28,8 @@ export const ProfileApi = baseApi.injectEndpoints({
         }),
       }),
       uploadUserPhoto: builder.mutation<void, UserPhotoArgs>({
+        invalidatesTags: ['Profile'],
+
         query: body => ({
           body: body.file,
           method: 'POST',

@@ -11,48 +11,37 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 type ErrorType = FetchBaseQueryError | SerializedError
 
-// const IS_SERVER = typeof window === 'undefined'
-
 export const useUpdateAvatar = () => {
-  // useEffect(() => {
-  //   let avatar
-  //
-  //   if (!IS_SERVER) {
-  //     avatar = localStorage.getItem('myAvatar') ?? undefined
-  //   }
-  //   setAvatar(avatar)
-  // }, [])
   const [setPhoto] = useUploadUserPhotoMutation()
   const [deletePhoto] = useDeleteUserPhotoMutation()
   const { data: profile } = useProfileInformationQuery()
   const [avatar, setAvatar] = useState<string | undefined>(profile?.avatar?.url)
 
   const updateAvatar = async (newAvatar: File | undefined) => {
-    try {
-      if (newAvatar) {
+    if (newAvatar) {
+      convertFileToBase64(newAvatar, (file64: string) => {
+        setAvatar(file64)
+      })
+
+      try {
         const formData = new FormData()
 
         formData.append('file', newAvatar)
         await setPhoto({ file: formData }).unwrap()
-        convertFileToBase64(newAvatar, (file64: string) => {
-          setAvatar(file64)
-          // localStorage.setItem('myAvatar', file64)цомменте
-        })
-      } else {
-        await deletePhotoHandler()
-      }
-    } catch (err: unknown) {
-      const error = err as ErrorType
+      } catch (err: unknown) {
+        const error = err as ErrorType
 
-      handleErrorResponse(error)
+        handleErrorResponse(error)
+      }
+    } else {
+      await deletePhotoHandler()
     }
   }
 
   const deletePhotoHandler = async () => {
     try {
-      await deletePhoto().unwrap()
       setAvatar(undefined)
-      // localStorage.removeItem('myAvatar')
+      await deletePhoto().unwrap()
     } catch (err: unknown) {
       const error = err as ErrorType
 
