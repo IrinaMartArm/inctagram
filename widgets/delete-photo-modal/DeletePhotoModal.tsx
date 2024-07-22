@@ -23,7 +23,7 @@ export const DeletePhotoModal = ({
   const { t } = useTranslation()
 
   return (
-    <Modal defaultOpen={defaultOpen} title={title}>
+    <Modal open={defaultOpen} title={title}>
       <div className={s.wrapper}>
         <Typography variant={'regular_text-16'}>{text}</Typography>
         <div className={s.buttons}>
