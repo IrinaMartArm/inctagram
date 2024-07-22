@@ -30,7 +30,7 @@ export const PublicPostCard = (props: Props) => {
     if (isExpanded) {
       return (
         <>
-          {props.description.substring(0, 248)}...{' '}
+          {props.description.substring(0, 260)}...{' '}
           <span className={s.showMore} onClick={toggleExpanded}>
             Hide
           </span>
@@ -38,13 +38,13 @@ export const PublicPostCard = (props: Props) => {
       )
     }
 
-    if (props.description.length <= 76) {
+    if (props.description.length <= 56) {
       return props.description
     }
 
     return (
       <>
-        {props.description.substring(0, 76)}...{' '}
+        {props.description.substring(0, 56)}...{' '}
         <span className={s.showMore} onClick={toggleExpanded}>
           Show more
         </span>
@@ -54,7 +54,9 @@ export const PublicPostCard = (props: Props) => {
 
   return (
     <div className={s.container}>
-      <PhotoCarousel className={s.images} photos={props.imagesUrl} />
+      <div className={s.sliderContainer}>
+        <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
+      </div>
       <div className={clsx(s.content, isExpanded && s.expanded)}>
         <div className={s.user}>
           <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username} />
