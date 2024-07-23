@@ -3,19 +3,30 @@ import { NextPageWithLayout } from '@/pages/_app'
 import { PublicPostResponse } from '@/shared/assets/api/public-posts/types'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { useAppSelector } from '@/shared/assets/api/store'
-import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
 import { Header } from '@/widgets/header/Header'
 import { PublicPostCard } from '@/widgets/public-post-card/PublicPostCard'
+import { NextPageContext } from 'next'
 
 type Props = {
+  count: number
   posts: PublicPostResponse
   users: Record<string, UserProfile>
 }
 
-export const getStaticProps = async () => {
-  const postData = await fetch('https://inctagram.org/api/v1/public-posts')
+export const getStaticProps = async (context: NextPageContext) => {
+  const { query } = context
+  const pageSize = query?.pageSize || 4
+  const page = query?.page || 1
+
+  const countUsers = await fetch('https://inctagram.org/api/v1/public-user')
+
+  const postData = await fetch(
+    `https://inctagram.org/api/v1/public-posts?page=${page}&pageSize=${pageSize}`
+  )
+
+  const countData = await countUsers.json()
   const posts = await postData.json()
 
   const users: Record<string, UserProfile> = {}
@@ -30,6 +41,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
+      count: countData.totalCount,
       posts,
       users,
     },
@@ -37,15 +49,15 @@ export const getStaticProps = async () => {
   }
 }
 
-const Public: NextPageWithLayout<Props> = ({ posts, users }) => {
+const Public: NextPageWithLayout<Props> = ({ count, posts, users }) => {
   const isAuth = useAppSelector(isAuthSelector)
 
   return (
     <>
-      {/*<PageWrapper>*/}
       <HeadMeta title={'Public'} />
       <Header isAuth={isAuth} />
-      <main>
+      <main className={'main'}>
+        <h1>{count}</h1>
         <div className={'container'}>
           {posts?.items.map(post => (
             <PublicPostCard
@@ -60,7 +72,6 @@ const Public: NextPageWithLayout<Props> = ({ posts, users }) => {
         </div>
       </main>
     </>
-    // </PageWrapper>
   )
 }
 
