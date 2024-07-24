@@ -47,7 +47,7 @@ export const PostMenu = ({ postId }: Props) => {
               </Button>
             }
           >
-            {/*<EditPostModal />*/}
+            <EditPostModal postId={postId} postImg={''} />
           </Modal>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>

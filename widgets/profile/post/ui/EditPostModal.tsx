@@ -60,7 +60,13 @@ export const EditPostModal = ({ postId, postImg }) => {
             title={'Save Changes'}
             trigger={
               <div className={s.button}>
-                <Button type={'submit'}>{'Save Changes'}</Button>
+                <Button
+                  onClick={() => {
+                    console.log('click')
+                  }}
+                >
+                  Save Changes
+                </Button>
               </div>
             }
           >

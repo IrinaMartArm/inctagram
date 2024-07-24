@@ -3,7 +3,6 @@
 .root {
   @include flex(column, flex-start, center, 50px);
   height: 100vh;
-  overflow-y: scroll;
 }
 
 .info_wrapper {
@@ -55,6 +54,7 @@
 .posts {
   @include flex(row, center, center, 20px);
   flex-wrap: wrap;
+  overflow-y: scroll;
 }
 
 .test {

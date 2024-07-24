@@ -109,15 +109,15 @@ const postApi = baseApi.injectEndpoints({
         // },
       }),
       getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
-        // forceRefetch({ currentArg, previousArg }) {
-        //   return currentArg !== previousArg
-        // },
-        // merge: (currentCache, newItems, otherArgs) => {
-        //   if (!newItems) {
-        //     return
-        //   }
-        //   currentCache.items.push(...newItems.items)
-        // },
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg !== previousArg
+        },
+        merge: (currentCache, newItems, otherArgs) => {
+          if (!newItems) {
+            return
+          }
+          currentCache.items.push(...newItems.items)
+        },
         providesTags: ['MyPosts'],
         query: ({ page, pageSize, userId }) => {
           return {
@@ -126,9 +126,9 @@ const postApi = baseApi.injectEndpoints({
             url: `v1/post/${userId}`,
           }
         },
-        // serializeQueryArgs: ({ endpointName }) => {
-        //   return endpointName
-        // },
+        serializeQueryArgs: ({ endpointName }) => {
+          return endpointName
+        },
       }),
     }
   },

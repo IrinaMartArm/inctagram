@@ -3,6 +3,7 @@
 .container {
   display: flex;
   height: 504px;
+  z-index: 9999999;
 }
 
 .header {

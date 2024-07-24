@@ -2,7 +2,6 @@ import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getMainLayout } from '@/shared/components/layout/mainLayout/MainLayout'
 import { MyProfile } from '@/widgets'
-import { useRouter } from 'next/router'
 
 const Profile = () => {
   return (

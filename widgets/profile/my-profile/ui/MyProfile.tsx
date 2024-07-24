@@ -21,24 +21,20 @@ export const MyProfile = () => {
   const router = useRouter()
   const { id } = router.query
   const [page, setPage] = useState(1)
-  const [skip, setSkip] = useState(true)
   const pageSize = 8
   const { data: profile } = useProfileInformationQuery()
   const {
     data: posts,
     isFetching,
     isLoading,
-  } = useGetPostsByUserIdQuery(
-    {
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-      userId: typeof id === 'string' ? id : '',
-    },
-    { skip: skip }
-  )
+  } = useGetPostsByUserIdQuery({
+    page: page.toString(),
+    pageSize: pageSize.toString(),
+    userId: typeof id === 'string' ? id : '',
+  })
 
   const loadMorePosts = useCallback(() => {
-    if (!isFetching && !isLoading && posts!.pagesCount > page) {
+    if (!isFetching && !isLoading && posts && posts.pagesCount > page) {
       setPage(prevPage => prevPage + 1)
     }
   }, [isFetching, isLoading])
@@ -49,7 +45,6 @@ export const MyProfile = () => {
         window.innerHeight + document.documentElement.scrollTop >=
         document.documentElement.offsetHeight
       ) {
-        setSkip(false)
         loadMorePosts()
       }
     }

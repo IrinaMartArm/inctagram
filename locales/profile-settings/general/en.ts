@@ -18,7 +18,7 @@ export default {
   firstName: 'First Name',
   invalidLastName: 'The lastname must contain',
   invalidName: 'The name must contain',
-  invalidUsername: 'The username must contain',
+  invalidUsername: 'The username must contain 50 symbols',
   lastName: 'Last Name',
   saveChanges: 'Save Changes',
   savePhoto: 'Save',

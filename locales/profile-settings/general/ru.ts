@@ -17,7 +17,7 @@ export default {
     success: 'Ваши настройки сохранены!',
   },
   firstName: 'Имя',
-  invalidLastName: 'The lastname must contain',
+  invalidLastName: 'Фамилия должна содержать не более 50 символов',
   invalidName: 'Имя должно содержать',
   invalidUsername: 'Имя должно содержать',
   lastName: 'Фамилия',
