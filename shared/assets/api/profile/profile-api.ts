@@ -9,12 +9,29 @@ export const ProfileApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       deleteUserPhoto: builder.mutation<void, void>({
+        invalidatesTags: ['Profile'],
         query: () => ({
           method: 'DELETE',
           url: 'v1/user/delete-user-photo',
         }),
       }),
       fillOutProfile: builder.mutation<void, UserProfileArgs>({
+        invalidatesTags: ['Profile'],
+
+        onQueryStarted: async ({ ...arg }, { dispatch, getState, queryFulfilled }) => {
+          const patchResult = dispatch(
+            ProfileApi.util.updateQueryData('profileInformation', undefined, draft => {
+              Object.assign(draft, arg)
+            })
+          )
+
+          try {
+            await queryFulfilled
+          } catch {
+            patchResult?.undo()
+          }
+        },
+
         query: body => ({
           body,
           method: 'PUT',
@@ -23,6 +40,7 @@ export const ProfileApi = baseApi.injectEndpoints({
         }),
       }),
       profileInformation: builder.query<UserProfileResponse, void>({
+        providesTags: ['Profile'],
         query: arg => ({
           url: 'v1/user/profile-information',
         }),
