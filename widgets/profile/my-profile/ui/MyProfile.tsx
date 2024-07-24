@@ -73,14 +73,12 @@ export const MyProfile = () => {
             <Info number={publicationsN} title={t.publications} />
           </div>
           <div className={s.third_row}>
-            <Typography variant={'regular_text-16'}>
-              {profile?.aboutMe || t.aboutMePlaceholder}
-            </Typography>
+            <Typography variant={'regular_text-16'}>{profile?.aboutMe}</Typography>
           </div>
         </div>
       </div>
       <div className={s.posts}>
-        {posts && posts?.items.length > 0
+        {posts
           ? posts?.items.map(post => (
               <Modal
                 className={s.modal}

@@ -12,7 +12,6 @@ import {
   Modal,
   ModalWindow,
 } from '@/shared/components'
-import { EditPostModal } from '@/widgets/profile/post/ui/EditPostModal'
 import { PostEdit } from '@/widgets/profile/post-edit/PostEdit'
 
 import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
@@ -69,7 +68,7 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Modal
-              title={'Delete Post'}
+              title={t.post.deletePost}
               trigger={
                 <Button className={d.item} icon={<Trash />} variant={'icon'}>
                   {t.post.deletePost}
