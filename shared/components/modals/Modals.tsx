@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, MouseEvent, ReactNode, forwardRef } from 'react'
 
 import { Close } from '@/public'
 import { Button, Typography } from '@/shared/components'
@@ -11,6 +11,7 @@ import s from './Modals.module.scss'
 
 export type Props = {
   className?: string
+  handleCloseClickButton?: () => void
   handleCloseClickOutside?: () => void
   title?: string
   trigger?: ReactNode
@@ -20,6 +21,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
   const {
     children,
     className,
+    handleCloseClickButton,
     handleCloseClickOutside,
     onOpenChange,
     open,
@@ -27,6 +29,18 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
     trigger,
     ...rest
   } = props
+
+  const handleCloseClick = (event: MouseEvent) => {
+    event.preventDefault()
+
+    if (handleCloseClickButton) {
+      handleCloseClickButton()
+    }
+
+    if (onOpenChange) {
+      onOpenChange(false)
+    }
+  }
 
   return (
     <RadixModal.Root {...rest} onOpenChange={onOpenChange} open={open}>
@@ -40,6 +54,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
             <RadixModal.Content
               asChild
               className={s.width}
+              onFocus={event => event.stopPropagation()}
               onInteractOutside={event => {
                 if (handleCloseClickOutside) {
                   event.preventDefault()
@@ -56,7 +71,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
                       {title}
                     </Typography>
                     <ModalClose>
-                      <Button icon={<Close />} onClick={onOpenChange} variant={'icon'} />
+                      <Button icon={<Close />} onClick={handleCloseClick} variant={'icon'} />
                     </ModalClose>
                   </div>
                 )}

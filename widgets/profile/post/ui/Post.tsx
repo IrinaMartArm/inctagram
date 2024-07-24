@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
-import { PostType } from '@/shared/assets/api/post/types'
+import { MyPostType } from '@/shared/assets/api/post/types'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
@@ -10,7 +10,7 @@ import s from './post.module.scss'
 type Props = {
   avatar: string
   key?: number
-  post: PostType
+  post: MyPostType
 }
 
 export const Post = ({ avatar, post }: Props) => {
@@ -30,7 +30,13 @@ export const Post = ({ avatar, post }: Props) => {
             <AvatarSimple src={avatar} title={'me'} />
             <Typography variant={'h3'}>{post?.username}</Typography>
           </div>
-          {isOwner && <PostMenu postId={post.id} />}
+          {isOwner && (
+            <PostMenu
+              postDescription={post.description}
+              postId={post.id}
+              postImg={post?.images[0]}
+            />
+          )}
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>

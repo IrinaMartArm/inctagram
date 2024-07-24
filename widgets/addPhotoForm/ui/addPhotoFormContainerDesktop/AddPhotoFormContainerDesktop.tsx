@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useRef } from 'react'
 
+import { addPhotoActions } from '@/entities'
 import { AddPhotoBackGround } from '@/public/icons/AddPhotoBackGround'
-import { Button, Typography } from '@/shared/components'
+import { Alert, Button, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import { ConfirmableModal } from '@/widgets/addPhotoForm/ui/confirmableModal/ConfirmableModal'
 import { CroppingPhoto } from '@/widgets/addPhotoForm/ui/croppingPhoto/CroppingPhoto'
@@ -13,10 +14,17 @@ type Props = {
   confirmOpen: boolean
   setConfirmOpen: (val: boolean) => void
   setOpen: (val: boolean) => void
+  toggleModal: (val: boolean) => void
 }
 
-export const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setOpen }: Props) => {
-  const { deleteImgCallback, errorFile, imgChangeCallback, modalState, t } = useAddPhotoForm()
+export const AddPhotoFormContainerDesktop = ({
+  confirmOpen,
+  setConfirmOpen,
+  setOpen,
+  toggleModal,
+}: Props) => {
+  const { deleteImgCallback, error, errorFile, imgChangeCallback, modalState, t } =
+    useAddPhotoForm()
   const handleInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     e.preventDefault()
     inputRef.current?.click()
@@ -30,6 +38,7 @@ export const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setO
     <>
       {modalState === 'add-photo' && (
         <div className={s.root}>
+          {error && <Alert isShowClose={false} title={t.addPhotoForm.fileSize} variant={'error'} />}
           <AddPhotoBackGround />
           <div className={s.controller}>
             <input
@@ -74,6 +83,7 @@ export const AddPhotoFormContainerDesktop = ({ confirmOpen, setConfirmOpen, setO
           confirmOpen={confirmOpen}
           setConfirmOpen={setConfirmOpen}
           setOpen={setOpen}
+          toggleModal={toggleModal}
         />
       )}
     </>

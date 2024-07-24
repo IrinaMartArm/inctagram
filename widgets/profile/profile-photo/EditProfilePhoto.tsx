@@ -59,6 +59,9 @@ export const EditProfilePhoto = ({
 
   const saveImage = () => {
     if (editorRef.current) {
+      setIsShowEditor(false)
+      setIsShowModal(false)
+
       const canvas = editorRef.current.getImage()
       const dataUrl = canvas.toDataURL()
 
@@ -69,14 +72,16 @@ export const EditProfilePhoto = ({
 
           updateAvatar(file)
         })
-
-      setIsShowEditor(false)
-      setIsShowModal(false)
     }
   }
 
   return (
-    <Modal defaultOpen={defaultOpen} title={t.addPhoto}>
+    <Modal
+      handleCloseClickButton={() => setIsShowModal(false)}
+      handleCloseClickOutside={() => setIsShowModal(false)}
+      open={defaultOpen}
+      title={t.addPhoto}
+    >
       <div className={s.wrapper}>
         {(errorFile || error) && (
           <Alert isShowClose={false} title={errorFile || error || ''} variant={'error'} />

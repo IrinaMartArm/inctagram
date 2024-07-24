@@ -8,6 +8,7 @@ const slice = createSlice({
   initialState: {
     cropImages: ([] as string[]) || null,
     cropImagesWithFilter: ([] as CropImageWithFilter[]) || null,
+    error: false as boolean,
     images: ([] as string[]) || null,
     isOpen: false as boolean,
     modalState: 'add-photo' as ModalState,
@@ -56,6 +57,9 @@ const slice = createSlice({
         filter: filter,
         img: cropImageWithFilter,
       }
+    },
+    setError: (state, action: PayloadAction<boolean>) => {
+      state.error = action.payload
     },
     setIsOpen: (state, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload

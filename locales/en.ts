@@ -2,10 +2,12 @@ import { LocaleType } from 'locales/ru'
 
 export const en: LocaleType = {
   addPhotoForm: {
+    close: 'Close',
     cropping: 'Cropping',
     discard: 'Discard',
-    fileSize: 'The photo must be less than 20 Mb and have JPEG or PNG format',
+    fileSize: 'The photo must be less than 20 Mb',
     filters: 'Filters',
+    next: 'Next',
     openDraft: 'Open draft',
     publication: 'Publication',
     publish: 'Publish',
