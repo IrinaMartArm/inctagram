@@ -1,6 +1,6 @@
 import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
-import { getMainLayout } from '@/shared/components/layout/mainLayout/MainLayout'
+import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { MyProfile } from '@/widgets'
 
 const Profile = () => {
@@ -12,5 +12,5 @@ const Profile = () => {
   )
 }
 
-Profile.getLayout = getMainLayout
+Profile.getLayout = getMixLayout
 export default Profile
