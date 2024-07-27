@@ -13,7 +13,7 @@ const ru = {
   formEmail: 'Электронная почта должна соответствовать формату\n' + 'example@example.com',
   haveSent: 'Мы отправили ссылку для подтверждения вашей электронной почты на ',
   invalidPassword: 'Пароль должен содержать',
-  invalidUsername: 'Имя должно содержать',
+  invalidUsername: 'Имя может содержать',
   name: 'Имя пользователя',
   password: 'Пароль',
   passwordConfirmation: 'Подтверждение пароля',

@@ -54,6 +54,12 @@ export const MyProfile = () => {
     return () => window.removeEventListener('scroll', handleScroll, { capture: true })
   }, [loadMorePosts])
 
+  // useEffect(() => {
+  //   if (!isFetching && !isLoading && posts && posts.length < page * pageSize) {
+  //     loadMorePosts()
+  //   }
+  // }, [isFetching, isLoading, posts, page, pageSize, loadMorePosts])
+
   return (
     <div className={s.root}>
       <div className={s.info_wrapper}>
@@ -78,7 +84,7 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}>
-        {posts
+        {posts && posts?.items.length > 0
           ? posts?.items.map(post => (
               <Modal
                 className={s.modal}
