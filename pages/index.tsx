@@ -6,6 +6,7 @@ import { useAppSelector } from '@/shared/assets/api/store'
 import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
+import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { Header } from '@/widgets/header/Header'
 import { PublicPostCard } from '@/widgets/public-post-card/PublicPostCard'
 
@@ -38,13 +39,10 @@ export const getStaticProps = async () => {
 }
 
 const Public: NextPageWithLayout<Props> = ({ posts, users }) => {
-  const isAuth = useAppSelector(isAuthSelector)
-
   return (
     <>
       {/*<PageWrapper>*/}
       <HeadMeta title={'Public'} />
-      <Header isAuth={isAuth} />
       <main>
         <div className={'container'}>
           {posts?.items.map(post => (
@@ -64,5 +62,5 @@ const Public: NextPageWithLayout<Props> = ({ posts, users }) => {
   )
 }
 
-Public.getLayout = getLayout
+Public.getLayout = getMixLayout
 export default Public

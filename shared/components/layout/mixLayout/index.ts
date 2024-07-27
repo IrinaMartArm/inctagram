@@ -1,0 +1,1 @@
+export { getMixLayout } from './MixLayout'

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
+import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
 import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { useTranslationPages } from '@/shared/assets/hooks'
@@ -21,21 +22,20 @@ export const MyProfile = () => {
   const router = useRouter()
   const { id } = router.query
   const [page, setPage] = useState(1)
-  // const [skip, setSkip] = useState(true)
   const pageSize = 8
   const { data: profile } = useProfileInformationQuery()
+  const { data: user } = useMeQuery()
   const {
     data: posts,
     isFetching,
     isLoading,
-  } = useGetPostsByUserIdQuery(
-    {
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-      userId: typeof id === 'string' ? id : '',
-    }
-    // { skip: skip }
-  )
+  } = useGetPostsByUserIdQuery({
+    page: page.toString(),
+    pageSize: pageSize.toString(),
+    userId: typeof id === 'string' ? id : '',
+  })
+
+  const isOwner = user?.userId === id
 
   // const loadMorePosts = useCallback(() => {
   //   if (!isFetching && !isLoading) {
@@ -73,9 +73,11 @@ export const MyProfile = () => {
         <div className={s.info_block}>
           <div className={s.first_row}>
             <Typography variant={'h1'}>{profile?.username || ''}</Typography>
-            <Button as={Link} href={Paths.PROFILE_GENERAL} variant={'secondary'}>
-              {t.settingsBtn}
-            </Button>
+            {isOwner && (
+              <Button as={Link} href={Paths.PROFILE_GENERAL} variant={'secondary'}>
+                {t.settingsBtn}
+              </Button>
+            )}
           </div>
           <div className={s.second_row}>
             <Info number={followingN} title={t.following} />
