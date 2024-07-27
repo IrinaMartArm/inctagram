@@ -17,7 +17,7 @@ export const Post = ({ avatar, post }: Props) => {
   const isOwner = true
   const avatars = ['', '', '']
 
-  const { control, handleSubmit, reset } = useForm({})
+  const { control } = useForm({})
 
   return (
     <div className={s.root}>

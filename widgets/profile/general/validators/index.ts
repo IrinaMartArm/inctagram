@@ -38,11 +38,11 @@ export const profileFormSchema = (t: LocaleType) => {
     firstName: z
       .string()
       .min(1, t.profileSettings.errors.firstName)
-      .max(50, `${t.profileSettings.errors.maxCount}' 50'`)
+      .max(50, `${t.profileSettings.invalidLastName}`)
       .regex(
         ME_REGEX,
         `${t.profileSettings.invalidName} A-Z; a-z;
-А-Я; а-я` + 'A-Z; a-z; А-Я; а-я'
+А-Я; а-я`
       ),
     lastName: z
       .string()

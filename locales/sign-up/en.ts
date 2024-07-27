@@ -15,7 +15,7 @@ const en: SignUpLocale = {
   formEmail: 'The email must match the format\n' + 'example@example.com',
   haveSent: 'We have sent a link to confirm your email to',
   invalidPassword: 'Password must contain',
-  invalidUsername: 'The username must contain',
+  invalidUsername: 'The username can contain',
   name: 'Username',
   password: 'Password',
   passwordConfirmation: 'Password confirmation',
