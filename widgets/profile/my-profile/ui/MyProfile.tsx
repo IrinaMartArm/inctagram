@@ -36,11 +36,6 @@ export const MyProfile = () => {
   })
 
   const isOwner = user?.userId === id
-  } = useGetPostsByUserIdQuery({
-    page: page.toString(),
-    pageSize: pageSize.toString(),
-    userId: typeof id === 'string' ? id : '',
-  })
 
   const loadMorePosts = useCallback(() => {
     if (!isFetching && !isLoading && posts && posts.pagesCount > page) {
