@@ -31,6 +31,7 @@ export const General = ({ profile }: Props) => {
     handleSubmit,
     isShowModal,
     isValid,
+    loading,
     onSubmit,
     selectedCity,
     selectedCountry,
@@ -111,9 +112,11 @@ export const General = ({ profile }: Props) => {
           />
         </div>
       </div>
-      <Button className={s.button} disabled={!isValid} type={'submit'}>
+
+      <Button className={s.button} disabled={!isValid || loading} type={'submit'}>
         {t.profileSettings.saveChanges}
       </Button>
+
       {isShowModal && (
         <EditProfilePhoto
           defaultOpen={isShowModal}
