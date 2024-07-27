@@ -43,7 +43,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     resolver: zodResolver(profileFormSchema(t)),
   })
 
-  const [fillOutProfile, {}] = useFillOutProfileMutation()
+  const [fillOutProfile, { isLoading: loading }] = useFillOutProfileMutation()
 
   const alertHandler = () => {
     setShowAlert(!showAlert)
@@ -105,6 +105,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     handleSubmit,
     isShowModal,
     isValid,
+    loading,
     onSubmit,
     reset,
     selectedCity,

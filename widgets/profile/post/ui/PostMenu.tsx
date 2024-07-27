@@ -68,7 +68,7 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Modal
-              title={'Delete Post'}
+              title={t.post.deletePost}
               trigger={
                 <Button className={d.item} icon={<Trash />} variant={'icon'}>
                   {t.post.deletePost}

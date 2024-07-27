@@ -120,13 +120,20 @@ const postApi = baseApi.injectEndpoints({
       }),
       getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
         // forceRefetch({ currentArg, previousArg }) {
-        //   return currentArg !== previousArg
+        //   return currentArg?.page !== previousArg?.page
         // },
-        // merge: (currentCache, newItems, otherArgs) => {
-        //   if (!newItems) {
-        //     return
+        // merge: (currentCache, newItems) => {
+        //   if (currentCache) {
+        //     currentCache.items.push(...newItems.items)
+        //     currentCache.page = newItems.page
+        //     // currentCache.hasMore = res.hasMore
+        //   } else {
+        //     return newItems
         //   }
-        //   currentCache.items.push(...newItems.items)
+        //   // if (!newItems) {
+        //   //   return
+        //   // }
+        //   // currentCache.items.push(...newItems.items)
         // },
         providesTags: ['MyPosts'],
         query: ({ page, pageSize, userId }) => {
