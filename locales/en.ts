@@ -69,8 +69,14 @@ export const en: LocaleType = {
     success: 'Your settings are saved!',
     username: 'Username',
   },
+
+  showMore: {
+    hideText: 'Hide',
+    showMore: 'Show more',
+  },
   signIn: 'Sign In',
   signUp: 'Sign Up',
+
   verification: {
     description:
       'Looks like the verification link has expired. Not to worry, we can send the link again',

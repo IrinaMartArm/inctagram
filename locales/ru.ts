@@ -67,6 +67,10 @@ export const ru = {
     success: 'Your settings are saved!',
     username: 'Имя пользователя',
   },
+  showMore: {
+    hideText: 'Скрыть',
+    showMore: 'Показать больше',
+  },
   signIn: 'Войти',
   signUp: 'Зарегистрироваться',
   verification: {
