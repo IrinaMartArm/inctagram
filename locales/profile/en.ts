@@ -7,6 +7,7 @@ export default {
     error: 'Description cannot exceed 500 characters',
     label: 'Add publication descriptions',
     text: 'If you close changes won’t be saved. Do you really want to close the edition of the publication',
+
     titleConfirm: 'Close Post',
     titleEdit: 'Edit Post',
   },
