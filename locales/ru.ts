@@ -21,6 +21,9 @@ export const ru = {
     no: 'Нет',
     yes: 'Да',
   },
+  countText: {
+    title: 'Зарегистрированные пользователи:',
+  },
   emailSent: 'Письмо отправлено',
   logOut: {
     title: 'Выход',
@@ -66,6 +69,10 @@ export const ru = {
     selectYourCountry: 'Выберите вашу страну',
     success: 'Your settings are saved!',
     username: 'Имя пользователя',
+  },
+  showMore: {
+    hideText: 'Скрыть',
+    showMore: 'Показать больше',
   },
   signIn: 'Войти',
   signUp: 'Зарегистрироваться',

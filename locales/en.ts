@@ -23,6 +23,9 @@ export const en: LocaleType = {
     no: 'No',
     yes: 'Yes',
   },
+  countText: {
+    title: 'Registered users:',
+  },
   emailSent: 'Email sent',
   logOut: {
     title: 'Log Out',
@@ -37,6 +40,7 @@ export const en: LocaleType = {
     search: 'Search',
     statistics: 'Statistics',
   },
+
   profileSettings: {
     1: 'Privacy Policy',
     aboutMe: 'About Me',
@@ -69,7 +73,12 @@ export const en: LocaleType = {
     success: 'Your settings are saved!',
     username: 'Username',
   },
+  showMore: {
+    hideText: 'Hide',
+    showMore: 'Show more',
+  },
   signIn: 'Sign In',
+
   signUp: 'Sign Up',
   verification: {
     description:
