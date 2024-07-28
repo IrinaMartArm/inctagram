@@ -3,8 +3,10 @@ import { NextPageWithLayout } from '@/pages/_app'
 import { PublicPostResponse } from '@/shared/assets/api/public-posts/types'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { useAppSelector } from '@/shared/assets/api/store'
+import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
+import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { Header } from '@/widgets/header/Header'
 import { PublicPostCard } from '@/widgets/public-post-card/PublicPostCard'
 import { NextPageContext } from 'next'
@@ -49,14 +51,12 @@ export const getStaticProps = async (context: NextPageContext) => {
   }
 }
 
-const Public: NextPageWithLayout<Props> = ({ count, posts, users }) => {
-  const isAuth = useAppSelector(isAuthSelector)
-
+const Public: NextPageWithLayout<Props> = ({count, posts, users }) => {
   return (
     <>
+      {/*<PageWrapper>*/}
       <HeadMeta title={'Public'} />
-      <Header isAuth={isAuth} />
-      <main className={'main'}>
+      <main>
         <h1>{count}</h1>
         <div className={'container'}>
           {posts?.items.map(post => (
@@ -72,8 +72,9 @@ const Public: NextPageWithLayout<Props> = ({ count, posts, users }) => {
         </div>
       </main>
     </>
+    // </PageWrapper>
   )
 }
 
-Public.getLayout = getLayout
+Public.getLayout = getMixLayout
 export default Public

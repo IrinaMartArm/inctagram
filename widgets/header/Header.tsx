@@ -19,6 +19,8 @@ export const Header = ({ isAuth }: Props) => {
   const { t } = useTranslation()
   const isMobile = useIsMobile(MOBILE_BREAKPOINT)
 
+  console.log('isAuth', isAuth)
+
   return (
     <div className={s.root}>
       <div className={s.header}>
