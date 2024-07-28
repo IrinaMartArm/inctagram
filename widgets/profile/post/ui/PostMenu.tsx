@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { Edit, More, Trash } from '@/public'
 import { useTranslationPages } from '@/shared/assets'
@@ -27,6 +27,10 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
   const { t } = useTranslationPages()
   const [deletePost] = useDeletePostMutation()
   const [open, setOpen] = useState(false)
+  const [isDescriptionChanged, setIsDescriptionChanged] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
+
   const onOpenChangeHandler = () => {
     setOpen(!open)
   }
@@ -34,9 +38,6 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
   const handleDeletePost = async () => {
     deletePost({ id: postId }).unwrap()
   }
-
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
 
   const handlePostEdit = () => {
     setIsEditModalOpen(true)
@@ -51,8 +52,21 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
   }
 
   const handleOpenConfirmModal = () => {
-    setIsConfirmModalOpen(true)
+    setIsConfirmModalOpen(isDescriptionChanged)
+    if (!isDescriptionChanged) {
+      setIsEditModalOpen(false)
+    }
   }
+
+  const handleChangeDescription = (changed: boolean) => {
+    setIsDescriptionChanged(changed)
+  }
+
+  useEffect(() => {
+    if (!isConfirmModalOpen && !isEditModalOpen) {
+      setIsDescriptionChanged(false)
+    }
+  }, [isConfirmModalOpen, isEditModalOpen])
 
   return (
     <>
@@ -90,6 +104,7 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
       >
         <PostEdit
           handleCancelEditModal={handleCancelEditModal}
+          handleChangeDescription={handleChangeDescription}
           postDescription={postDescription}
           postId={postId}
           postImg={postImg}
@@ -105,6 +120,7 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
           callback={() => {
             handleCancelConfirmModal()
             handleCancelEditModal()
+            handleChangeDescription(false)
           }}
           text={t.edit.text}
         />
