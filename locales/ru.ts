@@ -21,6 +21,9 @@ export const ru = {
     no: 'Нет',
     yes: 'Да',
   },
+  countText: {
+    title: 'Зарегистрированные пользователи:',
+  },
   emailSent: 'Письмо отправлено',
   logOut: {
     title: 'Выход',

@@ -20,7 +20,7 @@ type Props = {
 export const PublicPostCard = (props: Props) => {
   const { t } = useTranslation()
 
-  const truncateMore = 50
+  const truncateMore = 60
   const truncateLess = 200
 
   const [isExpanded, setIsExpanded] = useState(false)
@@ -56,7 +56,7 @@ export const PublicPostCard = (props: Props) => {
   }
 
   return (
-    <div className={s.container}>
+    <article className={s.container}>
       <div className={s.sliderContainer}>
         <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
       </div>
@@ -74,6 +74,6 @@ export const PublicPostCard = (props: Props) => {
           {renderDescription()}
         </Typography>
       </div>
-    </div>
+    </article>
   )
 }
