@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Edit, More, Trash } from '@/public'
 import { useTranslationPages } from '@/shared/assets'
