@@ -8,6 +8,7 @@ type PropsType<T extends FieldValues> = Omit<
   'defaultValue' | 'disabled' | 'rules'
 > &
   Omit<TextAreaProps, 'onChange' | 'value'>
+
 export const ControlledTextArea = <T extends FieldValues>({
   control,
   errorMessage,

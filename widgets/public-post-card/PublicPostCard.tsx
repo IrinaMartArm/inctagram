@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { useTranslation } from '@/shared/assets'
 import { useTimeAgo } from '@/shared/assets/hooks/useTimeAgo'
 import { AvatarSimple, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
