@@ -57,6 +57,7 @@ export const PublicPostCard = (props: Props) => {
 
   return (
     <article className={s.container}>
+      <div className={s.link}></div>
       <div className={s.sliderContainer}>
         <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
       </div>
