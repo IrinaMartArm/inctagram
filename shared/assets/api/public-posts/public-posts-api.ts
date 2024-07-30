@@ -1,17 +1,17 @@
 import { baseApi } from '@/shared/assets'
 import { PublicPostByIdResponse, PublicPostResponse } from '@/shared/assets/api/public-posts/types'
 
-export const PublicPostsApi = baseApi.injectEndpoints({
+export const publicPostsApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      publicPostById: builder.query<PublicPostByIdResponse, void>({
+      getPublicPostById: builder.query<PublicPostByIdResponse, { postId: number }>({
         providesTags: ['PublicPosts'],
         query: postId => ({
           url: `v1/public-posts/${postId}`,
         }),
       }),
 
-      publicPosts: builder.query<PublicPostResponse, void>({
+      getPublicPosts: builder.query<PublicPostResponse, void>({
         providesTags: ['PublicPosts'],
         query: () => ({
           url: 'v1/public-posts',
@@ -21,4 +21,5 @@ export const PublicPostsApi = baseApi.injectEndpoints({
   },
 })
 
-export const { usePublicPostByIdQuery, usePublicPostsQuery } = PublicPostsApi
+export const { getPublicPostById, getPublicPosts } = publicPostsApi.endpoints
+export const { useGetPublicPostByIdQuery, useGetPublicPostsQuery } = publicPostsApi

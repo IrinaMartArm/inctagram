@@ -24,7 +24,7 @@ export const MyProfile = () => {
   const [page, setPage] = useState(1)
   const pageSize = 8
   const { data: profile } = useProfileInformationQuery()
-  const { data: user } = useMeQuery()
+
   const {
     data: posts,
     isFetching,
@@ -90,7 +90,7 @@ export const MyProfile = () => {
         </div>
       </div>
       <div className={s.posts}>
-        {posts && posts?.items.length > 0
+        {posts
           ? posts?.items.map(post => (
               <Modal
                 className={s.modal}

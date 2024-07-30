@@ -9,6 +9,7 @@ import {
   PostsType,
   getPostArgs,
 } from '@/shared/assets/api/post/types'
+import { PublicUserApi } from '@/shared/assets/api/public-user/public-user-api'
 import { getState } from '@vitest/expect'
 import { current } from 'immer'
 import { patchConsoleError } from 'next/dist/client/components/react-dev-overlay/internal/helpers/hydration-error-info'
@@ -151,6 +152,7 @@ const postApi = baseApi.injectEndpoints({
   },
 })
 
+export const { getPostsByUserId } = postApi.endpoints
 export const {
   useAddPostMutation,
   useDeletePostMutation,

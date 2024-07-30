@@ -4,7 +4,7 @@ import { UserProfile } from '@/shared/assets/api/public-user/types'
 export const PublicUserApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      publicUsers: builder.query<UserProfile, void>({
+      getPublicUsers: builder.query<UserProfile, { username: string }>({
         providesTags: ['PublicUser'],
         query: username => ({
           url: `/v1/public-user/${username}`,
@@ -14,4 +14,5 @@ export const PublicUserApi = baseApi.injectEndpoints({
   },
 })
 
-export const { usePublicUsersQuery } = PublicUserApi
+export const { getPublicUsers } = PublicUserApi.endpoints
+export const { useGetPublicUsersQuery } = PublicUserApi
