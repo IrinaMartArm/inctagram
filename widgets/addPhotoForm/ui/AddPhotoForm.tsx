@@ -1,6 +1,5 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 
-import { addPhotoActions } from '@/entities'
 import { PlusSquare_outline } from '@/public'
 import { TABLET_BREAKPOINT, useIsMobile } from '@/shared/assets'
 import { useAppDispatch } from '@/shared/assets/api/store'
@@ -17,17 +16,15 @@ type Props = { isTextHidden?: boolean }
 export const AddPhotoForm = ({ isTextHidden }: Props) => {
   const dispatch = useAppDispatch()
   const { imgChangeCallback, isOpen, modalState, t, toggleModal } = useAddPhotoForm()
-  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState<string>('')
 
   const isMobile = useIsMobile(TABLET_BREAKPOINT)
 
   const handleCloseClickOutside = () => {
     if (modalState === 'add-photo') {
-      dispatch(addPhotoActions.setError(false))
       toggleModal(false)
     } else {
-      dispatch(addPhotoActions.setError(false))
-      setConfirmOpen(true)
+      setConfirmOpen('outside')
     }
   }
   const classNamesRoot = clsx(

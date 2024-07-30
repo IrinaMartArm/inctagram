@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 
 import s from './confirmableModal.module.scss'
 type Props = {
-  confirmOpen: boolean
-  setConfirmOpen: (val: boolean) => void
+  confirmOpen: string
+  setConfirmOpen: (val: string) => void
   setOpen: (val: boolean) => void
   toggleModal: (val: boolean) => void
 }
@@ -17,35 +17,53 @@ export const ConfirmableModal = ({ confirmOpen, setConfirmOpen, setOpen, toggleM
   const { t } = useAddPhotoForm()
   const dispatch = useAppDispatch()
   const handleConfirmClose = () => {
-    dispatch(addPhotoActions.discardAll())
-    setOpen(false)
-    setConfirmOpen(false)
+    if (confirmOpen === 'outside') {
+      dispatch(addPhotoActions.discardAll())
+      setOpen(false)
+      setConfirmOpen('')
+    } else if (confirmOpen === 'back') {
+      dispatch(addPhotoActions.setModalStateTo('add-photo'))
+      setConfirmOpen('')
+    }
   }
 
   const handleCancelClose = () => {
-    void router.push(Paths.HOME)
-    setConfirmOpen(false)
-    toggleModal(false)
+    if (confirmOpen === 'outside') {
+      void router.push(Paths.HOME)
+      setConfirmOpen('')
+      toggleModal(false)
+    } else if (confirmOpen[1] === 'back') {
+      setConfirmOpen('')
+    }
+  }
+  const handleSetConfirmOpen = (close: boolean) => {
+    setConfirmOpen('')
   }
 
   return (
     <Modal
       className={s.modal}
-      onOpenChange={setConfirmOpen}
-      open={confirmOpen}
+      onOpenChange={handleSetConfirmOpen}
+      open={!!confirmOpen}
       title={t.addPhotoForm.close}
     >
       <div className={s.root}>
-        <Typography variant={'regular_text-16'}>{t.addPhotoForm.warningQ}</Typography>
+        <Typography variant={'regular_text-16'}>
+          {confirmOpen == 'outside' ? t.addPhotoForm.warningQ : t.addPhotoForm.attentionA}
+        </Typography>
         <br />
         <Typography variant={'regular_text-16'}>{t.addPhotoForm.warningR}</Typography>
         <div className={s.controller}>
           <Button onClick={handleConfirmClose} variant={'outlined'}>
-            <Typography variant={'h3'}>{t.addPhotoForm.discard}</Typography>
+            <Typography variant={'h3'}>
+              {confirmOpen == 'outside' ? t.addPhotoForm.discard : t.common.yes}
+            </Typography>
           </Button>
           <ModalClose>
             <Button onClick={handleCancelClose}>
-              <Typography variant={'h3'}>{t.addPhotoForm.saveDraft}</Typography>
+              <Typography variant={'h3'}>
+                {confirmOpen == 'outside' ? t.addPhotoForm.saveDraft : t.common.no}
+              </Typography>
             </Button>
           </ModalClose>
         </div>

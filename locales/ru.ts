@@ -1,5 +1,6 @@
 export const ru = {
   addPhotoForm: {
+    attentionA: 'Вы действительно хотите выйти к добавлению фотографии?',
     close: 'Закрыть',
     cropping: 'Обрезка',
     discard: 'Выйти',

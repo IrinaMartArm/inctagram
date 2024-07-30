@@ -14,7 +14,7 @@ import { z } from 'zod'
 
 export const useAddPhotoForm = () => {
   const dispatch = useAppDispatch()
-  const { cropImages, cropImagesWithFilter, error, images, isOpen, modalState } = useAppSelector(
+  const { cropImages, cropImagesWithFilter, images, isOpen, modalState } = useAppSelector(
     (state: RootState) => state.addPhoto
   )
   const { t } = useTranslation()
@@ -31,7 +31,7 @@ export const useAddPhotoForm = () => {
       const file = e.target.files[0]
 
       if (file.size > 20 * 1024 * 1024) {
-        dispatch(addPhotoActions.setError(true))
+        toast.error(t.addPhotoForm.fileSize)
 
         return
       }
@@ -52,6 +52,9 @@ export const useAddPhotoForm = () => {
   }
 
   const showCroppedImage = async (index: number | undefined, croppedAreaPixels: CropArg | null) => {
+    if (croppedAreaPixels == null) {
+      return
+    }
     try {
       const croppedImage = await getCroppedImg({
         imageSrc: images[index as number],
@@ -176,7 +179,6 @@ export const useAddPhotoForm = () => {
     cropImages,
     cropImagesWithFilter,
     deleteImgCallback,
-    error,
     errorFile,
     errors,
     handleSubmit,

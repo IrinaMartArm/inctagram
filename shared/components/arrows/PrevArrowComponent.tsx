@@ -7,7 +7,6 @@ import { Button } from '@/shared/components'
 import s from '@/widgets/addPhotoForm/ui/croppingPhoto/carousel/carousel.module.scss'
 type Props = {
   callbackFunction?: () => void
-  croppedAreaPixels?: CropArg | null
   ind: number
   len?: number
   onClick?: () => void
