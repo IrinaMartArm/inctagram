@@ -26,7 +26,7 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
 
   useEffect(() => {
     if (!isLoading) {
-      if (!isAuth && isProtectedPage) {
+      if (!isAuth && isProtectedPage && !Paths.PROFILE) {
         void router.push(Paths.MAIN)
       } else if (isAuth && !isAuthPage) {
         void router.push(`${Paths.PROFILE}/?id=${userId!}`)

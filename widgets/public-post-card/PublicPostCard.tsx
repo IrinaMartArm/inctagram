@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
-import { useTranslation } from '@/shared/assets'
+import { Paths, useTranslation } from '@/shared/assets'
 import { useTimeAgo } from '@/shared/assets/hooks/useTimeAgo'
 import { AvatarSimple, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { clsx } from 'clsx'
 
 import s from './publicPostCard.module.scss'
+import Link from 'next/link'
 
 type Props = {
   avatarUrl: string
@@ -15,6 +16,8 @@ type Props = {
   description: string
   imagesUrl: string[]
   username: string
+  userId: string
+  postId: string
 }
 
 export const PublicPostCard = (props: Props) => {
@@ -57,7 +60,9 @@ export const PublicPostCard = (props: Props) => {
 
   return (
     <article className={s.container}>
-      <div className={s.link}></div>
+      <Link href={`${Paths.PROFILE}?id=${props.userId}&postId=${props.postId}`}>
+        <div className={s.link}></div>
+      </Link>
       <div className={s.sliderContainer}>
         <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
       </div>
