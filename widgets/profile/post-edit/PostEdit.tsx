@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useTranslationPages } from '@/shared/assets'
@@ -10,27 +11,39 @@ import s from './postEdit.module.scss'
 
 type Props = {
   handleCancelEditModal: () => void
+  handleChangeDescription: (changed: boolean) => void
   postDescription: string
   postId: string
   postImg: string
 }
 
-export const PostEdit = ({ handleCancelEditModal, postDescription, postId, postImg }: Props) => {
+export const PostEdit = ({
+  handleCancelEditModal,
+  handleChangeDescription,
+  postDescription,
+  postId,
+  postImg,
+}: Props) => {
   const { t } = useTranslationPages()
+
   const { data: profile } = useProfileInformationQuery()
   const [editPost] = useEditPostMutation()
   const { control, handleSubmit, watch } = useForm({
     defaultValues: { description: postDescription },
   })
 
+  const description = watch('description', '')
+  const numLetters = description.length
+  const isDescriptionTooLong = numLetters > 500
+
+  useEffect(() => {
+    handleChangeDescription(description !== postDescription)
+  }, [description, handleChangeDescription, postDescription])
+
   const onSubmit = async (items: { description: string }) => {
     handleCancelEditModal()
     await editPost({ description: items.description, id: postId }).unwrap()
   }
-
-  const description = watch('description', '')
-  const numLetters = description.length
-  const isDescriptionTooLong = numLetters > 500
 
   return (
     <>

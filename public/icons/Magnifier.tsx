@@ -3,7 +3,7 @@ import { forwardRef, memo } from "react";
 import { IconProps } from "@/shared/assets/types/types";
 
 export const Magnifier = memo(
-  forwardRef<SVGSVGElement, IconProps>(({}, ref) => {
+  forwardRef<SVGSVGElement, IconProps>(({color}, ref) => {
     return (
       <svg
         fill={"none"}
@@ -13,7 +13,7 @@ export const Magnifier = memo(
         xmlns={"http://www.w3.org/2000/svg"}
       >
         <rect fill={"#171717"} height={36} opacity={0.8} rx={2} width={36} />
-        <g clipPath={"url(#a)"} fill={"#fff"}>
+        <g clipPath={"url(#a)"} fill={color}>
           <path
             d={
               "m26.71 25.29-3.4-3.39a7.92 7.92 0 0 0 .34-9.34A8 8 0 1 0 21.9 23.3l3.39 3.4a1 1 0 1 0 1.42-1.42ZM11 17a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z"
@@ -27,7 +27,7 @@ export const Magnifier = memo(
         </g>
         <defs>
           <clipPath id={"a"}>
-            <path d={"M6 6h24v24H6z"} fill={"#fff"} />
+            <path d={"M6 6h24v24H6z"} fill={color} />
           </clipPath>
         </defs>
       </svg>

@@ -3,11 +3,17 @@
 @forward 'mixins';
 @forward 'globals';
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+
+  max-width: 972px;
+  margin: 0 auto;
+}
+
 .container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(234px, 1fr));
   gap: 12px;
-
-  max-width: 956px;
-  margin: 0 auto;
 }

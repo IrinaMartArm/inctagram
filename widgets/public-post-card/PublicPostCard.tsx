@@ -17,7 +17,10 @@ type Props = {
 }
 
 export const PublicPostCard = (props: Props) => {
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
+
+  const truncateMore = 60
+  const truncateLess = 200
 
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -29,30 +32,31 @@ export const PublicPostCard = (props: Props) => {
     if (isExpanded) {
       return (
         <>
-          {props.description.substring(0, 260)}...{' '}
+          {props.description.substring(0, truncateLess)}...{' '}
           <span className={s.showMore} onClick={toggleExpanded}>
-            Hide
+            {t.showMore.hideText}
           </span>
         </>
       )
     }
 
-    if (props.description.length <= 56) {
+    if (props.description.length <= truncateMore) {
       return props.description
     }
 
     return (
       <>
-        {props.description.substring(0, 56)}...{' '}
+        {props.description.substring(0, truncateMore)}...{' '}
         <span className={s.showMore} onClick={toggleExpanded}>
-          Show more
+          {t.showMore.showMore}
         </span>
       </>
     )
   }
 
   return (
-    <div className={s.container}>
+    <article className={s.container}>
+      <div className={s.link}></div>
       <div className={s.sliderContainer}>
         <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
       </div>
@@ -70,6 +74,6 @@ export const PublicPostCard = (props: Props) => {
           {renderDescription()}
         </Typography>
       </div>
-    </div>
+    </article>
   )
 }

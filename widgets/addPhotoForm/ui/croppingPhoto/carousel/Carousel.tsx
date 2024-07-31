@@ -14,11 +14,12 @@ type Props = {
   aspect: number
 
   croppedAreaPixels: CropArg | null
-  images: string[] | undefined
+  images: string[]
   ind: number
   setCroppedAreaPixels: (croppedAreaPixels: CropArg | null) => void
   setInd: (ind: number) => void
   setShowMenu: (val: string) => void
+  setZoomValue: (val: number[]) => void
   zoomValue: number[]
 }
 export const Carousel = ({
@@ -29,6 +30,7 @@ export const Carousel = ({
   setCroppedAreaPixels,
   setInd,
   setShowMenu,
+  setZoomValue,
   zoomValue,
 }: Props) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
@@ -39,29 +41,22 @@ export const Carousel = ({
     draggable: false,
     fade: true,
     infinite: true,
-    nextArrow: (
-      <NextArrowComponent
-        croppedAreaPixels={croppedAreaPixels}
-        ind={ind}
-        len={images?.length}
-        setInd={setInd}
-      />
-    ),
-    prevArrow: (
-      <PrevArrowComponent
-        croppedAreaPixels={croppedAreaPixels}
-        ind={ind}
-        len={images?.length}
-        setInd={setInd}
-      />
-    ),
+    nextArrow: <NextArrowComponent ind={ind} len={images?.length} setInd={setInd} />,
+    prevArrow: <PrevArrowComponent ind={ind} len={images?.length} setInd={setInd} />,
     slidesToScroll: 1,
     slidesToShow: 1,
     speed: 500,
-    // swipeToSlide: false,
     waitForAnimate: false,
   }
+  const handleCropPixels = (e: any) => {
+    console.log(e)
+    showCroppedImage(ind, croppedAreaPixels)
+    // setCroppedAreaPixels()
+    setCrop({ x: 0, y: 0 })
+    setZoomValue([1, 3])
+  }
 
+  // console.log(crop)
   const ecropp = images?.map((e, ind) => {
     return (
       <EasyCrop
@@ -79,11 +74,7 @@ export const Carousel = ({
 
   return (
     <>
-      <Slider
-        className={`${s.slider} slick-list`}
-        {...settings}
-        afterChange={() => showCroppedImage(ind, croppedAreaPixels)}
-      >
+      <Slider className={`${s.slider} slick-list`} {...settings} afterChange={handleCropPixels}>
         {ecropp}
       </Slider>
     </>
