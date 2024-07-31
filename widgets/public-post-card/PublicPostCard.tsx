@@ -21,42 +21,45 @@ type Props = {
 }
 
 export const PublicPostCard = (props: Props) => {
-    // const { t } = useTranslation()
+  const { t } = useTranslation()
 
-    const [isExpanded, setIsExpanded] = useState(false)
+  const truncateMore = 60
+  const truncateLess = 200
 
-    const toggleExpanded = () => {
-        setIsExpanded(!isExpanded)
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded)
+  }
+
+  const renderDescription = () => {
+    if (isExpanded) {
+      return (
+        <>
+          {props.description.substring(0, truncateLess)}...{' '}
+          <span className={s.showMore} onClick={toggleExpanded}>
+            {t.showMore.hideText}
+          </span>
+        </>
+      )
     }
 
-    const renderDescription = () => {
-        if (isExpanded) {
-            return (
-                <>
-                    {props.description.substring(0, 260)}...{' '}
-                    <span className={s.showMore} onClick={toggleExpanded}>
-            Hide
-          </span>
-                </>
-            )
-        }
-
-        if (props.description.length <= 56) {
-            return props.description
-        }
-
-        return (
-            <>
-                {props.description.substring(0, 56)}...{' '}
-                <span className={s.showMore} onClick={toggleExpanded}>
-          Show more
-        </span>
-            </>
-        )
+    if (props.description.length <= truncateMore) {
+      return props.description
     }
 
     return (
-        <div className={s.container}>
+      <>
+        {props.description.substring(0, truncateMore)}...{' '}
+        <span className={s.showMore} onClick={toggleExpanded}>
+          {t.showMore.showMore}
+        </span>
+      </>
+    )
+  }
+
+    return (
+        <article className={s.container}>
             <Link href={`${Paths.PROFILE}?id=${props.userId}&postId=${props.postId}`}>
                 <div className={s.link}></div>
             </Link>
@@ -68,13 +71,15 @@ export const PublicPostCard = (props: Props) => {
                     <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username}/>
                     <Typography variant={'h3'}>{props.username}</Typography>
                 </div>
+
                 <Typography className={s.time} variant={'small-text'}>
                     {useTimeAgo(props.createdAt)}
                 </Typography>
+
                 <Typography className={s.descriptionContainer} variant={'regular_text-14'}>
                     {renderDescription()}
                 </Typography>
             </div>
-        </div>
+        </article>
     )
 }

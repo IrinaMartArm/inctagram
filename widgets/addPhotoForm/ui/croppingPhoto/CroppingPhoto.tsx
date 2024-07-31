@@ -16,9 +16,10 @@ import s from './croppingPhoto.module.scss'
 type Props = {
   deleteImgCallback: (ind: number) => void
   imgChangeCallback: (e: ChangeEvent<HTMLInputElement>) => void
+  setConfirmOpen: (val: string) => void
 }
 
-export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) => {
+export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback, setConfirmOpen }: Props) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArg | null>(null)
 
   const [ind, setInd] = useState(0)
@@ -37,12 +38,13 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) =
   } = useAddPhotoForm()
   const dispatch = useAppDispatch()
   const handleBack = () => {
-    dispatch(addPhotoActions.discardAll())
+    setConfirmOpen('back')
   }
   const handleShowMenu = (menu: string) => {
     menu === showMenu ? setShowMenu('') : setShowMenu(menu)
   }
 
+  console.log(croppedAreaPixels)
   const handleNext = () => {
     showCroppedImage(ind, croppedAreaPixels)
     setModalStateCallback('filters')
@@ -70,22 +72,23 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback }: Props) =
           setCroppedAreaPixels={setCroppedAreaPixels}
           setInd={setInd}
           setShowMenu={setShowMenu}
+          setZoomValue={setZoomValue}
           zoomValue={zoomValue}
         />
       </div>
       <div className={s.controlPanelVectors}>
         <Button onClick={() => handleShowMenu('scale-menu')} variant={'icon'}>
-          <Vectors />
+          <Vectors color={showMenu == 'scale-menu' ? '#397DF6' : '#fff'} />
         </Button>
       </div>
       <div className={s.controlPanelMagnifier}>
         <Button onClick={() => handleShowMenu('zoom-menu')} variant={'icon'}>
-          <Magnifier />
+          <Magnifier color={showMenu == 'zoom-menu' ? '#397DF6' : '#fff'} />
         </Button>
       </div>
       <div className={s.controlPanelImage}>
         <Button onClick={() => handleShowMenu('add-photos-menu')} variant={'icon'}>
-          <Picture />
+          <Picture color={showMenu == 'add-photos-menu' ? '#397DF6' : '#fff'} />
         </Button>
       </div>
       {showMenu == 'scale-menu' && <ScaleMenu setAspect={setAspect} />}

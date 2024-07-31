@@ -1,17 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   images: {
     domains: ['summer.storage.yandexcloud.net'],
     remotePatterns: [
       {
-        protocol: "https",
         hostname: "",
-        port: "",
         pathname: "",
+        port: "",
+        protocol: "https",
+
+        
       },
     ],
   },
+  reactStrictMode: true,
 };
 
 export default nextConfig;

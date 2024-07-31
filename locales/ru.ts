@@ -1,5 +1,6 @@
 export const ru = {
   addPhotoForm: {
+    attentionA: 'Вы действительно хотите выйти к добавлению фотографии?',
     close: 'Закрыть',
     cropping: 'Обрезка',
     discard: 'Выйти',
@@ -20,6 +21,9 @@ export const ru = {
     error: 'Ошибка!',
     no: 'Нет',
     yes: 'Да',
+  },
+  countText: {
+    title: 'Зарегистрированные пользователи:',
   },
   emailSent: 'Письмо отправлено',
   logOut: {
@@ -66,6 +70,10 @@ export const ru = {
     selectYourCountry: 'Выберите вашу страну',
     success: 'Your settings are saved!',
     username: 'Имя пользователя',
+  },
+  showMore: {
+    hideText: 'Скрыть',
+    showMore: 'Показать больше',
   },
   signIn: 'Войти',
   signUp: 'Зарегистрироваться',
