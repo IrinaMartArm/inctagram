@@ -1,76 +1,80 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 
-import { useTranslation } from '@/shared/assets'
-import { useTimeAgo } from '@/shared/assets/hooks/useTimeAgo'
-import { AvatarSimple, Typography } from '@/shared/components'
-import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
-import { clsx } from 'clsx'
+import {Paths} from '@/shared/assets'
+import {useTimeAgo} from '@/shared/assets/hooks/useTimeAgo'
+import {AvatarSimple, Typography} from '@/shared/components'
+import {PhotoCarousel} from '@/shared/components/photoCarousel/PhotoCarousel'
+import {clsx} from 'clsx'
 
 import s from './publicPostCard.module.scss'
+import Link from "next/link";
 
 type Props = {
-  avatarUrl: string
-  className?: string
-  createdAt: string
-  description: string
-  imagesUrl: string[]
-  username: string
+    avatarUrl: string
+    className?: string
+    createdAt: string
+    description: string
+    imagesUrl: string[]
+    username: string
+    userId: string
+    postId: string
 }
 
 export const PublicPostCard = (props: Props) => {
-  // const { t } = useTranslation()
+    // const { t } = useTranslation()
 
-  const [isExpanded, setIsExpanded] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false)
 
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded)
-  }
-
-  const renderDescription = () => {
-    if (isExpanded) {
-      return (
-        <>
-          {props.description.substring(0, 260)}...{' '}
-          <span className={s.showMore} onClick={toggleExpanded}>
-            Hide
-          </span>
-        </>
-      )
+    const toggleExpanded = () => {
+        setIsExpanded(!isExpanded)
     }
 
-    if (props.description.length <= 56) {
-      return props.description
+    const renderDescription = () => {
+        if (isExpanded) {
+            return (
+                <>
+                    {props.description.substring(0, 260)}...{' '}
+                    <span className={s.showMore} onClick={toggleExpanded}>
+            Hide
+          </span>
+                </>
+            )
+        }
+
+        if (props.description.length <= 56) {
+            return props.description
+        }
+
+        return (
+            <>
+                {props.description.substring(0, 56)}...{' '}
+                <span className={s.showMore} onClick={toggleExpanded}>
+          Show more
+        </span>
+            </>
+        )
     }
 
     return (
-      <>
-        {props.description.substring(0, 56)}...{' '}
-        <span className={s.showMore} onClick={toggleExpanded}>
-          Show more
-        </span>
-      </>
-    )
-  }
-
-  return (
-    <div className={s.container}>
-      <div className={s.sliderContainer}>
-        <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
-      </div>
-      <div className={clsx(s.content, isExpanded && s.expanded)}>
-        <div className={s.user}>
-          <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username} />
-          <Typography variant={'h3'}>{props.username}</Typography>
+        <div className={s.container}>
+            <Link href={`${Paths.PROFILE}?id=${props.userId}&postId=${props.postId}`}>
+                <div className={s.link}></div>
+            </Link>
+            <div className={s.sliderContainer}>
+                <PhotoCarousel height={'240px'} photos={props.imagesUrl}/>
+            </div>
+            <div className={clsx(s.content, isExpanded && s.expanded)}>
+                <div className={s.user}>
+                    <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username}/>
+                    <Typography variant={'h3'}>{props.username}</Typography>
+                </div>
+                <Typography className={s.time} variant={'small-text'}>
+                    {useTimeAgo(props.createdAt)}
+                </Typography>
+                <Typography className={s.descriptionContainer} variant={'regular_text-14'}>
+                    {renderDescription()}
+                </Typography>
+            </div>
         </div>
-
-        <Typography className={s.time} variant={'small-text'}>
-          {useTimeAgo(props.createdAt)}
-        </Typography>
-
-        <Typography className={s.descriptionContainer} variant={'regular_text-14'}>
-          {renderDescription()}
-        </Typography>
-      </div>
-    </div>
-  )
+    )
 }

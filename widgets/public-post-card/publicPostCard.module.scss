@@ -1,8 +1,12 @@
 .container {
+  cursor: pointer;
+
   position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
+  align-items: center;
 }
 
 .sliderContainer {
@@ -18,17 +22,23 @@
   width: 234px;
 
   overflow-wrap: break-word;
+
 }
 
 .user {
+  z-index: 1;
+
   display: flex;
   flex-direction: row;
   gap: 8px;
   align-items: center;
+
+  width: fit-content;
 }
 
 .time {
   color: var(--color-light-900);
+  z-index: 1;
 }
 
 .avatar {
@@ -50,7 +60,12 @@
 
 .showMore {
   cursor: pointer;
+
+  position: relative;
+  z-index: 1;
+
   color: var(--color-accent-500);
+
   border-bottom: 1px solid var(--color-accent-500);
 
   &:hover {
@@ -58,23 +73,9 @@
   }
 }
 
-.descriptionContainer {
-  //overflow: hidden;
-  //display: -webkit-box;
-  //
-  //-webkit-box-orient: vertical;
-}
-
-.clamped {
-  overflow: hidden;
-  display: -webkit-box;
-
-  -webkit-box-orient: vertical;
-
-  /* truncate to 4 lines */
-  -webkit-line-clamp: 3; /* Adjust the number of lines you want to show */
-}
-
-.expanded {
-  -webkit-line-clamp: unset;
+.link {
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+  display: block;
 }
