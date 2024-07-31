@@ -1,23 +1,23 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {Paths, useTranslation} from '@/shared/assets'
-import {useTimeAgo} from '@/shared/assets/hooks/useTimeAgo'
-import {AvatarSimple, Typography} from '@/shared/components'
-import {PhotoCarousel} from '@/shared/components/photoCarousel/PhotoCarousel'
-import {clsx} from 'clsx'
+import { Paths, useTranslation } from '@/shared/assets'
+import { useTimeAgo } from '@/shared/assets/hooks/useTimeAgo'
+import { AvatarSimple, Typography } from '@/shared/components'
+import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
+import { clsx } from 'clsx'
 
 import s from './publicPostCard.module.scss'
-import Link from "next/link";
+import Link from 'next/link'
 
 type Props = {
-    avatarUrl: string
-    className?: string
-    createdAt: string
-    description: string
-    imagesUrl: string[]
-    username: string
-    userId: string
-    postId: string
+  avatarUrl: string
+  className?: string
+  createdAt: string
+  description: string
+  imagesUrl: string[]
+  username: string
+  userId: string
+  postId: string
 }
 
 export const PublicPostCard = (props: Props) => {
@@ -58,28 +58,28 @@ export const PublicPostCard = (props: Props) => {
     )
   }
 
-    return (
-        <article className={s.container}>
-            <Link href={`${Paths.PROFILE}?id=${props.userId}&postId=${props.postId}`}>
-                <div className={s.link}></div>
-            </Link>
-            <div className={s.sliderContainer}>
-                <PhotoCarousel height={'240px'} photos={props.imagesUrl}/>
-            </div>
-            <div className={clsx(s.content, isExpanded && s.expanded)}>
-                <div className={s.user}>
-                    <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username}/>
-                    <Typography variant={'h3'}>{props.username}</Typography>
-                </div>
+  return (
+    <article className={s.container}>
+      <Link href={`${Paths.PROFILE}?id=${props.userId}&postId=${props.postId}`}>
+        <div className={s.link}></div>
+      </Link>
+      <div className={s.sliderContainer}>
+        <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
+      </div>
+      <div className={clsx(s.content, isExpanded && s.expanded)}>
+        <div className={s.user}>
+          <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username} />
+          <Typography variant={'h3'}>{props.username}</Typography>
+        </div>
 
-                <Typography className={s.time} variant={'small-text'}>
-                    {useTimeAgo(props.createdAt)}
-                </Typography>
+        <Typography className={s.time} variant={'small-text'}>
+          {useTimeAgo(props.createdAt)}
+        </Typography>
 
-                <Typography className={s.descriptionContainer} variant={'regular_text-14'}>
-                    {renderDescription()}
-                </Typography>
-            </div>
-        </article>
-    )
+        <Typography className={s.descriptionContainer} variant={'regular_text-14'}>
+          {renderDescription()}
+        </Typography>
+      </div>
+    </article>
+  )
 }
