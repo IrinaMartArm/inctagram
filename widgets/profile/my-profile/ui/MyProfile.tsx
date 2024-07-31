@@ -13,11 +13,16 @@ import { useRouter } from 'next/router'
 
 import s from './profile.module.scss'
 
+type Props = {
+  isMyProfile: boolean
+  result: any
+}
+
 const followingN = 746
 const followersN = 345
 const publicationsN = 465
 
-export const MyProfile = () => {
+export const MyProfile = ({ isMyProfile, result }: Props) => {
   const { t } = useTranslationPages()
   const router = useRouter()
   const { id } = router.query
@@ -35,7 +40,7 @@ export const MyProfile = () => {
     userId: typeof id === 'string' ? id : '',
   })
 
-  const isOwner = user?.userId === id
+  const isOwner = isMyProfile
 
   const loadMorePosts = useCallback(() => {
     if (!isFetching && !isLoading && posts && posts.pagesCount > page) {

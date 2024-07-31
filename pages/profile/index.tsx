@@ -8,7 +8,7 @@ import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { MyProfile } from '@/widgets'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
   store => async context => {
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
     const isMyProfile = id === user?.userId
 
-    const result = await store.dispatch(getPublicUsers.initiate({ username }))
+    const result = await store.dispatch(getPublicUsers.initiate({ userId: +id! }))
 
     if (isMyProfile) {
       const response = await store.dispatch(profileInformation.initiate())
@@ -49,11 +49,14 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   }
 )
 
-const Profile = () => {
+const Profile = ({
+  isMyProfile,
+  result,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <PageWrapper>
       <HeadMeta title={'Profile'} />
-      <MyProfile />
+      <MyProfile isMyProfile={isMyProfile} result={result} />
     </PageWrapper>
   )
 }

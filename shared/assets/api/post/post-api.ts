@@ -26,10 +26,10 @@ const postApi = baseApi.injectEndpoints({
         }),
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
-        invalidatesTags: ['MyPosts'],
+        // invalidatesTags: ['MyPosts'],
         onQueryStarted: async ({ id }, { dispatch, getState, queryFulfilled }) => {
           const patchResult = dispatch(
-            postApi.util.updateQueryData('getPosts', undefined, draft => {
+            postApi.util.updateQueryData('getPostsByUserId', undefined, draft => {
               if (draft) {
                 const deletedPostIdx = draft.items.findIndex(el => el.id === id)
 
@@ -96,46 +96,41 @@ const postApi = baseApi.injectEndpoints({
           url: 'v1/post/photo',
         }),
       }),
-      getPost: builder.query<PostItemTypeRes, getPostArgs>({
-        providesTags: ['MyPosts'],
-        query: body => ({
-          method: 'GET',
-          url: `v1/public-posts/${body.id}`,
-        }),
-      }),
-      getPosts: builder.query<PostsType, void>({
-        // forceRefetch({ currentArg, previousArg }) {
-        //   return currentArg !== previousArg
-        // },
-        // merge: (currentCache, newItems) => {
-        //   currentCache.items.push(...newItems.items)
-        // },
-        providesTags: ['MyPosts'],
-        query: () => ({
-          method: 'GET',
-          url: 'v1/public-posts',
-        }),
-        // serializeQueryArgs: ({ endpointName }) => {
-        //   return endpointName
-        // },
-      }),
+      // getPost: builder.query<PostItemTypeRes, getPostArgs>({
+      //   providesTags: ['MyPosts'],
+      //   query: body => ({
+      //     method: 'GET',
+      //     url: `v1/public-posts/${body.id}`,
+      //   }),
+      // }),
+      // getPosts: builder.query<PostsType, void>({
+      //   // forceRefetch({ currentArg, previousArg }) {
+      //   //   return currentArg !== previousArg
+      //   // },
+      //   // merge: (currentCache, newItems) => {
+      //   //   currentCache.items.push(...newItems.items)
+      //   // },
+      //   providesTags: ['MyPosts'],
+      //   query: () => ({
+      //     method: 'GET',
+      //     url: 'v1/public-posts',
+      //   }),
+      //   // serializeQueryArgs: ({ endpointName }) => {
+      //   //   return endpointName
+      //   // },
+      // }),
       getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
-        // forceRefetch({ currentArg, previousArg }) {
-        //   return currentArg?.page !== previousArg?.page
-        // },
-        // merge: (currentCache, newItems) => {
-        //   if (currentCache) {
-        //     currentCache.items.push(...newItems.items)
-        //     currentCache.page = newItems.page
-        //     // currentCache.hasMore = res.hasMore
-        //   } else {
-        //     return newItems
-        //   }
-        //   // if (!newItems) {
-        //   //   return
-        //   // }
-        //   // currentCache.items.push(...newItems.items)
-        // },
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg?.page !== previousArg?.page
+        },
+        merge: (currentCache, newItems) => {
+          if (currentCache) {
+            currentCache.items.push(...newItems.items)
+            currentCache.page = newItems.page
+          } else {
+            return newItems
+          }
+        },
         providesTags: ['MyPosts'],
         query: ({ page, pageSize, userId }) => {
           return {
@@ -144,9 +139,9 @@ const postApi = baseApi.injectEndpoints({
             url: `v1/post/${userId}`,
           }
         },
-        // serializeQueryArgs: ({ endpointName }) => {
-        //   return endpointName
-        // },
+        serializeQueryArgs: ({ endpointName }) => {
+          return endpointName
+        },
       }),
     }
   },
@@ -158,7 +153,5 @@ export const {
   useDeletePostMutation,
   useEditPostMutation,
   useGetImgIdMutation,
-  useGetPostQuery,
   useGetPostsByUserIdQuery,
-  useGetPostsQuery,
 } = postApi
