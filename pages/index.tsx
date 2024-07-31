@@ -68,9 +68,9 @@ const Public: NextPageWithLayout<Props> = ({ countUsers, posts, users }) => {
                 description={post.description}
                 imagesUrl={post.imagesUrl}
                 key={post.id}
-                username={post.username}
-                userId={post.authorId}
                 postId={post.id}
+                userId={post.authorId}
+                username={post.username}
               />
             ))}
           </div>
