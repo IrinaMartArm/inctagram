@@ -63,14 +63,14 @@ const Public: NextPageWithLayout<Props> = ({ countUsers, posts, users }) => {
           <div className={'container'}>
             {posts?.items.map(post => (
               <PublicPostCard
-                userId={post.authorId}
-                postId={post.id}
                 avatarUrl={users[post.username]?.avatar?.url}
                 createdAt={post.createdAt}
                 description={post.description}
                 imagesUrl={post.imagesUrl}
                 key={post.id}
                 username={post.username}
+                userId={post.authorId}
+                postId={post.id}
               />
             ))}
           </div>
