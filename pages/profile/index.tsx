@@ -18,25 +18,29 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
     const isMyProfile = id === user?.userId
 
-    const result = await store.dispatch(getPublicUsers.initiate({ userId: +id! }))
+    const userProfile = await store.dispatch(getPublicUsers.initiate({ userId: +id! }))
+
+    let myProfileData = null
 
     if (isMyProfile) {
-      const response = await store.dispatch(profileInformation.initiate())
+      myProfileData = await store.dispatch(profileInformation.initiate())
 
-      if (!response.data) {
+      if (!myProfileData.data) {
         return { notFound: true }
       }
     }
+
+    let post = null
 
     if (postId) {
-      const response = await store.dispatch(getPublicPostById.initiate({ postId: +postId! }))
+      post = await store.dispatch(getPublicPostById.initiate({ postId: +postId! }))
 
-      if (!response.data) {
+      if (!post.data) {
         return { notFound: true }
       }
     }
 
-    if (!result) {
+    if (!userProfile) {
       return {
         notFound: true,
       }
@@ -44,19 +48,26 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     await Promise.all(store.dispatch(baseApi.util.getRunningQueriesThunk()))
 
     return {
-      props: { isMyProfile, result },
+      props: { isMyProfile, myProfileData: myProfileData || null, post, userProfile },
     }
   }
 )
 
 const Profile = ({
   isMyProfile,
-  result,
+  myProfileData,
+  post,
+  userProfile,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <PageWrapper>
       <HeadMeta title={'Profile'} />
-      <MyProfile isMyProfile={isMyProfile} result={result} />
+      <MyProfile
+        isMyProfile={isMyProfile}
+        myProfileData={myProfileData}
+        post={post}
+        userProfile={userProfile}
+      />
     </PageWrapper>
   )
 }
