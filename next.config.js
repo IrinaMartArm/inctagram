@@ -12,10 +12,9 @@ const nextConfig = {
     locales: ['en', 'ru'],
   },
   images: {
-    domains: ['summer.storage.yandexcloud.net'],
     remotePatterns: [
       {
-        hostname: 'example.com',
+        hostname: 'summer.storage.yandexcloud.net',
         pathname: '/account123/**',
         port: '',
         protocol: 'https',
