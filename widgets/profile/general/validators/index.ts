@@ -4,13 +4,13 @@ import z from 'zod'
 
 const sixteenYearsAgo = new Date()
 
-sixteenYearsAgo.setFullYear(sixteenYearsAgo.getFullYear() - 16)
+sixteenYearsAgo.setFullYear(sixteenYearsAgo.getFullYear() - 13)
 
 export const profileFormSchema = (t: LocaleType) => {
   return z.object({
     aboutMe: z
       .string()
-      .max(200, t.profileSettings.errors.aboutMe)
+      .max(200, `${t.profileSettings.errors.aboutMe}`)
       .regex(
         ABOUT_ME_REGEX,
         `${t.profileSettings.invalidName} A-Z; a-z;
@@ -31,14 +31,14 @@ export const profileFormSchema = (t: LocaleType) => {
           return dateOfBirth <= sixteenYearsAgo
         },
         {
-          message: t.profileSettings.errors.child,
+          message: `${t.profileSettings.errors.child}`,
         }
       )
       .optional(),
     firstName: z
       .string()
-      .min(1, t.profileSettings.errors.firstName)
-      .max(50, `${t.profileSettings.invalidLastName}`)
+      .min(1, `${t.profileSettings.errors.firstName}`)
+      .max(5, `${t.profileSettings.invalidNameMax}`)
       .regex(
         ME_REGEX,
         `${t.profileSettings.invalidName} A-Z; a-z;
@@ -47,7 +47,7 @@ export const profileFormSchema = (t: LocaleType) => {
     lastName: z
       .string()
       .min(1, t.profileSettings.errors.lastName)
-      .max(50)
+      .max(50, `${t.profileSettings.invalidLastNameMax}`)
       .regex(
         ME_REGEX,
         `${t.profileSettings.invalidLastName} A-Z; a-z;

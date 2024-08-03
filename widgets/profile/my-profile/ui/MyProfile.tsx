@@ -5,7 +5,6 @@ import { Paths } from '@/shared/assets'
 import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
 import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { MyPostType } from '@/shared/assets/api/post/types'
-import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { useTranslationPages } from '@/shared/assets/hooks'
@@ -18,7 +17,7 @@ import s from './profile.module.scss'
 
 type Props = {
   isMyProfile: boolean
-  myProfileData: UserProfileResponse
+  myProfileData?: UserProfileResponse
   post: MyPostType
   userProfile: UserProfile
 }
@@ -52,8 +51,6 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userProfile }: Pro
     }
   }, [post])
 
-  const isOwner = isMyProfile
-
   const loadMorePosts = useCallback(() => {
     if (!isFetching && !isLoading && posts && posts.pagesCount > page) {
       setPage(prevPage => prevPage + 1)
@@ -80,12 +77,6 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userProfile }: Pro
     setIsModalOpen(true)
   }
 
-  // useEffect(() => {
-  //   if (!isFetching && !isLoading && posts && posts.length < page * pageSize) {
-  //     loadMorePosts()
-  //   }
-  // }, [isFetching, isLoading, posts, page, pageSize, loadMorePosts])
-
   return (
     <div className={s.root}>
       <div className={s.info_wrapper}>
@@ -102,9 +93,9 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userProfile }: Pro
             )}
           </div>
           <div className={s.second_row}>
-            <Info number={userProfile.following} title={t.following} />
-            <Info number={userProfile.followers} title={t.followers} />
-            <Info number={userProfile.publications.length} title={t.publications} />
+            <Info number={userProfile?.following} title={t.following} />
+            <Info number={userProfile?.followers} title={t.followers} />
+            <Info number={userProfile?.publications.length} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>{userProfile?.aboutMe}</Typography>

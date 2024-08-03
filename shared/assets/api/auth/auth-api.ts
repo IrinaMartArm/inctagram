@@ -112,6 +112,7 @@ export const AuthApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
+export const { me } = AuthApi.endpoints
 export const {
   useCreateNewPasswordMutation,
   useLazyMeQuery,

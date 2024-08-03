@@ -1,6 +1,6 @@
 import { baseApi } from '@/shared/assets'
 import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
-import { profileInformation } from '@/shared/assets/api/profile/profile-api'
+import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { getPublicPostById } from '@/shared/assets/api/public-posts/public-posts-api'
 import { getPublicUsers } from '@/shared/assets/api/public-user/public-user-api'
 import { wrapper } from '@/shared/assets/api/store'
@@ -9,26 +9,14 @@ import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { MyProfile } from '@/widgets'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
   store => async context => {
-    const { data: user } = useMeQuery()
     const id = context.query.id
     const postId = context.query.postId
 
-    const isMyProfile = id === user?.userId
-
     const userProfile = await store.dispatch(getPublicUsers.initiate({ userId: +id! }))
-
-    let myProfileData = null
-
-    if (isMyProfile) {
-      myProfileData = await store.dispatch(profileInformation.initiate())
-
-      if (!myProfileData.data) {
-        return { notFound: true }
-      }
-    }
 
     let post = null
 
@@ -48,25 +36,28 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     await Promise.all(store.dispatch(baseApi.util.getRunningQueriesThunk()))
 
     return {
-      props: { isMyProfile, myProfileData: myProfileData || null, post, userProfile },
+      props: {
+        post: post || null,
+        userProfile: userProfile.data || null,
+      },
     }
   }
 )
 
-const Profile = ({
-  isMyProfile,
-  myProfileData,
-  post,
-  userProfile,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Profile = ({ post, userProfile }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { query } = useRouter()
+  const { data: user } = useMeQuery(undefined)
+  const { data } = useProfileInformationQuery()
+  const isMyProfile = query.id === user?.userId
+
   return (
     <PageWrapper>
       <HeadMeta title={'Profile'} />
       <MyProfile
         isMyProfile={isMyProfile}
-        myProfileData={myProfileData}
-        post={post}
-        userProfile={userProfile}
+        myProfileData={data}
+        post={post || null}
+        userProfile={userProfile || null}
       />
     </PageWrapper>
   )

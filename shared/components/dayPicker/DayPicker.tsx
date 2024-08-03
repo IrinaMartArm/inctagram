@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ClassNames, DayPicker as ReactDayPicker, SelectSingleEventHandler } from 'react-day-picker'
 
+import { useTranslation } from '@/shared/assets'
 import { Input, Typography } from '@/shared/components'
 import { useOutsideDayClick } from '@/shared/components/dayPicker/OutsideDayClickHook'
 import { clsx } from 'clsx'
@@ -11,6 +12,7 @@ import sC from '@/shared/components/input/input.module.scss'
 import styles from 'react-day-picker/dist/style.module.css'
 
 export const DayPicker = (props: DayPickerProps) => {
+  const { t } = useTranslation()
   const { errorMessage, label, onChange, selected } = props
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] = useState<boolean>(true)
@@ -69,7 +71,9 @@ export const DayPicker = (props: DayPickerProps) => {
   }
 
   const dateSingleChecker = () => {
-    return localSelected && !isValidDateFormat(localSelected) ? 'Date format error!' : ''
+    return localSelected && !isValidDateFormat(localSelected)
+      ? `${t.profileSettings.errors.dateFormatError}`
+      : ''
   }
 
   const calendarRef = useRef<HTMLDivElement>(null)
