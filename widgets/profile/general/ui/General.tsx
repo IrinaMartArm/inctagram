@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import {
   Alert,
@@ -19,6 +21,8 @@ type Props = {
 }
 
 export const General = ({ profile }: Props) => {
+  const [dateFormatError, setDateFormatError] = useState<boolean>(false)
+
   const {
     alertHandler,
     alertMessage,
@@ -82,6 +86,7 @@ export const General = ({ profile }: Props) => {
             errorMessage={errors.dateOfBirth?.message}
             label={t.profileSettings.dateOfBirth}
             name={'dateOfBirth'}
+            setDateFormatError={setDateFormatError}
           />
           <div className={s.selectors}>
             <Select
@@ -113,7 +118,11 @@ export const General = ({ profile }: Props) => {
         </div>
       </div>
 
-      <Button className={s.button} disabled={!isValid || loading} type={'submit'}>
+      <Button
+        className={s.button}
+        disabled={!isValid || loading || dateFormatError}
+        type={'submit'}
+      >
         {t.profileSettings.saveChanges}
       </Button>
 
