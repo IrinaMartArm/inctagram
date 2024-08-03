@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
-import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
 import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { MyPostType } from '@/shared/assets/api/post/types'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
