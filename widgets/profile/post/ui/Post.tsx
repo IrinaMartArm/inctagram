@@ -10,10 +10,11 @@ import s from './post.module.scss'
 type Props = {
   avatar: string
   key?: number
+  onCloseModal: () => void
   post: MyPostType
 }
 
-export const Post = ({ avatar, post }: Props) => {
+export const Post = ({ avatar, onCloseModal, post }: Props) => {
   const isOwner = true
   const avatars = ['', '', '']
 
@@ -32,6 +33,7 @@ export const Post = ({ avatar, post }: Props) => {
           </div>
           {isOwner && (
             <PostMenu
+              onCloseModal={onCloseModal}
               postDescription={post.description}
               postId={post.id}
               postImg={post?.images[0]}
