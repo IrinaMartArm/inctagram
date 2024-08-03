@@ -4,7 +4,6 @@ import {
   UserProfileArgs,
   UserProfileResponse,
 } from '@/shared/assets/api/profile/types'
-import { publicPostsApi } from '@/shared/assets/api/public-posts/public-posts-api'
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -19,7 +18,7 @@ export const profileApi = baseApi.injectEndpoints({
       fillOutProfile: builder.mutation<void, UserProfileArgs>({
         invalidatesTags: ['Profile'],
 
-        onQueryStarted: async ({ ...arg }, { dispatch, getState, queryFulfilled }) => {
+        onQueryStarted: async ({ ...arg }, { dispatch, queryFulfilled }) => {
           const patchResult = dispatch(
             profileApi.util.updateQueryData('profileInformation', undefined, draft => {
               Object.assign(draft, arg)

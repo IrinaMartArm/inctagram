@@ -5,17 +5,17 @@ import { baseApi } from '@/shared/assets/api/base-api'
 import { configureStore } from '@reduxjs/toolkit'
 import { Context, createWrapper } from 'next-redux-wrapper'
 
-// export const store = configureStore({
-//   middleware: getDefaultMiddleware => {
-//     return getDefaultMiddleware().concat(baseApi.middleware)
-//   },
-//   reducer: {
-//     addPhoto: addPhotoReducers,
-//     auth: authReducers,
-//     [baseApi.reducerPath]: baseApi.reducer,
-//   },
-// })
-//
+export const store = configureStore({
+  middleware: getDefaultMiddleware => {
+    return getDefaultMiddleware().concat(baseApi.middleware)
+  },
+  reducer: {
+    addPhoto: addPhotoReducers,
+    auth: authReducers,
+    [baseApi.reducerPath]: baseApi.reducer,
+  },
+})
+
 // export type AppDispatch = typeof store.dispatch
 // export type RootState = ReturnType<typeof store.getState>
 

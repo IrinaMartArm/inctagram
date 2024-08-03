@@ -19,7 +19,7 @@ export const useLogOut = () => {
       } else {
         localStorage.removeItem('sign-in')
         void router.push(Paths.MAIN)
-        dispatch(authActions.setEmail())
+        dispatch(authActions.setEmail(null))
         dispatch(authActions.setIsAuth(false))
       }
     })

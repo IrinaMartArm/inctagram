@@ -18,13 +18,14 @@ type Props = {
   isMyProfile: boolean
   myProfileData?: UserProfileResponse
   post: MyPostType
+  userId: string
   userProfile: UserProfile
 }
 
-export const MyProfile = ({ isMyProfile, myProfileData, post, userProfile }: Props) => {
+export const MyProfile = ({ isMyProfile, myProfileData, post, userId, userProfile }: Props) => {
   const { t } = useTranslationPages()
   const router = useRouter()
-  const { id, postId } = router.query
+  const { postId } = router.query
   const [page, setPage] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedPost, setSelectedPost] = useState<MyPostType | null>(null)
@@ -37,7 +38,7 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userProfile }: Pro
   } = useGetPostsByUserIdQuery({
     page: page.toString(),
     pageSize: pageSize.toString(),
-    userId: typeof id === 'string' ? id : '',
+    userId: userId,
   })
 
   useEffect(() => {
@@ -109,7 +110,12 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userProfile }: Pro
                 key={post.id}
                 trigger={<img alt={''} className={s.postImage} src={post.images[0]} />}
               >
-                <Post avatar={userProfile?.avatar?.url || ''} post={post} />
+                <Post
+                  avatar={userProfile?.avatar?.url || ''}
+                  isOwner={isMyProfile}
+                  post={post}
+                  userId={userId}
+                />
               </Modal>
             ))
           : !isLoading && <div>No posts available</div>}
@@ -117,7 +123,12 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userProfile }: Pro
       </div>
       {selectedPost && (
         <Modal className={s.modal} onOpenChange={open => setIsModalOpen(open)} open={isModalOpen}>
-          <Post avatar={userProfile?.avatar?.url || ''} post={selectedPost} />
+          <Post
+            avatar={userProfile?.avatar?.url || ''}
+            isOwner={isMyProfile}
+            post={selectedPost}
+            userId={userId}
+          />
         </Modal>
       )}
     </div>

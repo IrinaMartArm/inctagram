@@ -38,13 +38,18 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     return {
       props: {
         post: post || null,
+        userId: id,
         userProfile: userProfile.data || null,
       },
     }
   }
 )
 
-const Profile = ({ post, userProfile }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Profile = ({
+  post,
+  userId,
+  userProfile,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { query } = useRouter()
   const { data: user } = useMeQuery(undefined)
   const { data } = useProfileInformationQuery()
@@ -57,6 +62,7 @@ const Profile = ({ post, userProfile }: InferGetServerSidePropsType<typeof getSe
         isMyProfile={isMyProfile}
         myProfileData={data}
         post={post || null}
+        userId={userId}
         userProfile={userProfile || null}
       />
     </PageWrapper>
