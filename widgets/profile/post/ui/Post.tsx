@@ -9,12 +9,13 @@ import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 import s from './post.module.scss'
 type Props = {
   avatar: string
+  isOwner: boolean
   key?: number
   post: MyPostType
+  userId: string
 }
 
-export const Post = ({ avatar, post }: Props) => {
-  const isOwner = true
+export const Post = ({ avatar, isOwner, post, userId }: Props) => {
   const avatars = ['', '', '']
 
   const { control } = useForm({})
@@ -35,6 +36,7 @@ export const Post = ({ avatar, post }: Props) => {
               postDescription={post.description}
               postId={post.id}
               postImg={post?.images[0]}
+              userId={userId}
             />
           )}
         </div>

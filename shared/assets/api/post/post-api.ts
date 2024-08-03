@@ -4,16 +4,11 @@ import {
   DeletePostArgs,
   EditPostArgs,
   GetPostsArgs,
-  PostItemTypeRes,
   PostType,
   PostsType,
-  getPostArgs,
 } from '@/shared/assets/api/post/types'
-import { getState } from '@vitest/expect'
-import { current } from 'immer'
-import { patchConsoleError } from 'next/dist/client/components/react-dev-overlay/internal/helpers/hydration-error-info'
 
-const postApi = baseApi.injectEndpoints({
+const PostApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       addPost: builder.mutation<PostType, AddPostReq>({
@@ -25,10 +20,9 @@ const postApi = baseApi.injectEndpoints({
         }),
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
-        invalidatesTags: ['MyPosts'],
-        onQueryStarted: async ({ id }, { dispatch, getState, queryFulfilled }) => {
+        onQueryStarted: async ({ id, userId }, { dispatch, getState, queryFulfilled }) => {
           const patchResult = dispatch(
-            postApi.util.updateQueryData('getPosts', undefined, draft => {
+            PostApi.util.updateQueryData('getPostsByUserId', { userId }, draft => {
               if (draft) {
                 const deletedPostIdx = draft.items.findIndex(el => el.id === id)
 
@@ -54,13 +48,13 @@ const postApi = baseApi.injectEndpoints({
       editPost: builder.mutation<void, EditPostArgs>({
         invalidatesTags: ['MyPosts'],
         onQueryStarted: async ({ description, id }, { dispatch, getState, queryFulfilled }) => {
-          const invalidatedBy = postApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
+          const invalidatedBy = PostApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
           const patchResults: any[] = []
 
           invalidatedBy.forEach(({ originalArgs }) => {
             patchResults.push(
               dispatch(
-                postApi.util.updateQueryData('getPostsByUserId', originalArgs, draft => {
+                PostApi.util.updateQueryData('getPostsByUserId', originalArgs, draft => {
                   const itemToUpdateIndex = draft.items.findIndex(post => post.id === id)
 
                   if (itemToUpdateIndex !== -1) {
@@ -95,46 +89,18 @@ const postApi = baseApi.injectEndpoints({
           url: 'v1/post/photo',
         }),
       }),
-      getPost: builder.query<PostItemTypeRes, getPostArgs>({
-        providesTags: ['MyPosts'],
-        query: body => ({
-          method: 'GET',
-          url: `v1/public-posts/${body.id}`,
-        }),
-      }),
-      getPosts: builder.query<PostsType, void>({
-        // forceRefetch({ currentArg, previousArg }) {
-        //   return currentArg !== previousArg
-        // },
-        // merge: (currentCache, newItems) => {
-        //   currentCache.items.push(...newItems.items)
-        // },
-        providesTags: ['MyPosts'],
-        query: () => ({
-          method: 'GET',
-          url: 'v1/public-posts',
-        }),
-        // serializeQueryArgs: ({ endpointName }) => {
-        //   return endpointName
-        // },
-      }),
       getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
-        // forceRefetch({ currentArg, previousArg }) {
-        //   return currentArg?.page !== previousArg?.page
-        // },
-        // merge: (currentCache, newItems) => {
-        //   if (currentCache) {
-        //     currentCache.items.push(...newItems.items)
-        //     currentCache.page = newItems.page
-        //     // currentCache.hasMore = res.hasMore
-        //   } else {
-        //     return newItems
-        //   }
-        //   // if (!newItems) {
-        //   //   return
-        //   // }
-        //   // currentCache.items.push(...newItems.items)
-        // },
+        forceRefetch({ currentArg, previousArg }) {
+          return currentArg?.page !== previousArg?.page
+        },
+        merge: (currentCache, newItems) => {
+          if (currentCache) {
+            currentCache.items.push(...newItems.items)
+            currentCache.page = newItems.page
+          } else {
+            return newItems
+          }
+        },
         providesTags: ['MyPosts'],
         query: ({ page, pageSize, userId }) => {
           return {
@@ -143,20 +109,19 @@ const postApi = baseApi.injectEndpoints({
             url: `v1/post/${userId}`,
           }
         },
-        // serializeQueryArgs: ({ endpointName }) => {
-        //   return endpointName
-        // },
+        serializeQueryArgs: ({ endpointName }) => {
+          return endpointName
+        },
       }),
     }
   },
 })
 
+export const { getPostsByUserId } = PostApi.endpoints
 export const {
   useAddPostMutation,
   useDeletePostMutation,
   useEditPostMutation,
   useGetImgIdMutation,
-  useGetPostQuery,
   useGetPostsByUserIdQuery,
-  useGetPostsQuery,
-} = postApi
+} = PostApi

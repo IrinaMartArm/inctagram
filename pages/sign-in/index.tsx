@@ -40,7 +40,7 @@ const SignIn = () => {
         dispatch(authActions.setIsAuth(true))
       }
 
-      dispatch(authActions.setError(undefined))
+      dispatch(authActions.setError(null))
     } catch (err: unknown) {
       const { status } = err as FetchBaseQueryError
       const errorMessage = status === 401 ? t.loginError : t.unknownError

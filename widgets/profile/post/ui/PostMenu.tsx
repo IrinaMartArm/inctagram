@@ -21,9 +21,10 @@ type Props = {
   postDescription: string
   postId: string
   postImg: string
+  userId: string
 }
 
-export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
+export const PostMenu = ({ postDescription, postId, postImg, userId }: Props) => {
   const { t } = useTranslationPages()
   const [deletePost] = useDeletePostMutation()
   const [open, setOpen] = useState(false)
@@ -36,7 +37,7 @@ export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
   }
 
   const handleDeletePost = async () => {
-    deletePost({ id: postId }).unwrap()
+    deletePost({ id: postId, userId }).unwrap()
   }
 
   const handlePostEdit = () => {

@@ -17,7 +17,7 @@ import s from './input.module.scss'
 type InputTypes = 'datePicker' | 'email' | 'location' | 'password' | 'search' | 'text'
 
 export type InputProps = {
-  errorMessage?: string
+  errorMessage?: null | string
   fullWidth?: boolean
   isShowButton?: boolean
   label?: ReactNode

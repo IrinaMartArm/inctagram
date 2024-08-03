@@ -3,12 +3,9 @@ export type EditPostArgs = {
   id: string
 }
 
-export type getPostArgs = {
-  id: string
-}
-
 export type DeletePostArgs = {
   id: string
+  userId: string
 }
 
 export type AddPostReq = {
@@ -42,10 +39,6 @@ export type MyPostType = {
   images: string[]
   updatedAt: string
   username: string
-}
-
-export type PostItemTypeRes = Omit<PostType, 'images'> & {
-  imagesUrl: string[]
 }
 
 export type GetPostsArgs = {

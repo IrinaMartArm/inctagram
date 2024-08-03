@@ -53,6 +53,7 @@ export const en: LocaleType = {
     errors: {
       aboutMe: 'Text need to be not more than 200 symbols',
       child: 'A user under 16 cannot create a profile.',
+      dateFormatError: 'Date format error!',
       fell: 'Error! Server is not available!',
       firstName: 'First name is required.',
       formatFile: 'File format is not supported.',
@@ -63,7 +64,9 @@ export const en: LocaleType = {
     },
     firstName: 'First Name',
     invalidLastName: 'The lastname must contain',
+    invalidLastNameMax: 'The lastname need to be not more than 50 symbols',
     invalidName: 'The name must contain',
+    invalidNameMax: 'The name need to be not more than 50 symbols',
     invalidUsername: 'The username must contain',
     lastName: 'Last Name',
     saveChanges: 'Save Changes',
