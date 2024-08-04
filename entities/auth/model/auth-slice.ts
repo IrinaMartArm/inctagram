@@ -1,5 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
+type InitialStateType = {
+  email: null | string
+  error: null | string
+  isAuth: boolean
+}
+
+const initialState: InitialStateType = {
+  email: null,
+  error: null,
+  isAuth: false,
+}
+
 const slice = createSlice({
   extraReducers: builder => {
     builder.addMatcher(
@@ -9,21 +21,17 @@ const slice = createSlice({
         )
       },
       state => {
-        state.error = undefined
+        state.error = null
       }
     )
   },
-  initialState: {
-    email: undefined as string | undefined,
-    error: undefined as string | undefined,
-    isAuth: false,
-  },
+  initialState,
   name: 'auth',
   reducers: {
-    setEmail: (state, action: PayloadAction<string | undefined>) => {
+    setEmail: (state, action: PayloadAction<null | string>) => {
       state.email = action.payload
     },
-    setError: (state, action: PayloadAction<string | undefined>) => {
+    setError: (state, action: PayloadAction<null | string>) => {
       state.error = action.payload
     },
     setIsAuth: (state, action: PayloadAction<boolean>) => {

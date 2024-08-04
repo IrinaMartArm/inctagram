@@ -12,9 +12,9 @@ export default {
   followers: 'Подписчики',
   following: 'Подписки',
   post: {
-    deletePost: 'Удалить сообщение',
+    deletePost: 'Удалить пост',
     editPost: 'Редактировать пост',
-    text: 'Вы уверены, что хотите удалить эту запись?',
+    text: 'Вы уверены, что хотите удалить пост?',
   },
   publications: 'Публикации',
   settingsBtn: 'Настройки профиля',

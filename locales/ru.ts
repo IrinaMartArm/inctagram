@@ -50,6 +50,7 @@ export const ru = {
     errors: {
       aboutMe: 'Текст не должен превышать 200 символов',
       child: 'Пользователь младше 16 лет не может создать профиль.',
+      dateFormatError: 'Ошибка формата даты!',
       fell: 'Ошибка! Сервер недоступен!',
       firstName: 'Имя не может быть пустым',
       formatFile: 'Формат загружаемой фотографии должен быть PNG и JPEG.',
@@ -60,7 +61,9 @@ export const ru = {
     },
     firstName: 'Имя',
     invalidLastName: 'Фамилия должна содержать',
-    invalidName: 'Имя должно содержать',
+    invalidLastNameMax: 'Фамилия не должена превышать 50 символов',
+    invalidName: 'Имя должно содержать ',
+    invalidNameMax: 'Имя не должено превышать 50 символов',
     invalidUsername: 'Имя должно содержать',
     lastName: 'Фамилия',
     saveChanges: 'Сохранить изменения',

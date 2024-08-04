@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ClassNames, DayPicker as ReactDayPicker, SelectSingleEventHandler } from 'react-day-picker'
 
+import { useTranslation } from '@/shared/assets'
 import { Input, Typography } from '@/shared/components'
 import { useOutsideDayClick } from '@/shared/components/dayPicker/OutsideDayClickHook'
 import { clsx } from 'clsx'
@@ -11,25 +12,21 @@ import sC from '@/shared/components/input/input.module.scss'
 import styles from 'react-day-picker/dist/style.module.css'
 
 export const DayPicker = (props: DayPickerProps) => {
-  const { errorMessage, label, onChange, selected, setDateFormatError } = props
+  const { t } = useTranslation()
+  const { errorMessage, label, onChange, selected } = props
 
   const [isPickerSingleHidden, setIsPickerSingleHidden] = useState<boolean>(true)
   const [localSelected, setLocalSelected] = useState<string | undefined>(selected)
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
 
   useEffect(() => {
-    if (localSelected && isValidDateFormat(localSelected)) {
+    if (isValidDateFormat(localSelected)) {
       onChange(localSelected)
       handleMonthChange(parseSelectedDate(localSelected) as Date)
-      setDateFormatError(false)
-    } else if (localSelected) {
-      onChange(undefined)
-      setDateFormatError(true)
     } else {
       onChange(undefined)
-      setDateFormatError(false)
     }
-  }, [localSelected, onChange, setDateFormatError])
+  }, [localSelected, onChange])
 
   const weekends = [5, 6]
   const weekendStyle = { color: '#F23D61' }
@@ -74,7 +71,9 @@ export const DayPicker = (props: DayPickerProps) => {
   }
 
   const dateSingleChecker = () => {
-    return localSelected && !isValidDateFormat(localSelected) ? 'Date format error!' : ''
+    return localSelected && !isValidDateFormat(localSelected)
+      ? `${t.profileSettings.errors.dateFormatError}`
+      : ''
   }
 
   const calendarRef = useRef<HTMLDivElement>(null)
@@ -136,5 +135,4 @@ export type DayPickerProps = {
   label?: string
   onChange: (value: string | undefined) => void
   selected: string | undefined
-  setDateFormatError: (hasError: boolean) => void
 }

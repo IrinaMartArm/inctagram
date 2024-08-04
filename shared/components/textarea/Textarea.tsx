@@ -42,7 +42,6 @@ export const Textarea = forwardRef<ElementRef<'textarea'>, TextAreaProps>((props
           {errorMessage}
         </Typography>
       )}
-      {/*<div className={s.error__message}>{error && error}</div>*/}
     </div>
   )
 })

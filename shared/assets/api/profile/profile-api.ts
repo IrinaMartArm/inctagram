@@ -5,7 +5,7 @@ import {
   UserProfileResponse,
 } from '@/shared/assets/api/profile/types'
 
-export const ProfileApi = baseApi.injectEndpoints({
+export const profileApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       deleteUserPhoto: builder.mutation<void, void>({
@@ -18,9 +18,9 @@ export const ProfileApi = baseApi.injectEndpoints({
       fillOutProfile: builder.mutation<void, UserProfileArgs>({
         invalidatesTags: ['Profile'],
 
-        onQueryStarted: async ({ ...arg }, { dispatch, getState, queryFulfilled }) => {
+        onQueryStarted: async ({ ...arg }, { dispatch, queryFulfilled }) => {
           const patchResult = dispatch(
-            ProfileApi.util.updateQueryData('profileInformation', undefined, draft => {
+            profileApi.util.updateQueryData('profileInformation', undefined, draft => {
               Object.assign(draft, arg)
             })
           )
@@ -58,9 +58,10 @@ export const ProfileApi = baseApi.injectEndpoints({
   },
 })
 
+export const { profileInformation } = profileApi.endpoints
 export const {
   useDeleteUserPhotoMutation,
   useFillOutProfileMutation,
   useProfileInformationQuery,
   useUploadUserPhotoMutation,
-} = ProfileApi
+} = profileApi

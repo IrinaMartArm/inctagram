@@ -15,3 +15,7 @@ export type PublicPostByIdResponse = {
   updatedAt: string
   username: string
 }
+
+export type PublicPostArgs = {
+  postId: number
+}
