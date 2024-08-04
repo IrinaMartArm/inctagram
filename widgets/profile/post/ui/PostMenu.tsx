@@ -18,17 +18,15 @@ import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
 import s from '@/widgets/profile/post/ui/post.module.scss'
 
 type Props = {
-  onCloseModal: () => void
   postDescription: string
   postId: string
   postImg: string
 }
 
-export const PostMenu = ({ onCloseModal, postDescription, postId, postImg }: Props) => {
+export const PostMenu = ({ postDescription, postId, postImg }: Props) => {
   const { t } = useTranslationPages()
   const [deletePost] = useDeletePostMutation()
   const [open, setOpen] = useState(false)
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isDescriptionChanged, setIsDescriptionChanged] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
@@ -38,17 +36,7 @@ export const PostMenu = ({ onCloseModal, postDescription, postId, postImg }: Pro
   }
 
   const handleDeletePost = async () => {
-    onCloseModal()
-    setIsDeleteModalOpen(false)
     deletePost({ id: postId }).unwrap()
-  }
-
-  const handleOpenDeletePostModal = () => {
-    setIsDeleteModalOpen(true)
-  }
-
-  const handleCancelDeletePostModal = () => {
-    setIsDeleteModalOpen(false)
   }
 
   const handlePostEdit = () => {
@@ -93,25 +81,19 @@ export const PostMenu = ({ onCloseModal, postDescription, postId, postImg }: Pro
             </Button>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Button
-              className={d.item}
-              icon={<Trash />}
-              onClick={handleOpenDeletePostModal}
-              variant={'icon'}
+            <Modal
+              title={t.post.deletePost}
+              trigger={
+                <Button className={d.item} icon={<Trash />} variant={'icon'}>
+                  {t.post.deletePost}
+                </Button>
+              }
             >
-              {t.post.deletePost}
-            </Button>
+              <ModalWindow callback={handleDeletePost} text={t.post.text} />
+            </Modal>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      <Modal
-        onOpenChange={handleCancelDeletePostModal}
-        open={isDeleteModalOpen}
-        title={t.post.deletePost}
-      >
-        <ModalWindow callback={handleDeletePost} text={t.post.text} />
-      </Modal>
 
       <Modal
         className={s.modalPostEdit}

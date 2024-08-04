@@ -9,6 +9,9 @@ import {
   PostsType,
   getPostArgs,
 } from '@/shared/assets/api/post/types'
+import { getState } from '@vitest/expect'
+import { current } from 'immer'
+import { patchConsoleError } from 'next/dist/client/components/react-dev-overlay/internal/helpers/hydration-error-info'
 
 const postApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -24,29 +27,22 @@ const postApi = baseApi.injectEndpoints({
       deletePost: builder.mutation<void, DeletePostArgs>({
         invalidatesTags: ['MyPosts'],
         onQueryStarted: async ({ id }, { dispatch, getState, queryFulfilled }) => {
-          const invalidatedBy = postApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
-          const patchResults: any[] = []
+          const patchResult = dispatch(
+            postApi.util.updateQueryData('getPosts', undefined, draft => {
+              if (draft) {
+                const deletedPostIdx = draft.items.findIndex(el => el.id === id)
 
-          invalidatedBy.forEach(({ originalArgs }) => {
-            patchResults.push(
-              dispatch(
-                postApi.util.updateQueryData('getPostsByUserId', originalArgs, draft => {
-                  const itemToUpdateIndex = draft.items.findIndex(post => post.id === id)
-
-                  if (itemToUpdateIndex !== -1) {
-                    draft.items.splice(itemToUpdateIndex, 1)
-                  }
-                })
-              )
-            )
-          })
+                if (deletedPostIdx !== -1) {
+                  draft.items.splice(deletedPostIdx, 1)
+                }
+              }
+            })
+          )
 
           try {
             await queryFulfilled
-          } catch (e) {
-            patchResults.forEach(patchResult => {
-              patchResult.undo()
-            })
+          } catch {
+            patchResult?.undo()
           }
         },
         query: ({ id }) => ({
