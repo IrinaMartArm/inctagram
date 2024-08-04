@@ -87,6 +87,7 @@ export const en: LocaleType = {
   verification: {
     description:
       'Looks like the verification link has expired. Not to worry, we can send the link again',
+    haveSent: 'We have sent a link to confirm your email to',
     title: 'Email verification link expired',
     titleButton: 'Resend verification link',
   },

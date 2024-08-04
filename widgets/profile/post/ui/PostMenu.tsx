@@ -98,7 +98,6 @@ export const PostMenu = ({ postDescription, postId, postImg, userId }: Props) =>
 
       <Modal
         className={s.modalPostEdit}
-        handleCloseClickButton={handleOpenConfirmModal}
         handleCloseClickOutside={handleOpenConfirmModal}
         open={isEditModalOpen}
         title={t.edit.titleEdit}
