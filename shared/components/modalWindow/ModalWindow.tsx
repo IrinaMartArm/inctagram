@@ -20,7 +20,6 @@ export const ModalWindow = ({ callback, text, text_2 }: ModalWindowProps) => {
           {'  '}
           {text_2 ?? ''}
         </Typography>
-        ?
       </Typography>
       <div className={s.controller}>
         <Button className={s.button} onClick={callback} variant={'outlined'}>

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
-import { MyPostType } from '@/shared/assets/api/post/types'
+import { PostType } from '@/shared/assets/api/post/types'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
@@ -11,7 +11,7 @@ type Props = {
   avatar: string
   isOwner: boolean
   key?: number
-  post: MyPostType
+  post: PostType
   userId: string
 }
 
@@ -42,14 +42,20 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
         </div>
         <div className={s.contentWrapper}>
           <div className={s.content}>
-            <AvatarSimple title={'me'} />
-            <Typography variant={'h3'}>{post.description}</Typography>
+            <AvatarSimple src={avatar} title={'me'} />
+            <div className={s.content_text}>
+              <Typography as={'div'} variant={'h3'}>
+                {post.description}
+              </Typography>
+            </div>
           </div>
           <div className={s.content}>
             <AvatarSimple title={'me'} />
             <div className={s.comment}>
               <div className={s.contentInner}>
-                <Typography variant={'h3'}>Lorem</Typography>
+                <div className={s.content_text}>
+                  <Typography variant={'h3'}>Lorem</Typography>
+                </div>
                 <Button icon={<HeartSmall />} onClick={() => {}} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
@@ -61,7 +67,9 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
             <AvatarSimple title={'me'} />
             <div className={s.comment}>
               <div className={s.contentInner}>
-                <Typography variant={'h3'}>Lorem</Typography>
+                <div className={s.content_text}>
+                  <Typography variant={'h3'}>Lorem</Typography>
+                </div>
                 <Button icon={<HeartRed />} onClick={() => {}} variant={'icon'} />
               </div>
               <Typography className={s.grey} variant={'small-text'}>
@@ -93,7 +101,7 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
             </Typography>
           </div>
           <Typography className={s.grey} variant={'small-text'}>
-            July 3, 2021
+            {post?.createdAt}
           </Typography>
           <form className={s.input}>
             <ControlledTextField

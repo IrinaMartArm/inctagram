@@ -58,7 +58,7 @@ export const useNewPassword = () => {
           query: { param: 'password' },
         })
       }
-      handleErrorResponse(err)
+      // handleErrorResponse(err)
     }
     reset(defaultValues)
   }

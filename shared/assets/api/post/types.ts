@@ -31,16 +31,6 @@ export type PostType = {
   username: string
 }
 
-export type MyPostType = {
-  authorId: string
-  createdAt: string
-  description: string
-  id: string
-  images: string[]
-  updatedAt: string
-  username: string
-}
-
 export type GetPostsArgs = {
   page?: string
   pageSize?: string
