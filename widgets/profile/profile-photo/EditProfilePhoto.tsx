@@ -77,7 +77,7 @@ export const EditProfilePhoto = ({
 
   return (
     <Modal
-      handleCloseClickButton={() => setIsShowModal(false)}
+      // handleCloseClickButton={() => setIsShowModal(false)}
       handleCloseClickOutside={() => setIsShowModal(false)}
       open={defaultOpen}
       title={t.addPhoto}
