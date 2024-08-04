@@ -18,7 +18,7 @@ import s from './verification.module.scss'
 export const Verification = () => {
   const { t } = useTranslation()
   const route = useRouter()
-  const { password } = route.query
+  const { param } = route.query
   const email = localStorage.getItem('email')
 
   const [passwordResending] = usePasswordResendingMutation()
@@ -29,16 +29,18 @@ export const Verification = () => {
   const imageHeight = isMobile ? 230 : 300
   const imageWidth = isMobile ? 330 : 432
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
   const onOpenChangeHandler = () => {
     setOpen(false)
   }
 
-  const resendingHandler = () => {
+  const resendingHandler = async () => {
     try {
-      password
-        ? passwordResending({ email: email || '' }).unwrap()
-        : resending({ email: email || '' }).unwrap()
+      if (param) {
+        await passwordResending({ email: email || '' }).unwrap()
+      } else {
+        await resending({ email: email || '' }).unwrap()
+      }
       setOpen(true)
     } catch (err: any) {
       handleErrorResponse(err)

@@ -11,7 +11,6 @@ import s from './Modals.module.scss'
 
 export type Props = {
   className?: string
-  handleCloseClickButton?: () => void
   handleCloseClickOutside?: () => void
   title?: string
   trigger?: ReactNode
@@ -21,7 +20,6 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
   const {
     children,
     className,
-    handleCloseClickButton,
     handleCloseClickOutside,
     onOpenChange,
     open,
@@ -29,18 +27,6 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
     trigger,
     ...rest
   } = props
-
-  const handleCloseClick = (event: MouseEvent) => {
-    event.preventDefault()
-
-    if (handleCloseClickButton) {
-      handleCloseClickButton()
-    }
-
-    if (onOpenChange) {
-      onOpenChange(false)
-    }
-  }
 
   return (
     <RadixModal.Root {...rest} onOpenChange={onOpenChange} open={open}>
@@ -71,7 +57,7 @@ export const Modal = forwardRef<ElementRef<typeof RadixModal.Root>, Props>((prop
                       {title}
                     </Typography>
                     <ModalClose>
-                      <Button icon={<Close />} onClick={handleCloseClick} variant={'icon'} />
+                      <Button icon={<Close />} variant={'icon'} />
                     </ModalClose>
                   </div>
                 )}

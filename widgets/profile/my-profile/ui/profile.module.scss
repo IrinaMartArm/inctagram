@@ -51,6 +51,7 @@
   @include flex(row, space-between, center);
 
   align-self: flex-start;
+  overflow-y: scroll;
 }
 
 .posts {

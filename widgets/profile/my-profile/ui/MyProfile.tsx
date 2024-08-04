@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
 import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
-import { MyPostType } from '@/shared/assets/api/post/types'
+import { PostType } from '@/shared/assets/api/post/types'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { useTranslationPages } from '@/shared/assets/hooks'
@@ -17,7 +17,7 @@ import s from './profile.module.scss'
 type Props = {
   isMyProfile: boolean
   myProfileData?: UserProfileResponse
-  post: MyPostType
+  post: PostType
   userId: string
   userProfile: UserProfile
 }
@@ -28,7 +28,7 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userId, userProfil
   const { postId } = router.query
   const [page, setPage] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [selectedPost, setSelectedPost] = useState<MyPostType | null>(null)
+  const [selectedPost, setSelectedPost] = useState<PostType | null>(null)
 
   const pageSize = 8
   const {
@@ -72,16 +72,18 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userId, userProfil
     return () => window.removeEventListener('scroll', handleScroll, { capture: true })
   }, [loadMorePosts])
 
-  const handlePostClick = (post: MyPostType) => {
+  const handlePostClick = (post: PostType) => {
     setSelectedPost(post)
     setIsModalOpen(true)
   }
+
+  const avatar = isMyProfile ? myProfileData?.avatar?.url : userProfile?.avatar?.url
 
   return (
     <div className={s.root}>
       <div className={s.info_wrapper}>
         <div className={s.avatar}>
-          <Avatar alt={userProfile?.username || ''} src={userProfile?.avatar?.url || ''} />
+          <Avatar alt={userProfile?.username || ''} src={avatar || ''} />
         </div>
         <div className={s.info_block}>
           <div className={s.first_row}>
@@ -110,12 +112,7 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userId, userProfil
                 key={post.id}
                 trigger={<img alt={''} className={s.postImage} src={post.images[0]} />}
               >
-                <Post
-                  avatar={userProfile?.avatar?.url || ''}
-                  isOwner={isMyProfile}
-                  post={post}
-                  userId={userId}
-                />
+                <Post avatar={avatar || ''} isOwner={isMyProfile} post={post} userId={userId} />
               </Modal>
             ))
           : !isLoading && <div>No posts available</div>}
