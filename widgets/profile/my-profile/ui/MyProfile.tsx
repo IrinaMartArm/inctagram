@@ -1,20 +1,17 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
-import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { PostType } from '@/shared/assets/api/post/types'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
-import { useTranslationPages } from '@/shared/assets/hooks'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
+import { useProfile } from '@/widgets'
 import { Post } from '@/widgets/profile/post/ui/Post'
+import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import s from './profile.module.scss'
 
-type Props = {
+export type MyProfileProps = {
   isMyProfile: boolean
   myProfileData?: UserProfileResponse
   post: PostType
@@ -22,62 +19,10 @@ type Props = {
   userProfile: UserProfile
 }
 
-export const MyProfile = ({ isMyProfile, myProfileData, post, userId, userProfile }: Props) => {
-  const { t } = useTranslationPages()
-  const router = useRouter()
-  const { postId } = router.query
-  const [page, setPage] = useState(1)
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [selectedPost, setSelectedPost] = useState<PostType | null>(null)
-
-  const pageSize = 8
-  const {
-    data: posts,
-    isFetching,
-    isLoading,
-  } = useGetPostsByUserIdQuery({
-    page: page.toString(),
-    pageSize: pageSize.toString(),
-    userId: userId,
-  })
-
-  useEffect(() => {
-    if (post) {
-      setSelectedPost({
-        ...post,
-        images: post.images,
-      })
-      setIsModalOpen(true)
-    }
-  }, [post])
-
-  const loadMorePosts = useCallback(() => {
-    if (!isFetching && !isLoading && posts && posts.pagesCount > page) {
-      setPage(prevPage => prevPage + 1)
-    }
-  }, [isFetching, isLoading])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight
-      ) {
-        loadMorePosts()
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { capture: true })
-
-    return () => window.removeEventListener('scroll', handleScroll, { capture: true })
-  }, [loadMorePosts])
-
-  const handlePostClick = (post: PostType) => {
-    setSelectedPost(post)
-    setIsModalOpen(true)
-  }
-
-  const avatar = isMyProfile ? myProfileData?.avatar?.url : userProfile?.avatar?.url
+export const MyProfile = (props: MyProfileProps) => {
+  const { isMyProfile, userId, userProfile } = props
+  const { aboutMe, avatar, isLoading, isModalOpen, posts, selectedPost, setIsModalOpen, t } =
+    useProfile(props)
 
   return (
     <div className={s.root}>
@@ -100,7 +45,7 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userId, userProfil
             <Info number={userProfile?.publications.length} title={t.publications} />
           </div>
           <div className={s.third_row}>
-            <Typography variant={'regular_text-16'}>{userProfile?.aboutMe}</Typography>
+            <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
           </div>
         </div>
       </div>
@@ -110,7 +55,11 @@ export const MyProfile = ({ isMyProfile, myProfileData, post, userId, userProfil
               <Modal
                 className={s.modal}
                 key={post.id}
-                trigger={<img alt={''} className={s.postImage} src={post.images[0]} />}
+                trigger={
+                  <div className={s.postImage}>
+                    <img alt={'post'} className={s.postImageInner} src={post.images[0]} />
+                  </div>
+                }
               >
                 <Post avatar={avatar || ''} isOwner={isMyProfile} post={post} userId={userId} />
               </Modal>

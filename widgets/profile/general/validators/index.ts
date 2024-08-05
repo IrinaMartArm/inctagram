@@ -10,7 +10,7 @@ export const profileFormSchema = (t: LocaleType) => {
   return z.object({
     aboutMe: z
       .string()
-      .max(200, `${t.profileSettings.errors.aboutMe}`)
+      .max(20, `${t.profileSettings.errors.aboutMe}`)
       .regex(
         ABOUT_ME_REGEX,
         `${t.profileSettings.invalidName} A-Z; a-z;
@@ -38,7 +38,7 @@ export const profileFormSchema = (t: LocaleType) => {
     firstName: z
       .string()
       .min(1, `${t.profileSettings.errors.firstName}`)
-      .max(5, `${t.profileSettings.invalidNameMax}`)
+      .max(50, `${t.profileSettings.invalidNameMax}`)
       .regex(
         ME_REGEX,
         `${t.profileSettings.invalidName} A-Z; a-z;
