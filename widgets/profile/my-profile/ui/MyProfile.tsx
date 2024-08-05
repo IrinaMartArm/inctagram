@@ -20,7 +20,7 @@ export type MyProfileProps = {
 
 export const MyProfile = (props: MyProfileProps) => {
   const { isMyProfile, userId, userProfile } = props
-  const { avatar, isLoading, isModalOpen, posts, selectedPost, setIsModalOpen, t } =
+  const { aboutMe, avatar, isLoading, isModalOpen, posts, selectedPost, setIsModalOpen, t } =
     useProfile(props)
 
   return (
@@ -44,7 +44,7 @@ export const MyProfile = (props: MyProfileProps) => {
             <Info number={userProfile?.publications.length} title={t.publications} />
           </div>
           <div className={s.third_row}>
-            <Typography variant={'regular_text-16'}>{userProfile?.aboutMe}</Typography>
+            <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
           </div>
         </div>
       </div>

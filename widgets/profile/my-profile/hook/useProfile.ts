@@ -69,7 +69,10 @@ export const useProfile = ({
 
   const avatar = isMyProfile ? myProfileData?.avatar?.url : userProfile?.avatar?.url
 
+  const aboutMe = isMyProfile ? myProfileData?.aboutMe : userProfile?.aboutMe
+
   return {
+    aboutMe,
     avatar,
     isLoading,
     isModalOpen,
