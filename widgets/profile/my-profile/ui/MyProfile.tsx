@@ -6,6 +6,7 @@ import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
 import { useProfile } from '@/widgets'
 import { Post } from '@/widgets/profile/post/ui/Post'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './profile.module.scss'
@@ -54,7 +55,11 @@ export const MyProfile = (props: MyProfileProps) => {
               <Modal
                 className={s.modal}
                 key={post.id}
-                trigger={<img alt={''} className={s.postImage} src={post.images[0]} />}
+                trigger={
+                  <div className={s.postImage}>
+                    <img alt={'post'} className={s.postImageInner} src={post.images[0]} />
+                  </div>
+                }
               >
                 <Post avatar={avatar || ''} isOwner={isMyProfile} post={post} userId={userId} />
               </Modal>
