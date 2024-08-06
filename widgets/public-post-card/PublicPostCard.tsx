@@ -14,7 +14,7 @@ type Props = {
   className?: string
   createdAt: string
   description: string
-  imagesUrl: string[]
+  images: string[]
   postId: string
   userId: string
   username: string
@@ -64,7 +64,7 @@ export const PublicPostCard = (props: Props) => {
         <div className={s.link}></div>
       </Link>
       <div className={s.sliderContainer}>
-        <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
+        <PhotoCarousel height={'240px'} photos={props.images} />
       </div>
       <div className={clsx(s.content, isExpanded && s.expanded)}>
         <div className={s.user}>
