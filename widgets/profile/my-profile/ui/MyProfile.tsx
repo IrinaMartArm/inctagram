@@ -6,7 +6,6 @@ import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
 import { useProfile } from '@/widgets'
 import { Post } from '@/widgets/profile/post/ui/Post'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './profile.module.scss'
@@ -21,8 +20,7 @@ export type MyProfileProps = {
 
 export const MyProfile = (props: MyProfileProps) => {
   const { isMyProfile, userId, userProfile } = props
-  const { aboutMe, avatar, isLoading, isModalOpen, posts, selectedPost, setIsModalOpen, t } =
-    useProfile(props)
+  const { aboutMe, avatar, isLoading, isModalOpen, posts, t } = useProfile(props)
 
   return (
     <div className={s.root}>
@@ -67,16 +65,6 @@ export const MyProfile = (props: MyProfileProps) => {
           : !isLoading && <div>No posts available</div>}
         {isLoading && <div>Loading...</div>}
       </div>
-      {selectedPost && (
-        <Modal className={s.modal} onOpenChange={open => setIsModalOpen(open)} open={isModalOpen}>
-          <Post
-            avatar={userProfile?.avatar?.url || ''}
-            isOwner={isMyProfile}
-            post={selectedPost}
-            userId={userId}
-          />
-        </Modal>
-      )}
     </div>
   )
 }
