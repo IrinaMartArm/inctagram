@@ -44,7 +44,6 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback, setConfirm
     menu === showMenu ? setShowMenu('') : setShowMenu(menu)
   }
 
-  console.log(croppedAreaPixels)
   const handleNext = () => {
     showCroppedImage(ind, croppedAreaPixels)
     setModalStateCallback('filters')

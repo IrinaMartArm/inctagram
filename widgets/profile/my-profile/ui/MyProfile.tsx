@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
 import { PostType } from '@/shared/assets/api/post/types'

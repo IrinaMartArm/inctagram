@@ -3,6 +3,7 @@ import Slider from 'react-slick'
 
 import { addPhotoActions } from '@/entities'
 import { ArrowBack } from '@/public'
+import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { useAppDispatch } from '@/shared/assets/api/store'
 import {
   Avatar,
@@ -19,7 +20,7 @@ import s from './publication.module.scss'
 
 export const Publication = () => {
   const dispatch = useAppDispatch()
-
+  const { data } = useProfileInformationQuery()
   const { control, cropImages, cropImagesWithFilter, errors, handleSubmit, onSubmit, t, watch } =
     useAddPhotoForm()
 
@@ -79,8 +80,8 @@ export const Publication = () => {
         <div className={s.publicationDescriptionBlock}>
           <div className={s.formBlock}>
             <div className={s.avatarContainer}>
-              <Avatar alt={'as'} className={s.avatar} size={'sm'} />
-              <Typography variant={'regular_text-16'}>URLProfiele</Typography>
+              <Avatar alt={'as'} className={s.avatar} size={'sm'} src={data?.avatar.url} />
+              <Typography variant={'regular_text-16'}>{data?.username}</Typography>
             </div>
             <form id={'descriptionForm'} onSubmit={handleSubmit(onSubmit)}>
               <ControlledTextArea

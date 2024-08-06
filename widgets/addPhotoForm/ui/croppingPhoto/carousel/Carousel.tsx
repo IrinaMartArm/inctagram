@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
 import { CropArg } from '@/shared/assets/types/types'
@@ -6,6 +6,7 @@ import { NextArrowComponent } from '@/shared/components/arrows/NextArrowComponen
 import { PrevArrowComponent } from '@/shared/components/arrows/PrevArrowComponent'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import { EasyCrop } from '@/widgets/addPhotoForm/ui/croppingPhoto/easyCrop/easyCrop'
+import { clsx } from 'clsx'
 
 import 'slick-carousel/slick/slick.css'
 
@@ -37,7 +38,13 @@ export const Carousel = ({
   const { showCroppedImage } = useAddPhotoForm()
 
   const settings = {
-    dots: true,
+    appendDots: (dots: ReactNode) => <ul className={s.dots}>{dots}</ul>,
+    beforeChange: (current: any, next: any) => setInd(next),
+    customPaging: (i: number) => (
+      <div className={clsx(s.dotsItem, { [s.dotsItemActive]: i === ind })}></div>
+    ),
+    dots: images.length > 1,
+    dotsClass: `${s.dots}`,
     draggable: false,
     fade: true,
     infinite: true,
@@ -51,12 +58,10 @@ export const Carousel = ({
   const handleCropPixels = (e: any) => {
     console.log(e)
     showCroppedImage(ind, croppedAreaPixels)
-    // setCroppedAreaPixels()
     setCrop({ x: 0, y: 0 })
     setZoomValue([1, 3])
   }
 
-  // console.log(crop)
   const ecropp = images?.map((e, ind) => {
     return (
       <EasyCrop

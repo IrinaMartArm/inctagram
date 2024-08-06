@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import Cropper from 'react-easy-crop'
 
 import { CropArg } from '@/shared/assets/types/types'
@@ -23,9 +23,12 @@ export const EasyCrop = ({
   setShowMenu,
   zoom,
 }: Props) => {
-  const onCropComplete = (croppedArea: CropArg, croppedAreaPixels: CropArg) => {
-    setCroppedAreaPixels(croppedAreaPixels)
-  }
+  const onCropComplete = useCallback(
+    (croppedArea: CropArg, croppedAreaPixels: CropArg) => {
+      setCroppedAreaPixels(croppedAreaPixels)
+    },
+    [setCroppedAreaPixels]
+  )
   const cropperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
