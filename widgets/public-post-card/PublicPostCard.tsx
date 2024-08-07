@@ -5,19 +5,19 @@ import { useTimeAgo } from '@/shared/assets/hooks/useTimeAgo'
 import { AvatarSimple, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { clsx } from 'clsx'
-
-import s from './publicPostCard.module.scss'
 import Link from 'next/link'
 
+import s from './publicPostCard.module.scss'
+
 type Props = {
-  avatarUrl: string
+  avatar: string
   className?: string
   createdAt: string
   description: string
-  imagesUrl: string[]
-  username: string
-  userId: string
+  images: string[]
   postId: string
+  userId: string
+  username: string
 }
 
 export const PublicPostCard = (props: Props) => {
@@ -64,11 +64,11 @@ export const PublicPostCard = (props: Props) => {
         <div className={s.link}></div>
       </Link>
       <div className={s.sliderContainer}>
-        <PhotoCarousel height={'240px'} photos={props.imagesUrl} />
+        <PhotoCarousel height={'240px'} photos={props.images} />
       </div>
       <div className={clsx(s.content, isExpanded && s.expanded)}>
         <div className={s.user}>
-          <AvatarSimple className={s.avatar} src={props.avatarUrl} title={props.username} />
+          <AvatarSimple className={s.avatar} src={props.avatar} title={props.username} />
           <Typography variant={'h3'}>{props.username}</Typography>
         </div>
 

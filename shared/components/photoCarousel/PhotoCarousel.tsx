@@ -20,7 +20,7 @@ export const PhotoCarousel = ({ className, height = '564px', photos }: PhotoCaro
     customPaging: (i: number) => (
       <div className={clsx(s.dotsItem, { [s.dotsItemActive]: i === activeIndex })}></div>
     ),
-    dots: photos.length > 1,
+    dots: photos?.length > 1,
     dotsClass: `${s.dots}`,
     draggable: false,
     fade: true,
