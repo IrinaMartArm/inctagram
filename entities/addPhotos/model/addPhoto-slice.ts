@@ -3,13 +3,17 @@ type CropImageWithFilter = {
   filter: string
   img: string
 }
-
+type croppedAreaPixels = { height: number; width: number; x: number; y: number }
+export type image = {
+  croppedAreaPixels: croppedAreaPixels
+  image: string
+}
 export type ModalState = 'add-photo' | 'cropping' | 'filters' | 'publication'
 const slice = createSlice({
   initialState: {
     cropImages: ([] as string[]) || null,
     cropImagesWithFilter: ([] as CropImageWithFilter[]) || null,
-    images: ([] as string[]) || null,
+    images: ([] as image[]) || null,
     isOpen: false as boolean,
     modalState: 'add-photo' as ModalState,
   },
@@ -25,7 +29,10 @@ const slice = createSlice({
       }
     },
     addImage: (state, action: PayloadAction<string>) => {
-      state.images.push(action.payload)
+      state.images.push({
+        croppedAreaPixels: { height: 0, width: 0, x: 0, y: 0 },
+        image: action.payload,
+      })
       state.cropImages.push(action.payload)
       state.cropImagesWithFilter.push({
         filter: 'none',
@@ -56,6 +63,15 @@ const slice = createSlice({
       state.cropImagesWithFilter[cropImageWithFilterIndex] = {
         filter: filter,
         img: cropImageWithFilter,
+      }
+    },
+    setCroppedAreaPixels: (
+      state,
+      action: PayloadAction<{ croppedAreaPixels: croppedAreaPixels; index: number }>
+    ) => {
+      state.images[action.payload.index] = {
+        croppedAreaPixels: action.payload.croppedAreaPixels,
+        image: state.images[action.payload.index].image,
       }
     },
     setIsOpen: (state, action: PayloadAction<boolean>) => {

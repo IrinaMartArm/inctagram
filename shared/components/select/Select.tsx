@@ -14,7 +14,7 @@ type ItemsType = {
   value: string
 }
 
-type SelectType = {
+export type SelectType = {
   className?: string
   defaultValue?: string
   disabled?: boolean
