@@ -1,0 +1,75 @@
+export const dataTable = [
+  [
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+    {
+      dateOfPayment: '12.12.2024',
+      endDateOfSubscription: '12.12.2024',
+      paymentType: 'Stripe',
+      price: '100$',
+      subscriptionType: '7 days',
+    },
+  ],
+]

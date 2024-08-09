@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
+import { image } from '@/entities'
 import { CropArg } from '@/shared/assets/types/types'
 import { NextArrowComponent } from '@/shared/components/arrows/NextArrowComponent'
 import { PrevArrowComponent } from '@/shared/components/arrows/PrevArrowComponent'
@@ -14,10 +15,9 @@ import s from './carousel.module.scss'
 type Props = {
   aspect: number
 
-  croppedAreaPixels: CropArg | null
-  images: string[]
+  images: image[]
   ind: number
-  setCroppedAreaPixels: (croppedAreaPixels: CropArg | null) => void
+  setAspect: (val: number) => void
   setInd: (ind: number) => void
   setShowMenu: (val: string) => void
   setZoomValue: (val: number[]) => void
@@ -25,10 +25,9 @@ type Props = {
 }
 export const Carousel = ({
   aspect,
-  croppedAreaPixels,
   images,
   ind,
-  setCroppedAreaPixels,
+  setAspect,
   setInd,
   setShowMenu,
   setZoomValue,
@@ -55,11 +54,13 @@ export const Carousel = ({
     speed: 500,
     waitForAnimate: false,
   }
+
   const handleCropPixels = (e: any) => {
-    console.log(e)
-    showCroppedImage(ind, croppedAreaPixels)
+    showCroppedImage(ind)
+
     setCrop({ x: 0, y: 0 })
     setZoomValue([1, 3])
+    setAspect(1)
   }
 
   const ecropp = images?.map((e, ind) => {
@@ -67,10 +68,10 @@ export const Carousel = ({
       <EasyCrop
         aspect={aspect}
         crop={crop}
-        image={e}
+        image={e.image}
+        ind={ind}
         key={ind}
         setCrop={setCrop}
-        setCroppedAreaPixels={setCroppedAreaPixels}
         setShowMenu={setShowMenu}
         zoom={zoomValue[0]}
       />

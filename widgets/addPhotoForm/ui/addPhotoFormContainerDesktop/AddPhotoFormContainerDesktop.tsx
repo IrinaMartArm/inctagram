@@ -68,11 +68,7 @@ export const AddPhotoFormContainerDesktop = ({
         </div>
       )}
       {modalState === 'cropping' && (
-        <CroppingPhoto
-          deleteImgCallback={deleteImgCallback}
-          imgChangeCallback={imgChangeCallback}
-          setConfirmOpen={setConfirmOpen}
-        />
+        <CroppingPhoto deleteImgCallback={deleteImgCallback} setConfirmOpen={setConfirmOpen} />
       )}
       {modalState === 'filters' && <Filters />}
       {modalState === 'publication' && <Publication />}

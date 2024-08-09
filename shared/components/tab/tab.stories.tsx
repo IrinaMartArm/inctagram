@@ -19,8 +19,8 @@ export const Default: Story = {
     defaultValue: 'tab-01',
     label: 'Select tab',
     options: [
-      { disabled: false, title: 'Tabs', value: 'tab-01' },
-      { disabled: false, title: 'Tabs', value: 'tab-02' },
+      { disabled: false, path: ' ', title: 'Tabs', value: 'tab-01' },
+      { disabled: false, path: ' ', title: 'Tabs', value: 'tab-02' },
     ],
   },
 }
@@ -30,9 +30,9 @@ export const Disabled: Story = {
     defaultValue: 'tab-03',
     label: 'Select tab',
     options: [
-      { disabled: true, title: 'Tabs', value: 'tab-03' },
-      { disabled: true, title: 'Tabs', value: 'tab-04' },
-      { disabled: true, title: 'Tabs', value: 'tab-05' },
+      { disabled: true, path: ' ', title: 'Tabs', value: 'tab-03' },
+      { disabled: true, path: ' ', title: 'Tabs', value: 'tab-04' },
+      { disabled: true, path: ' ', title: 'Tabs', value: 'tab-05' },
     ],
   },
 }

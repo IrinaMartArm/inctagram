@@ -1,12 +1,20 @@
+import { Paths } from '@/shared/assets'
+
 export const options = [
   {
     disabled: false,
+    path: Paths.PROFILE_GENERAL,
     title: 'General information',
     value: 'General information',
   },
-  { disabled: false, title: 'Devices', value: 'Devices' },
-  { disabled: false, title: 'Account Management', value: 'Account Management' },
-  { disabled: false, title: 'My payments', value: 'My payments' },
+  { disabled: false, path: Paths.PROFILE_DEVICE, title: 'Devices', value: 'Devices' },
+  {
+    disabled: false,
+    path: Paths.PROFILE_ACCOUNT,
+    title: 'Account Management',
+    value: 'Account Management',
+  },
+  { disabled: false, path: Paths.PROFILE_PAYMENTS, title: 'My payments', value: 'My payments' },
 ]
 export const countries = [
   { title: 'Belarus', value: 'belarus' },
