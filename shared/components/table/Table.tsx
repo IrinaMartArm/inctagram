@@ -3,8 +3,7 @@ import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'rea
 import { Typography } from '@/shared/components'
 import cn from 'classnames'
 
-import s from './Table.module.scss'
-
+import s from './table.module.scss'
 const Root = forwardRef<ElementRef<'table'>, ComponentPropsWithoutRef<'table'>>(
   ({ className, ...restProps }, ref): JSX.Element => {
     const rootClasses = cn(s.root, className)

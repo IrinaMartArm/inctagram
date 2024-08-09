@@ -20,8 +20,6 @@ export const MyPayment = () => {
     pageSize: `${pageSize}`,
   })
 
-  console.log(data, `${pageSize}`)
-
   return (
     <div className={s.root}>
       <Tab defaultValue={'My payments'} options={options} />
