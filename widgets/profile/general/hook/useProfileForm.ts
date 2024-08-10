@@ -45,8 +45,8 @@ export const useProfileForm = (profile: UserProfileResponse) => {
   const watchCountry = watch('country')
 
   useEffect(() => {
-    if (watchCountry === undefined) {
-      setValue('city', undefined)
+    if (watchCountry === NOT_SELECTED) {
+      setValue('city', NOT_SELECTED)
     }
   }, [watchCountry, setValue])
 

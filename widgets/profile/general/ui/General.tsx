@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import {
   Alert,
@@ -25,19 +23,14 @@ export const General = ({ profile }: Props) => {
     alertHandler,
     alertMessage,
     alertVariant,
-    // cities,
     control,
     errors,
-    // handleCityChange,
     getCities,
-    // handleCountryChange,
     handleSubmit,
     isShowModal,
     isValid,
     loading,
-    // selectedCity,
     onSubmit,
-    // selectedCountry,
     setIsShowModal,
     showAlert,
     t,
@@ -98,7 +91,7 @@ export const General = ({ profile }: Props) => {
             <ControlledSelect
               className={s.select}
               control={control}
-              disabled={watchCountry === undefined}
+              disabled={watchCountry === NOT_SELECTED}
               items={getCities()}
               label={t.profileSettings.selectYourCity}
               name={'city'}
