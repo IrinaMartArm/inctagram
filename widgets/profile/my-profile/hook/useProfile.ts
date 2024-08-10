@@ -10,8 +10,8 @@ export const useProfile = ({
   isMyProfile,
   myProfileData,
   post,
+  publicProfile,
   userId,
-  userProfile,
 }: MyProfileProps) => {
   const { t } = useTranslationPages()
   const router = useRouter()
@@ -67,9 +67,9 @@ export const useProfile = ({
     setIsModalOpen(true)
   }
 
-  const avatar = isMyProfile ? myProfileData?.avatar?.url : userProfile?.avatar?.url
+  const avatar = isMyProfile ? myProfileData?.avatar?.url : publicProfile?.avatar?.url
 
-  const aboutMe = isMyProfile ? myProfileData?.aboutMe : userProfile?.aboutMe
+  const aboutMe = isMyProfile ? myProfileData?.aboutMe : publicProfile?.aboutMe
 
   return {
     aboutMe,

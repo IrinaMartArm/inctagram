@@ -17,13 +17,13 @@ export type MyProfileProps = {
   isMyProfile: boolean
   myProfileData?: UserProfileResponse
   post: PostType
-  publicProfile: UserProfile
+  publicProfile?: UserProfile
   userId: string
 }
 
 export const MyProfile = (props: MyProfileProps) => {
   const { isMyProfile, myProfileData, publicProfile, userId } = props
-  const { aboutMe, avatar, isLoading, isModalOpen, posts, t } = useProfile(props)
+  const { aboutMe, avatar, isLoading, t } = useProfile(props)
 
   return (
     <div className={s.root}>
@@ -43,9 +43,9 @@ export const MyProfile = (props: MyProfileProps) => {
             )}
           </div>
           <div className={s.second_row}>
-            <Info number={publicProfile?.following} title={t.following} />
-            <Info number={publicProfile?.followers} title={t.followers} />
-            <Info number={publicProfile?.publications.length} title={t.publications} />
+            <Info number={publicProfile?.following || 0} title={t.following} />
+            <Info number={publicProfile?.followers || 0} title={t.followers} />
+            <Info number={publicProfile?.publications.length || 0} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
@@ -53,8 +53,8 @@ export const MyProfile = (props: MyProfileProps) => {
         </div>
       </div>
       <div className={s.posts}>
-        {posts
-          ? posts?.items.map(post => (
+        {publicProfile?.publications
+          ? publicProfile.publications.map(post => (
               <Modal
                 className={s.modal}
                 key={post.id}
@@ -64,7 +64,13 @@ export const MyProfile = (props: MyProfileProps) => {
                   </div>
                 }
               >
-                <Post avatar={avatar || ''} isOwner={isMyProfile} post={post} userId={userId} />
+                <Post
+                  avatar={avatar || ''}
+                  isOwner={isMyProfile}
+                  post={post}
+                  userId={userId}
+                  username={publicProfile.username}
+                />
               </Modal>
             ))
           : !isLoading && <div>No posts available</div>}
