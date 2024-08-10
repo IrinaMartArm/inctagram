@@ -8,6 +8,9 @@ export type PublicPostResponse = {
 
 export type PublicPostByIdResponse = {
   authorId: string
+  avatar: {
+    url: string
+  }
   createdAt: string
   description: string
   id: string

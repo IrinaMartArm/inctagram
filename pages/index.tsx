@@ -15,7 +15,6 @@ import { NextPageContext } from 'next'
 type Props = {
   countUsers: number
   posts: PublicPostResponse
-  users: Record<string, UserProfile>
 }
 
 export const getStaticProps = async (context: NextPageContext) => {
@@ -23,36 +22,24 @@ export const getStaticProps = async (context: NextPageContext) => {
   const pageSize = query?.pageSize || 4
   const page = query?.page || 1
 
-  const count = await fetch('https://inctagram.org/api/v1/public-user')
+  const [countData, postData] = await Promise.all([
+    fetch('https://inctagram.org/api/v1/public-user'),
+    fetch(`https://inctagram.org/api/v1/public-posts?page=${page}&pageSize=${pageSize}`),
+  ])
 
-  const postData = await fetch(
-    `https://inctagram.org/api/v1/public-posts?page=${page}&pageSize=${pageSize}`
-  )
-
-  const countData = await count.json()
+  const count = await countData.json()
   const posts = await postData.json()
-
-  const users: Record<string, UserProfile> = {}
-
-  for (const post of posts.items) {
-    if (!users[post.username]) {
-      const userData = await fetch(`https://inctagram.org/api/v1/public-user/${post.username}`)
-
-      users[post.username] = await userData.json()
-    }
-  }
 
   return {
     props: {
-      countUsers: countData.totalCount,
+      countUsers: count.totalCount,
       posts,
-      users,
     },
     revalidate: 60,
   }
 }
 
-const Public: NextPageWithLayout<Props> = ({ countUsers, posts, users }) => {
+const Public: NextPageWithLayout<Props> = ({ countUsers, posts }) => {
   return (
     <>
       {/*<PageWrapper>*/}
@@ -63,7 +50,7 @@ const Public: NextPageWithLayout<Props> = ({ countUsers, posts, users }) => {
           <div className={'container'}>
             {posts?.items.map(post => (
               <PublicPostCard
-                avatarUrl={users[post.username]?.avatar?.url}
+                avatarUrl={post.avatar?.url}
                 createdAt={post.createdAt}
                 description={post.description}
                 imagesUrl={post.imagesUrl}

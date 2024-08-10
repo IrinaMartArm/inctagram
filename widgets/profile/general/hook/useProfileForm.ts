@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useFillOutProfileMutation } from '@/shared/assets/api/profile/profile-api'
@@ -39,7 +39,7 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     setValue,
   } = useForm<ProfileFormSchema>({
     defaultValues: defaultValues,
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: zodResolver(profileFormSchema(t)),
   })
 
@@ -72,6 +72,9 @@ export const useProfileForm = (profile: UserProfileResponse) => {
       }
     }
   }
+
+  console.log('Error:', errors)
+  console.log('Is Valid:', isValid)
 
   const handleCountryChange = (key: string, value: string) => {
     setSelectedCountry(value)

@@ -1,10 +1,12 @@
 import { ABOUT_ME_REGEX, ME_REGEX, USERNAME_REGEX } from '@/entities/auth/model/auth-validation'
 import { LocaleType } from '@/locales/ru'
+import { isValid as isValidDate, parse } from 'date-fns'
 import z from 'zod'
 
-const sixteenYearsAgo = new Date()
+const currentDate = new Date()
+const thirteenYearsAgo = new Date()
 
-sixteenYearsAgo.setFullYear(sixteenYearsAgo.getFullYear() - 13)
+thirteenYearsAgo.setFullYear(currentDate.getFullYear() - 13)
 
 export const profileFormSchema = (t: LocaleType) => {
   return z.object({
@@ -28,17 +30,19 @@ export const profileFormSchema = (t: LocaleType) => {
           }
           const dateOfBirth = new Date(dateString)
 
-          return dateOfBirth <= sixteenYearsAgo
+          console.log(dateOfBirth <= thirteenYearsAgo)
+
+          return dateOfBirth <= thirteenYearsAgo
         },
         {
-          message: `${t.profileSettings.errors.child}`,
+          message: t.profileSettings.errors.child,
         }
       )
       .optional(),
     firstName: z
       .string()
-      .min(1, `${t.profileSettings.errors.firstName}`)
-      .max(5, `${t.profileSettings.invalidNameMax}`)
+      .min(1, t.profileSettings.errors.firstName)
+      .max(50, t.profileSettings.invalidNameMax)
       .regex(
         ME_REGEX,
         `${t.profileSettings.invalidName} A-Z; a-z;
@@ -47,7 +51,7 @@ export const profileFormSchema = (t: LocaleType) => {
     lastName: z
       .string()
       .min(1, t.profileSettings.errors.lastName)
-      .max(50, `${t.profileSettings.invalidLastNameMax}`)
+      .max(50, t.profileSettings.invalidLastNameMax)
       .regex(
         ME_REGEX,
         `${t.profileSettings.invalidLastName} A-Z; a-z;
