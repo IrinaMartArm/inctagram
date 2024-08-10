@@ -91,6 +91,14 @@
     var(--font-weight-semi-bold)
   );
 }
+.Semi-bold_middle-text {
+  @include typography(
+   var(--font-size-m),
+   var(--line-height-l),
+   var(--font-weight-semi-bold)
+
+  );
+}
 
 .regular_link {
   @include typography(

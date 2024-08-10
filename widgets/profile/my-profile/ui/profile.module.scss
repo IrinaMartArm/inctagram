@@ -1,9 +1,8 @@
 @import 'styles/mixins';
 
 .root {
-  @include flex(column, flex-start, center, 50px);
+  @include flex(column, flex-start, none, 50px);
 
-  overflow-y: scroll;
   height: 100vh;
 }
 
@@ -55,20 +54,25 @@
 }
 
 .posts {
-  @include flex(row, center, center, 20px);
+  @include flex(row, none, flex-start, 20px);
   flex-wrap: wrap;
-  overflow-y: scroll;
 }
 
 .test {
   width: 234px;
   height: 228px;
-  border: 1px solid red;
 }
+
 .postImage{
-  width: 342px;
+  @include flex(row, center, center);
+  overflow: hidden;
+}
+
+.postImageInner {
+  //width: 100%;
   height: 228px;
 }
+
 .modal {
   max-width: 1000px !important;
   width: 100%;

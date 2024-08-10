@@ -1,3 +1,4 @@
+import { myPaymentEN } from '@/locales/profile-settings/myPayments/en'
 import { LocaleType } from 'locales/ru'
 
 export const en: LocaleType = {
@@ -41,7 +42,7 @@ export const en: LocaleType = {
     search: 'Search',
     statistics: 'Statistics',
   },
-
+  profileSettingMyPayment: myPaymentEN,
   profileSettings: {
     1: 'Privacy Policy',
     aboutMe: 'About Me',

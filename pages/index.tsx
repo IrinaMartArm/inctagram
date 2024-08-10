@@ -1,14 +1,9 @@
-import { isAuthSelector } from '@/entities'
 import { NextPageWithLayout } from '@/pages/_app'
 import { PublicPostResponse } from '@/shared/assets/api/public-posts/types'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
-import { useAppSelector } from '@/shared/assets/api/store'
-import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
-import { getLayout } from '@/shared/components/layout/baseLayout/BaseLayout'
 import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { CountUsers } from '@/widgets/count-users/count-users'
-import { Header } from '@/widgets/header/Header'
 import { PublicPostCard } from '@/widgets/public-post-card/PublicPostCard'
 import { NextPageContext } from 'next'
 
@@ -50,10 +45,10 @@ const Public: NextPageWithLayout<Props> = ({ countUsers, posts }) => {
           <div className={'container'}>
             {posts?.items.map(post => (
               <PublicPostCard
-                avatarUrl={post.avatar?.url}
+                avatar={post.avatar?.url}
                 createdAt={post.createdAt}
                 description={post.description}
-                imagesUrl={post.imagesUrl}
+                images={post.images}
                 key={post.id}
                 postId={post.id}
                 userId={post.authorId}

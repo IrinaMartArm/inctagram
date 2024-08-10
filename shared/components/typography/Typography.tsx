@@ -31,6 +31,7 @@ export type TypographyVariantTypes =
   | 'Bold_text-16'
   | 'Large'
   | 'Medium_text-14'
+  | 'Semi-bold_middle-text'
   | 'Semi-bold_small-text'
   | 'bold_text-14'
   | 'error'

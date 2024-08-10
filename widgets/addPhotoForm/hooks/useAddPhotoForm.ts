@@ -51,14 +51,14 @@ export const useAddPhotoForm = () => {
     }
   }
 
-  const showCroppedImage = async (index: number | undefined, croppedAreaPixels: CropArg | null) => {
-    if (croppedAreaPixels == null) {
+  const showCroppedImage = async (index: number | undefined) => {
+    if (images[index as number].croppedAreaPixels == null) {
       return
     }
     try {
       const croppedImage = await getCroppedImg({
-        imageSrc: images[index as number],
-        pixelCrop: croppedAreaPixels,
+        imageSrc: images[index as number].image,
+        pixelCrop: images[index as number].croppedAreaPixels,
       })
 
       dispatch(

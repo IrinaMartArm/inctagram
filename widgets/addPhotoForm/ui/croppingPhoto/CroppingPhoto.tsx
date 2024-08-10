@@ -15,13 +15,10 @@ import s from './croppingPhoto.module.scss'
 
 type Props = {
   deleteImgCallback: (ind: number) => void
-  imgChangeCallback: (e: ChangeEvent<HTMLInputElement>) => void
   setConfirmOpen: (val: string) => void
 }
 
-export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback, setConfirmOpen }: Props) => {
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArg | null>(null)
-
+export const CroppingPhoto = ({ deleteImgCallback, setConfirmOpen }: Props) => {
   const [ind, setInd] = useState(0)
   const {
     aspect,
@@ -44,9 +41,8 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback, setConfirm
     menu === showMenu ? setShowMenu('') : setShowMenu(menu)
   }
 
-  console.log(croppedAreaPixels)
   const handleNext = () => {
-    showCroppedImage(ind, croppedAreaPixels)
+    showCroppedImage(ind)
     setModalStateCallback('filters')
   }
 
@@ -66,10 +62,9 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback, setConfirm
       <div className={s.imgBlock}>
         <Carousel
           aspect={aspect}
-          croppedAreaPixels={croppedAreaPixels}
           images={images}
           ind={ind}
-          setCroppedAreaPixels={setCroppedAreaPixels}
+          setAspect={setAspect}
           setInd={setInd}
           setShowMenu={setShowMenu}
           setZoomValue={setZoomValue}
@@ -94,11 +89,7 @@ export const CroppingPhoto = ({ deleteImgCallback, imgChangeCallback, setConfirm
       {showMenu == 'scale-menu' && <ScaleMenu setAspect={setAspect} />}
       {showMenu == 'zoom-menu' && <ZoomMenu setZoomValue={setZoomValue} zoomValue={zoomValue} />}
       {showMenu == 'add-photos-menu' && (
-        <AddPhotosMenu
-          deleteImgCallback={deleteImgCallback}
-          images={cropImages}
-          imgChangeCallback={imgChangeCallback}
-        />
+        <AddPhotosMenu deleteImgCallback={deleteImgCallback} images={cropImages} />
       )}
     </div>
   )
