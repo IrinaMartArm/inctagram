@@ -99,6 +99,7 @@ export const PostMenu = ({ postDescription, postId, postImg, userId }: Props) =>
       <Modal
         className={s.modalPostEdit}
         handleCloseClickOutside={handleOpenConfirmModal}
+        onOpenChange={handleOpenConfirmModal}
         open={isEditModalOpen}
         title={t.edit.titleEdit}
       >
