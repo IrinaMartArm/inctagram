@@ -1,12 +1,31 @@
 import { ABOUT_ME_REGEX, ME_REGEX, USERNAME_REGEX } from '@/entities/auth/model/auth-validation'
 import { LocaleType } from '@/locales/ru'
-import { isValid as isValidDate, parse } from 'date-fns'
 import z from 'zod'
 
 const currentDate = new Date()
 const thirteenYearsAgo = new Date()
 
 thirteenYearsAgo.setFullYear(currentDate.getFullYear() - 13)
+
+const isValidDateFormat = (dateString: string | undefined): boolean => {
+  if (!dateString) {
+    return false
+  }
+
+  // Check if the date string matches the pattern dd.MM.yyyy
+  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/
+
+  if (!dateRegex.test(dateString)) {
+    return false
+  }
+
+  // Further validation to check if the day and month make sense
+  const [day, month, year] = dateString.split('.').map(Number)
+  const date = new Date(year, month - 1, day)
+
+  // Check if the date object was created successfully and is valid
+  return !(date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day)
+}
 
 export const profileFormSchema = (t: LocaleType) => {
   return z.object({
@@ -28,14 +47,24 @@ export const profileFormSchema = (t: LocaleType) => {
           if (!dateString) {
             return true
           }
-          const dateOfBirth = new Date(dateString)
-
-          console.log(dateOfBirth <= thirteenYearsAgo)
+          const dateOfBirth = new Date(dateString.split('.').reverse().join('-'))
 
           return dateOfBirth <= thirteenYearsAgo
         },
         {
           message: t.profileSettings.errors.child,
+        }
+      )
+      .refine(
+        dateString => {
+          if (!dateString) {
+            return true
+          }
+
+          return isValidDateFormat(dateString)
+        },
+        {
+          message: t.profileSettings.errors.dateFormatError,
         }
       )
       .optional(),

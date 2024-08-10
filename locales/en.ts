@@ -52,7 +52,7 @@ export const en: LocaleType = {
     deleteTitle: 'Delete Photo',
     errors: {
       aboutMe: 'Text need to be not more than 200 symbols',
-      child: 'A user under 16 cannot create a profile.',
+      child: 'A user under 13 cannot create a profile.',
       dateFormatError: 'Date format error!',
       fell: 'Error! Server is not available!',
       firstName: 'First name is required.',

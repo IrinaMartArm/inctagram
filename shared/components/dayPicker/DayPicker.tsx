@@ -20,17 +20,12 @@ export const DayPicker = (props: DayPickerProps) => {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
 
   useEffect(() => {
-    if (isValidDateFormat(localSelected)) {
-      onChange(localSelected)
-      handleMonthChange(parseSelectedDate(localSelected) as Date)
-    } else {
-      onChange(undefined)
-    }
+    onChange(localSelected)
+    handleMonthChange(parseSelectedDate(localSelected) as Date)
   }, [localSelected, onChange])
 
   const weekends = [5, 6]
   const weekendStyle = { color: '#F23D61' }
-
   const DateFormat = 'dd.MM.yyyy'
 
   const classNames: ClassNames = {
@@ -61,21 +56,6 @@ export const DayPicker = (props: DayPickerProps) => {
     setIsPickerSingleHidden(false)
   }
 
-  const isValidDateFormat = (dateString: string | undefined) => {
-    if (dateString === '' || !dateString) {
-      return undefined
-    }
-    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/
-
-    return dateRegex.test(dateString)
-  }
-
-  const dateSingleChecker = () => {
-    return localSelected && !isValidDateFormat(localSelected)
-      ? `${t.profileSettings.errors.dateFormatError}`
-      : ''
-  }
-
   const calendarRef = useRef<HTMLDivElement>(null)
 
   const handleOutsideClick = () => {
@@ -100,7 +80,7 @@ export const DayPicker = (props: DayPickerProps) => {
         </Typography>
       )}
       <Input
-        errorMessage={dateSingleChecker() || errorMessage}
+        errorMessage={errorMessage}
         onButtonClick={onClickSingle}
         onChange={e => setLocalSelected(e.target.value)}
         type={'datePicker'}
