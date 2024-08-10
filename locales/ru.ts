@@ -1,3 +1,5 @@
+import { myPaymentRU } from '@/locales/profile-settings/myPayments/ru'
+
 export const ru = {
   addPhotoForm: {
     attentionA: 'Вы действительно хотите выйти к добавлению фотографии?',
@@ -39,6 +41,7 @@ export const ru = {
     search: 'Поиск',
     statistics: 'Статистика',
   },
+  profileSettingMyPayment: myPaymentRU,
   profileSettings: {
     1: 'Политика конфиденциальности',
     aboutMe: 'Обо мне',

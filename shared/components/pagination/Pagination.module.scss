@@ -1,0 +1,73 @@
+.root {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+
+  .paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+
+    margin-right: 2.4rem;
+
+    .item {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition:
+        background-color ease 0.2s,
+        color ease 0.2s;
+
+      &:hover {
+        background-color: var(--color-dark-500);
+      }
+
+      &.activeItem {
+        background-color: var(--color-light-100);
+
+        span {
+          color: var(--color-dark-900);
+        }
+      }
+    }
+
+    .dots {
+      width: 24px;
+      height: 24px;
+    }
+
+    .controller {
+
+      cursor: pointer;
+
+      &.disabledController {
+        cursor: default;
+        color: var(--color-dark-100);
+      }
+
+      &:first-child {
+        margin-right: 1.2rem;
+      }
+
+      &:last-child {
+        margin-left: 1.2rem;
+      }
+    }
+  }
+
+  .selectContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .select {
+      margin-right: 1rem;
+      margin-left: 0.6rem;
+
+    }
+  }
+}
+.text{
+  white-space: nowrap
+}

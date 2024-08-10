@@ -1,5 +1,7 @@
 import { baseApi } from '@/shared/assets/api'
 import {
+  GetMyPaymentsArgs,
+  MyPaymentsResponse,
   UserPhotoArgs,
   UserProfileArgs,
   UserProfileResponse,
@@ -39,6 +41,13 @@ export const profileApi = baseApi.injectEndpoints({
           url: 'v1/user/fill-out-profile',
         }),
       }),
+      getMyPayments: builder.query<MyPaymentsResponse, GetMyPaymentsArgs>({
+        providesTags: ['Profile'],
+        query: ({ page, pageSize }) => ({
+          params: { page, pageSize },
+          url: 'v1/subscriptions/my-payments',
+        }),
+      }),
       profileInformation: builder.query<UserProfileResponse, void>({
         providesTags: ['Profile'],
         query: arg => ({
@@ -62,6 +71,7 @@ export const { profileInformation } = profileApi.endpoints
 export const {
   useDeleteUserPhotoMutation,
   useFillOutProfileMutation,
+  useGetMyPaymentsQuery,
   useProfileInformationQuery,
   useUploadUserPhotoMutation,
 } = profileApi
