@@ -7,12 +7,13 @@ import {
   PostType,
   PostsType,
 } from '@/shared/assets/api/post/types'
+import { PublicUserApi } from '@/shared/assets/api/public-user/public-user-api'
 
 const PostApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       addPost: builder.mutation<PostType, AddPostReq>({
-        invalidatesTags: ['MyPosts'],
+        invalidatesTags: ['PublicUser'],
         query: body => ({
           body: body,
           method: 'POST',
@@ -22,12 +23,12 @@ const PostApi = baseApi.injectEndpoints({
       deletePost: builder.mutation<void, DeletePostArgs>({
         onQueryStarted: async ({ id, userId }, { dispatch, getState, queryFulfilled }) => {
           const patchResult = dispatch(
-            PostApi.util.updateQueryData('getPostsByUserId', { userId }, draft => {
+            PublicUserApi.util.updateQueryData('getPublicUser', { userId }, draft => {
               if (draft) {
-                const deletedPostIdx = draft.items.findIndex(el => el.id === id)
+                const deletedPostIdx = draft.publications.findIndex(el => el.id === id)
 
                 if (deletedPostIdx !== -1) {
-                  draft.items.splice(deletedPostIdx, 1)
+                  draft.publications.splice(deletedPostIdx, 1)
                 }
               }
             })

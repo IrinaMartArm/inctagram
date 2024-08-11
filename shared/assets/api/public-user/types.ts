@@ -20,3 +20,5 @@ export type Publication = {
 export type Avatar = {
   url: string
 }
+
+export type getPublicUserArgs = { userId: string }

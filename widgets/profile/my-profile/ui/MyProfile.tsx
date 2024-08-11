@@ -4,6 +4,7 @@ import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
 import { PostType } from '@/shared/assets/api/post/types'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
+import { useGetPublicUserQuery } from '@/shared/assets/api/public-user/public-user-api'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
 import { useProfile } from '@/widgets'
@@ -16,23 +17,25 @@ export type MyProfileProps = {
   isMyProfile: boolean
   myProfileData?: UserProfileResponse
   post: PostType
+  publicProfile?: UserProfile
   userId: string
-  userProfile: UserProfile
 }
 
 export const MyProfile = (props: MyProfileProps) => {
-  const { isMyProfile, userId, userProfile } = props
-  const { aboutMe, avatar, isLoading, isModalOpen, posts, t } = useProfile(props)
+  const { isMyProfile, myProfileData, publicProfile, userId } = props
+  const { aboutMe, avatar, isLoading, t } = useProfile(props)
 
   return (
     <div className={s.root}>
       <div className={s.info_wrapper}>
         <div className={s.avatar}>
-          <Avatar alt={userProfile?.username || ''} src={avatar || ''} />
+          <Avatar alt={publicProfile?.username || ''} src={avatar || ''} />
         </div>
         <div className={s.info_block}>
           <div className={s.first_row}>
-            <Typography variant={'h1'}>{userProfile?.username || ''}</Typography>
+            <Typography variant={'h1'}>
+              {publicProfile?.username || myProfileData?.username}
+            </Typography>
             {isMyProfile && (
               <Button as={Link} href={Paths.PROFILE_GENERAL} variant={'secondary'}>
                 {t.settingsBtn}
@@ -40,9 +43,9 @@ export const MyProfile = (props: MyProfileProps) => {
             )}
           </div>
           <div className={s.second_row}>
-            <Info number={userProfile?.following} title={t.following} />
-            <Info number={userProfile?.followers} title={t.followers} />
-            <Info number={userProfile?.publications.length} title={t.publications} />
+            <Info number={publicProfile?.following || 0} title={t.following} />
+            <Info number={publicProfile?.followers || 0} title={t.followers} />
+            <Info number={publicProfile?.publications.length || 0} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
@@ -50,8 +53,8 @@ export const MyProfile = (props: MyProfileProps) => {
         </div>
       </div>
       <div className={s.posts}>
-        {posts
-          ? posts?.items.map(post => (
+        {publicProfile?.publications
+          ? publicProfile.publications.map(post => (
               <Modal
                 className={s.modal}
                 key={post.id}
@@ -61,7 +64,13 @@ export const MyProfile = (props: MyProfileProps) => {
                   </div>
                 }
               >
-                <Post avatar={avatar || ''} isOwner={isMyProfile} post={post} userId={userId} />
+                <Post
+                  avatar={avatar || ''}
+                  isOwner={isMyProfile}
+                  post={post}
+                  userId={userId}
+                  username={publicProfile.username}
+                />
               </Modal>
             ))
           : !isLoading && <div>No posts available</div>}

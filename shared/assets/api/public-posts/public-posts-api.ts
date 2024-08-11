@@ -8,7 +8,7 @@ export const PublicPostsApi = baseApi.injectEndpoints({
       getPublicPostById: builder.query<PublicPostByIdResponse, PublicPostArgs>({
         providesTags: ['PublicPosts'],
         query: postId => ({
-          url: `v1/public-posts/${postId}`,
+          url: `v1/public-posts/${postId.postId}`,
         }),
       }),
       getPublicPosts: builder.query<PostsType, void>({
