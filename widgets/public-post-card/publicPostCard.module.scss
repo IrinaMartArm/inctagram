@@ -22,7 +22,6 @@
   width: 234px;
 
   overflow-wrap: break-word;
-
 }
 
 .user {
@@ -37,8 +36,8 @@
 }
 
 .time {
-  color: var(--color-light-900);
   z-index: 1;
+  color: var(--color-light-900);
 }
 
 .avatar {
@@ -53,6 +52,7 @@
   bottom: 0;
   left: 0;
 
+  margin: 0 auto;
   padding-top: 12px;
 
   background: var(--color-dark-700);
