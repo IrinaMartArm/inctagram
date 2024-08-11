@@ -1,10 +1,7 @@
-import { toast } from 'react-toastify'
-
 import { Info } from '@/features'
 import { Paths } from '@/shared/assets'
 import { PostType } from '@/shared/assets/api/post/types'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
-import { useGetPublicUserQuery } from '@/shared/assets/api/public-user/public-user-api'
 import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { Avatar, Button, Modal, Typography } from '@/shared/components'
 import { useProfile } from '@/widgets'
@@ -23,7 +20,7 @@ export type MyProfileProps = {
 
 export const MyProfile = (props: MyProfileProps) => {
   const { isMyProfile, myProfileData, publicProfile, userId } = props
-  const { aboutMe, avatar, isLoading, t } = useProfile(props)
+  const { aboutMe, avatar, isLoading, posts, t } = useProfile(props)
 
   return (
     <div className={s.root}>
@@ -45,7 +42,7 @@ export const MyProfile = (props: MyProfileProps) => {
           <div className={s.second_row}>
             <Info number={publicProfile?.following || 0} title={t.following} />
             <Info number={publicProfile?.followers || 0} title={t.followers} />
-            <Info number={publicProfile?.publications.length || 0} title={t.publications} />
+            <Info number={publicProfile?.publicationsCount || 0} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
@@ -53,8 +50,8 @@ export const MyProfile = (props: MyProfileProps) => {
         </div>
       </div>
       <div className={s.posts}>
-        {publicProfile?.publications
-          ? publicProfile.publications.map(post => (
+        {posts
+          ? posts.items.map(post => (
               <Modal
                 className={s.modal}
                 key={post.id}
@@ -64,13 +61,7 @@ export const MyProfile = (props: MyProfileProps) => {
                   </div>
                 }
               >
-                <Post
-                  avatar={avatar || ''}
-                  isOwner={isMyProfile}
-                  post={post}
-                  userId={userId}
-                  username={publicProfile.username}
-                />
+                <Post avatar={avatar || ''} isOwner={isMyProfile} post={post} userId={userId} />
               </Modal>
             ))
           : !isLoading && <div>No posts available</div>}

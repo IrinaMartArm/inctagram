@@ -11,20 +11,11 @@ type Props = {
   avatar: string
   isOwner: boolean
   key?: number
-  post: {
-    authorId: string
-    createdAt: string
-    description: string
-    id: string
-    images: string[]
-    updatedAt: string
-  }
-  // post: PostType
+  post: PostType
   userId: string
-  username: string
 }
 
-export const Post = ({ avatar, isOwner, post, userId, username }: Props) => {
+export const Post = ({ avatar, isOwner, post, userId }: Props) => {
   const avatars = ['', '', '']
 
   const { control } = useForm({})
@@ -38,7 +29,7 @@ export const Post = ({ avatar, isOwner, post, userId, username }: Props) => {
         <div className={s.header}>
           <div className={s.content}>
             <AvatarSimple src={avatar} title={'me'} />
-            <Typography variant={'h3'}>{username}</Typography>
+            <Typography variant={'h3'}>{post?.username}</Typography>
           </div>
           {isOwner && (
             <PostMenu
