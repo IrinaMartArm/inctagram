@@ -2,7 +2,10 @@ import { baseApi } from '@/shared/assets'
 import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
 import { getPublicPostById } from '@/shared/assets/api/public-posts/public-posts-api'
-import { getPublicUsers } from '@/shared/assets/api/public-user/public-user-api'
+import {
+  getPublicUser,
+  useGetPublicUserQuery,
+} from '@/shared/assets/api/public-user/public-user-api'
 import { wrapper } from '@/shared/assets/api/store'
 import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
@@ -16,7 +19,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     const id = context.query.id
     const postId = context.query.postId
 
-    const userProfile = await store.dispatch(getPublicUsers.initiate({ userId: +id! }))
+    const userProfile = await store.dispatch(getPublicUser.initiate({ userId: id![0] }))
+    // const userProfile = await fetch(`https://inctagram.org/api/v1/public-user/${id}`)
 
     let post = null
 
@@ -48,12 +52,16 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 const Profile = ({
   post,
   userId,
-  userProfile,
+  // userProfile,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { query } = useRouter()
   const { data: user } = useMeQuery(undefined)
   const { data } = useProfileInformationQuery()
+  const { data: userProfile } = useGetPublicUserQuery({ userId })
   const isMyProfile = query.id === user?.userId
+
+  console.log('userProfile', userProfile)
+  console.log('userId', userId)
 
   return (
     <PageWrapper>
@@ -62,8 +70,8 @@ const Profile = ({
         isMyProfile={isMyProfile}
         myProfileData={data}
         post={post || null}
+        publicProfile={userProfile}
         userId={userId}
-        userProfile={userProfile || null}
       />
     </PageWrapper>
   )

@@ -8,7 +8,6 @@ import { RootState, useAppDispatch, useAppSelector } from '@/shared/assets/api/s
 import { convertFileToBase64, getCroppedImg } from '@/shared/assets/helpers'
 import { filteredImg } from '@/shared/assets/helpers/getImgWithFilter'
 import { useTranslation } from '@/shared/assets/hooks/useTranslation'
-import { CropArg } from '@/shared/assets/types/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -136,9 +135,7 @@ export const useAddPhotoForm = () => {
       formData.append('file', file)
 
       try {
-        const response = await getImgId(formData).unwrap()
-
-        return response
+        return await getImgId(formData).unwrap()
       } catch (e) {
         if (e instanceof Error) {
           toast.error(e.message)

@@ -54,18 +54,15 @@
 }
 
 .posts {
-  @include flex(row, none, flex-start, 20px);
+  @include flex(row, center, center, 20px);
   flex-wrap: wrap;
-}
-
-.test {
-  width: 234px;
-  height: 228px;
 }
 
 .postImage{
   @include flex(row, center, center);
   overflow: hidden;
+  width: 234px;
+  height: 228px;
 }
 
 .postImageInner {
