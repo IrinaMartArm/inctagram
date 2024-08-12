@@ -42,7 +42,7 @@ export const MyProfile = (props: MyProfileProps) => {
           <div className={s.second_row}>
             <Info number={publicProfile?.following || 0} title={t.following} />
             <Info number={publicProfile?.followers || 0} title={t.followers} />
-            <Info number={publicProfile?.publicationsCount || 0} title={t.publications} />
+            <Info number={posts?.totalCount || 0} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
