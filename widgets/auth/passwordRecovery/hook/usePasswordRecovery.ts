@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { usePasswordRecoveryMutation } from '@/shared/assets/api/auth/auth-api'
+import {
+  usePasswordRecoveryMutation,
+  usePasswordResendingMutation,
+} from '@/shared/assets/api/auth/auth-api'
 import { handleErrorResponse } from '@/shared/assets/helpers/handleErrorResponse'
 import { useFormRevalidate, useTranslationPages } from '@/shared/assets/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,6 +28,7 @@ export const usePasswordRecovery = () => {
 
   const [token, setToken] = useState<null | string>(null)
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
+  const [passwordResending] = usePasswordResendingMutation()
   const [passwordRecovery, {}] = usePasswordRecoveryMutation()
   const {
     control,
@@ -41,11 +45,12 @@ export const usePasswordRecovery = () => {
 
   const isChecked = !!token
   const onRecovery = async (data: PasswordRecoveryFormFields) => {
+    localStorage.setItem('email', data.email)
     if (token) {
       const body = { email: data.email, reCaptcha: token }
 
       try {
-        await passwordRecovery(body).unwrap()
+        await passwordRecovery(body)
         setIsSuccess(true)
       } catch (err: unknown) {
         setIsSuccess(false)
@@ -76,6 +81,10 @@ export const usePasswordRecovery = () => {
     setValue,
     values: getValues(),
   })
+  const email = localStorage.getItem('email')
+  const onResendClick = async () => {
+    await passwordResending({ email: email || '' }).unwrap()
+  }
 
   return {
     control,
@@ -86,6 +95,7 @@ export const usePasswordRecovery = () => {
     isSuccess,
     isValid,
     onRecovery,
+    onResendClick,
     t,
   }
 }
