@@ -20,7 +20,6 @@ const PostApi = baseApi.injectEndpoints({
           url: `v1/post`,
         }),
       }),
-
       deletePost: builder.mutation<void, DeletePostArgs>({
         onQueryStarted: async ({ id, userId }, { dispatch, getState, queryFulfilled }) => {
           const patchResult = dispatch(
