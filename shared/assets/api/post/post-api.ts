@@ -21,6 +21,7 @@ const PostApi = baseApi.injectEndpoints({
         }),
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
+        invalidatesTags: ['MyPosts'],
         onQueryStarted: async ({ id, userId }, { dispatch, getState, queryFulfilled }) => {
           const patchResult = dispatch(
             PostApi.util.updateQueryData('getPostsByUserId', { userId }, draft => {
