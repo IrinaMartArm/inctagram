@@ -1,4 +1,4 @@
-@import "../../styles/mixins";
+@import '../../styles/mixins';
 
 .root {
   position: fixed;
@@ -13,40 +13,41 @@
 
   background-color: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-300);
-  @media screen and (max-width: 576px) {
+
+  @media screen and (width <= 576px) {
     padding: 12px 14px;
   }
 }
 
 .header {
-  @include flex("", space-between, center);
+  @include flex('', space-between, center);
 
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
-
   color: var(--color-light-100);
-
 }
 
 .logo {
   font-size: var(--font-size-xxl);
-  line-height: var(--line-height-xl);
   font-weight: var(--font-weight-semi-bold);
+  line-height: var(--line-height-xl);
 }
 
 .wrapper {
+  @include flex('', space-between, center, 50px);
+
   position: relative;
-  @include flex("", space-between, center, 50px);
-  @media screen and (max-width: 576px) {
-    @include flex("", space-between, center, 24px);
+
+  @media screen and (width <= 576px) {
+    @include flex('', space-between, center, 24px);
   }
 }
 
 .buttons {
-  @include flex("", space-between, center, 36px);
+  @include flex('', space-between, center, 36px);
 }
 
 .buttonsBox {
-  @include flex("", space-between, center, 24px);
+  @include flex('', space-between, center, 24px);
 }
