@@ -7,7 +7,6 @@ import {
   PostType,
   PostsType,
 } from '@/shared/assets/api/post/types'
-import { PublicUserApi } from '@/shared/assets/api/public-user/public-user-api'
 
 const PostApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -23,22 +22,30 @@ const PostApi = baseApi.injectEndpoints({
       deletePost: builder.mutation<void, DeletePostArgs>({
         invalidatesTags: ['MyPosts'],
         onQueryStarted: async ({ id, userId }, { dispatch, getState, queryFulfilled }) => {
-          const patchResult = dispatch(
-            PostApi.util.updateQueryData('getPostsByUserId', { userId }, draft => {
-              if (draft) {
-                const deletedPostIdx = draft.items.findIndex(el => el.id === id)
+          const invalidatedBy = PostApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
+          const patchResults: any[] = []
 
-                if (deletedPostIdx !== -1) {
-                  draft.items.splice(deletedPostIdx, 1)
+          invalidatedBy.forEach(({ originalArgs }) => {
+            const patchResult = dispatch(
+              PostApi.util.updateQueryData('getPostsByUserId', { userId }, draft => {
+                if (draft) {
+                  const deletedPostIdx = draft.items.findIndex(el => el.id === id)
+
+                  if (deletedPostIdx !== -1) {
+                    draft.items.splice(deletedPostIdx, 1)
+                    draft.totalCount -= 1
+                  }
                 }
-              }
-            })
-          )
+              })
+            )
+
+            patchResults.push(patchResult)
+          })
 
           try {
             await queryFulfilled
           } catch {
-            patchResult?.undo()
+            patchResults.forEach(result => result.undo())
           }
         },
         query: ({ id }) => ({
@@ -115,33 +122,6 @@ const PostApi = baseApi.injectEndpoints({
           return endpointName
         },
       }),
-      // getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
-      //   forceRefetch({ currentArg, previousArg }) {
-      //     return currentArg?.page !== previousArg?.page
-      //   },
-      //   merge: (currentCache, newItems) => {
-      //     if (currentCache) {
-      //       // Убедитесь, что вы не добавляете дублирующие посты
-      //       newItems.items.forEach(item => {
-      //         if (!currentCache.items.find(existingItem => existingItem.id === item.id)) {
-      //           currentCache.items.push(item)
-      //         }
-      //       })
-      //       currentCache.page = newItems.page
-      //     } else {
-      //       return newItems
-      //     }
-      //   },
-      //   providesTags: ['MyPosts'],
-      //   query: ({ page, pageSize, userId }) => ({
-      //     method: 'GET',
-      //     params: { page, pageSize },
-      //     url: `v1/post/${userId}`,
-      //   }),
-      //   serializeQueryArgs: ({ endpointName, queryArgs }) => {
-      //     return `${endpointName}-${queryArgs.userId}-${queryArgs.page}-${queryArgs.pageSize}`
-      //   },
-      // }),
     }
   },
 })

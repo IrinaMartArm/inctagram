@@ -60,8 +60,8 @@ const Profile = ({
   const { data: userProfile } = useGetPublicUserQuery({ userId })
   const isMyProfile = query.id === user?.userId
 
-  console.log('userProfile', userProfile)
-  console.log('userId', userId)
+  // console.log('userProfile', userProfile)
+  // console.log('userId', userId)
 
   return (
     <PageWrapper>
