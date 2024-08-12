@@ -47,8 +47,8 @@
 }
 
 .third_row {
-  @include flex(row, space-between, center);
-
+  width: 100%;
+  max-height: 75px;
   overflow-y: scroll;
   align-self: flex-start;
 }
