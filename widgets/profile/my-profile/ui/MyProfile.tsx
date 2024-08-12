@@ -58,6 +58,11 @@ export const MyProfile = (props: MyProfileProps) => {
                 trigger={
                   <div className={s.postImage}>
                     <img alt={'post'} className={s.postImageInner} src={post.images[0]} />
+                    {post.images.length > 1 && (
+                      <Typography className={s.badgeImage} variant={'regular_text-14'}>
+                        {post.images.length}
+                      </Typography>
+                    )}
                   </div>
                 }
               >

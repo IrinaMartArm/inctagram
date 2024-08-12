@@ -13,8 +13,9 @@
   height: 204px;
   margin-top: 10px;
 
-  @media screen and (max-width: 715px) {
+  @media screen and (width <= 715px) {
     @include flex(column, flex-start, center);
+
     gap: 50px;
     height: fit-content;
   }
@@ -28,10 +29,9 @@
 .info_block {
   @include flex(column, space-between, center);
 
-  padding: 0 27px;
   width: 100%;
-
   height: 204px;
+  padding: 0 27px;
 }
 
 .first_row {
@@ -49,17 +49,20 @@
 .third_row {
   @include flex(row, space-between, center);
 
-  align-self: flex-start;
   overflow-y: scroll;
+  align-self: flex-start;
 }
 
 .posts {
   @include flex(row, center, center, 20px);
+
   flex-wrap: wrap;
 }
 
-.postImage{
+.postImage {
   @include flex(row, center, center);
+
+  position: relative;
   overflow: hidden;
   width: 234px;
   height: 228px;
@@ -71,6 +74,22 @@
 }
 
 .modal {
-  max-width: 1000px !important;
   width: 100%;
+  max-width: 1000px !important;
+}
+
+.badgeImage {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 26px;
+
+  background-color: var(--color-dark-500);
+  border-radius: 50%;
 }
