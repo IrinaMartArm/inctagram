@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import {
   Alert,
@@ -7,10 +5,10 @@ import {
   ControlledDayPicker,
   ControlledTextArea,
   ControlledTextField,
-  Select,
   Tab,
 } from '@/shared/components'
-import { EditProfilePhoto, belarus, countries, options } from '@/widgets'
+import { ControlledSelect } from '@/shared/components/controlled/ControlledSelect'
+import { EditProfilePhoto, NOT_SELECTED, countries, options } from '@/widgets'
 import { useProfileForm, useUpdateAvatar } from '@/widgets/profile/general/hook'
 import { AvatarBox } from '@/widgets/profile/general/ui/avatarBox'
 
@@ -25,21 +23,18 @@ export const General = ({ profile }: Props) => {
     alertHandler,
     alertMessage,
     alertVariant,
-    cities,
     control,
     errors,
-    handleCityChange,
-    handleCountryChange,
+    getCities,
     handleSubmit,
     isShowModal,
     isValid,
     loading,
     onSubmit,
-    selectedCity,
-    selectedCountry,
     setIsShowModal,
     showAlert,
     t,
+    watchCountry,
   } = useProfileForm(profile)
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar()
@@ -86,23 +81,20 @@ export const General = ({ profile }: Props) => {
             name={'dateOfBirth'}
           />
           <div className={s.selectors}>
-            <Select
+            <ControlledSelect
               className={s.select}
-              defaultValue={'Not chosen'}
+              control={control}
               items={countries}
               label={t.profileSettings.selectYourCountry}
-              name={'countries'}
-              onChange={handleCountryChange}
-              value={selectedCountry}
+              name={'country'}
             />
-            <Select
+            <ControlledSelect
               className={s.select}
-              defaultValue={'Not chosen'}
-              items={cities}
+              control={control}
+              disabled={watchCountry === NOT_SELECTED}
+              items={getCities()}
               label={t.profileSettings.selectYourCity}
               name={'city'}
-              onChange={handleCityChange}
-              value={selectedCity}
             />
           </div>
           <ControlledTextArea

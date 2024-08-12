@@ -67,7 +67,8 @@ export const profileFormSchema = (t: LocaleType) => {
           message: t.profileSettings.errors.dateFormatError,
         }
       )
-      .optional(),
+      .optional()
+      .transform(value => (value === '' ? undefined : value)),
     firstName: z
       .string()
       .min(1, t.profileSettings.errors.firstName)

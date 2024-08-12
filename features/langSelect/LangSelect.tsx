@@ -3,6 +3,8 @@ import { useIsMobile } from '@/shared/assets/hooks'
 import { Select } from '@/shared/components'
 import { useRouter } from 'next/router'
 
+import s from './LangSelect.module.scss'
+
 export const LangSelect = () => {
   const { asPath, locale, pathname, query, replace } = useRouter()
   const isMobile = useIsMobile(MOBILE_BREAKPOINT)
@@ -28,13 +30,12 @@ export const LangSelect = () => {
   ]
 
   return (
-    <div>
-      <Select
-        defaultValue={locale}
-        isHiddenText={isMobile}
-        items={options}
-        onChange={changeLangHandler}
-      />
-    </div>
+    <Select
+      className={s.langSelect}
+      defaultValue={locale}
+      isHiddenText={isMobile}
+      items={options}
+      onChange={changeLangHandler}
+    />
   )
 }
