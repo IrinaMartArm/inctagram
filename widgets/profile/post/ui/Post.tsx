@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
+import { formatDate } from '@/shared/assets'
 import { PostType } from '@/shared/assets/api/post/types'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
@@ -19,6 +20,8 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
   const avatars = ['', '', '']
 
   const { control } = useForm({})
+
+  const createdAt = formatDate(post.createdAt)
 
   return (
     <div className={s.root}>
@@ -101,7 +104,7 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
             </Typography>
           </div>
           <Typography className={s.grey} variant={'small-text'}>
-            {post?.createdAt}
+            {createdAt}
           </Typography>
           <form className={s.input}>
             <ControlledTextField

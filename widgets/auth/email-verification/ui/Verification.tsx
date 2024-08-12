@@ -36,7 +36,7 @@ export const Verification = () => {
 
   const resendingHandler = async () => {
     try {
-      if (param) {
+      if (param === 'password') {
         await passwordResending({ email: email || '' }).unwrap()
       } else {
         await resending({ email: email || '' }).unwrap()
