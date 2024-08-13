@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Cropper from 'react-easy-crop'
 
 import { addPhotoActions } from '@/entities'
@@ -46,7 +46,7 @@ export const EasyCrop = ({ aspect, crop, image, ind, setCrop, setShowMenu, zoom 
           aspect={aspect}
           crop={crop}
           image={image}
-          objectFit={'cover'}
+          objectFit={'contain'}
           onCropChange={setCrop}
           onCropComplete={onCropComplete}
           showGrid

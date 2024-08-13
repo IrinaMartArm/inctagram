@@ -67,3 +67,30 @@
   justify-content: space-around;
   padding: 25px;
 }
+.dotsItem {
+  cursor: pointer;
+
+  width: 8px;
+  height: 8px;
+
+  background-color: var(--color-light-100);
+  border-radius: 50%;
+}
+.dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translate(-50%);
+
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  padding: 8px;
+
+  background: color-mix(in srgb, var(--color-dark-300) 50%, transparent);
+  border-radius: 2px;
+}
+.dotsItemActive {
+  background-color: var(--color-accent-500);
+}

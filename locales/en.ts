@@ -3,7 +3,7 @@ import { LocaleType } from 'locales/ru'
 
 export const en: LocaleType = {
   addPhotoForm: {
-    attentionA: 'Do you really want to go out to add a photo?',
+    attentionA: 'Do you really want to close the creation of a publication?',
     close: 'Close',
     cropping: 'Cropping',
     discard: 'Discard',
