@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
 import { addPhotoActions } from '@/entities'
@@ -15,6 +15,7 @@ import {
   Typography,
 } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
+import { clsx } from 'clsx'
 
 import s from './publication.module.scss'
 
@@ -26,8 +27,14 @@ export const Publication = () => {
 
   const [ind, setInd] = useState(0)
   const settings = {
+    appendDots: (dots: ReactNode) => <ul className={s.dots}>{dots}</ul>,
+    beforeChange: (current: any, next: any) => setInd(next),
     className: s.sliderContainer,
-
+    customPaging: (i: number) => (
+      <div className={clsx(s.dotsItem, { [s.dotsItemActive]: i === ind })}></div>
+    ),
+    dots: cropImagesWithFilter.length > 1,
+    dotsClass: `${s.dots}`,
     draggable: false,
     fade: true,
     infinite: true,

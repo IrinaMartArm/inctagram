@@ -2,18 +2,18 @@ import { myPaymentRU } from '@/locales/profile-settings/myPayments/ru'
 
 export const ru = {
   addPhotoForm: {
-    attentionA: 'Вы действительно хотите выйти к добавлению фотографии?',
+    attentionA: 'Вы действительно хотите закрыть создание публикации?',
     close: 'Закрыть',
     cropping: 'Обрезка',
     discard: 'Выйти',
     fileSize: 'Фотография должна быть размером менее 20 Мб',
     filters: 'Фильтры',
-    next: 'Cледующий',
-    openDraft: 'Открытый проект',
+    next: 'Далее',
+    openDraft: 'Открыть черновик',
     publication: 'Публикация',
     publish: 'Опубликовать',
-    saveDraft: 'Сохранить шаблон',
-    selectInput: 'Выберите с компьютера',
+    saveDraft: 'Сохранить черновик',
+    selectInput: 'Выбрать с компьютера',
     title: 'Добавить фото',
     triggerButton: 'Создать',
     warningQ: 'Вы действительно хотите закрыть создание публикации?',

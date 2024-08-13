@@ -2,7 +2,6 @@ import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
 import { image } from '@/entities'
-import { CropArg } from '@/shared/assets/types/types'
 import { NextArrowComponent } from '@/shared/components/arrows/NextArrowComponent'
 import { PrevArrowComponent } from '@/shared/components/arrows/PrevArrowComponent'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'

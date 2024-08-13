@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
 import { addPhotoActions } from '@/entities'
@@ -6,6 +6,7 @@ import { ArrowBack } from '@/public'
 import { useAppDispatch } from '@/shared/assets/api/store'
 import { Button, NextArrowComponent, PrevArrowComponent, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
+import { clsx } from 'clsx'
 
 import s from './filters.module.scss'
 export const filtersVariant = [
@@ -62,8 +63,14 @@ export const Filters = () => {
     setModalStateCallback('publication')
   }
   const settings = {
+    appendDots: (dots: ReactNode) => <ul className={s.dots}>{dots}</ul>,
+    beforeChange: (current: any, next: any) => setInd(next),
     className: s.sliderContainer,
-
+    customPaging: (i: number) => (
+      <div className={clsx(s.dotsItem, { [s.dotsItemActive]: i === ind })}></div>
+    ),
+    dots: cropImages.length > 1,
+    dotsClass: `${s.dots}`,
     draggable: false,
     fade: true,
     infinite: true,
