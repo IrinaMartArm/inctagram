@@ -55,15 +55,11 @@ export const ConfirmableModal = ({ confirmOpen, setConfirmOpen, setOpen, toggleM
         <Typography variant={'regular_text-16'}>{t.addPhotoForm.warningR}</Typography>
         <div className={s.controller}>
           <Button onClick={handleConfirmClose} variant={'outlined'}>
-            <Typography variant={'h3'}>
-              {confirmOpen == 'outside' ? t.addPhotoForm.discard : t.common.yes}
-            </Typography>
+            <Typography variant={'h3'}>{t.addPhotoForm.discard}</Typography>
           </Button>
           <ModalClose>
             <Button onClick={handleCancelClose}>
-              <Typography variant={'h3'}>
-                {confirmOpen == 'outside' ? t.addPhotoForm.saveDraft : t.common.no}
-              </Typography>
+              <Typography variant={'h3'}>{t.addPhotoForm.saveDraft}</Typography>
             </Button>
           </ModalClose>
         </div>
