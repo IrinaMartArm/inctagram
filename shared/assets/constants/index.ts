@@ -1,5 +1,4 @@
 export * from './paths'
 export * from './tableHeadTitle'
 export * from './dataTable'
-export * from './accountManagerOptions'
 export { MOBILE_BREAKPOINT, TABLET_BREAKPOINT } from './breakpoints'
