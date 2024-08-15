@@ -1,3 +1,4 @@
+import { accountManagerEN } from '@/locales/profile-settings/accountManager/en'
 import { myPaymentEN } from '@/locales/profile-settings/myPayments/en'
 import { LocaleType } from 'locales/ru'
 
@@ -42,6 +43,7 @@ export const en: LocaleType = {
     search: 'Search',
     statistics: 'Statistics',
   },
+  profileSettingAccountManager: accountManagerEN,
   profileSettingMyPayment: myPaymentEN,
   profileSettings: {
     1: 'Privacy Policy',
