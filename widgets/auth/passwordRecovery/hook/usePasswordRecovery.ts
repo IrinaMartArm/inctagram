@@ -50,7 +50,7 @@ export const usePasswordRecovery = () => {
       const body = { email: data.email, reCaptcha: token }
 
       try {
-        await passwordRecovery(body)
+        await passwordRecovery(body).unwrap()
         setIsSuccess(true)
       } catch (err: unknown) {
         setIsSuccess(false)
