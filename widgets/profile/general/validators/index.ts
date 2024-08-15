@@ -29,15 +29,7 @@ const isValidDateFormat = (dateString: string | undefined): boolean => {
 
 export const profileFormSchema = (t: LocaleType) => {
   return z.object({
-    aboutMe: z
-      .string()
-      .max(200, `${t.profileSettings.errors.aboutMe}`)
-      .regex(
-        ABOUT_ME_REGEX,
-        `${t.profileSettings.invalidName} A-Z; a-z;
-А-Я; а-я`
-      )
-      .optional(),
+    aboutMe: z.string().max(200, `${t.profileSettings.errors.aboutMe}`).optional(),
     city: z.string().optional(),
     country: z.string().optional(),
     dateOfBirth: z

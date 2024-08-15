@@ -58,6 +58,7 @@ export const en: LocaleType = {
       fell: 'Error! Server is not available!',
       firstName: 'First name is required.',
       formatFile: 'File format is not supported.',
+      invalidAboutMe: 'The field must contain 0-9; A-Z; a-z; А-Я; а-я; special characters',
       lastName: 'Last name is required.',
       maxCount: 'You can upload up to 5 files.',
       maxSize: 'File size should not exceed 5MB.',
