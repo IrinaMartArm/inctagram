@@ -4,7 +4,7 @@ import { formatDate, tableHeadTitle, useTranslation } from '@/shared/assets'
 import { useGetMyPaymentsQuery } from '@/shared/assets/api/profile/profile-api'
 import { Tab, Table, Typography } from '@/shared/components'
 import { Pagination } from '@/shared/components/pagination'
-import { options } from '@/widgets'
+import { useOptions } from '@/widgets'
 
 import s from './myPayment.module.scss'
 
@@ -19,6 +19,8 @@ export const MyPayment = () => {
     page: `${currentPage}`,
     pageSize: `${pageSize}`,
   })
+
+  const options = useOptions()
 
   return (
     <div className={s.root}>
