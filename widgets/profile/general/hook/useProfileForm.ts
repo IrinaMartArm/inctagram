@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useFillOutProfileMutation } from '@/shared/assets/api/profile/profile-api'
 import { UserProfileResponse } from '@/shared/assets/api/profile/types'
 import { useFormRevalidate, useTranslation } from '@/shared/assets/hooks'
 import { AlertVariant } from '@/shared/components/alert/Alert'
-import { NOT_SELECTED, ProfileFormSchema, belarus, profileFormSchema, russia } from '@/widgets'
+import {
+  NOT_SELECTED,
+  ProfileFormSchema,
+  profileFormSchema,
+  useBelarus,
+  useRussia,
+} from '@/widgets'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export const useProfileForm = (profile: UserProfileResponse) => {
@@ -82,7 +88,10 @@ export const useProfileForm = (profile: UserProfileResponse) => {
     }
   }
 
-  const getCities = () => {
+  const belarus = useBelarus()
+  const russia = useRussia()
+
+  const getCities = useMemo(() => {
     if (watchCountry === 'russia') {
       return russia
     }
@@ -90,8 +99,8 @@ export const useProfileForm = (profile: UserProfileResponse) => {
       return belarus
     }
 
-    return [{ title: 'Not selected', value: NOT_SELECTED }]
-  }
+    return [{ title: t.countries.notSelected, value: NOT_SELECTED }]
+  }, [watchCountry, t, russia, belarus])
 
   useFormRevalidate({
     errors,
