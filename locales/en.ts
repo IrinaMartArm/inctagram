@@ -21,6 +21,18 @@ export const en: LocaleType = {
     warningQ: 'Do you really want to close the creation of a publication?',
     warningR: 'If you close everything will be deleted',
   },
+  cities: {
+    Brest: 'Brest',
+    Gomel: 'Gomel',
+    Krasnodar: 'Krasnodar',
+    Minsk: 'Minsk',
+    Mogilev: 'Mogilev',
+    Moscow: 'Moscow',
+    Novopolotsk: 'Novopolotsk',
+    Sochi: 'Sochi',
+    Vitebsk: 'Vitebsk',
+    Volgograd: 'Volgograd',
+  },
   common: {
     error: 'Error!',
     no: 'No',
@@ -28,6 +40,11 @@ export const en: LocaleType = {
   },
   countText: {
     title: 'Registered users:',
+  },
+  countries: {
+    belarus: 'Belarus',
+    notSelected: 'Not Selected',
+    russia: 'Russia',
   },
   emailSent: 'Email sent',
   logOut: {
@@ -42,6 +59,12 @@ export const en: LocaleType = {
     myProfile: 'My Profile',
     search: 'Search',
     statistics: 'Statistics',
+  },
+  myProfile: {
+    accountManagement: 'Account Management',
+    devices: 'Devices',
+    generalInformation: 'General information',
+    myPayments: 'Мy Payments',
   },
   profileSettingAccountManager: accountManagerEN,
   profileSettingMyPayment: myPaymentEN,

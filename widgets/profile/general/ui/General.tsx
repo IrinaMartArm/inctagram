@@ -8,7 +8,7 @@ import {
   Tab,
 } from '@/shared/components'
 import { ControlledSelect } from '@/shared/components/controlled/ControlledSelect'
-import { EditProfilePhoto, NOT_SELECTED, countries, options } from '@/widgets'
+import { EditProfilePhoto, NOT_SELECTED, useCountries, useOptions } from '@/widgets'
 import { useProfileForm, useUpdateAvatar } from '@/widgets/profile/general/hook'
 import { AvatarBox } from '@/widgets/profile/general/ui/avatarBox'
 
@@ -36,6 +36,9 @@ export const General = ({ profile }: Props) => {
     t,
     watchCountry,
   } = useProfileForm(profile)
+
+  const options = useOptions()
+  const countries = useCountries()
 
   const { avatar, deletePhotoHandler, updateAvatar } = useUpdateAvatar()
 
@@ -92,7 +95,7 @@ export const General = ({ profile }: Props) => {
               className={s.select}
               control={control}
               disabled={watchCountry === NOT_SELECTED}
-              items={getCities()}
+              items={getCities}
               label={t.profileSettings.selectYourCity}
               name={'city'}
             />
