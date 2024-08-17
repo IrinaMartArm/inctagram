@@ -4,12 +4,15 @@ import { PayPalIcon, StripeIcon } from '@/public'
 import { useTranslation } from '@/shared/assets'
 import { Card, Tab, Typography } from '@/shared/components'
 import { RadioGroup } from '@/shared/components/radioGroup'
-import { options } from '@/widgets'
+import { useOptions } from '@/widgets'
 
 import s from './accountManager.module.scss'
 export const AccountManager = () => {
   const { t } = useTranslation()
   const [activeRadio, setActiveRadio] = useState('')
+
+  const options = useOptions()
+
   const changeActiveRadioItem = (radioValue: string) => {
     setActiveRadio(radioValue)
   }

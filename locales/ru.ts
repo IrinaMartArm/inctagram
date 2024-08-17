@@ -20,6 +20,18 @@ export const ru = {
     warningQ: 'Вы действительно хотите закрыть создание публикации?',
     warningR: 'Если вы закроете, все будет удалено',
   },
+  cities: {
+    Brest: 'Брест',
+    Gomel: 'Гомель',
+    Krasnodar: 'Краснодар',
+    Minsk: 'Минск',
+    Mogilev: 'Могилев',
+    Moscow: 'Москва',
+    Novopolotsk: 'Новополоцк',
+    Sochi: 'Сочи',
+    Vitebsk: 'Витебск',
+    Volgograd: 'Волгоград',
+  },
   common: {
     error: 'Ошибка!',
     no: 'Нет',
@@ -27,6 +39,11 @@ export const ru = {
   },
   countText: {
     title: 'Зарегистрированные пользователи:',
+  },
+  countries: {
+    belarus: 'Беларусь',
+    notSelected: 'Не выбрано',
+    russia: 'Россия',
   },
   emailSent: 'Письмо отправлено',
   logOut: {
@@ -41,6 +58,12 @@ export const ru = {
     myProfile: 'Мой профиль',
     search: 'Поиск',
     statistics: 'Статистика',
+  },
+  myProfile: {
+    accountManagement: 'Управление аккаунтом',
+    devices: 'Устройства',
+    generalInformation: 'Обшая информация',
+    myPayments: 'Мои платежи',
   },
   profileSettingAccountManager: accountManagerRU,
   profileSettingMyPayment: myPaymentRU,
