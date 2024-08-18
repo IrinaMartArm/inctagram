@@ -1,0 +1,32 @@
+.activeSessionCard {
+  flex-direction: row !important;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: none !important;
+  height: 120px;
+  margin-top: 6px !important;
+}
+
+.dataDevice {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: start;
+
+  height: 100%;
+}
+
+.dataDeviceType {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.lastVisit {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

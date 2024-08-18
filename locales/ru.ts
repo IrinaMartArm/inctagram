@@ -1,4 +1,5 @@
 import { accountManagerRU } from '@/locales/profile-settings/accountManager/ru'
+import { devicesRU } from '@/locales/profile-settings/devices/ru'
 import { myPaymentRU } from '@/locales/profile-settings/myPayments/ru'
 
 export const ru = {
@@ -66,6 +67,7 @@ export const ru = {
     myPayments: 'Мои платежи',
   },
   profileSettingAccountManager: accountManagerRU,
+  profileSettingDevices: devicesRU,
   profileSettingMyPayment: myPaymentRU,
   profileSettings: {
     1: 'Политика конфиденциальности',
