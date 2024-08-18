@@ -1,0 +1,17 @@
+.container {
+  margin-top: 30px;
+}
+
+.terminateSessions {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-top: 30px;
+}
+
+.activeSessions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}

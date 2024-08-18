@@ -1,0 +1,15 @@
+.currentDeviseCard {
+  flex-direction: row !important;
+  gap: 12px;
+  align-items: start !important;
+
+  max-width: none !important;
+  height: 120px;
+  margin-top: 6px !important;
+}
+
+.dataDevice {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
