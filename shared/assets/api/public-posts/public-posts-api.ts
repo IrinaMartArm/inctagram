@@ -22,5 +22,4 @@ export const PublicPostsApi = baseApi.injectEndpoints({
   },
 })
 
-export const { getPublicPostById } = PublicPostsApi.endpoints
 export const {} = PublicPostsApi
