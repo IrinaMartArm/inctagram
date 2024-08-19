@@ -1,6 +1,5 @@
 import { NextPageWithLayout } from '@/pages/_app'
 import { PublicPostResponse } from '@/shared/assets/api/public-posts/types'
-import { UserProfile } from '@/shared/assets/api/public-user/types'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { CountUsers } from '@/widgets/count-users/count-users'

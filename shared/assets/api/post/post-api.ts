@@ -20,7 +20,7 @@ const PostApi = baseApi.injectEndpoints({
         }),
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
-        invalidatesTags: ['MyPosts'],
+        // invalidatesTags: ['MyPosts'],
         onQueryStarted: async ({ id, userId }, { dispatch, getState, queryFulfilled }) => {
           const invalidatedBy = PostApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
           const patchResults: any[] = []
@@ -103,12 +103,15 @@ const PostApi = baseApi.injectEndpoints({
           return currentArg?.page !== previousArg?.page
         },
         merge: (currentCache, newItems) => {
-          if (currentCache) {
-            currentCache.items.push(...newItems.items)
-            currentCache.page = newItems.page
-          } else {
-            return newItems
-          }
+          const existingItemsIds = currentCache.items.map(item => item.id)
+
+          newItems.items.forEach(item => {
+            if (!existingItemsIds.includes(item.id)) {
+              currentCache.items.unshift(item)
+            }
+          })
+
+          currentCache.page = newItems.page
         },
         providesTags: ['MyPosts'],
         query: ({ page, pageSize, userId }) => {
