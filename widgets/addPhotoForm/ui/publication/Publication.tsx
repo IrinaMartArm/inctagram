@@ -10,6 +10,7 @@ import {
   Button,
   ControlledTextArea,
   Input,
+  Loader,
   NextArrowComponent,
   PrevArrowComponent,
   Typography,
@@ -22,8 +23,17 @@ import s from './publication.module.scss'
 export const Publication = () => {
   const dispatch = useAppDispatch()
   const { data } = useProfileInformationQuery()
-  const { control, cropImages, cropImagesWithFilter, errors, handleSubmit, onSubmit, t, watch } =
-    useAddPhotoForm()
+  const {
+    control,
+    cropImages,
+    cropImagesWithFilter,
+    errors,
+    handleSubmit,
+    isLoading,
+    onSubmit,
+    t,
+    watch,
+  } = useAddPhotoForm()
 
   const [ind, setInd] = useState(0)
   const settings = {
@@ -67,6 +77,10 @@ export const Publication = () => {
     dispatch(addPhotoActions.setModalStateTo('filters'))
   }
 
+  if (isLoading) {
+    return <Loader />
+  }
+
   return (
     <div>
       <div className={s.header}>
@@ -76,7 +90,7 @@ export const Publication = () => {
         <Typography className={s.publicationTitle} variant={'h1'}>
           {t.addPhotoForm.publication}
         </Typography>
-        <Button onClick={handlePublish} variant={'link'}>
+        <Button disabled={isLoading} onClick={handlePublish} variant={'link'}>
           <Typography variant={'h3'}>{t.addPhotoForm.publish}</Typography>
         </Button>
       </div>

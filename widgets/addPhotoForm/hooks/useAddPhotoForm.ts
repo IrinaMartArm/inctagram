@@ -24,7 +24,7 @@ export const useAddPhotoForm = () => {
   const menu = 'scale-menu' || 'zoom-menu' || 'add-photos-menu'
   const [showMenu, setShowMenu] = useState<string | typeof menu>('')
   const [getImgId] = useGetImgIdMutation()
-  const [addPost] = useAddPostMutation()
+  const [addPost, { isLoading }] = useAddPostMutation()
   const imgChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
@@ -181,6 +181,7 @@ export const useAddPhotoForm = () => {
     handleSubmit,
     images,
     imgChangeCallback,
+    isLoading,
     isOpen,
     modalState,
     onSubmit,
