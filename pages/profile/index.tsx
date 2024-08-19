@@ -1,67 +1,55 @@
-import { baseApi } from '@/shared/assets'
 import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
-import { getPublicPostById } from '@/shared/assets/api/public-posts/public-posts-api'
-import {
-  getPublicUser,
-  useGetPublicUserQuery,
-} from '@/shared/assets/api/public-user/public-user-api'
-import { wrapper } from '@/shared/assets/api/store'
 import { PageWrapper } from '@/shared/components'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'
 import { getMixLayout } from '@/shared/components/layout/mixLayout'
 import { MyProfile } from '@/widgets'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { useRouter } from 'next/router'
+import { InferGetServerSidePropsType, NextPageContext } from 'next'
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-  store => async context => {
-    const id = context.query.id
-    const postId = context.query.postId
+export const getServerSideProps = async (context: NextPageContext) => {
+  const { query } = context
+  const userId = Array.isArray(query.id) ? query.id[0] : query.id
+  const postId = Array.isArray(query.postId) ? query.postId[0] : query.postId
 
-    const userProfile = await store.dispatch(getPublicUser.initiate({ userId: id![0] }))
-    // const userProfile = await fetch(`https://inctagram.org/api/v1/public-user/${id}`)
+  if (!userId) {
+    return { notFound: true }
+  }
 
-    let post = null
+  const userProfileResponse = await fetch(`https://inctagram.org/api/v1/public-user/${userId}`)
 
-    if (postId) {
-      post = await store.dispatch(getPublicPostById.initiate({ postId: +postId! }))
-
-      if (!post.data) {
-        return { notFound: true }
-      }
-    }
-
-    if (!userProfile) {
-      return {
-        notFound: true,
-      }
-    }
-    await Promise.all(store.dispatch(baseApi.util.getRunningQueriesThunk()))
-
+  if (!userProfileResponse) {
     return {
-      props: {
-        post: post || null,
-        userId: id,
-        userProfile: userProfile.data || null,
-      },
+      notFound: true,
     }
   }
-)
+
+  const userProfile = await userProfileResponse.json()
+
+  let post = null
+
+  if (postId) {
+    const postResponse = await fetch(`https://inctagram.org/api/v1/public-posts/${postId}`)
+
+    if (postResponse.ok) {
+      post = await postResponse.json()
+    } else {
+      return { notFound: true }
+    }
+  }
+
+  return {
+    props: { post, userId, userProfile },
+  }
+}
 
 const Profile = ({
   post,
   userId,
-  // userProfile,
+  userProfile,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { query } = useRouter()
   const { data: user } = useMeQuery(undefined)
   const { data } = useProfileInformationQuery()
-  const { data: userProfile } = useGetPublicUserQuery({ userId })
-  const isMyProfile = query.id === user?.userId
-
-  // console.log('userProfile', userProfile)
-  // console.log('userId', userId)
+  const isMyProfile = userId === user?.userId
 
   return (
     <PageWrapper>
