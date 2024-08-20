@@ -8,6 +8,7 @@ import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
+
 type Props = {
   avatar: string
   isOwner: boolean
@@ -59,7 +60,7 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
                 <div className={s.content_text}>
                   <Typography variant={'h3'}>Lorem</Typography>
                 </div>
-                <Button icon={<HeartSmall />} onClick={() => {}} variant={'icon'} />
+                {isOwner && <Button icon={<HeartSmall />} onClick={() => {}} variant={'icon'} />}
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago
@@ -73,7 +74,7 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
                 <div className={s.content_text}>
                   <Typography variant={'h3'}>Lorem</Typography>
                 </div>
-                <Button icon={<HeartRed />} onClick={() => {}} variant={'icon'} />
+                {isOwner && <Button icon={<HeartRed />} onClick={() => {}} variant={'icon'} />}
               </div>
               <Typography className={s.grey} variant={'small-text'}>
                 2 hours ago
@@ -82,13 +83,15 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
           </div>
         </div>
         <div className={s.bottomBlock}>
-          <div className={s.icons}>
-            <div>
-              <HeartOutline />
-              <PaperPlane />
+          {isOwner && (
+            <div className={s.icons}>
+              <div>
+                <HeartOutline />
+                <PaperPlane />
+              </div>
+              <Bookmark_outline />
             </div>
-            <Bookmark_outline />
-          </div>
+          )}
           <div className={s.avatars}>
             <div className={s.avatar_container}>
               {avatars.map((el, index) => (
@@ -106,17 +109,19 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
           <Typography className={s.grey} variant={'small-text'}>
             {createdAt}
           </Typography>
-          <form className={s.input}>
-            <ControlledTextField
-              control={control}
-              name={'comment'}
-              placeholder={'Add a Comment...'}
-              type={'text'}
-            />
-            <Button className={s.publish} variant={'icon'}>
-              Publish
-            </Button>
-          </form>
+          {isOwner && (
+            <form className={s.input}>
+              <ControlledTextField
+                control={control}
+                name={'comment'}
+                placeholder={'Add a Comment...'}
+                type={'text'}
+              />
+              <Button className={s.publish} variant={'icon'}>
+                Publish
+              </Button>
+            </form>
+          )}
         </div>
       </div>
     </div>
