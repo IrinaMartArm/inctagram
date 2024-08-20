@@ -17,7 +17,7 @@ export const useAccountManager = () => {
     setActiveRadio(radioValue)
   }
 
-  const changeSubscriptionCost = (cost: string) => {
+  const changeSubscriptionCost = (cost: number) => {
     setSubscriptionCost(cost)
   }
 
