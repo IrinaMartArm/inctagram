@@ -13,6 +13,10 @@ const PostApi = baseApi.injectEndpoints({
     return {
       addPost: builder.mutation<PostType, AddPostReq>({
         invalidatesTags: ['MyPosts'],
+        // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        //   await queryFulfilled
+        //   dispatch(PostApi.util.invalidateTags(['MyPosts']))
+        // },
         query: body => ({
           body: body,
           method: 'POST',
@@ -107,11 +111,13 @@ const PostApi = baseApi.injectEndpoints({
 
           newItems.items.forEach(item => {
             if (!existingItemsIds.includes(item.id)) {
+              // currentCache.items.push(item)
               currentCache.items.unshift(item)
             }
           })
 
           currentCache.page = newItems.page
+          currentCache.totalCount = newItems.totalCount
         },
         providesTags: ['MyPosts'],
         query: ({ page, pageSize, userId }) => {
