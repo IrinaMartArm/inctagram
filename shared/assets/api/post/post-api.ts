@@ -12,13 +12,30 @@ const PostApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       addPost: builder.mutation<PostType, AddPostReq>({
-        invalidatesTags: ['MyPosts'],
-        // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        //   await queryFulfilled
-        //   dispatch(PostApi.util.invalidateTags(['MyPosts']))
-        // },
+        onQueryStarted: async (newPost, { dispatch, queryFulfilled }) => {
+          const patchResult = dispatch(
+            PostApi.util.updateQueryData('getPostsByUserId', { userId: newPost.userId }, draft => {
+              draft.items.unshift({
+                authorId: newPost.userId,
+                createdAt: new Date().toISOString(),
+                description: newPost.description,
+                id: 'temp-id',
+                images: newPost.images,
+                updatedAt: new Date().toISOString(),
+                username: 'currentUsername',
+              })
+              draft.totalCount += 1
+            })
+          )
+
+          try {
+            await queryFulfilled
+          } catch {
+            patchResult.undo()
+          }
+        },
         query: body => ({
-          body: body,
+          body: { description: body.description, images: body.images },
           method: 'POST',
           url: `v1/post`,
         }),

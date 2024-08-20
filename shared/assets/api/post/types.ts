@@ -11,6 +11,7 @@ export type DeletePostArgs = {
 export type AddPostReq = {
   description: string
   images: string[]
+  userId: string
 }
 
 export type PostsType = {
