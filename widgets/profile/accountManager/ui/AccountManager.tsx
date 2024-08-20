@@ -1,40 +1,19 @@
-import React, { useState } from 'react'
-
 import { PayPalIcon, StripeIcon } from '@/public'
-import { useTranslation } from '@/shared/assets'
-import { Card, Tab, Typography } from '@/shared/components'
+import { Button, Card, Tab, Typography } from '@/shared/components'
 import { RadioGroup } from '@/shared/components/radioGroup'
-import { useOptions } from '@/widgets'
+import { useAccountManager } from '@/widgets'
 
 import s from './accountManager.module.scss'
 export const AccountManager = () => {
-  const { t } = useTranslation()
-  const [activeRadio, setActiveRadio] = useState('')
-
-  const options = useOptions()
-
-  const changeActiveRadioItem = (radioValue: string) => {
-    setActiveRadio(radioValue)
-  }
-  const accountManagerOptions = [
-    {
-      disabled: false,
-      id: 'r1',
-      title: t.profileSettingAccountManager.personal,
-      value: 'Personal',
-    },
-    {
-      disabled: false,
-      id: 'r2',
-      title: t.profileSettingAccountManager.business,
-      value: 'Business',
-    },
-  ]
-  const subscriptionCosts = [
-    { disabled: false, id: 'r1', title: t.profileSettingAccountManager.ten, value: 'first' },
-    { disabled: false, id: 'r2', title: t.profileSettingAccountManager.fifty, value: 'second' },
-    { disabled: false, id: 'r3', title: t.profileSettingAccountManager.hundred, value: 'third' },
-  ]
+  const {
+    accountManagerOptions,
+    activeRadio,
+    changeActiveRadioItem,
+    changeSubscriptionCost,
+    options,
+    subscriptionCosts,
+    t,
+  } = useAccountManager()
 
   return (
     <div>
@@ -57,14 +36,18 @@ export const AccountManager = () => {
                 {t.profileSettingAccountManager.yourSubscriptionCosts}
               </Typography>
               <Card className={s.radioGroupContainer}>
-                <RadioGroup options={subscriptionCosts} />
+                <RadioGroup onValueChange={changeSubscriptionCost} options={subscriptionCosts} />
               </Card>
               <div className={s.paymentOptionsContainer}>
-                <PayPalIcon />
+                <Button onClick={() => {}} variant={'icon'}>
+                  <PayPalIcon />
+                </Button>
                 <Typography variant={'regular_text-14'}>
                   {t.profileSettingAccountManager.or}
                 </Typography>
-                <StripeIcon />
+                <Button onClick={() => {}} variant={'icon'}>
+                  <StripeIcon />
+                </Button>
               </div>
             </div>
           )}
