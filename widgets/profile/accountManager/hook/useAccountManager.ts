@@ -7,7 +7,7 @@ import { useOptions } from '@/widgets'
 export const useAccountManager = () => {
   const { t } = useTranslation()
   const [activeRadio, setActiveRadio] = useState('')
-  const [subscriptionCost, setSubscriptionCost] = useState(0)
+  const [subscriptionCost, setSubscriptionCost] = useState('')
 
   const [createSubscription, { isLoading }] = useCreateSubscriptionMutation()
 
@@ -17,7 +17,7 @@ export const useAccountManager = () => {
     setActiveRadio(radioValue)
   }
 
-  const changeSubscriptionCost = (cost: number) => {
+  const changeSubscriptionCost = (cost: string) => {
     setSubscriptionCost(cost)
   }
 
@@ -37,15 +37,15 @@ export const useAccountManager = () => {
   ]
 
   const subscriptionCosts = [
-    { disabled: false, id: 'r1', title: t.profileSettingAccountManager.ten, value: 10 },
-    { disabled: false, id: 'r2', title: t.profileSettingAccountManager.fifty, value: 50 },
-    { disabled: false, id: 'r3', title: t.profileSettingAccountManager.hundred, value: 100 },
+    { disabled: false, id: 'r1', title: t.profileSettingAccountManager.ten, value: '10' },
+    { disabled: false, id: 'r2', title: t.profileSettingAccountManager.fifty, value: '50' },
+    { disabled: false, id: 'r3', title: t.profileSettingAccountManager.hundred, value: '100' },
   ]
 
   const handleStripe = () => {
     createSubscription({
       autoRenewal: true,
-      paymentCount: subscriptionCost,
+      paymentCount: Number(subscriptionCost),
       paymentType: '',
       subscriptionTimeType: '',
     })
