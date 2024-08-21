@@ -111,8 +111,8 @@ const PostApi = baseApi.injectEndpoints({
 
           newItems.items.forEach(item => {
             if (!existingItemsIds.includes(item.id)) {
-              // currentCache.items.push(item)
-              currentCache.items.unshift(item)
+              currentCache.items.push(item)
+              // currentCache.items.unshift(item)
             }
           })
 
