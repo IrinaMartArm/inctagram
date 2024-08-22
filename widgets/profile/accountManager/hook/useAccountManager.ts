@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import { handleErrorResponse, useTranslation } from '@/shared/assets'
-import { useCreateSubscriptionMutation } from '@/shared/assets/api/subscriptions/subscriptions-api'
+import {
+  useCreateSubscriptionMutation,
+  useGetCurrentSubscriptionQuery,
+} from '@/shared/assets/api/subscriptions/subscriptions-api'
 import { SubscriptionsType } from '@/shared/assets/api/subscriptions/types'
+import { formatDateString } from '@/shared/assets/helpers/formatDateString'
 import { useOptions } from '@/widgets'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { useRouter } from 'next/router'
@@ -13,8 +17,22 @@ export const useAccountManager = () => {
   const [activeRadio, setActiveRadio] = useState('')
   const [subscriptionCost, setSubscriptionCost] = useState<SubscriptionsType>(SubscriptionsType.DAY)
   const [errorType, setErrorType] = useState<null | string>(null)
+  const [autoRenewal, setAutoRenewal] = useState(false)
 
   const [createSubscription, { isLoading }] = useCreateSubscriptionMutation()
+  const { data: currentSubscriptionData, isLoading: currentSubscriptionLoading } =
+    useGetCurrentSubscriptionQuery()
+
+  useEffect(() => {
+    if (currentSubscriptionData) {
+      setActiveRadio('Business')
+      setAutoRenewal(currentSubscriptionData.autoRenewal || false) // Initialize autoRenewal based on current subscription data
+    } else {
+      setActiveRadio('Personal')
+    }
+  }, [currentSubscriptionData])
+
+  console.log(currentSubscriptionData)
 
   const options = useOptions()
 
@@ -80,7 +98,8 @@ export const useAccountManager = () => {
   const handlePay = async (paymentType: string) => {
     try {
       const response = await createSubscription({
-        autoRenewal: false,
+        // autoRenewal: false,
+        autoRenewal,
         paymentCount: SubscriptionCostsMap[subscriptionCost],
         paymentType: paymentType,
         subscriptionTimeType: subscriptionCost,
@@ -102,16 +121,31 @@ export const useAccountManager = () => {
       ? 'Payment was successful!'
       : 'Transaction failed, please try again 😟'
 
+  const currentExpireAt = currentSubscriptionData?.expireAt ?? null
+  const expireAt = formatDateString(currentExpireAt)
+
+  const currentNextPayment = currentSubscriptionData?.nextPayment ?? null
+  const nextPayment = formatDateString(currentNextPayment)
+
+  const handleChangeAutoRenewal = (isChecked: boolean) => {
+    setAutoRenewal(isChecked)
+  }
+
   return {
     accountManagerOptions,
     activeRadio,
+    autoRenewal,
     changeActiveRadioItem,
     changeSubscriptionCost,
+    currentSubscriptionData,
+    expireAt,
+    handleChangeAutoRenewal,
     handleCloseModal,
     handlePay,
     isLoading,
     isModalOpen,
     modalTitle,
+    nextPayment,
     options,
     subscriptionCosts,
     t,

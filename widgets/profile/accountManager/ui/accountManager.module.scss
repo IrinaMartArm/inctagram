@@ -1,18 +1,44 @@
-@import "styles/mixins";
-.container{
-  margin-top: 30px;
+@import 'styles/mixins';
+
+.container {
   @include flex(column, none, none, 50px);
-}
-.accountTypeContainer{
-  @include flex(column, none, none, 20px);
-}
-.radioGroupContainer{
-  display: flex!important;
-  align-items: start!important;
-  max-width: 100%!important;
-  margin: 0!important;
+
+  margin-top: 30px;
 }
 
-.paymentOptionsContainer{
+.accountTypeContainer {
+  @include flex(column, none, none, 20px);
+}
+
+.radioGroupContainer,
+.csContainer {
+  display: flex !important;
+  align-items: start !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+.paymentOptionsContainer {
   @include flex(row, end, center, 30px);
+}
+
+.csWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.csContainer {
+  flex-direction: row !important;
+  gap: 48px;
+}
+
+.csMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.csText {
+  color: var(--color-light-900);
 }
