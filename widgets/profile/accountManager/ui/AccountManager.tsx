@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { PayPalIcon, StripeIcon } from '@/public'
-import { Button, Card, Modal, ModalWindow, Tab, Typography } from '@/shared/components'
+import { Button, Card, Loader, Modal, ModalWindow, Tab, Typography } from '@/shared/components'
 import { RadioGroup } from '@/shared/components/radioGroup'
 import { useAccountManager } from '@/widgets'
 
@@ -14,6 +14,7 @@ export const AccountManager = () => {
     changeSubscriptionCost,
     handleCloseModal,
     handlePay,
+    isLoading,
     isModalOpen,
     modalTitle,
     options,
@@ -45,13 +46,13 @@ export const AccountManager = () => {
                 <RadioGroup onValueChange={changeSubscriptionCost} options={subscriptionCosts} />
               </Card>
               <div className={s.paymentOptionsContainer}>
-                <Button onClick={() => handlePay('PAYPAL')} variant={'icon'}>
+                <Button disabled={isLoading} onClick={() => handlePay('PAYPAL')} variant={'icon'}>
                   <PayPalIcon />
                 </Button>
                 <Typography variant={'regular_text-14'}>
                   {t.profileSettingAccountManager.or}
                 </Typography>
-                <Button onClick={() => handlePay('STRIPE')} variant={'icon'}>
+                <Button disabled={isLoading} onClick={() => handlePay('STRIPE')} variant={'icon'}>
                   <StripeIcon />
                 </Button>
               </div>

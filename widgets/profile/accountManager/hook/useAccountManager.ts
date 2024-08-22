@@ -80,7 +80,7 @@ export const useAccountManager = () => {
   const handlePay = async (paymentType: string) => {
     try {
       const response = await createSubscription({
-        autoRenewal: true,
+        autoRenewal: false,
         paymentCount: SubscriptionCostsMap[subscriptionCost],
         paymentType: paymentType,
         subscriptionTimeType: subscriptionCost,
@@ -109,6 +109,7 @@ export const useAccountManager = () => {
     changeSubscriptionCost,
     handleCloseModal,
     handlePay,
+    isLoading,
     isModalOpen,
     modalTitle,
     options,
