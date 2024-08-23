@@ -18,7 +18,8 @@ export const SubscriptionsApi = baseApi.injectEndpoints({
           url: 'v1/subscriptions/create-payment',
         }),
       }),
-      getCurrentSubscription: builder.query<void, CurrentSubscriptionResponse>({
+      getCurrentSubscription: builder.query<CurrentSubscriptionResponse, void>({
+        providesTags: ['Subscriptions'],
         query: () => ({
           method: 'GET',
           url: `v1/subscriptions/current-subscription`,
