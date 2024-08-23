@@ -4,7 +4,7 @@ import { formatDate, tableHeadTitle, useTranslation } from '@/shared/assets'
 import { useGetMyPaymentsQuery } from '@/shared/assets/api/profile/profile-api'
 import { Tab, Table, Typography } from '@/shared/components'
 import { Pagination } from '@/shared/components/pagination'
-import { useOptions } from '@/widgets'
+import { useOptions } from '@/widgets/profile/general/constants'
 
 import s from './myPayment.module.scss'
 
@@ -24,7 +24,7 @@ export const MyPayment = () => {
 
   return (
     <div className={s.root}>
-      <Tab defaultValue={'My payments'} options={options} />
+      <Tab defaultValue={'My Payments'} options={options} />
       <Table.Root className={s.tableRoot}>
         <Table.Head>
           <Table.Row>
@@ -55,7 +55,7 @@ export const MyPayment = () => {
                   </Typography>
                 </Table.Cell>
                 <Table.Cell>
-                  <Typography variant={'regular_text-14'}>${item.price}</Typography>
+                  <Typography variant={'regular_text-14'}>${item.price / 100}</Typography>
                 </Table.Cell>
                 <Table.Cell>
                   <Typography variant={'regular_text-14'}>{item.subscriptionTimeType}</Typography>

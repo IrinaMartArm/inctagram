@@ -45,7 +45,7 @@ export const General = ({ profile }: Props) => {
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
       {showAlert && <Alert onClick={alertHandler} title={alertMessage} variant={alertVariant} />}
-      <Tab defaultValue={'General information'} options={options} />
+      <Tab defaultValue={'General Information'} options={options} />
       <div className={s.container}>
         <AvatarBox
           avatar={avatar}

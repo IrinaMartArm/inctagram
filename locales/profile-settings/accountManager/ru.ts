@@ -1,10 +1,10 @@
 export const accountManagerRU = {
   accountType: 'Тип учетной записи:',
   business: 'Бизнес',
-  fifty: '$50 за 7 дней',
-  hundred: '$100 в месяц',
+  day: '$1 за 1 день',
+  month: '$30 в месяц',
   or: 'Или',
   personal: 'Личный',
-  ten: '$10 за 1 день',
+  week: '$10 за 7 дней',
   yourSubscriptionCosts: 'Стоимость вашей подписки:',
 }
