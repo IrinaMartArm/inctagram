@@ -21,9 +21,10 @@ export type Avatar = {
   url: string
 }
 
-export enum Subscr {
+export enum SubscriptionsType {
+  DAY = 'DAY',
   MONTHLY = 'MONTHLY',
-  STRIPE = 'STRIPE',
+  WEEKLY = 'WEEKLY',
 }
 
 export type CreateSubscriptionArgs = {

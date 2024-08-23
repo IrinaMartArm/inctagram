@@ -1,5 +1,7 @@
+import React from 'react'
+
 import { PayPalIcon, StripeIcon } from '@/public'
-import { Button, Card, Tab, Typography } from '@/shared/components'
+import { Button, Card, Loader, Modal, ModalWindow, Tab, Typography } from '@/shared/components'
 import { RadioGroup } from '@/shared/components/radioGroup'
 import { useAccountManager } from '@/widgets'
 
@@ -10,6 +12,11 @@ export const AccountManager = () => {
     activeRadio,
     changeActiveRadioItem,
     changeSubscriptionCost,
+    handleCloseModal,
+    handlePay,
+    isLoading,
+    isModalOpen,
+    modalTitle,
     options,
     subscriptionCosts,
     t,
@@ -39,13 +46,13 @@ export const AccountManager = () => {
                 <RadioGroup onValueChange={changeSubscriptionCost} options={subscriptionCosts} />
               </Card>
               <div className={s.paymentOptionsContainer}>
-                <Button onClick={() => {}} variant={'icon'}>
+                <Button disabled={isLoading} onClick={() => handlePay('PAYPAL')} variant={'icon'}>
                   <PayPalIcon />
                 </Button>
                 <Typography variant={'regular_text-14'}>
                   {t.profileSettingAccountManager.or}
                 </Typography>
-                <Button onClick={() => {}} variant={'icon'}>
+                <Button disabled={isLoading} onClick={() => handlePay('STRIPE')} variant={'icon'}>
                   <StripeIcon />
                 </Button>
               </div>
@@ -53,6 +60,9 @@ export const AccountManager = () => {
           )}
         </div>
       </div>
+      <Modal onOpenChange={handleCloseModal} open={isModalOpen} title={modalTitle}>
+        <ModalWindow callback={handleCloseModal} text={modalTitle} />
+      </Modal>
     </div>
   )
 }
