@@ -15,7 +15,7 @@ export const useProfile = ({
 }: MyProfileProps) => {
   const { t } = useTranslationPages()
   const router = useRouter()
-  const { postId } = router.query
+  const { postId } = router.query as string
   const [page, setPage] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedPost, setSelectedPost] = useState<PostType | null>(null)
@@ -32,20 +32,27 @@ export const useProfile = ({
   })
 
   useEffect(() => {
-    if (post) {
-      setSelectedPost({
-        ...post,
-        images: post.images,
-      })
-      setIsModalOpen(true)
+    if (postId && posts) {
+      const postToOpen = posts.items.find(p => p.id === postId)
+
+      if (postToOpen) {
+        setSelectedPost(postToOpen)
+        setIsModalOpen(true)
+      }
     }
-  }, [post])
+  }, [postId, posts])
+
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false)
+    setSelectedPost(null)
+    router.push(`${router.pathname}?id=${userId}`, undefined, { shallow: true })
+  }, [router])
 
   const loadMorePosts = useCallback(() => {
     if (!isFetching && !isLoading && posts && posts.pagesCount > page) {
       setPage(prevPage => prevPage + 1)
     }
-  }, [isFetching, isLoading])
+  }, [isFetching, isLoading, posts, page])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,18 +69,23 @@ export const useProfile = ({
     return () => window.removeEventListener('scroll', handleScroll, { capture: true })
   }, [loadMorePosts])
 
-  const handlePostClick = (post: PostType) => {
-    setSelectedPost(post)
-    setIsModalOpen(true)
-  }
+  const handlePostClick = useCallback(
+    (post: PostType) => {
+      setSelectedPost(post)
+      setIsModalOpen(true)
+      router.push(`${router.pathname}?id=${userId}&postId=${post.id}`, undefined, { shallow: true })
+    },
+    [router]
+  )
 
   const avatar = isMyProfile ? myProfileData?.avatar?.url : publicProfile?.avatar?.url
-
   const aboutMe = isMyProfile ? myProfileData?.aboutMe : publicProfile?.aboutMe
 
   return {
     aboutMe,
     avatar,
+    closeModal,
+    handlePostClick,
     isLoading,
     isModalOpen,
     posts,

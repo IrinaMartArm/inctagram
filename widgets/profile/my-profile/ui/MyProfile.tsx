@@ -20,7 +20,17 @@ export type MyProfileProps = {
 
 export const MyProfile = (props: MyProfileProps) => {
   const { isMyProfile, myProfileData, publicProfile, userId } = props
-  const { aboutMe, avatar, isLoading, posts, t } = useProfile(props)
+  const {
+    aboutMe,
+    avatar,
+    closeModal,
+    handlePostClick,
+    isLoading,
+    isModalOpen,
+    posts,
+    selectedPost,
+    t,
+  } = useProfile(props)
 
   return (
     <div className={s.root}>
@@ -42,7 +52,7 @@ export const MyProfile = (props: MyProfileProps) => {
           <div className={s.second_row}>
             <Info number={publicProfile?.following || 0} title={t.following} />
             <Info number={publicProfile?.followers || 0} title={t.followers} />
-            <Info number={posts?.totalCount || 0} title={t.publications} />
+            <Info number={publicProfile?.publicationsCount || 0} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
@@ -50,28 +60,35 @@ export const MyProfile = (props: MyProfileProps) => {
         </div>
       </div>
       <div className={s.posts}>
-        {posts
-          ? posts.items.map(post => (
-              <Modal
-                className={s.modal}
+        {publicProfile
+          ? publicProfile.publications.map(post => (
+              <div
+                className={s.postImage}
                 key={post.id}
-                trigger={
-                  <div className={s.postImage}>
-                    <img alt={'post'} className={s.postImageInner} src={post.images[0]} />
-                    {post.images.length > 1 && (
-                      <Typography className={s.badgeImage} variant={'regular_text-14'}>
-                        {post.images.length}
-                      </Typography>
-                    )}
-                  </div>
-                }
+                onClick={() => handlePostClick(post as PostType)}
               >
-                <Post avatar={avatar || ''} isOwner={isMyProfile} post={post} userId={userId} />
-              </Modal>
+                <img alt={'post'} className={s.postImageInner} src={post.images[0]} />
+                {post.images.length > 1 && (
+                  <Typography className={s.badgeImage} variant={'regular_text-14'}>
+                    {post.images.length}
+                  </Typography>
+                )}
+              </div>
             ))
           : !isLoading && <div>No posts available</div>}
         {isLoading && <div>Loading...</div>}
       </div>
+
+      {isModalOpen && selectedPost && (
+        <Modal
+          className={s.modal}
+          onClose={closeModal}
+          onOpenChange={closeModal}
+          open={isModalOpen}
+        >
+          <Post avatar={avatar || ''} isOwner={isMyProfile} post={selectedPost} userId={userId} />
+        </Modal>
+      )}
     </div>
   )
 }
