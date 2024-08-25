@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { PayPalIcon, StripeIcon } from '@/public'
-import { Button, Card, Loader, Modal, ModalWindow, Tab, Typography } from '@/shared/components'
+import {
+  Button,
+  Card,
+  CheckBox,
+  Loader,
+  Modal,
+  ModalWindow,
+  Tab,
+  Typography,
+} from '@/shared/components'
 import { RadioGroup } from '@/shared/components/radioGroup'
 import { useAccountManager } from '@/widgets'
 
@@ -10,29 +19,73 @@ export const AccountManager = () => {
   const {
     accountManagerOptions,
     activeRadio,
+    autoRenewal,
     changeActiveRadioItem,
     changeSubscriptionCost,
+    currentSubscriptionData,
+    expireAt,
+    handleChangeAutoRenewal,
     handleCloseModal,
     handlePay,
     isLoading,
     isModalOpen,
     modalTitle,
+    nextPayment,
     options,
     subscriptionCosts,
     t,
   } = useAccountManager()
 
+  useEffect(() => {
+    if (currentSubscriptionData) {
+      changeActiveRadioItem('Business')
+    } else {
+      changeActiveRadioItem('Personal')
+    }
+  }, [currentSubscriptionData, changeActiveRadioItem])
+
+  const updatedAccountManagerOptions = accountManagerOptions.map(option => ({
+    ...option,
+    disabled: activeRadio === 'Business' && option.value === 'Personal',
+  }))
+
   return (
     <div>
       <Tab defaultValue={'Account Management'} options={options} />
       <div className={s.container}>
+        <div className={s.csWrapper}>
+          <Typography variant={'h3'}>
+            {t.profileSettingAccountManager.currentSubscription}
+          </Typography>
+          <Card className={s.csContainer}>
+            <div className={s.csMeta}>
+              <Typography className={s.csText} variant={'regular_text-14'}>
+                {t.profileSettingAccountManager.expireAt}
+              </Typography>
+              <Typography variant={'regular_text-14'}>{expireAt}</Typography>
+            </div>
+            <div className={s.csMeta}>
+              <Typography className={s.csText} variant={'regular_text-14'}>
+                {t.profileSettingAccountManager.nextPayment}
+              </Typography>
+              <Typography variant={'regular_text-14'}>{nextPayment}</Typography>
+            </div>
+          </Card>
+          <CheckBox
+            checked={autoRenewal}
+            label={t.profileSettingAccountManager.autoRenewal}
+            name={'Auto-Renewal'}
+            onCheckedChange={handleChangeAutoRenewal}
+            title={'Auto-Renewal'}
+          />
+        </div>
         <div className={s.accountTypeContainer}>
           <Typography variant={'h3'}>{t.profileSettingAccountManager.accountType}</Typography>
           <Card className={s.radioGroupContainer}>
             <RadioGroup
-              defaultValue={'Personal'}
+              defaultValue={currentSubscriptionData ? 'Business' : 'Personal'}
               onValueChange={changeActiveRadioItem}
-              options={accountManagerOptions}
+              options={updatedAccountManagerOptions}
             />
           </Card>
         </div>

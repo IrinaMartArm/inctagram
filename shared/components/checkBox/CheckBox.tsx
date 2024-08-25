@@ -41,6 +41,7 @@ export const CheckBox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, Checkb
                 checked={checked}
                 className={classNames.root}
                 disabled={disabled}
+                id={'c1'}
                 onCheckedChange={onCheckedChange}
                 ref={ref}
                 {...rest}
@@ -58,7 +59,9 @@ export const CheckBox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, Checkb
                 </AnimatePresence>
               </CheckboxRadix.Root>
             </div>
-            {label}
+            <label className={classNames.label} htmlFor={'c1'}>
+              <Typography variant={'regular_text-14'}>{label}</Typography>
+            </label>
           </Typography>
         </LabelRadix.Root>
         <Typography className={classNames.errorMessage} variant={'small-text'}>
