@@ -7,18 +7,53 @@ import {
   PostType,
   PostsType,
 } from '@/shared/assets/api/post/types'
+import { RootState } from '@/shared/assets/api/store'
 
 const PostApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       addPost: builder.mutation<PostType, AddPostReq>({
         invalidatesTags: ['MyPosts'],
-        // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        //   await queryFulfilled
-        //   dispatch(PostApi.util.invalidateTags(['MyPosts']))
+        // onQueryStarted: async (newPost, { dispatch, getState, queryFulfilled }) => {
+        //   const patchResult = dispatch(
+        //     PostApi.util.updateQueryData('getPostsByUserId', { userId: newPost.userId }, draft => {
+        //       const addPhotoState = getState().addPhoto.cropImagesWithFilter.map(obj => obj.img)
+        //
+        //       console.log(addPhotoState)
+        //       draft.items.unshift({
+        //         authorId: newPost.userId,
+        //         createdAt: new Date().toISOString(),
+        //         description: '',
+        //         id: 'temp-id',
+        //         images: addPhotoState,
+        //         updatedAt: new Date().toISOString(),
+        //         username: 'currentUsername',
+        //       })
+        //       draft.totalCount += 1
+        //     })
+        //   )
+        //
+        //   try {
+        //     const { data: newlyAddedPost } = await queryFulfilled
+        //
+        //     dispatch(
+        //       PostApi.util.updateQueryData(
+        //         'getPostsByUserId',
+        //         { userId: newPost.userId },
+        //         draft => {
+        //           const tempPostIndex = draft.items.findIndex(post => post.id === 'temp-id')
+        //
+        //           draft.items.splice(tempPostIndex, 1)
+        //           draft.items.unshift(newlyAddedPost)
+        //         }
+        //       )
+        //     )
+        //   } catch {
+        //     patchResult.undo()
+        //   }
         // },
         query: body => ({
-          body: body,
+          body: { description: body.description, images: body.images },
           method: 'POST',
           url: `v1/post`,
         }),

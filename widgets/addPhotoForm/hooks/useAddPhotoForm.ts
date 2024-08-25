@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { ModalState, addPhotoActions } from '@/entities'
+import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
 import { useAddPostMutation, useGetImgIdMutation } from '@/shared/assets/api/post/post-api'
 import { RootState, useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
 import { convertFileToBase64, getCroppedImg } from '@/shared/assets/helpers'
@@ -24,6 +25,7 @@ export const useAddPhotoForm = () => {
   const menu = 'scale-menu' || 'zoom-menu' || 'add-photos-menu'
   const [showMenu, setShowMenu] = useState<string | typeof menu>('')
   const [getImgId] = useGetImgIdMutation()
+  const { data: me } = useMeQuery()
   const [addPost, { isLoading }] = useAddPostMutation()
   const imgChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
@@ -153,15 +155,13 @@ export const useAddPhotoForm = () => {
     const payload = {
       description: data.description,
       images: imageIds,
+      userId: me?.userId ? me.userId : '',
     }
 
     try {
+      dispatch(addPhotoActions.setIsOpen(false))
+      dispatch(addPhotoActions.discardAll())
       const response = await addPost(payload).unwrap()
-
-      if (response !== null) {
-        dispatch(addPhotoActions.setIsOpen(false))
-        dispatch(addPhotoActions.discardAll())
-      }
     } catch (e) {
       if (e instanceof Error) {
         toast.error(e.message)

@@ -78,19 +78,19 @@ export const useAccountManager = () => {
     {
       disabled: false,
       id: 'r1',
-      title: t.profileSettingAccountManager.ten,
+      title: t.profileSettingAccountManager.day,
       value: SubscriptionsType.DAY,
     },
     {
       disabled: false,
       id: 'r2',
-      title: t.profileSettingAccountManager.fifty,
+      title: t.profileSettingAccountManager.week,
       value: SubscriptionsType.WEEKLY,
     },
     {
       disabled: false,
       id: 'r3',
-      title: t.profileSettingAccountManager.hundred,
+      title: t.profileSettingAccountManager.month,
       value: SubscriptionsType.MONTHLY,
     },
   ]

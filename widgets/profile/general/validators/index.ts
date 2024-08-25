@@ -7,33 +7,47 @@ const thirteenYearsAgo = new Date()
 
 thirteenYearsAgo.setFullYear(currentDate.getFullYear() - 13)
 
-const isValidDateFormat = (dateString: string | undefined): boolean => {
-  if (!dateString) {
-    return false
-  }
-
-  // Check if the date string matches the pattern dd.MM.yyyy
-  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/
-
-  if (!dateRegex.test(dateString)) {
-    return false
-  }
-
-  // Further validation to check if the day and month make sense
-  const [day, month, year] = dateString.split('.').map(Number)
-  const date = new Date(year, month - 1, day)
-
-  // Check if the date object was created successfully and is valid
-  return !(date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day)
-}
-
 export const profileFormSchema = (t: LocaleType) => {
+  const thirteenYearsAgo = new Date()
+
+  thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 13)
+
+  const isValidDateFormat = (dateString: string) => {
+    const dateRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/
+
+    if (!dateRegex.test(dateString)) {
+      return false
+    }
+
+    const [, day, month, year] = dateString.match(dateRegex)!
+    const date = new Date(`${year}-${month}-${day}`)
+
+    return (
+      !isNaN(date.getTime()) &&
+      date.getDate() === parseInt(day, 10) &&
+      date.getMonth() + 1 === parseInt(month, 10) &&
+      date.getFullYear() === parseInt(year, 10)
+    )
+  }
+
   return z.object({
     aboutMe: z.string().max(200, `${t.profileSettings.errors.aboutMe}`).optional(),
     city: z.string().optional(),
     country: z.string().optional(),
     dateOfBirth: z
       .string()
+      .refine(
+        dateString => {
+          if (!dateString) {
+            return true
+          }
+
+          return isValidDateFormat(dateString)
+        },
+        {
+          message: t.profileSettings.errors.dateFormatError,
+        }
+      )
       .refine(
         dateString => {
           if (!dateString) {
@@ -47,18 +61,7 @@ export const profileFormSchema = (t: LocaleType) => {
           message: t.profileSettings.errors.child,
         }
       )
-      .refine(
-        dateString => {
-          if (!dateString) {
-            return true
-          }
 
-          return isValidDateFormat(dateString)
-        },
-        {
-          message: t.profileSettings.errors.dateFormatError,
-        }
-      )
       .optional()
       .transform(value => (value === '' ? undefined : value)),
     firstName: z

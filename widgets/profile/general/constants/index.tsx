@@ -1,5 +1,4 @@
-import { Paths } from '@/shared/assets'
-import { useTranslation } from '@/shared/assets/hooks'
+import { Paths, useTranslation } from '@/shared/assets'
 
 export const NOT_SELECTED = 'not_selected'
 
