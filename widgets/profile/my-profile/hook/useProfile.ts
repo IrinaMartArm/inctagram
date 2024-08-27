@@ -1,46 +1,68 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 
 import { useTranslationPages } from '@/shared/assets'
-import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
+import PostApi, { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { PostType } from '@/shared/assets/api/post/types'
 import { MyProfileProps } from '@/widgets'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '@/shared/assets/api/store'
 
 export const useProfile = ({
-  isMyProfile,
+  isOwner,
   myProfileData,
-  post,
+  postId,
   publicProfile,
   userId,
 }: MyProfileProps) => {
   const { t } = useTranslationPages()
+  const dispatch = useAppDispatch()
   const router = useRouter()
-  const { postId } = router.query as string
   const [page, setPage] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [posts, setPosts] = useState<PostType[]>([])
   const [selectedPost, setSelectedPost] = useState<PostType | null>(null)
+  const [previousUserId, setPreviousUserId] = useState<string | null>(null)
 
   const pageSize = 8
-  const {
-    data: posts,
-    isFetching,
-    isLoading,
-  } = useGetPostsByUserIdQuery({
-    page: page.toString(),
-    pageSize: pageSize.toString(),
-    userId: userId,
-  })
 
   useEffect(() => {
-    if (postId && posts) {
-      const postToOpen = posts.items.find(p => p.id === postId)
+    setPosts([])
+    setPage(1)
+    setPreviousUserId(userId)
+  }, [userId])
+
+  const {
+    data: postsData,
+    isFetching,
+    isLoading,
+  } = useGetPostsByUserIdQuery(
+    {
+      page: page.toString(),
+      pageSize: pageSize.toString(),
+      userId: isOwner ? userId : '',
+    },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  )
+
+  useEffect(() => {
+    if (postsData) {
+      setPosts(postsData.items)
+    }
+  }, [postsData])
+
+  useEffect(() => {
+    if (postId && postsData) {
+      const postToOpen = postsData.items.find(p => p.id === postId)
 
       if (postToOpen) {
         setSelectedPost(postToOpen)
         setIsModalOpen(true)
       }
     }
-  }, [postId, posts])
+  }, [postId, postsData])
 
   const closeModal = useCallback(() => {
     setIsModalOpen(false)
@@ -49,10 +71,10 @@ export const useProfile = ({
   }, [router])
 
   const loadMorePosts = useCallback(() => {
-    if (!isFetching && !isLoading && posts && posts.pagesCount > page) {
+    if (!isFetching && !isLoading && postsData && postsData.pagesCount > page) {
       setPage(prevPage => prevPage + 1)
     }
-  }, [isFetching, isLoading, posts, page])
+  }, [isFetching, isLoading, postsData, page])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,11 +97,11 @@ export const useProfile = ({
       setIsModalOpen(true)
       router.push(`${router.pathname}?id=${userId}&postId=${post.id}`, undefined, { shallow: true })
     },
-    [router]
+    [router, userId]
   )
 
-  const avatar = isMyProfile ? myProfileData?.avatar?.url : publicProfile?.avatar?.url
-  const aboutMe = isMyProfile ? myProfileData?.aboutMe : publicProfile?.aboutMe
+  const avatar = isOwner ? myProfileData?.avatar?.url : publicProfile?.avatar?.url
+  const aboutMe = isOwner ? myProfileData?.aboutMe : publicProfile?.aboutMe
 
   return {
     aboutMe,
@@ -92,5 +114,6 @@ export const useProfile = ({
     selectedPost,
     setIsModalOpen,
     t,
+    postsData,
   }
 }

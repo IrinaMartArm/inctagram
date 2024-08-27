@@ -32,6 +32,8 @@ export const PublicPostCard = (props: Props) => {
     setIsExpanded(!isExpanded)
   }
 
+  console.log('post.authorId', props.userId)
+
   const renderDescription = () => {
     if (isExpanded) {
       return (

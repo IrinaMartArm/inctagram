@@ -104,7 +104,9 @@ const PostApi = baseApi.injectEndpoints({
       }),
       getPostsByUserId: builder.query<PostsType, GetPostsArgs>({
         forceRefetch({ currentArg, previousArg }) {
-          return currentArg?.page !== previousArg?.page
+          return (
+            currentArg?.userId !== previousArg?.userId || currentArg?.page !== previousArg?.page
+          )
         },
         merge: (currentCache, newItems) => {
           const existingItemsIds = currentCache.items.map(item => item.id)
@@ -112,7 +114,6 @@ const PostApi = baseApi.injectEndpoints({
           newItems.items.forEach(item => {
             if (!existingItemsIds.includes(item.id)) {
               currentCache.items.push(item)
-              // currentCache.items.unshift(item)
             }
           })
 
@@ -143,3 +144,4 @@ export const {
   useGetImgIdMutation,
   useGetPostsByUserIdQuery,
 } = PostApi
+export default PostApi

@@ -9,7 +9,11 @@ import { InferGetServerSidePropsType, NextPageContext } from 'next'
 export const getServerSideProps = async (context: NextPageContext) => {
   const { query } = context
   const userId = Array.isArray(query.id) ? query.id[0] : query.id
-  const postId = Array.isArray(query.postId) ? query.postId[0] : query.postId
+  let postId = Array.isArray(query.postId) ? query.postId[0] : query.postId
+
+  if (!postId) {
+    postId = ''
+  }
 
   if (!userId) {
     return { notFound: true }
@@ -38,28 +42,30 @@ export const getServerSideProps = async (context: NextPageContext) => {
   }
 
   return {
-    props: { post, userId, userProfile },
+    props: { post, userId, userProfile, postId },
   }
 }
 
 const Profile = ({
   post,
   userId,
+  postId,
   userProfile,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: user } = useMeQuery(undefined)
   const { data } = useProfileInformationQuery()
-  const isMyProfile = userId === user?.userId
+  const isOwner = userId === user?.userId
 
   return (
     <PageWrapper>
       <HeadMeta title={'Profile'} />
       <MyProfile
-        isMyProfile={isMyProfile}
+        isOwner={isOwner}
         myProfileData={data}
         post={post || null}
         publicProfile={userProfile}
         userId={userId}
+        postId={postId}
       />
     </PageWrapper>
   )

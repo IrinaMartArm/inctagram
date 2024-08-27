@@ -11,15 +11,16 @@ import Link from 'next/link'
 import s from './profile.module.scss'
 
 export type MyProfileProps = {
-  isMyProfile: boolean
+  isOwner: boolean
   myProfileData?: UserProfileResponse
   post: PostType
   publicProfile?: UserProfile
   userId: string
+  postId?: string
 }
 
 export const MyProfile = (props: MyProfileProps) => {
-  const { isMyProfile, myProfileData, publicProfile, userId } = props
+  const { isOwner, myProfileData, publicProfile, userId } = props
   const {
     aboutMe,
     avatar,
@@ -30,7 +31,11 @@ export const MyProfile = (props: MyProfileProps) => {
     posts,
     selectedPost,
     t,
+    postsData,
   } = useProfile(props)
+
+  const publicationsCount = isOwner ? postsData?.totalCount : publicProfile?.publicationsCount
+  const postsList = isOwner ? posts : publicProfile?.publications
 
   return (
     <div className={s.root}>
@@ -43,7 +48,7 @@ export const MyProfile = (props: MyProfileProps) => {
             <Typography variant={'h1'}>
               {publicProfile?.username || myProfileData?.username}
             </Typography>
-            {isMyProfile && (
+            {isOwner && (
               <Button as={Link} href={Paths.PROFILE_GENERAL} variant={'secondary'}>
                 {t.settingsBtn}
               </Button>
@@ -52,7 +57,7 @@ export const MyProfile = (props: MyProfileProps) => {
           <div className={s.second_row}>
             <Info number={publicProfile?.following || 0} title={t.following} />
             <Info number={publicProfile?.followers || 0} title={t.followers} />
-            <Info number={publicProfile?.publicationsCount || 0} title={t.publications} />
+            <Info number={publicationsCount || 0} title={t.publications} />
           </div>
           <div className={s.third_row}>
             <Typography variant={'regular_text-16'}>{aboutMe}</Typography>
@@ -60,8 +65,8 @@ export const MyProfile = (props: MyProfileProps) => {
         </div>
       </div>
       <div className={s.posts}>
-        {publicProfile
-          ? publicProfile.publications.map(post => (
+        {postsList
+          ? postsList.map(post => (
               <div
                 className={s.postImage}
                 key={post.id}
@@ -82,11 +87,11 @@ export const MyProfile = (props: MyProfileProps) => {
       {isModalOpen && selectedPost && (
         <Modal
           className={s.modal}
-          onClose={closeModal}
+          // onClose={closeModal}
           onOpenChange={closeModal}
           open={isModalOpen}
         >
-          <Post avatar={avatar || ''} isOwner={isMyProfile} post={selectedPost} userId={userId} />
+          <Post avatar={avatar || ''} isOwner={isOwner} post={selectedPost} userId={userId} />
         </Modal>
       )}
     </div>
