@@ -5,7 +5,6 @@ import { useTimeAgo } from '@/shared/assets/hooks/useTimeAgo'
 import { AvatarSimple, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { clsx } from 'clsx'
-import Link from 'next/link'
 
 import s from './publicPostCard.module.scss'
 
@@ -60,17 +59,15 @@ export const PublicPostCard = (props: Props) => {
 
   return (
     <article className={s.container}>
-      <Link href={`${Paths.PROFILE}?id=${props.userId}&postId=${props.postId}`}>
-        <div className={s.link}></div>
-      </Link>
+      <a className={s.link} href={`${Paths.PROFILE}?id=${props.userId}&postId=${props.postId}`}></a>
       <div className={s.sliderContainer}>
         <PhotoCarousel height={'240px'} photos={props.images} />
       </div>
       <div className={clsx(s.content, isExpanded && s.expanded)}>
-        <div className={s.user}>
+        <a className={s.user} href={`${Paths.PROFILE}?id=${props.userId}`}>
           <AvatarSimple className={s.avatar} src={props.avatar} title={props.username} />
           <Typography variant={'h3'}>{props.username}</Typography>
-        </div>
+        </a>
 
         <Typography className={s.time} variant={'small-text'}>
           {useTimeAgo(props.createdAt)}
