@@ -63,8 +63,8 @@ const Profile = ({
         isOwner={isOwner}
         myProfileData={data}
         post={post || null}
-        publicProfile={userProfile}
         postId={postId}
+        publicProfile={userProfile}
         userId={userId}
       />
     </PageWrapper>
