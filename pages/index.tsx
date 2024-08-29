@@ -21,8 +21,7 @@ export const getStaticProps = async (context: NextPageContext) => {
     fetch(`https://inctagram.org/api/v1/public-posts?page=${page}&pageSize=${pageSize}`),
   ])
 
-  const count = await countData.json()
-  const posts = await postData.json()
+  const [count, posts] = await Promise.all([countData.json(), postData.json()])
 
   return {
     props: {
@@ -36,7 +35,6 @@ export const getStaticProps = async (context: NextPageContext) => {
 const Public: NextPageWithLayout<Props> = ({ countUsers, posts }) => {
   return (
     <>
-      {/*<PageWrapper>*/}
       <HeadMeta title={'Public'} />
       <main>
         <div className={'wrapper'}>
@@ -58,7 +56,6 @@ const Public: NextPageWithLayout<Props> = ({ countUsers, posts }) => {
         </div>
       </main>
     </>
-    // </PageWrapper>
   )
 }
 
