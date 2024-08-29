@@ -42,14 +42,14 @@ export const getServerSideProps = async (context: NextPageContext) => {
   }
 
   return {
-    props: { post, userId, userProfile, postId },
+    props: { post, postId, userId, userProfile },
   }
 }
 
 const Profile = ({
   post,
-  userId,
   postId,
+  userId,
   userProfile,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: user } = useMeQuery(undefined)
@@ -63,9 +63,9 @@ const Profile = ({
         isOwner={isOwner}
         myProfileData={data}
         post={post || null}
-        publicProfile={userProfile}
-        userId={userId}
         postId={postId}
+        userId={userId}
+        publicProfile={userProfile}
       />
     </PageWrapper>
   )
