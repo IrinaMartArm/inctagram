@@ -20,19 +20,17 @@ export const useAccountManager = () => {
   const [autoRenewal, setAutoRenewal] = useState(false)
 
   const [createSubscription, { isLoading }] = useCreateSubscriptionMutation()
-  const { data: currentSubscriptionData, isLoading: currentSubscriptionLoading } =
+  const { data: currentSubscriptionData, isLoading: isCurrentSubscriptionLoading } =
     useGetCurrentSubscriptionQuery()
 
   useEffect(() => {
-    if (currentSubscriptionData) {
+    if (currentSubscriptionData?.customerId !== null) {
       setActiveRadio('Business')
-      setAutoRenewal(currentSubscriptionData.autoRenewal || false) // Initialize autoRenewal based on current subscription data
+      setAutoRenewal(currentSubscriptionData?.autoRenewal || false)
     } else {
       setActiveRadio('Personal')
     }
   }, [currentSubscriptionData])
-
-  console.log(currentSubscriptionData)
 
   const options = useOptions()
 
@@ -142,6 +140,7 @@ export const useAccountManager = () => {
     handleChangeAutoRenewal,
     handleCloseModal,
     handlePay,
+    isCurrentSubscriptionLoading,
     isLoading,
     isModalOpen,
     modalTitle,

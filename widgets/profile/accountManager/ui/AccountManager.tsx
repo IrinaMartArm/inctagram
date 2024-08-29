@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useMemo } from 'react'
 
 import { PayPalIcon, StripeIcon } from '@/public'
 import {
@@ -27,6 +27,7 @@ export const AccountManager = () => {
     handleChangeAutoRenewal,
     handleCloseModal,
     handlePay,
+    isCurrentSubscriptionLoading,
     isLoading,
     isModalOpen,
     modalTitle,
@@ -36,56 +37,62 @@ export const AccountManager = () => {
     t,
   } = useAccountManager()
 
-  useEffect(() => {
-    if (currentSubscriptionData) {
-      changeActiveRadioItem('Business')
-    } else {
-      changeActiveRadioItem('Personal')
-    }
-  }, [currentSubscriptionData, changeActiveRadioItem])
+  const updatedAccountManagerOptions = useMemo(
+    () =>
+      accountManagerOptions.map(option => ({
+        ...option,
+        disabled:
+          currentSubscriptionData?.customerId !== null &&
+          activeRadio === 'Business' &&
+          option.value === 'Personal',
+      })),
+    [accountManagerOptions, activeRadio, currentSubscriptionData]
+  )
 
-  const updatedAccountManagerOptions = accountManagerOptions.map(option => ({
-    ...option,
-    disabled: activeRadio === 'Business' && option.value === 'Personal',
-  }))
+  if (isCurrentSubscriptionLoading) {
+    return <Loader />
+  }
 
   return (
     <div>
       <Tab defaultValue={'Account Management'} options={options} />
       <div className={s.container}>
-        <div className={s.csWrapper}>
-          <Typography variant={'h3'}>
-            {t.profileSettingAccountManager.currentSubscription}
-          </Typography>
-          <Card className={s.csContainer}>
-            <div className={s.csMeta}>
-              <Typography className={s.csText} variant={'regular_text-14'}>
-                {t.profileSettingAccountManager.expireAt}
-              </Typography>
-              <Typography variant={'regular_text-14'}>{expireAt}</Typography>
-            </div>
-            <div className={s.csMeta}>
-              <Typography className={s.csText} variant={'regular_text-14'}>
-                {t.profileSettingAccountManager.nextPayment}
-              </Typography>
-              <Typography variant={'regular_text-14'}>{nextPayment}</Typography>
-            </div>
-          </Card>
-          <CheckBox
-            checked={autoRenewal}
-            label={t.profileSettingAccountManager.autoRenewal}
-            name={'Auto-Renewal'}
-            onCheckedChange={handleChangeAutoRenewal}
-            title={'Auto-Renewal'}
-          />
-        </div>
+        {currentSubscriptionData?.customerId !== null && (
+          <div className={s.csWrapper}>
+            <Typography variant={'h3'}>
+              {t.profileSettingAccountManager.currentSubscription}
+            </Typography>
+            <Card className={s.csContainer}>
+              <div className={s.csMeta}>
+                <Typography className={s.csText} variant={'regular_text-14'}>
+                  {t.profileSettingAccountManager.expireAt}
+                </Typography>
+                <Typography variant={'regular_text-14'}>{expireAt}</Typography>
+              </div>
+              <div className={s.csMeta}>
+                <Typography className={s.csText} variant={'regular_text-14'}>
+                  {t.profileSettingAccountManager.nextPayment}
+                </Typography>
+                <Typography variant={'regular_text-14'}>{nextPayment}</Typography>
+              </div>
+            </Card>
+            <CheckBox
+              checked={autoRenewal}
+              label={t.profileSettingAccountManager.autoRenewal}
+              name={'Auto-Renewal'}
+              onCheckedChange={handleChangeAutoRenewal}
+              title={'Auto-Renewal'}
+            />
+          </div>
+        )}
         <div className={s.accountTypeContainer}>
           <Typography variant={'h3'}>{t.profileSettingAccountManager.accountType}</Typography>
           <Card className={s.radioGroupContainer}>
             <RadioGroup
-              defaultValue={currentSubscriptionData ? 'Business' : 'Personal'}
+              defaultValue={'Business'}
               onValueChange={changeActiveRadioItem}
               options={updatedAccountManagerOptions}
+              value={activeRadio}
             />
           </Card>
         </div>
