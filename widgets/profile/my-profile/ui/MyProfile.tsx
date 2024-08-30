@@ -28,14 +28,14 @@ export const MyProfile = (props: MyProfileProps) => {
     handlePostClick,
     isLoading,
     isModalOpen,
-    posts,
     selectedPost,
     t,
     postsData,
   } = useProfile(props)
 
+  const username = isOwner ? myProfileData?.username : publicProfile?.username
   const publicationsCount = isOwner ? postsData?.totalCount : publicProfile?.publicationsCount
-  const postsList = isOwner ? posts : publicProfile?.publications
+  const postsList = isOwner ? postsData?.items : publicProfile?.publications
 
   return (
     <div className={s.root}>
@@ -91,7 +91,13 @@ export const MyProfile = (props: MyProfileProps) => {
           onOpenChange={closeModal}
           open={isModalOpen}
         >
-          <Post avatar={avatar || ''} isOwner={isOwner} post={selectedPost} userId={userId} />
+          <Post
+            username={username}
+            avatar={avatar || ''}
+            isOwner={isOwner}
+            post={selectedPost}
+            userId={userId}
+          />
         </Modal>
       )}
     </div>

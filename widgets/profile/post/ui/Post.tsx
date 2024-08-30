@@ -8,16 +8,18 @@ import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
+import { Publication } from '@/shared/assets/api/subscriptions/types'
 
 type Props = {
   avatar: string
   isOwner: boolean
   key?: number
-  post: PostType
+  post: PostType | Publication
   userId: string
+  username?: string
 }
 
-export const Post = ({ avatar, isOwner, post, userId }: Props) => {
+export const Post = ({ avatar, isOwner, post, userId, username }: Props) => {
   const avatars = ['', '', '']
 
   const { control } = useForm({})
@@ -33,7 +35,7 @@ export const Post = ({ avatar, isOwner, post, userId }: Props) => {
         <div className={s.header}>
           <div className={s.content}>
             <AvatarSimple src={avatar} title={'me'} />
-            <Typography variant={'h3'}>{post?.username}</Typography>
+            <Typography variant={'h3'}>{username}</Typography>
           </div>
           {isOwner && (
             <PostMenu

@@ -59,7 +59,7 @@ const PostApi = baseApi.injectEndpoints({
         }),
       }),
       deletePost: builder.mutation<void, DeletePostArgs>({
-        // invalidatesTags: ['MyPosts'],
+        invalidatesTags: ['MyPosts'],
         onQueryStarted: async ({ id, userId }, { dispatch, getState, queryFulfilled }) => {
           const invalidatedBy = PostApi.util.selectInvalidatedBy(getState(), [{ type: 'MyPosts' }])
           const patchResults: any[] = []
