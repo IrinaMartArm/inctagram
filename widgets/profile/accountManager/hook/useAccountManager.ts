@@ -96,7 +96,6 @@ export const useAccountManager = () => {
   const handlePay = async (paymentType: string) => {
     try {
       const response = await createSubscription({
-        // autoRenewal: false,
         autoRenewal,
         paymentCount: SubscriptionCostsMap[subscriptionCost],
         paymentType: paymentType,

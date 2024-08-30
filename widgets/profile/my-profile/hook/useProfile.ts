@@ -1,12 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
-
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslationPages } from '@/shared/assets'
-import PostApi, { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
+import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { PostType } from '@/shared/assets/api/post/types'
 import { MyProfileProps } from '@/widgets'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-import { useAppDispatch } from '@/shared/assets/api/store'
+import { Publication } from '@/shared/assets/api/subscriptions/types'
 
 export const useProfile = ({
   isOwner,
@@ -16,21 +14,12 @@ export const useProfile = ({
   userId,
 }: MyProfileProps) => {
   const { t } = useTranslationPages()
-  const dispatch = useAppDispatch()
   const router = useRouter()
   const [page, setPage] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [posts, setPosts] = useState<PostType[]>([])
-  const [selectedPost, setSelectedPost] = useState<PostType | null>(null)
-  const [previousUserId, setPreviousUserId] = useState<string | null>(null)
+  const [selectedPost, setSelectedPost] = useState<Publication | null>(null)
 
   const pageSize = 8
-
-  useEffect(() => {
-    setPosts([])
-    setPage(1)
-    setPreviousUserId(userId)
-  }, [userId])
 
   const {
     data: postsData,
@@ -48,14 +37,8 @@ export const useProfile = ({
   )
 
   useEffect(() => {
-    if (postsData) {
-      setPosts(postsData.items)
-    }
-  }, [postsData])
-
-  useEffect(() => {
-    if (postId && postsData) {
-      const postToOpen = postsData.items.find(p => p.id === postId)
+    if (postId) {
+      const postToOpen = publicProfile?.publications.find(p => p.id === postId)
 
       if (postToOpen) {
         setSelectedPost(postToOpen)
@@ -110,7 +93,6 @@ export const useProfile = ({
     handlePostClick,
     isLoading,
     isModalOpen,
-    posts,
     selectedPost,
     setIsModalOpen,
     t,
