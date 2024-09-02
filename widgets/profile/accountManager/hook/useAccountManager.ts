@@ -52,9 +52,9 @@ export const useAccountManager = () => {
   }, [query.success, query])
 
   const SubscriptionCostsMap: Record<SubscriptionsType, number> = {
-    [SubscriptionsType.DAY]: 10,
-    [SubscriptionsType.MONTHLY]: 100,
-    [SubscriptionsType.WEEKLY]: 50,
+    [SubscriptionsType.DAY]: 1,
+    [SubscriptionsType.MONTHLY]: 30,
+    [SubscriptionsType.WEEKLY]: 10,
   }
 
   const accountManagerOptions = [
@@ -97,7 +97,7 @@ export const useAccountManager = () => {
     try {
       const response = await createSubscription({
         autoRenewal,
-        paymentCount: SubscriptionCostsMap[subscriptionCost],
+        paymentCount: 1,
         paymentType: paymentType,
         subscriptionTimeType: subscriptionCost,
       }).unwrap()
