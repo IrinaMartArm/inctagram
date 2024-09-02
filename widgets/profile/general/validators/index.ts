@@ -84,8 +84,8 @@ export const profileFormSchema = (t: LocaleType) => {
       ),
     username: z
       .string()
-      .min(6)
-      .max(30)
+      .min(6, t.profileSettings.errors.lastName)
+      .max(30, t.profileSettings.invalidLastNameMax)
       .regex(USERNAME_REGEX, `${t.profileSettings.invalidUsername} a-z, A-Z, 0-9_-`),
   })
 }
