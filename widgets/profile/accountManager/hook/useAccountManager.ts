@@ -24,7 +24,7 @@ export const useAccountManager = () => {
     useGetCurrentSubscriptionQuery()
 
   useEffect(() => {
-    if (currentSubscriptionData?.customerId !== null) {
+    if (currentSubscriptionData?.expireAt !== null) {
       setActiveRadio('Business')
       setAutoRenewal(currentSubscriptionData?.autoRenewal || false)
     } else {

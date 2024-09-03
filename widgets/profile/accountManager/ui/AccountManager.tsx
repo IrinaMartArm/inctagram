@@ -42,7 +42,7 @@ export const AccountManager = () => {
       accountManagerOptions.map(option => ({
         ...option,
         disabled:
-          currentSubscriptionData?.customerId !== null &&
+          currentSubscriptionData?.expireAt !== null &&
           activeRadio === 'Business' &&
           option.value === 'Personal',
       })),
@@ -57,7 +57,7 @@ export const AccountManager = () => {
     <div>
       <Tab defaultValue={'Account Management'} options={options} />
       <div className={s.container}>
-        {currentSubscriptionData?.customerId !== null && (
+        {currentSubscriptionData?.expireAt !== null && (
           <div className={s.csWrapper}>
             <Typography variant={'h3'}>
               {t.profileSettingAccountManager.currentSubscription}
