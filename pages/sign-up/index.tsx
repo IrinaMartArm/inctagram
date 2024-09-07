@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/bll/store'
 import { authActions } from '@/entities'
 import { userEmailSelector } from '@/entities/auth/model/auth-slice'
 import { useTranslationPages } from '@/shared/assets'
 import { useSignUpMutation } from '@/shared/assets/api/auth/auth-api'
-import { useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
 import { setToLocalStorage } from '@/shared/assets/helpers/setToLocalStorage'
 import { UseFormRef } from '@/shared/assets/types/form'
 import { HeadMeta } from '@/shared/components/headMeta/HeadMeta'

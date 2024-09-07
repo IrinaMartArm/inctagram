@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Provider } from 'react-redux'
 
-import { store } from '@/shared/assets/api/store'
+import { store } from '@/bll/store'
 import { SignUpCard } from '@/widgets'
 
 const meta = {

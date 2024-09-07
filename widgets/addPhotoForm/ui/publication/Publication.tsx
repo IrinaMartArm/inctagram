@@ -1,10 +1,10 @@
 import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
+import { useAppDispatch } from '@/bll/store'
 import { addPhotoActions } from '@/entities'
 import { ArrowBack } from '@/public'
 import { useProfileInformationQuery } from '@/shared/assets/api/profile/profile-api'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import {
   Avatar,
   Button,

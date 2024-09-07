@@ -1,9 +1,6 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 
-import { addPhotoActions } from '@/entities'
 import { ArrowBack, Magnifier, Picture, Vectors } from '@/public'
-import { CropArg } from '@/shared/assets'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import { Button, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import { AddPhotosMenu } from '@/widgets/addPhotoForm/ui/croppingPhoto/addPhotosMenu'
@@ -33,7 +30,6 @@ export const CroppingPhoto = ({ deleteImgCallback, setConfirmOpen }: Props) => {
     t,
     zoomValue,
   } = useAddPhotoForm()
-  const dispatch = useAppDispatch()
   const handleBack = () => {
     setConfirmOpen('back')
   }

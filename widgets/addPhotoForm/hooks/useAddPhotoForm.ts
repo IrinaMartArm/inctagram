@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
+import { RootState, useAppDispatch, useAppSelector } from '@/bll/store'
 import { ModalState, addPhotoActions } from '@/entities'
 import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
 import { useAddPostMutation, useGetImgIdMutation } from '@/shared/assets/api/post/post-api'
-import { RootState, useAppDispatch, useAppSelector } from '@/shared/assets/api/store'
 import { convertFileToBase64, getCroppedImg } from '@/shared/assets/helpers'
 import { filteredImg } from '@/shared/assets/helpers/getImgWithFilter'
 import { useTranslation } from '@/shared/assets/hooks/useTranslation'
@@ -109,7 +109,7 @@ export const useAddPhotoForm = () => {
   }
   const {
     control,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     watch,
   } = useForm<{ description: string }>({
@@ -161,7 +161,7 @@ export const useAddPhotoForm = () => {
     try {
       dispatch(addPhotoActions.setIsOpen(false))
       dispatch(addPhotoActions.discardAll())
-      const response = await addPost(payload).unwrap()
+      await addPost(payload).unwrap()
     } catch (e) {
       if (e instanceof Error) {
         toast.error(e.message)

@@ -1,7 +1,8 @@
+import { useAppDispatch } from '@/bll/store'
 import { authActions } from '@/entities'
 import { Paths } from '@/shared/assets'
 import { useLogoutMutation } from '@/shared/assets/api/auth/auth-api'
-import { useAppDispatch } from '@/shared/assets/api/store'
+import PostApi from '@/shared/assets/api/post/post-api'
 import { handleErrorResponse } from '@/shared/assets/helpers'
 import { useTranslation } from '@/shared/assets/hooks'
 import { useRouter } from 'next/router'
@@ -21,6 +22,7 @@ export const useLogOut = () => {
         void router.push(Paths.LOGIN)
         dispatch(authActions.setEmail(null))
         dispatch(authActions.setIsAuth(false))
+        dispatch(PostApi.util.resetApiState())
       }
     })
   }

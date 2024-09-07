@@ -2,7 +2,6 @@ import React, { ChangeEvent, useRef } from 'react'
 
 import { ClosingCross } from '@/public'
 import { Plus } from '@/public/icons/Plus'
-import { RootState, useAppSelector } from '@/shared/assets/api/store'
 import { Button } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 

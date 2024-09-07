@@ -1,8 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import { isAuthSelector } from '@/entities'
 import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
-import { useAppSelector } from '@/shared/assets/api/store'
 import { Header } from '@/widgets'
 import { NextPage } from 'next'
 

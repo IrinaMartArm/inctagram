@@ -1,9 +1,9 @@
 import { SubmitHandler } from 'react-hook-form'
 
+import { useAppSelector } from '@/bll/store'
 import { errorSelector, useLoginValidation } from '@/entities'
 import { Paths } from '@/shared/assets'
 import { LoginArgs } from '@/shared/assets/api/auth/types'
-import { useAppSelector } from '@/shared/assets/api/store'
 import { Button, Card, ControlledTextField, PageTitle, Typography } from '@/shared/components'
 import { AuthWithSocial } from '@/widgets'
 import { clsx } from 'clsx'

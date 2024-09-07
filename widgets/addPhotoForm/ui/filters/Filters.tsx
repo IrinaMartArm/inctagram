@@ -1,9 +1,9 @@
 import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
+import { useAppDispatch } from '@/bll/store'
 import { addPhotoActions } from '@/entities'
 import { ArrowBack } from '@/public'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import { Button, NextArrowComponent, PrevArrowComponent, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import { clsx } from 'clsx'
