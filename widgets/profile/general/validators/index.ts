@@ -66,7 +66,7 @@ export const profileFormSchema = (t: LocaleType) => {
       .transform(value => (value === '' ? undefined : value)),
     firstName: z
       .string()
-      .min(1, t.profileSettings.errors.firstName)
+      .min(1, t.profileSettings.errors.emptyFirstName)
       .max(50, t.profileSettings.invalidNameMax)
       .regex(
         ME_REGEX,
@@ -75,7 +75,7 @@ export const profileFormSchema = (t: LocaleType) => {
       ),
     lastName: z
       .string()
-      .min(1, t.profileSettings.errors.lastName)
+      .min(1, t.profileSettings.errors.emptyLastName)
       .max(50, t.profileSettings.invalidLastNameMax)
       .regex(
         ME_REGEX,
@@ -84,8 +84,8 @@ export const profileFormSchema = (t: LocaleType) => {
       ),
     username: z
       .string()
-      .min(6, t.profileSettings.errors.lastName)
-      .max(30, t.profileSettings.invalidLastNameMax)
+      .min(6, t.profileSettings.errors.emptyUsername)
+      .max(30, t.profileSettings.invalidUsernameMax)
       .regex(USERNAME_REGEX, `${t.profileSettings.invalidUsername} a-z, A-Z, 0-9_-`),
   })
 }

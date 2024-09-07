@@ -1,6 +1,6 @@
+import { useAppDispatch } from '@/bll/store'
 import { addPhotoActions } from '@/entities'
 import { Paths } from '@/shared/assets'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import { Button, Modal, ModalClose, Typography } from '@/shared/components'
 import { useAddPhotoForm } from '@/widgets/addPhotoForm/hooks'
 import { useRouter } from 'next/router'

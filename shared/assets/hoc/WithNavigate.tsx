@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren, useEffect } from 'react'
 
+import { useAppDispatch } from '@/bll/store'
 import { authActions } from '@/entities'
 import { useMeQuery } from '@/shared/assets/api/auth/auth-api'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import { Paths, authRoutes, commonRoutes } from '@/shared/assets/constants/paths'
 import { Loader } from '@/shared/components'
 import { useRouter } from 'next/router'

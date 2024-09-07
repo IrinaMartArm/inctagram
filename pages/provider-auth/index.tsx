@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 
+import { useAppDispatch } from '@/bll/store'
 import { authActions } from '@/entities'
 import { Paths } from '@/shared/assets'
 import { useLazyMeQuery } from '@/shared/assets/api/auth/auth-api'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import { setAccessToken } from '@/shared/assets/helpers/authentication'
 import { HeadMeta, Loader } from '@/shared/components'
 import { useRouter } from 'next/router'

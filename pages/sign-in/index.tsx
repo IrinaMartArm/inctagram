@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 
+import { useAppDispatch } from '@/bll/store'
 import { authActions } from '@/entities'
 import { useLazyMeQuery, useLoginMutation } from '@/shared/assets/api/auth/auth-api'
 import { LoginArgs } from '@/shared/assets/api/auth/types'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import { Paths } from '@/shared/assets/constants/paths'
 import { useTranslationPages } from '@/shared/assets/hooks'
 import { HeadMeta } from '@/shared/components'

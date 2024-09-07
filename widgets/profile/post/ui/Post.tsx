@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form'
 import { Bookmark_outline, HeartOutline, HeartRed, HeartSmall, PaperPlane } from '@/public'
 import { formatDate } from '@/shared/assets'
 import { PostType } from '@/shared/assets/api/post/types'
+import { Publication } from '@/shared/assets/api/subscriptions/types'
 import { AvatarSimple, Button, ControlledTextField, Typography } from '@/shared/components'
 import { PhotoCarousel } from '@/shared/components/photoCarousel/PhotoCarousel'
 import { PostMenu } from '@/widgets/profile/post/ui/PostMenu'
 
 import s from './post.module.scss'
-import { Publication } from '@/shared/assets/api/subscriptions/types'
 
 type Props = {
   avatar: string

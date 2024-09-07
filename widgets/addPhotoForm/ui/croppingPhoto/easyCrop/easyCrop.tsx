@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import Cropper from 'react-easy-crop'
 
+import { useAppDispatch } from '@/bll/store'
 import { addPhotoActions } from '@/entities'
-import { useAppDispatch } from '@/shared/assets/api/store'
 import { CropArg } from '@/shared/assets/types/types'
 
 type Props = {

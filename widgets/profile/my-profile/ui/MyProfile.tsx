@@ -14,9 +14,9 @@ export type MyProfileProps = {
   isOwner: boolean
   myProfileData?: UserProfileResponse
   post: PostType
+  postId?: string
   publicProfile?: UserProfile
   userId: string
-  postId?: string
 }
 
 export const MyProfile = (props: MyProfileProps) => {
@@ -28,9 +28,9 @@ export const MyProfile = (props: MyProfileProps) => {
     handlePostClick,
     isLoading,
     isModalOpen,
+    postsData,
     selectedPost,
     t,
-    postsData,
   } = useProfile(props)
 
   const username = isOwner ? myProfileData?.username : publicProfile?.username
@@ -92,11 +92,11 @@ export const MyProfile = (props: MyProfileProps) => {
           open={isModalOpen}
         >
           <Post
-            username={username}
             avatar={avatar || ''}
             isOwner={isOwner}
             post={selectedPost}
             userId={userId}
+            username={username}
           />
         </Modal>
       )}

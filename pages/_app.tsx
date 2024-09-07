@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
-import { wrapper } from '@/shared/assets/api/store'
+import { store } from '@/bll/store'
 import { WithNavigate } from '@/shared/assets/hoc/WithNavigate'
 import { useLoader } from '@/shared/assets/hooks/useLoader'
 import { Toast } from '@/shared/components'
@@ -24,8 +24,6 @@ type AppPropsWithLayout = {
 } & AppProps
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const { props, store } = wrapper.useWrappedStore(pageProps)
-
   useLoader()
 
   const getLayout = Component.getLayout ?? (page => page)
@@ -34,7 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <Provider store={store}>
       <WithNavigate>
         <Toast />
-        {getLayout(<Component {...props} />)}
+        {getLayout(<Component {...pageProps} />)}
       </WithNavigate>
     </Provider>
   )
