@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
+
 import { useTranslationPages } from '@/shared/assets'
 import { useGetPostsByUserIdQuery } from '@/shared/assets/api/post/post-api'
 import { PostType } from '@/shared/assets/api/post/types'
+import { Publication } from '@/shared/assets/api/subscriptions/types'
 import { MyProfileProps } from '@/widgets'
 import { useRouter } from 'next/router'
-import { Publication } from '@/shared/assets/api/subscriptions/types'
 
 export const useProfile = ({
   isOwner,
@@ -50,7 +51,7 @@ export const useProfile = ({
   const closeModal = useCallback(() => {
     setIsModalOpen(false)
     setSelectedPost(null)
-    router.push(`${router.pathname}?id=${userId}`, undefined, { shallow: true })
+    void router.push(`${router.pathname}?id=${userId}`, undefined, { shallow: true })
   }, [router])
 
   const loadMorePosts = useCallback(() => {
@@ -78,7 +79,9 @@ export const useProfile = ({
     (post: PostType) => {
       setSelectedPost(post)
       setIsModalOpen(true)
-      router.push(`${router.pathname}?id=${userId}&postId=${post.id}`, undefined, { shallow: true })
+      void router.push(`${router.pathname}?id=${userId}&postId=${post.id}`, undefined, {
+        shallow: true,
+      })
     },
     [router, userId]
   )
@@ -93,9 +96,9 @@ export const useProfile = ({
     handlePostClick,
     isLoading,
     isModalOpen,
+    postsData,
     selectedPost,
     setIsModalOpen,
     t,
-    postsData,
   }
 }
