@@ -37,6 +37,10 @@ export const MyProfile = (props: MyProfileProps) => {
   const publicationsCount = isOwner ? postsData?.totalCount : publicProfile?.publicationsCount
   const postsList = isOwner ? postsData?.items : publicProfile?.publications
 
+  const handlePostDeleted = () => {
+    closeModal()
+  }
+
   return (
     <div className={s.root}>
       <div className={s.info_wrapper}>
@@ -85,15 +89,11 @@ export const MyProfile = (props: MyProfileProps) => {
       </div>
 
       {isModalOpen && selectedPost && (
-        <Modal
-          className={s.modal}
-          // onClose={closeModal}
-          onOpenChange={closeModal}
-          open={isModalOpen}
-        >
+        <Modal className={s.modal} onOpenChange={closeModal} open={isModalOpen}>
           <Post
             avatar={avatar || ''}
             isOwner={isOwner}
+            onPostDeleted={handlePostDeleted}
             post={selectedPost}
             userId={userId}
             username={username}

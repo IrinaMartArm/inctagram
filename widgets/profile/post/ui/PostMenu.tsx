@@ -17,15 +17,23 @@ import { PostEdit } from '@/widgets/profile/post-edit/PostEdit'
 import d from '@/shared/components/dropDownMenu/dropDown.module.scss'
 import s from '@/widgets/profile/post/ui/post.module.scss'
 
-type Props = {
+export type PostMenuProps = {
+  onPostDeleted: () => void
   postDescription: string
   postId: string
   postImg: string
   userId: string
 }
 
-export const PostMenu = ({ postDescription, postId, postImg, userId }: Props) => {
+export const PostMenu = ({
+  onPostDeleted,
+  postDescription,
+  postId,
+  postImg,
+  userId,
+}: PostMenuProps) => {
   const { t } = useTranslationPages()
+
   const [deletePost] = useDeletePostMutation()
   const [open, setOpen] = useState(false)
   const [isDescriptionChanged, setIsDescriptionChanged] = useState(false)
@@ -37,7 +45,8 @@ export const PostMenu = ({ postDescription, postId, postImg, userId }: Props) =>
   }
 
   const handleDeletePost = async () => {
-    deletePost({ id: postId, userId }).unwrap()
+    onPostDeleted()
+    await deletePost({ id: postId, userId }).unwrap()
   }
 
   const handlePostEdit = () => {
