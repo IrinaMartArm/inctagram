@@ -29,7 +29,7 @@ option {
   border-color: transparent;
 }
 
-input[type="search"]::-webkit-search-cancel-button {
+input[type='search']::-webkit-search-cancel-button {
   appearance: none;
 }
 
@@ -51,7 +51,7 @@ ul li {
 }
 
 button,
-input[type="submit"] {
+input[type='submit'] {
   cursor: pointer;
 
   display: inline-block;
@@ -69,7 +69,7 @@ button:active {
 }
 
 body {
-  overflow: hidden;
+  // overflow: hidden;
 
   width: 100%;
   max-width: 1920px;

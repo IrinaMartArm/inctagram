@@ -28,20 +28,29 @@
 .contentWrapper {
   @include flex(column, flex-start, center, 15px);
 
+  scrollbar-width: none;
+
+  overflow-y: scroll;
+
   width: 100%;
+  max-height: 300px;
   padding: 24px 24px 8px;
+
   border-bottom: 1px solid var(--color-dark-100);
 }
 
 .content {
   @include flex(row, flex-start, center, 12px);
+
   width: 100%;
 }
 
 .content_text {
   width: 100%;
-  max-height: 70px;
-  overflow-y: scroll;
+
+  // max-height: 70px;
+
+  // overflow-y: scroll;
 }
 
 .comment {

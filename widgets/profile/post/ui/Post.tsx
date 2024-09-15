@@ -14,17 +14,22 @@ type Props = {
   avatar: string
   isOwner: boolean
   key?: number
+  onPostDeleted: () => void
   post: PostType | Publication
   userId: string
   username?: string
 }
 
-export const Post = ({ avatar, isOwner, post, userId, username }: Props) => {
+export const Post = ({ avatar, isOwner, onPostDeleted, post, userId, username }: Props) => {
   const avatars = ['', '', '']
 
   const { control } = useForm({})
 
   const createdAt = formatDate(post.createdAt)
+
+  const handlePostDeleted = () => {
+    onPostDeleted()
+  }
 
   return (
     <div className={s.root}>
@@ -39,6 +44,7 @@ export const Post = ({ avatar, isOwner, post, userId, username }: Props) => {
           </div>
           {isOwner && (
             <PostMenu
+              onPostDeleted={handlePostDeleted}
               postDescription={post.description}
               postId={post.id}
               postImg={post?.images[0]}

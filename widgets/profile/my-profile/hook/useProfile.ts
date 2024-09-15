@@ -46,13 +46,13 @@ export const useProfile = ({
         setIsModalOpen(true)
       }
     }
-  }, [postId, postsData])
+  }, [postId, postsData, publicProfile])
 
   const closeModal = useCallback(() => {
     setIsModalOpen(false)
     setSelectedPost(null)
     void router.push(`${router.pathname}?id=${userId}`, undefined, { shallow: true })
-  }, [router])
+  }, [router, userId])
 
   const loadMorePosts = useCallback(() => {
     if (!isFetching && !isLoading && postsData && postsData.pagesCount > page) {
