@@ -117,8 +117,10 @@ export const useAccountManager = () => {
   const isModalOpen = errorType !== null
   const modalTitle =
     errorType && errorType === 'success'
-      ? 'Payment was successful!'
-      : 'Transaction failed, please try again 😟'
+      ? t.profileSettingAccountManager.successfulTitle
+      : t.profileSettingAccountManager.failedTitle
+  const modalText =
+    errorType && errorType === 'success' ? t.profileSettings.successful : t.profileSettings.failed
 
   const currentExpireAt = currentSubscriptionData?.expireAt ?? null
   const expireAt = formatDateString(currentExpireAt)
@@ -144,6 +146,7 @@ export const useAccountManager = () => {
     isCurrentSubscriptionLoading,
     isLoading,
     isModalOpen,
+    modalText,
     modalTitle,
     nextPayment,
     options,

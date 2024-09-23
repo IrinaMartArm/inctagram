@@ -8,13 +8,14 @@ import { Loader } from '@/shared/components'
 import { useRouter } from 'next/router'
 
 export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
-  const router = useRouter()
+  const { pathname, push, query } = useRouter()
   const { data: isAuth, isLoading } = useMeQuery(undefined)
 
   const userId = isAuth?.userId
   const dispatch = useAppDispatch()
+  const status = query.status
 
-  const remainingPath: string = router.pathname.replace(
+  const remainingPath: string = pathname.replace(
     /^\/profile(\/[^/]+)?|\/profile\?(.+)/,
     Paths.PROFILE + `/${userId}`
   )
@@ -22,14 +23,14 @@ export const WithNavigate: FC<PropsWithChildren<{}>> = ({ children }) => {
   const isProtectedPage: boolean =
     !commonRoutes.includes(remainingPath) && !authRoutes.includes(remainingPath)
 
-  const isAuthPage: boolean = authRoutes.includes(router.pathname)
+  const isAuthPage: boolean = authRoutes.includes(pathname)
 
   useEffect(() => {
     if (!isLoading) {
       if (!isAuth && isProtectedPage && !Paths.PROFILE) {
-        void router.push(Paths.MAIN)
+        void push(Paths.MAIN)
       } else if (isAuth && !isAuthPage) {
-        void router.push(`${Paths.PROFILE}/?id=${userId!}`)
+        void push(`${Paths.PROFILE}/?id=${userId!}&status=${status}`)
       } else if (isAuth) {
         dispatch(authActions.setIsAuth(true))
       }

@@ -30,6 +30,7 @@ export const AccountManager = () => {
     isCurrentSubscriptionLoading,
     isLoading,
     isModalOpen,
+    modalText,
     modalTitle,
     nextPayment,
     options,
@@ -120,7 +121,7 @@ export const AccountManager = () => {
           )}
         </div>
       </div>
-      <Modal onOpenChange={handleCloseModal} open={isModalOpen} title={modalTitle}>
+      <Modal onOpenChange={handleCloseModal} open={isModalOpen} title={modalText}>
         <ModalWindow callback={handleCloseModal} text={modalTitle} />
       </Modal>
     </div>
