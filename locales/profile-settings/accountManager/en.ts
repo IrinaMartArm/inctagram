@@ -5,10 +5,12 @@ export const accountManagerEN = {
   currentSubscription: 'Current Subscription:',
   day: '$1 per 1 Day',
   expireAt: 'Expire at:',
+  failedTitle: 'Error',
   month: '$30 per Month',
   nextPayment: 'Next payment:',
   or: 'Or',
   personal: 'Personal',
+  successfulTitle: 'Success',
   week: '$10 per 7 Days',
   yourSubscriptionCosts: 'Your subscription costs:',
 }

@@ -91,6 +91,7 @@ export const ru = {
       maxSize: 'Размер фотографии должен быть меньше 10 МБ!',
       success: 'Ваши настройки сохранены!',
     },
+    failed: 'Транзакция не удалась, попробуйте еще раз.',
     firstName: 'Имя',
     invalidLastName: 'Фамилия должна содержать',
     invalidLastNameMax: 'Фамилия не должена превышать 50 символов',
@@ -105,6 +106,7 @@ export const ru = {
     selectYourCity: 'Выберите свой город',
     selectYourCountry: 'Выберите вашу страну',
     success: 'Your settings are saved!',
+    successful: 'Платеж прошел успешно!',
     username: 'Имя пользователя',
   },
   showMore: {

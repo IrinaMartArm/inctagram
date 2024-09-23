@@ -5,10 +5,12 @@ export const accountManagerRU = {
   currentSubscription: 'Текущая подписка:',
   day: '$1 за 1 день',
   expireAt: 'Истекает на:',
+  failedTitle: 'Ошибка',
   month: '$30 в месяц',
   nextPayment: 'Следующий платеж:',
   or: 'Или',
   personal: 'Личный',
+  successfulTitle: 'Успех',
   week: '$10 за 7 дней',
   yourSubscriptionCosts: 'Стоимость вашей подписки:',
 }

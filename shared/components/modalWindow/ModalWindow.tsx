@@ -5,11 +5,12 @@ import s from './modalWindou.module.scss'
 
 type ModalWindowProps = {
   callback: () => void
+  oneBtn?: boolean
   text: string
   text_2?: string
 }
 
-export const ModalWindow = ({ callback, text, text_2 }: ModalWindowProps) => {
+export const ModalWindow = ({ callback, oneBtn, text, text_2 }: ModalWindowProps) => {
   const { t } = useTranslation()
 
   return (
@@ -21,14 +22,20 @@ export const ModalWindow = ({ callback, text, text_2 }: ModalWindowProps) => {
           {text_2 ?? ''}
         </Typography>
       </Typography>
-      <div className={s.controller}>
-        <Button className={s.button} onClick={callback} variant={'outlined'}>
-          {t.common.yes}
-        </Button>
+      {oneBtn ? (
         <ModalClose>
-          <Button className={s.button}>{t.common.no}</Button>
+          <Button fullWidth>{/*{t.common.no}*/}ok</Button>
         </ModalClose>
-      </div>
+      ) : (
+        <div className={s.controller}>
+          <Button className={s.button} onClick={callback} variant={'outlined'}>
+            {t.common.yes}
+          </Button>
+          <ModalClose>
+            <Button className={s.button}>{t.common.no}</Button>
+          </ModalClose>
+        </div>
+      )}
     </div>
   )
 }

@@ -92,6 +92,7 @@ export const en: LocaleType = {
       maxSize: 'File size should not exceed 5MB.',
       success: 'Your profile has been updated successfully.',
     },
+    failed: 'Transaction failed, please try again.',
     firstName: 'First Name',
     invalidLastName: 'The lastname must contain',
     invalidLastNameMax: 'The lastname need to be not more than 50 symbols',
@@ -106,6 +107,7 @@ export const en: LocaleType = {
     selectYourCity: 'Select your city',
     selectYourCountry: 'Select your country',
     success: 'Your settings are saved!',
+    successful: 'Payment was successful!',
     username: 'Username',
   },
   showMore: {
