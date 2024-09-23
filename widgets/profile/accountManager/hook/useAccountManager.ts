@@ -42,14 +42,16 @@ export const useAccountManager = () => {
     setSubscriptionCost(cost)
   }
 
+  const status = query.status
+
   useEffect(() => {
-    if (query.success) {
+    if (status === 'success') {
       setErrorType('success')
     }
-    if (query.error) {
+    if (status === 'error') {
       setErrorType('error')
     }
-  }, [query.success, query])
+  }, [status])
 
   const SubscriptionCostsMap: Record<SubscriptionsType, number> = {
     [SubscriptionsType.DAY]: 1,
