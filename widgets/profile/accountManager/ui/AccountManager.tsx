@@ -19,7 +19,6 @@ export const AccountManager = () => {
   const {
     accountManagerOptions,
     activeRadio,
-    autoRenewal,
     changeActiveRadioItem,
     changeSubscriptionCost,
     currentSubscriptionData,
@@ -78,7 +77,7 @@ export const AccountManager = () => {
               </div>
             </Card>
             <CheckBox
-              checked={autoRenewal}
+              // checked={autoRenewal}
               label={t.profileSettingAccountManager.autoRenewal}
               name={'Auto-Renewal'}
               onCheckedChange={handleChangeAutoRenewal}

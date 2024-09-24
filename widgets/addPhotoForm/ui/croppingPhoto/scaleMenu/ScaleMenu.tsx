@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 
+import { useAppDispatch } from '@/bll/store'
+import { addPhotoActions } from '@/entities'
 import { InvertedRectangle, PictureWithoutBackGround, Rectangle, Square } from '@/public'
 import { Button, Typography } from '@/shared/components'
 import { clsx } from 'clsx'
 
 import s from './scaleMenu.module.scss'
-
+type Props = {
+  ind: number
+}
 const buttonArr = [
   {
     active: false,
@@ -28,13 +32,18 @@ const buttonArr = [
   },
 ]
 
-type Props = {
-  setAspect: (aspect: number) => void
-}
-export const ScaleMenu = ({ setAspect }: Props) => {
+export const ScaleMenu = ({ ind }: Props) => {
   const [arrayButton, setArrayButton] = useState(buttonArr)
+  const dispatch = useAppDispatch()
   const handleButtonClick = (index: number, aspect: number) => {
-    setAspect(aspect)
+    dispatch(
+      addPhotoActions.setOptions({
+        aspect: aspect,
+        index: ind,
+        options: 'aspect',
+      })
+    )
+
     const updatedArrayButton = arrayButton.map((btn, i) => ({
       ...btn,
       active: i === index,

@@ -1,22 +1,19 @@
 import { useEffect, useRef } from 'react'
 import Cropper from 'react-easy-crop'
 
-import { useAppDispatch } from '@/bll/store'
+import { RootState, useAppDispatch, useAppSelector } from '@/bll/store'
 import { addPhotoActions } from '@/entities'
-import { CropArg } from '@/shared/assets/types/types'
 
 type Props = {
   aspect: number
-  crop: { x: number; y: number }
-  //croppedAreaPixels: ;
+  croppedArea: any
   image?: string | undefined
   ind: number
-  setCrop: (crop: { x: number; y: number }) => void
   setShowMenu: (val: string) => void
   zoom: number
 }
 
-export const EasyCrop = ({ aspect, crop, image, ind, setCrop, setShowMenu, zoom }: Props) => {
+export const EasyCrop = ({ aspect, croppedArea, image, ind, setShowMenu, zoom }: Props) => {
   const cropperRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
 
@@ -33,9 +30,33 @@ export const EasyCrop = ({ aspect, crop, image, ind, setCrop, setShowMenu, zoom 
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [cropperRef, setShowMenu])
-  const onCropComplete = (croppedArea: CropArg, croppedAreaPixels: CropArg) => {
+  const onCropChange = (croppedArea: { x: number; y: number }) => {
     dispatch(
-      addPhotoActions.setCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, index: ind })
+      addPhotoActions.setOptions({
+        croppedArea: croppedArea,
+        index: ind,
+        options: 'croppedArea',
+      })
+    )
+  }
+  const onCropComplete = (
+    croppedArea: {
+      x: number
+      y: number
+    },
+    croppedAreaPixels: {
+      height: number
+      width: number
+      x: number
+      y: number
+    }
+  ) => {
+    dispatch(
+      addPhotoActions.setOptions({
+        croppedAreaPixels: croppedAreaPixels,
+        index: ind,
+        options: 'croppedAreaPixels',
+      })
     )
   }
 
@@ -44,10 +65,10 @@ export const EasyCrop = ({ aspect, crop, image, ind, setCrop, setShowMenu, zoom 
       {image && (
         <Cropper
           aspect={aspect}
-          crop={crop}
+          crop={croppedArea}
           image={image}
           objectFit={'contain'}
-          onCropChange={setCrop}
+          onCropChange={onCropChange}
           onCropComplete={onCropComplete}
           showGrid
           zoom={zoom}

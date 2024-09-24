@@ -17,11 +17,9 @@ export const useAddPhotoForm = () => {
   const { cropImages, cropImagesWithFilter, images, isOpen, modalState } = useAppSelector(
     (state: RootState) => state.addPhoto
   )
+
   const { t } = useTranslation()
   const [errorFile, setErrorFile] = useState<null | string>(null)
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [aspect, setAspect] = useState(1)
-  const [zoomValue, setZoomValue] = useState([1, 3])
   const menu = 'scale-menu' || 'zoom-menu' || 'add-photos-menu'
   const [showMenu, setShowMenu] = useState<string | typeof menu>('')
   const [getImgId] = useGetImgIdMutation()
@@ -170,9 +168,7 @@ export const useAddPhotoForm = () => {
   }
 
   return {
-    aspect,
     control,
-    crop,
     cropImages,
     cropImagesWithFilter,
     deleteImgCallback,
@@ -185,17 +181,13 @@ export const useAddPhotoForm = () => {
     isOpen,
     modalState,
     onSubmit,
-    setAspect,
-    setCrop,
     setModalStateCallback,
     setShowMenu,
-    setZoomValue,
     showCroppedImage,
     showFilteredImage,
     showMenu,
     t,
     toggleModal,
     watch,
-    zoomValue,
   }
 }

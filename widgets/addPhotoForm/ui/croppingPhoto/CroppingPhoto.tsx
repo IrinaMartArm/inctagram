@@ -16,20 +16,9 @@ type Props = {
 }
 
 export const CroppingPhoto = ({ deleteImgCallback, setConfirmOpen }: Props) => {
-  const [ind, setInd] = useState(0)
-  const {
-    aspect,
-    cropImages,
-    images,
-    setAspect,
-    setModalStateCallback,
-    setShowMenu,
-    setZoomValue,
-    showCroppedImage,
-    showMenu,
-    t,
-    zoomValue,
-  } = useAddPhotoForm()
+  const [ind, setInd] = useState<number>(0)
+  const { cropImages, setModalStateCallback, setShowMenu, showCroppedImage, showMenu, t } =
+    useAddPhotoForm()
   const handleBack = () => {
     setConfirmOpen('back')
   }
@@ -56,16 +45,7 @@ export const CroppingPhoto = ({ deleteImgCallback, setConfirmOpen }: Props) => {
         </Button>
       </div>
       <div className={s.imgBlock}>
-        <Carousel
-          aspect={aspect}
-          images={images}
-          ind={ind}
-          setAspect={setAspect}
-          setInd={setInd}
-          setShowMenu={setShowMenu}
-          setZoomValue={setZoomValue}
-          zoomValue={zoomValue}
-        />
+        <Carousel ind={ind} setInd={setInd} setShowMenu={setShowMenu} />
       </div>
       <div className={s.controlPanelVectors}>
         <Button onClick={() => handleShowMenu('scale-menu')} variant={'icon'}>
@@ -82,8 +62,8 @@ export const CroppingPhoto = ({ deleteImgCallback, setConfirmOpen }: Props) => {
           <Picture color={showMenu == 'add-photos-menu' ? '#397DF6' : '#fff'} />
         </Button>
       </div>
-      {showMenu == 'scale-menu' && <ScaleMenu setAspect={setAspect} />}
-      {showMenu == 'zoom-menu' && <ZoomMenu setZoomValue={setZoomValue} zoomValue={zoomValue} />}
+      {showMenu == 'scale-menu' && <ScaleMenu ind={ind} />}
+      {showMenu == 'zoom-menu' && <ZoomMenu ind={ind} />}
       {showMenu == 'add-photos-menu' && (
         <AddPhotosMenu deleteImgCallback={deleteImgCallback} images={cropImages} />
       )}

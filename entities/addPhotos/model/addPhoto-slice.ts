@@ -3,17 +3,21 @@ type CropImageWithFilter = {
   filter: string
   img: string
 }
-type croppedAreaPixels = { height: number; width: number; x: number; y: number }
+type croppedAreaPixelsType = { height: number; width: number; x: number; y: number }
+type croppedAreaType = { x: number; y: number }
 export type image = {
-  croppedAreaPixels: croppedAreaPixels
+  aspect: number
+  croppedArea: croppedAreaType
+  croppedAreaPixels: croppedAreaPixelsType | null
   image: string
+  zoom: number
 }
 export type ModalState = 'add-photo' | 'cropping' | 'filters' | 'publication'
 const slice = createSlice({
   initialState: {
-    cropImages: ([] as string[]) || null,
-    cropImagesWithFilter: ([] as CropImageWithFilter[]) || null,
-    images: ([] as image[]) || null,
+    cropImages: [] as string[],
+    cropImagesWithFilter: [] as CropImageWithFilter[],
+    images: [] as image[],
     isOpen: false as boolean,
     modalState: 'add-photo' as ModalState,
   },
@@ -30,8 +34,11 @@ const slice = createSlice({
     },
     addImage: (state, action: PayloadAction<string>) => {
       state.images.push({
-        croppedAreaPixels: { height: 0, width: 0, x: 0, y: 0 },
+        aspect: 1,
+        croppedArea: { x: 0, y: 0 },
+        croppedAreaPixels: null,
         image: action.payload,
+        zoom: 1,
       })
       state.cropImages.push(action.payload)
       state.cropImagesWithFilter.push({
@@ -53,7 +60,7 @@ const slice = createSlice({
     setCropImagesWithFilter: (
       state,
       action: PayloadAction<{
-        cropImageWithFilter: any
+        cropImageWithFilter: string
         cropImageWithFilterIndex: number
         filter: string
       }>
@@ -65,20 +72,30 @@ const slice = createSlice({
         img: cropImageWithFilter,
       }
     },
-    setCroppedAreaPixels: (
-      state,
-      action: PayloadAction<{ croppedAreaPixels: croppedAreaPixels; index: number }>
-    ) => {
-      state.images[action.payload.index] = {
-        croppedAreaPixels: action.payload.croppedAreaPixels,
-        image: state.images[action.payload.index].image,
-      }
-    },
     setIsOpen: (state, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload
     },
     setModalStateTo: (state, action: PayloadAction<ModalState>) => {
       state.modalState = action.payload
+    },
+    setOptions: (
+      state,
+      action: PayloadAction<{
+        aspect?: number
+        croppedArea?: croppedAreaType
+        croppedAreaPixels?: croppedAreaPixelsType
+        index: number
+        options: 'aspect' | 'croppedArea' | 'croppedAreaPixels' | 'zoom'
+        zoom?: number
+      }>
+    ) => {
+      const { index, options } = action.payload
+      const image = state.images[index]
+
+      if (options in image) {
+        //@ts-ignore
+        image[options] = action.payload[options]
+      }
     },
   },
 })

@@ -17,26 +17,17 @@ export const ConfirmableModal = ({ confirmOpen, setConfirmOpen, setOpen, toggleM
   const { t } = useAddPhotoForm()
   const dispatch = useAppDispatch()
   const handleConfirmClose = () => {
-    if (confirmOpen === 'outside') {
-      dispatch(addPhotoActions.discardAll())
-      setOpen(false)
-      setConfirmOpen('')
-    } else if (confirmOpen === 'back') {
-      dispatch(addPhotoActions.setModalStateTo('add-photo'))
-      setConfirmOpen('')
-    }
+    dispatch(addPhotoActions.discardAll())
+    setOpen(false)
+    setConfirmOpen('')
   }
 
   const handleCancelClose = () => {
-    if (confirmOpen === 'outside') {
-      void router.push(Paths.HOME)
-      setConfirmOpen('')
-      toggleModal(false)
-    } else if (confirmOpen[1] === 'back') {
-      setConfirmOpen('')
-    }
+    void router.push(Paths.HOME)
+    setConfirmOpen('')
+    toggleModal(false)
   }
-  const handleSetConfirmOpen = (close: boolean) => {
+  const handleSetConfirmOpen = () => {
     setConfirmOpen('')
   }
 
