@@ -4,7 +4,7 @@ export const accountManagerRU = {
   business: 'Бизнес',
   currentSubscription: 'Текущая подписка:',
   day: '$1 за 1 день',
-  expireAt: 'Истекает на:',
+  expireAt: 'Истекает:',
   failedTitle: 'Ошибка',
   month: '$30 в месяц',
   nextPayment: 'Следующий платеж:',

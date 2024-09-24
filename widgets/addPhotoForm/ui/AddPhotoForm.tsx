@@ -15,7 +15,6 @@ type Props = { isTextHidden?: boolean }
 export const AddPhotoForm = ({ isTextHidden }: Props) => {
   const { imgChangeCallback, isOpen, modalState, t, toggleModal } = useAddPhotoForm()
   const [confirmOpen, setConfirmOpen] = useState<string>('')
-
   const isMobile = useIsMobile(TABLET_BREAKPOINT)
 
   const handleCloseClickOutside = () => {

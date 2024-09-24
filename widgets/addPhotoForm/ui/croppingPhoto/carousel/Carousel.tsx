@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import Slider from 'react-slick'
 
+import { RootState, useAppSelector } from '@/bll/store'
 import { image } from '@/entities'
 import { NextArrowComponent } from '@/shared/components/arrows/NextArrowComponent'
 import { PrevArrowComponent } from '@/shared/components/arrows/PrevArrowComponent'
@@ -12,29 +13,13 @@ import 'slick-carousel/slick/slick.css'
 
 import s from './carousel.module.scss'
 type Props = {
-  aspect: number
-
-  images: image[]
   ind: number
-  setAspect: (val: number) => void
   setInd: (ind: number) => void
   setShowMenu: (val: string) => void
-  setZoomValue: (val: number[]) => void
-  zoomValue: number[]
 }
-export const Carousel = ({
-  aspect,
-  images,
-  ind,
-  setAspect,
-  setInd,
-  setShowMenu,
-  setZoomValue,
-  zoomValue,
-}: Props) => {
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
+export const Carousel = ({ ind, setInd, setShowMenu }: Props) => {
   const { showCroppedImage } = useAddPhotoForm()
-
+  const { images } = useAppSelector((state: RootState) => state.addPhoto)
   const settings = {
     appendDots: (dots: ReactNode) => <ul className={s.dots}>{dots}</ul>,
     beforeChange: (current: any, next: any) => setInd(next),
@@ -56,23 +41,18 @@ export const Carousel = ({
 
   const handleCropPixels = (e: any) => {
     showCroppedImage(ind)
-
-    setCrop({ x: 0, y: 0 })
-    setZoomValue([1, 3])
-    setAspect(1)
   }
 
   const ecropp = images?.map((e, ind) => {
     return (
       <EasyCrop
-        aspect={aspect}
-        crop={crop}
+        aspect={e.aspect}
+        croppedArea={e.croppedArea}
         image={e.image}
         ind={ind}
         key={ind}
-        setCrop={setCrop}
         setShowMenu={setShowMenu}
-        zoom={zoomValue[0]}
+        zoom={e.zoom}
       />
     )
   })
