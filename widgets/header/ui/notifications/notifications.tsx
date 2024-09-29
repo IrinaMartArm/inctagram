@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useRef } from 'react'
+
 import { Bell } from '@/public'
 import {
   useGetNotificationCountQuery,
@@ -13,15 +15,47 @@ import {
   Typography,
 } from '@/shared/components'
 import { NotificationItem } from '@/widgets/header/ui/notifications/notification-item/notification-item'
+import { Socket, io } from 'socket.io-client'
 
 import s from './notifications.module.scss'
 
 export const Notifications = () => {
-  const { data: notificationData } = useGetNotificationQuery()
-  const { data: notificationsCountData } = useGetNotificationCountQuery()
+  const { data: notificationData, refetch: refetchNotifications } = useGetNotificationQuery()
+  const { data: notificationsCountData, refetch: refetchCount } = useGetNotificationCountQuery()
   const [updateNotification] = useUpdateNotificationMutation()
 
   const isShowMessagesCont = notificationsCountData?.count! > 0
+
+  const socketRef = useRef<Socket | null>(null)
+
+  const handleNewNotification = useCallback(
+    (data: any) => {
+      console.log('New notification received:', data)
+      if (data.items && data.items.length > 0) {
+        refetchNotifications()
+        refetchCount()
+      }
+    },
+    [refetchNotifications, refetchCount]
+  )
+
+  useEffect(() => {
+    // Establish socket connection
+    socketRef.current = io('https://inctagram.org/', {
+      withCredentials: true,
+    })
+
+    // Set up event listener
+    socketRef.current.on('newNotification', handleNewNotification)
+
+    // Cleanup function
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.off('newNotification', handleNewNotification)
+        socketRef.current.disconnect()
+      }
+    }
+  }, [handleNewNotification])
 
   return (
     <DropdownMenu>
