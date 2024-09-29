@@ -6,13 +6,15 @@
 //    outline: none;
 //  }
 //}
-@import "styles/mixins";
+@import 'styles/mixins';
 
 .DropdownMenuContent {
-  will-change: transform, opacity;
   @include flex(column, space-between, flex-start, 12px);
 
+  will-change: transform, opacity;
+
   position: relative;
+  z-index: 9999;
 
   width: fit-content;
   padding: 13px;
@@ -67,8 +69,8 @@
 
   display: flex;
   gap: 5px;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
 
   width: 100%;
   padding: 13px;

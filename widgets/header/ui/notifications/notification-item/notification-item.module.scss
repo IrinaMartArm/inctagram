@@ -1,0 +1,38 @@
+.notificationItemTitle {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.notificationItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid var(--color-dark-100);
+}
+
+.notificationItem:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.notificationItemContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.notificationText {
+  white-space: break-spaces;
+}
+
+.notificationTime {
+  color: var(--color-light-900);
+}
+
+.newMessage {
+  color: var(--color-accent-500);
+}

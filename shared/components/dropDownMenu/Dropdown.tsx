@@ -16,7 +16,7 @@ const DropdownMenuContent = React.forwardRef<
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
       align={'end'}
-      className={s.DropdownMenuContent}
+      className={clsx(className, s.DropdownMenuContent)}
       onClick={(event: any) => event.stopPropagation()}
       ref={ref}
       sideOffset={5}
@@ -33,7 +33,7 @@ const DropdownMenuItem = React.forwardRef<
     inset?: boolean
   }
 >(({ className, inset, ...props }, ref) => (
-  <DropdownMenuPrimitive.Item className={s.item} ref={ref} {...props} />
+  <DropdownMenuPrimitive.Item className={clsx(s.item, className)} ref={ref} {...props} />
 ))
 
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName

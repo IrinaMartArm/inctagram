@@ -9,8 +9,6 @@ import s from './header.module.scss'
 
 import { Notifications } from './ui'
 
-const NOTIFICATIONS_COUNT = 5
-
 type Props = {
   isAuth: boolean
 }
@@ -40,7 +38,7 @@ export const Header = ({ isAuth }: Props) => {
         )}
         {isAuth && (
           <div className={s.wrapper}>
-            {!isMobile && <Notifications notificationsCount={NOTIFICATIONS_COUNT} />}
+            {!isMobile && <Notifications />}
             <LangSelect />
           </div>
         )}
