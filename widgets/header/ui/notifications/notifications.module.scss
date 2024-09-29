@@ -1,4 +1,4 @@
-@import "../../../../styles/mixins";
+@import '../../../../styles/mixins';
 
 .wrapper {
   position: relative;
@@ -6,24 +6,45 @@
   height: 24px;
 
   .notifications {
+    @include flex('', center, center);
+
     position: absolute;
-    @include flex("", center, center);
     top: -4px;
     right: -4px;
+
     min-width: 14px;
     height: 14px;
     padding: 2px;
+
     font-size: 8px;
-    border-radius: 50%;
     color: var(--color-light-100);
+
     background-color: var(--color-danger-500);
+    border-radius: 50%;
   }
+
   svg {
-   fill: var(--color-light-100);
+    fill: var(--color-light-100);
   }
+
   &:hover {
     svg {
       fill: var(--color-accent-500);
     }
   }
+}
+
+.notificationItem {
+  display: flex;
+  flex-direction: column;
+  width: 355px;
+}
+
+.notificationItemContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.notificationText {
+  white-space: break-spaces;
 }
