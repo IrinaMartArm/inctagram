@@ -29,8 +29,7 @@ export const Notifications = () => {
   const socketRef = useRef<Socket | null>(null)
 
   const handleNewNotification = useCallback(
-    (data: any) => {
-      console.log('New notification received:', data)
+    (data: { items: Array<any> }) => {
       if (data.items && data.items.length > 0) {
         refetchNotifications()
         refetchCount()
@@ -40,8 +39,11 @@ export const Notifications = () => {
   )
 
   useEffect(() => {
+    const socketUrl = 'https://inctagram.org/'
+
     // Establish socket connection
-    socketRef.current = io('https://inctagram.org/', {
+    socketRef.current = io(socketUrl, {
+      transports: ['websocket', 'polling'],
       withCredentials: true,
     })
 
@@ -50,10 +52,8 @@ export const Notifications = () => {
 
     // Cleanup function
     return () => {
-      if (socketRef.current) {
-        socketRef.current.off('newNotification', handleNewNotification)
-        socketRef.current.disconnect()
-      }
+      socketRef.current?.off('newNotification', handleNewNotification)
+      socketRef.current?.disconnect()
     }
   }, [handleNewNotification])
 
