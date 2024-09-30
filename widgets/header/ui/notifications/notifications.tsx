@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Bell } from '@/public'
 import {
@@ -19,43 +19,93 @@ import { Socket, io } from 'socket.io-client'
 
 import s from './notifications.module.scss'
 
+interface NotificationData {
+  items: Array<{
+    createdAt: string
+    id: string
+    isRead: boolean
+    message: string
+    userId: string
+  }>
+}
+
+const SOCKET_URL = 'https://inctagram.org'
+
 export const Notifications = () => {
   const { data: notificationData, refetch: refetchNotifications } = useGetNotificationQuery()
   const { data: notificationsCountData, refetch: refetchCount } = useGetNotificationCountQuery()
   const [updateNotification] = useUpdateNotificationMutation()
 
-  const isShowMessagesCont = notificationsCountData?.count! > 0
+  const [localNotifications, setLocalNotifications] = useState<NotificationData | null>(null)
+
+  const isShowMessagesCont = (notificationsCountData?.count ?? 0) > 0
 
   const socketRef = useRef<Socket | null>(null)
 
   const handleNewNotification = useCallback(
-    (data: { items: Array<any> }) => {
+    (data: NotificationData) => {
       if (data.items && data.items.length > 0) {
-        refetchNotifications()
+        setLocalNotifications(prevNotifications => ({
+          items: [...(prevNotifications?.items || []), ...data.items],
+        }))
         refetchCount()
       }
     },
-    [refetchNotifications, refetchCount]
+    [refetchCount]
   )
 
   useEffect(() => {
-    const socketUrl = 'https://inctagram.org/'
-
-    // Establish socket connection
-    socketRef.current = io(socketUrl, {
-      transports: ['websocket', 'polling'],
+    socketRef.current = io(SOCKET_URL, {
       withCredentials: true,
     })
 
-    // Set up event listener
+    socketRef.current.on('connect', () => {
+      console.log('Connected to socket server')
+    })
+
+    socketRef.current.on('connect_error', error => {
+      console.error('Socket connection error:', error)
+    })
+
     socketRef.current.on('newNotification', handleNewNotification)
 
-    // Cleanup function
     return () => {
       socketRef.current?.off('newNotification', handleNewNotification)
       socketRef.current?.disconnect()
     }
   }, [handleNewNotification])
+
+  useEffect(() => {
+    if (notificationData) {
+      setLocalNotifications(notificationData)
+    }
+  }, [notificationData])
+
+  const handleNotificationClick = useCallback(
+    (notificationId: string) => {
+      // Mark notification as read
+      updateNotification({ ids: [notificationId] })
+
+      // Update local state to mark the notification as read
+      setLocalNotifications(prevNotifications => {
+        if (!prevNotifications) {
+          return null
+        }
+
+        return {
+          items: prevNotifications.items.map(item =>
+            item.id === notificationId ? { ...item, isRead: true } : item
+          ),
+        }
+      })
+
+      // Decrease the notification count
+      refetchCount()
+
+      // You might want to navigate to a specific page or perform some action here
+    },
+    [updateNotification, refetchCount]
+  )
 
   return (
     <DropdownMenu>
@@ -72,11 +122,11 @@ export const Notifications = () => {
           Уведомления
         </Typography>
         <div>
-          {notificationData?.items?.map(notification => (
+          {localNotifications?.items?.map(notification => (
             <DropdownMenuItem
               className={s.notificationsItem}
               key={notification.id}
-              onClick={() => {}}
+              onClick={() => handleNotificationClick(notification.id)}
             >
               <NotificationItem
                 createdAt={notification.createdAt}
