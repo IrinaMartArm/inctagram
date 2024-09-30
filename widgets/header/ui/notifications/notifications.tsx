@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 import { Bell } from '@/public'
 import {
@@ -19,40 +19,21 @@ import { Socket, io } from 'socket.io-client'
 
 import s from './notifications.module.scss'
 
-interface NotificationData {
-  items: Array<{
-    createdAt: string
-    id: string
-    isRead: boolean
-    message: string
-    userId: string
-  }>
-}
-
-const SOCKET_URL = 'https://inctagram.org'
+const SOCKET_URL = 'https://inctagram.org' // Update this if the socket server is on a different subdomain
 
 export const Notifications = () => {
   const { data: notificationData, refetch: refetchNotifications } = useGetNotificationQuery()
   const { data: notificationsCountData, refetch: refetchCount } = useGetNotificationCountQuery()
   const [updateNotification] = useUpdateNotificationMutation()
 
-  const [localNotifications, setLocalNotifications] = useState<NotificationData | null>(null)
-
   const isShowMessagesCont = (notificationsCountData?.count ?? 0) > 0
 
   const socketRef = useRef<Socket | null>(null)
 
-  const handleNewNotification = useCallback(
-    (data: NotificationData) => {
-      if (data.items && data.items.length > 0) {
-        setLocalNotifications(prevNotifications => ({
-          items: [...(prevNotifications?.items || []), ...data.items],
-        }))
-        refetchCount()
-      }
-    },
-    [refetchCount]
-  )
+  const handleNewNotification = useCallback(() => {
+    refetchNotifications()
+    refetchCount()
+  }, [refetchNotifications, refetchCount])
 
   useEffect(() => {
     socketRef.current = io(SOCKET_URL, {
@@ -75,36 +56,18 @@ export const Notifications = () => {
     }
   }, [handleNewNotification])
 
-  useEffect(() => {
-    if (notificationData) {
-      setLocalNotifications(notificationData)
-    }
-  }, [notificationData])
-
   const handleNotificationClick = useCallback(
     (notificationId: string) => {
       // Mark notification as read
       updateNotification({ ids: [notificationId] })
 
-      // Update local state to mark the notification as read
-      setLocalNotifications(prevNotifications => {
-        if (!prevNotifications) {
-          return null
-        }
-
-        return {
-          items: prevNotifications.items.map(item =>
-            item.id === notificationId ? { ...item, isRead: true } : item
-          ),
-        }
-      })
-
-      // Decrease the notification count
+      // Refetch notifications and count to reflect the changes
+      refetchNotifications()
       refetchCount()
 
       // You might want to navigate to a specific page or perform some action here
     },
-    [updateNotification, refetchCount]
+    [updateNotification, refetchNotifications, refetchCount]
   )
 
   return (
@@ -122,11 +85,11 @@ export const Notifications = () => {
           Уведомления
         </Typography>
         <div>
-          {localNotifications?.items?.map(notification => (
+          {notificationData?.items?.map(notification => (
             <DropdownMenuItem
               className={s.notificationsItem}
               key={notification.id}
-              onClick={() => handleNotificationClick(notification.id)}
+              onClick={() => {}}
             >
               <NotificationItem
                 createdAt={notification.createdAt}
