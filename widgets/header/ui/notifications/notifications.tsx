@@ -19,43 +19,56 @@ import { Socket, io } from 'socket.io-client'
 
 import s from './notifications.module.scss'
 
+const SOCKET_URL = 'https://inctagram.org' // Update this if the socket server is on a different subdomain
+
 export const Notifications = () => {
   const { data: notificationData, refetch: refetchNotifications } = useGetNotificationQuery()
   const { data: notificationsCountData, refetch: refetchCount } = useGetNotificationCountQuery()
   const [updateNotification] = useUpdateNotificationMutation()
 
-  const isShowMessagesCont = notificationsCountData?.count! > 0
+  const isShowMessagesCont = (notificationsCountData?.count ?? 0) > 0
 
   const socketRef = useRef<Socket | null>(null)
 
-  const handleNewNotification = useCallback(
-    (data: { items: Array<any> }) => {
-      if (data.items && data.items.length > 0) {
-        refetchNotifications()
-        refetchCount()
-      }
-    },
-    [refetchNotifications, refetchCount]
-  )
+  const handleNewNotification = useCallback(() => {
+    refetchNotifications()
+    refetchCount()
+  }, [refetchNotifications, refetchCount])
 
   useEffect(() => {
-    const socketUrl = 'https://inctagram.org/'
-
-    // Establish socket connection
-    socketRef.current = io(socketUrl, {
-      transports: ['websocket', 'polling'],
+    socketRef.current = io(SOCKET_URL, {
       withCredentials: true,
     })
 
-    // Set up event listener
+    socketRef.current.on('connect', () => {
+      console.log('Connected to socket server')
+    })
+
+    socketRef.current.on('connect_error', error => {
+      console.error('Socket connection error:', error)
+    })
+
     socketRef.current.on('newNotification', handleNewNotification)
 
-    // Cleanup function
     return () => {
       socketRef.current?.off('newNotification', handleNewNotification)
       socketRef.current?.disconnect()
     }
   }, [handleNewNotification])
+
+  const handleNotificationClick = useCallback(
+    (notificationId: string) => {
+      // Mark notification as read
+      updateNotification({ ids: [notificationId] })
+
+      // Refetch notifications and count to reflect the changes
+      refetchNotifications()
+      refetchCount()
+
+      // You might want to navigate to a specific page or perform some action here
+    },
+    [updateNotification, refetchNotifications, refetchCount]
+  )
 
   return (
     <DropdownMenu>
