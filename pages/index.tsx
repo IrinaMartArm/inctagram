@@ -21,12 +21,21 @@ export const getStaticProps = async (context: NextPageContext) => {
     fetch(`https://inctagram.org/api/v1/public-posts?page=${page}&pageSize=${pageSize}`),
   ])
 
-  const [count, posts] = await Promise.all([countData.json(), postData.json()])
+  // const [count, posts] = await Promise.all([countData.json(), postData.json()])
+
+  let count, posts
+
+  try {
+    ;[count, posts] = await Promise.all([countData.json(), postData.json()])
+  } catch (error) {
+    // Handle the error appropriately here
+    console.error('Error fetching data:', error)
+  }
 
   return {
     props: {
-      countUsers: count.totalCount,
-      posts,
+      countUsers: count?.totalCount || 0,
+      posts: posts || null,
     },
     revalidate: 60,
   }
